@@ -1,0 +1,180 @@
+﻿                          DANINA STAR S.R.L
+MEMORIU  TEHNIC
+INSTALAbII ELECTRICE
+Cap. I . Date de identificare a investiciei
+Denumire proiect:
+DOCUMENTATIE TEHNIC
+ SECURITATE LA INCENDIU 
+Biserica Ortodoxa Invierea Domnului
+Mun. Bra_ov, str. Marasesti, nr. 47,  jud. Bra_ov 
+Faza de proiectare:
+Proiect nr:
+Proprietar:
+Biserica Ortodoxa 
+Invierea Domnului
+Proiectant:
+DANINA STAR
+ S.R.L. 
+Cap. II. Situacia juridic
+Terenul pentru care se solicit
+ lucrare se afl
+ în intravilanul municipiului Bra_ov, proprietatea Biserica Ortodoxa 
+Invierea Domnului
+, având acces pietonal-auto din str. Marasesti, identificat prin PLAN DE SITUAbIE PE RIDICARE TOPOGRAFIC
+ia constructiei: Biserica
+Cap. III. Situacia existent
+Alimentarea cu energie electric
+ este realizat
+ prin  intermediul unui BMP (bloc de masura si protectie) amplasat în exteriorul construc
+Distribu
+ia cu energie electric
+ se face din TEG, cu tablouri electrice amplasate la fiecare etaj.
+Coloanele de alimentare sunt din conductori de cupru tip FY.
+Cap. IV. Instalacii de iluminat _i prize
+Pentru iluminatul spaciilor este realizat cu corpuri de iluminat incandescente montate pe tavan 
+i pereti, comanda iluminatului înc
+perilor f
+cându-se local.
+Conform normativului I7-2011, cl
+direa este dotat
+ cu iluminat de siguranc
+ cu corpuri de iluminat monobloc. Circuitele se alimenteaz
+ din circuite separate de iluminatul normal, realizate cu conductoare de cupru protejate în tub. Iluminatul de siguranc
+ marcheaza c
+ile de  evacuare. Corpurile de iluminat sunt monobloc _i cu acumulator având autonomie de funccionare de 3 ore. 
+S-au prev
+zut circuite de prize în toate înc
+perile. Acestea sunt cu contact de proteccie local montându-se prize simple, cu contact de proteccie. Circuitele de lumin
+ _i prize sunt executate cu conductoare de cupru flexibil tip FY instalate în tub de proteccie tip IPY sau IPEY sau tuburi flexibile în elemente de construccie.
+ñÐªªªñññññqL
+Cap. V. Instalacii de proteccie
+Proteccia împotriva tensiunilor de atingere accidentale s-a realizat prin legare la nul _i legare la p
+mânt ca m
+sura de proteccie suplimentar
+Astfel tablourile electrice, prizele cu contact de proteccie _i receptoarele de forc
+ s-au legat la instalacia de nul de proteccie printr-un conductor de cupru.
+Construc
+ia este dotat
+ cu instala
+ie de protec
+ie împotriva tr
+snetului.
+Cap. VI. Instalacii de deteccie _i semnalizare incendiu
+Construc
+ia nu este dotat
+ cu instala
+ie de detectie si semnalizare incendiu.
+Cap. VII. M
+suri de proteccia muncii _i de prevenire _i stingere a incendiilor
+Proteccia personalului împotriva _ocurilor electrice se realizeaz
+ prin utilizarea aparatelor carcasate _i a circuitelor izolate împotriva atingerilor directe, iar proteccia împotriva atingerilor accidentale de defect se  face prin legarea carcaselor metalice ale consumatorilor la conductorul de proteccie electric
+ PE _i suplimentar la p
+mânt, la receaua care serve_te nulul de proteccie, în concordanc
+ cu standardele _i prescripciile impuse.  
+Se respect
+ prevederile:
+a) PE I7/2011 - Normativ privind proiectarea, executarea _i exploatarea instalaciilor electrice aferente cl
+dirilor.
+b) Legii 319-2006 privind s
+tatea _i securitatea muncii.
+c) SR HD 60364-4-41/2007- Proteccia împotriva electrocut
+rilor. Prescripcii 
+d) Normativ  NP 061-2002 pentru proiectarea _i executarea sistemelor de 
+iluminat artificial din cl
+e) PE 118-1999 
+ Normativ privind siguranca la foc a construcciilor.
+Întocmit, 
+      Ing. Coman Alin
+ PAGE   \* MERGEFORMAT 
+ È!Q"S#S
+Heading 1
+Heading 2
+Heading 3
+Heading 4
+Heading 5
+Heading 6
+Heading 7
+Heading 8
+Default Paragraph Font
+Table Normal
+Page Number
+Body Text
+Body Text Indent
+Body Text Indent 2
+Body Text 2
+Table Grid
+Footer Char
+Body Text Indent 3
+List Paragraph
+Body Text Char
+Body Text Indent Char
+[otn_ye]xl
+teeteeteeaae.m
+µ µÕïÝ¹j
+hm/hm/hm1xlYo6¿Ø o'
+wØîÎ\ZG*yIjbÆcX»
+¾6OfåorÜ
+]öà8i³«4d7\
+eàÆûe(M9
+éÇ3åaÐöDØí³ßËèYÕ³
+ða-Y}cÍËÉ
+hm/hm/rl/hmMngrxlrl
+[otn_ye]xlK
+teeteeteeaae.mP
+teeteetee.mP
+teetee_esteeaae.m.esK
+10 noig"T-"sadln
+:lMpxlsa"tp/shmsoexlomt.r/rwnm/06mi"b1"t"t1"k"b2"t"t2"k"acn1"cet"acn2"cet"acn3"cet"acn4"cet"acn5"cet"acn6"cet"hik"ln"flln
+fªÿÿÿÿÿÿÿÿÿ
+{Zöüÿÿÿÿÿÿÿÿÿ
+rÒÿÿÿÿÿÿÿÿÿ
+LÐªÒÿÿÿÿÿÿÿÿÿ
+t6ÿÿÿÿÿÿÿÿÿ
+Xÿÿÿÿÿÿÿÿÿ
+&q&p&À&!'w'Ü(
+)L)ð*W*o
+,æ,å,W,t,²,G-Ü-
+3t3Ñ3Ð3ú4­4Ï4ü4Ñ4
+:¾:Ð;Ó;ß;e;
+?ÿ@-@ë@k@µA
+BêBMB(BYB
+DîD6F.FïF
+H0I}J"KÛLæL
+MÿNÏNÏN²O
+SBSkSKTÅT«T9TÏUüV5W¾W¼W]WqWâXáX:X}XÝX XYYmY¹ZÆZAZQZÑZEZÕZ
+dôe]eéeÆf
+jbj:kekklNmxm'mºmümÄm
+u*uÇuauÄuLv
+wòw¾wñx9xlx·x
+xGyªyXyôygzýz
+ªcª²ªdª%ª
+³Ó³O³Ü³¼³µ³g³è³
+¹F¹3º.ºßºóº;ºöº
+»"»W»R»Ò¼
+¼2¼.½Á¾Y¾G¾ö¿W¿
+ÁÐÁ(ÁeÁQÁ³ÁªÂÛÂkÂ
+Â¹ÃüÃaÄaÄãÄ
+ÆïÆøÇCÇÝÇ
+ÍBÎZÎÞÏØÏðÏ
+ÐÊÐcÐ!ÑÉÑcÑåÑ
+Ô#ÔÛÔbÔaÔ{Õ
+ÕÄÕ{ÕPÕÔÖ
+ÙÚÚTÚxÚ4Ú
+ÚöÛrÜcÜùÜ
+Ý_ÝVÝÅÝ,Ý
+æmæÖæêæùæòçñç
+éðéÎé)éwé9é
+ë·ìQì)ìwì¾ìXì írîéî4îOî
+ïõïBïâïFï'ï
+ðeñvñjòUò
+óòóHôdôLô)ô
+úKúNúÎúGú¡úÕûãû3û
+MMRU ENC-AHTCUÄ
+McootOfc od
+SC AIASA ...
+MMRU ENC-AHTCUÄ
+þÿþÿþÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿRoot Entry
+WordDocument
+SummaryInformation
+DocumentSummaryInformation
+McootOfc od9-03Dcmn

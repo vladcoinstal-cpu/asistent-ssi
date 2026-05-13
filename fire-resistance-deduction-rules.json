@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "scope": "deducerea reactiei la foc si a rezistentei la foc pentru elemente constructive in SSI",
+  "generalPrinciples": [
+    "reactia la foc se stabileste din material si din clasificarea aplicabila a produsului pentru constructii",
+    "rezistenta la foc nu se deduce doar din denumirea materialului",
+    "rezistenta la foc se poate concluziona numai daca exista cel putin tipul elementului, rolul structural si una dintre urmatoarele baze: performanta declarata in proiect, alcatuire clasificata, solutie normata sau tabel normativ aplicabil",
+    "daca proiectul indica direct LRF, EI, REI sau R, aceasta performanta se preia cu mentionarea tipului de element",
+    "daca proiectul indica doar materialul, aplicatia poate concluziona reactia la foc si poate marca rezistenta la foc ca de verificat, cu exceptia cazului in care exista o regula tabelara sau o alcatuire clasificata suficient de clara"
+  ],
+  "requiredInputsByElementType": {
+    "perete_compartimentare_zidarie": [
+      "tip element",
+      "rol structural (portant/neportant)",
+      "material",
+      "grosime",
+      "tip zidarie",
+      "tencuiala/protectie, daca exista",
+      "performanta declarata sau cerinta minima normata"
+    ],
+    "planseu_beton_armat": [
+      "tip element",
+      "material",
+      "grosime",
+      "rol in separare",
+      "performanta declarata sau cerinta minima normata"
+    ],
+    "element_portant_beton_armat": [
+      "tip element",
+      "material",
+      "sectiune / dimensiune relevanta",
+      "rol structural",
+      "performanta declarata sau cerinta minima normata"
+    ],
+    "usa_rezistenta_la_foc": [
+      "tip usa",
+      "clasa declarata EI/REI/EW, dupa caz",
+      "autoinchidere, daca este ceruta",
+      "pozitia in elementul de separare"
+    ]
+  },
+  "decisionFlow": [
+    {
+      "step": 1,
+      "name": "identificare_element",
+      "rule": "identifica tipul elementului si rolul lui in constructie"
+    },
+    {
+      "step": 2,
+      "name": "reactie_la_foc",
+      "rule": "daca materialul este clar si clasificarea este declarata sau poate fi preluata din documentatie, redacteaza concluzia de reactie la foc"
+    },
+    {
+      "step": 3,
+      "name": "rezistenta_la_foc_din_proiect",
+      "rule": "daca proiectul mentioneaza direct LRF, EI, REI sau R, preia performanta ca atare"
+    },
+    {
+      "step": 4,
+      "name": "rezistenta_la_foc_din_alcatuire",
+      "rule": "daca proiectul nu mentioneaza performanta, dar mentioneaza alcatuirea suficient de clar, verifica daca exista baza normativa sau solutie clasificata pentru a concluziona performanta"
+    },
+    {
+      "step": 5,
+      "name": "cerinta_minima",
+      "rule": "coreleaza tipul elementului cu cerinta minima din normativul de securitate la incendiu aplicabil"
+    },
+    {
+      "step": 6,
+      "name": "verdict",
+      "rule": "daca performanta rezultata este sustinuta documentar, redacteaza concluzia; daca lipsesc datele constructive esentiale, marcheaza pozitia ca de verificat"
+    }
+  ],
+  "outputs": {
+    "fullConclusion": "material + reactie la foc + tip element + rezistenta la foc + baza legala/documentara",
+    "partialConclusion": "material + reactie la foc + mentiune ca rezistenta la foc trebuie verificata",
+    "needsVerification": "date insuficiente pentru concluzie privind rezistenta la foc"
+  },
+  "legalBasis": [
+    "P 118/1-2025",
+    "P 118-99, tabelul 2.1.9, pentru corelarea documentatiilor vechi, dupa caz",
+    "Ordinul nr. 1822/394/2004",
+    "documentatie de rezistenta",
+    "declaratii de performanta"
+  ]
+}

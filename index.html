@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Asistent SSI</title>
+  <link rel="stylesheet" href="styles.css?v=2026-05-13-6">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="app-bar">
+      <div class="app-topline">
+        <div class="app-left">
+          <div class="app-title">
+            <p class="eyebrow">Spatiu de lucru SSI</p>
+            <h1>Asistent SSI</h1>
+          </div>
+
+          <nav class="menu-bar" aria-label="Meniu principal">
+            <details class="menu-dropdown">
+              <summary>File</summary>
+              <div class="menu-panel">
+                <button id="menuNewProjectBtn" type="button" class="menu-item" onclick="window.__ssiCommands?.newProject()">Proiect nou</button>
+                <button id="menuSaveBtn" type="button" class="menu-item">Save</button>
+                <button id="menuSaveDocBtn" type="button" class="menu-item">Save As - DOC</button>
+                <button id="menuSaveDocxBtn" type="button" class="menu-item">Save As - DOCX</button>
+                <button id="menuSavePdfBtn" type="button" class="menu-item">Save As - PDF</button>
+                <button id="menuToggleAutosaveBtn" type="button" class="menu-item">Salvare automata: Pornit</button>
+              </div>
+            </details>
+
+            <details class="menu-dropdown">
+              <summary>Edit</summary>
+              <div class="menu-panel">
+                <button id="menuAddLegislationBtn" type="button" class="menu-item">Adauga legislatie</button>
+                <button id="menuDiscoverLegislationBtn" type="button" class="menu-item">Cauta legislatie noua</button>
+              </div>
+            </details>
+
+            <details class="menu-dropdown">
+              <summary>About</summary>
+              <div class="menu-panel">
+                <div class="menu-note">Versiune: 0.2</div>
+                <label class="menu-control">
+                  <span>Compactare bandă sus</span>
+                  <input id="uiDensityRange" type="range" min="0" max="16" step="1" value="8">
+                </label>
+                <label class="menu-control">
+                  <span>Ridicare taburi</span>
+                  <input id="uiTabsLiftRange" type="range" min="0" max="18" step="1" value="8">
+                </label>
+              </div>
+            </details>
+          </nav>
+        </div>
+
+        <div class="project-switcher-bar" aria-label="Proiect activ">
+          <select id="projectSelector" class="project-selector" title="Proiecte recente" onchange="window.__ssiCommands?.switchProjectFromSelect?.(this.value)"></select>
+          <button id="projectAddBtn" type="button" class="project-add-btn" onclick="window.__ssiCommands?.newProject()">Add</button>
+        </div>
+
+        <div class="app-stats app-stats-compact">
+          <button id="openSourcesQuickBtn" type="button" class="stat-chip" onclick="window.__ssiCommands?.openSources()"><span id="sourceCount">0</span><small>surse</small></button>
+          <button id="openFieldsQuickBtn" type="button" class="stat-chip" onclick="window.__ssiCommands?.openFields()"><span id="fieldCount">0</span><small>campuri</small></button>
+          <button id="openRulesQuickBtn" type="button" class="stat-chip" onclick="window.__ssiCommands?.openRules()"><span id="actCount">0</span><small>reguli</small></button>
+        </div>
+      </div>
+
+      <div class="project-strip project-strip-hidden" hidden>
+        <div class="top-tabs-row">
+          <div id="projectTabs" class="browser-tabs project-tabs" aria-label="Proiecte"></div>
+        </div>
+      </div>
+
+        <div class="app-bottomline">
+          <div class="browser-tabs workspace-tabs" aria-label="Ferestre proiect">
+            <div id="workspaceTabs" class="workspace-tabs-dynamic"></div>
+          </div>
+        </div>
+    </header>
+
+    <main class="workspace-shell">
+      <section id="emptyWorkspace" class="empty-workspace is-active">
+        <div class="empty-card">
+          <h2>Niciun proiect deschis</h2>
+          <p>Deschide un proiect nou din meniul <strong>File</strong> pentru a incepe lucrul.</p>
+          <div class="button-row"><button type="button" class="primary" onclick="window.__ssiCommands?.newProject()">Proiect nou</button></div>
+        </div>
+      </section>
+
+      <section id="workspaceContent" class="workspace-content" hidden>
+        <section id="sourcesTab" class="tab-panel">
+          <div class="layout layout-wide project-clean-layout">
+            <section class="panel panel-upload panel-span">
+              <div class="section-heading">
+                <h2>Memorii si documente</h2>
+                <p>Incarca memorii tehnice si texte utile pentru completarea scenariilor.</p>
+              </div>
+
+              <div class="source-entry-grid">
+                <div class="source-column">
+                  <label class="upload-box">
+                    <input id="fileInput" type="file" accept=".docx,.doc,.txt,.md,.csv,.json,.html,.htm,.rtf" multiple onchange="window.__ssiCommands?.handleFileSelection(event)">
+                    <span>Adauga fisiere</span>
+                    <small>Suport prioritar pentru fisiere <code>.docx</code> si text.</small>
+                  </label>
+                  <div id="selectedFilesPreview" class="source-meta">Nu a fost selectat niciun fisier.</div>
+                  <div id="sourcesList" class="sources-list compact-sources-list"></div>
+                </div>
+
+                <div class="manual-column">
+                  <label class="textarea-label" for="manualText">Text lipit manual</label>
+                  <textarea id="manualText" placeholder="Lipeste aici text extras din memorii, note tehnice sau scenarii existente."></textarea>
+                </div>
+              </div>
+
+              <div class="project-facts-wrap">
+                <div class="section-heading compact-heading">
+                  <h2>Informatii proiect</h2>
+                  <p>Rezumatul principal extras automat din surse.</p>
+                </div>
+                <div id="projectFactsSummary" class="project-facts-grid"></div>
+              </div>
+
+              <div class="button-row">
+                <button id="addTextBtn" class="primary" onclick="window.__ssiCommands?.addManualText()">Adauga textul</button>
+                <button id="extractBtn" class="secondary" onclick="window.__ssiCommands?.extractData()">Extrage informatii</button>
+                <button id="resetBtn" class="ghost" onclick="window.__ssiCommands?.resetProject()">Reseteaza proiectul activ</button>
+              </div>
+
+              <div id="uiStatus" class="source-meta">Astept surse pentru proiectul activ.</div>
+              <div id="extractionSummary" class="source-meta">Extragerea inca nu a fost rulata.</div>
+
+              <div class="button-row">
+                <button id="evaluateRulesBtn" class="primary">Evalueaza legislatia</button>
+                <button id="downloadRulesBtn" class="ghost">Descarca baza de reguli</button>
+              </div>
+
+              <div class="project-hidden-data" aria-hidden="true">
+                <div id="profileInputs" class="field-grid"></div>
+                <div id="fieldGrid" class="field-grid"></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section id="preliminaryTab" class="tab-panel">
+          <section class="panel panel-report panel-span">
+            <div class="report-topbar">
+              <div class="section-heading">
+                <h2>SSI preliminar</h2>
+                <p>Structura pe baza Anexei nr. 5 din OMAI 180/2022.</p>
+              </div>
+              <div class="button-row report-actions-row">
+                <button id="downloadPreliminaryDocBtn" class="primary">Export DOCX SSI preliminar</button>
+              </div>
+            </div>
+
+            <textarea id="preliminaryReportOutput" class="report-output report-output-hidden" placeholder="Aici va aparea draftul scenariului preliminar."></textarea>
+            <div class="report-split report-split-preview-only">
+              <div class="report-column report-column-full">
+                <div class="preview-heading">
+                  <h3>Previzualizare</h3>
+                </div>
+                <div id="preliminaryReportPreview" class="report-preview"></div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section id="normalTab" class="tab-panel">
+          <section class="panel panel-report panel-span">
+            <div class="report-topbar">
+              <div class="section-heading">
+                <h2>SSI normal</h2>
+                <p>Structura pe baza Anexei nr. 4 din OMAI 180/2022.</p>
+              </div>
+              <div class="button-row report-actions-row">
+                <button id="downloadDocBtn" class="primary">Export DOCX SSI normal</button>
+                <button id="downloadJsonBtn" class="ghost">Date proiect</button>
+              </div>
+            </div>
+
+            <textarea id="normalReportOutput" class="report-output report-output-hidden" placeholder="Aici va aparea draftul scenariului de securitate la incendiu."></textarea>
+            <div class="report-split report-split-preview-only">
+              <div class="report-column report-column-full">
+                <div class="preview-heading">
+                  <h3>Previzualizare</h3>
+                </div>
+                <div id="normalReportPreview" class="report-preview"></div>
+              </div>
+            </div>
+          </section>
+        </section>
+
+        <section id="legislationTab" class="tab-panel">
+          <div class="layout layout-wide">
+            <section class="panel panel-rules panel-span">
+              <div class="section-heading">
+                <h2>Legislatie si verificari</h2>
+                <p>Acte aplicabile, reguli active si justificari detectate pentru proiect.</p>
+              </div>
+
+              <div id="rulesOutput" class="rules-list"></div>
+            </section>
+          </div>
+        </section>
+
+        <section id="lawTab" class="tab-panel">
+          <section class="panel panel-rules panel-span">
+            <div class="report-topbar">
+              <div class="section-heading">
+                <h2>Lege / articol</h2>
+                <p>Aici apare articolul selectat din verificari sau din previzualizarea SSI.</p>
+              </div>
+              <div id="lawTabHeaderMeta" class="law-tab-header-meta"></div>
+            </div>
+
+            <div id="lawTabContent" class="rules-list">
+              <article class="rule-card">
+                <strong>Niciun articol selectat</strong>
+                <div class="source-meta">Apasa pe o referinta legislativa pentru a o deschide aici.</div>
+              </article>
+            </div>
+          </section>
+        </section>
+
+        <section id="issuesTab" class="tab-panel">
+          <section class="panel panel-rules panel-span">
+            <div class="section-heading">
+              <h2>Probleme, lipsuri si date de verificat</h2>
+              <p>Aici apar lipsurile detectate in surse si verificarile care trebuie confirmate.</p>
+            </div>
+
+            <div id="issuesOutput" class="rules-list">
+              <article class="rule-card">
+                <strong>Nu au fost analizate inca problemele proiectului.</strong>
+              </article>
+            </div>
+          </section>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <script src="embedded-data.js?v=2026-05-13-2"></script>
+  <script src="app.js?v=2026-05-13-2"></script>
+
+  <div id="lawModal" class="law-modal" hidden>
+    <div class="law-modal-backdrop" data-close-law-modal></div>
+    <div class="law-modal-card" role="dialog" aria-modal="true" aria-labelledby="lawModalTitle">
+      <button id="closeLawModalBtn" class="law-modal-close" type="button" aria-label="Inchide">x</button>
+      <p class="law-modal-kicker">Baza legislativa locala</p>
+      <h2 id="lawModalTitle">Articol normativ</h2>
+      <p id="lawModalMeta" class="law-modal-meta"></p>
+      <div id="lawModalBody" class="law-modal-body"></div>
+      <p id="lawModalSource" class="law-modal-source"></p>
+    </div>
+  </div>
+
+  <div id="tabContextMenu" class="tab-context-menu" hidden>
+    <button id="contextCloseTabBtn" type="button" class="menu-item">Inchide</button>
+  </div>
+
+  </body>
+</html>

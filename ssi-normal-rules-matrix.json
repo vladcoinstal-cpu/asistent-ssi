@@ -1,0 +1,735 @@
+{
+  "source": {
+    "title": "Matrice de reguli - SSI normal",
+    "basis": "Anexa nr. 4 la normele metodologice aprobate prin OMAI nr. 180/2022",
+    "version": "2026-04-30",
+    "notes": [
+      "Fiecare subpunct trebuie tratat prin date de intrare, reguli de verificare, baza legala si sablon de concluzie.",
+      "Programul trebuie sa extraga datele in principal din memorii tehnice Word/docx si din alte documente text disponibile.",
+      "OCR si PDF scanat raman pentru o etapa ulterioara."
+    ]
+  },
+  "globalRules": [
+    {
+      "id": "G1",
+      "title": "Conformitate structurala",
+      "description": "SSI-ul trebuie sa corespunda punctual si subpunctual cu structura-cadru din Anexa nr. 4.",
+      "checks": [
+        "existenta tuturor punctelor obligatorii",
+        "existenta tuturor subpunctelor obligatorii",
+        "ordinea corecta a punctelor si subpunctelor",
+        "denumirea corecta a fiecarui punct si subpunct",
+        "interdictia mutarii continutului dintr-un subpunct in altul"
+      ],
+      "legalBasis": [
+        "OMAI nr. 180/2022, Anexa nr. 4"
+      ]
+    },
+    {
+      "id": "G2",
+      "title": "Trasabilitate legislativa",
+      "description": "Orice articol, punct, alineat sau litera mentionata in SSI trebuie sa fie pastrata ca referinta structurata si hyperlink.",
+      "checks": [
+        "identificarea actului",
+        "identificarea articolului/punctului/alineatului/literei",
+        "hyperlink extern la sursa oficiala",
+        "cheie interna pentru baza legislativa locala"
+      ]
+    },
+    {
+      "id": "G3",
+      "title": "Marcarea diferentelor",
+      "description": "Completarile, neclaritatile si verificarile se marcheaza cu rosu; elementele eliminate se pastreaza taiate.",
+      "checks": [
+        "completari marcate cu rosu",
+        "lipsa datelor marcata cu rosu",
+        "verificari normative neinchise marcate cu rosu",
+        "text taiat pentru elementele eliminate"
+      ]
+    },
+    {
+      "id": "G4",
+      "title": "Date de intrare",
+      "description": "Programul foloseste cu prioritate date extrase din memorii tehnice, scenarii existente, completari de proiect, planuri si alte documente text.",
+      "checks": [
+        "memorii de arhitectura",
+        "memorii de instalatii",
+        "scenarii existente",
+        "completari la arhitectura",
+        "alte documente text ale proiectului"
+      ]
+    }
+  ],
+  "sections": [
+    {
+      "code": "1",
+      "title": "Caracteristicile constructiei sau amenajarii",
+      "subpoints": [
+        {
+          "code": "1.1",
+          "title": "Date de identificare",
+          "inputs": [
+            "memoriu arhitectura",
+            "foaie de capat proiect",
+            "scenariu existent",
+            "date beneficiar"
+          ],
+          "rules": [
+            "identifica denumirea exacta a obiectivului",
+            "identifica beneficiarul/proprietarul",
+            "identifica adresa completa",
+            "identifica datele de contact daca exista",
+            "identifica profilul de activitate",
+            "identifica programul de lucru"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ],
+          "output": "campuri descriptive complete; daca lipsesc date, se marcheaza cu rosu"
+        },
+        {
+          "code": "1.2",
+          "title": "Destinatia",
+          "inputs": [
+            "memoriu arhitectura",
+            "tema de proiectare",
+            "scenariu existent"
+          ],
+          "rules": [
+            "separa functiunile principale",
+            "separa functiunile secundare",
+            "separa functiunile conexe",
+            "verifica daca functiunile declarate sunt compatibile cu incadrarea de risc si cu instalatiile"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ],
+          "output": "functiuni principale / secundare / conexe"
+        },
+        {
+          "code": "1.3",
+          "title": "Categoria si clasa de importanta",
+          "inputs": [
+            "memoriu arhitectura",
+            "proiect de rezistenta",
+            "scenariu existent"
+          ],
+          "rules": [
+            "identifica categoria de importanta",
+            "identifica clasa de importanta",
+            "atasaza baza legala la fiecare",
+            "verifica corespondenta dintre categoria si clasa mentionate"
+          ],
+          "legalBasis": [
+            "H.G.R. nr. 766/1997",
+            "Legea nr. 10/1995"
+          ],
+          "output": "categoria si clasa de importanta, cu temei legal"
+        },
+        {
+          "code": "1.4.a",
+          "title": "tipul cladirii",
+          "inputs": [
+            "memoriu arhitectura",
+            "liste de incaperi",
+            "scenariu existent",
+            "destinatii"
+          ],
+          "rules": [
+            "identifica tipul cladirii dupa functiunea dominanta",
+            "verifica existenta incaperilor cu aglomerari de persoane",
+            "verifica pragurile de incadrare ale functiunii dominante",
+            "redacteaza concluzia cu baza legala, daca exista definitie aplicabila"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4",
+            "P 118-99, pct. 1.2.28",
+            "P 118/1-2025"
+          ]
+        },
+        {
+          "code": "1.4.b",
+          "title": "tipul parcajului",
+          "inputs": [
+            "memoriu arhitectura",
+            "planuri",
+            "scenariu existent"
+          ],
+          "rules": [
+            "verifica daca exista parcaj",
+            "daca exista, stabileste tipul parcajului",
+            "daca nu exista, redacteaza \"nu este cazul\""
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ]
+        },
+        {
+          "code": "1.4.c",
+          "title": "caracteristici dimensionale",
+          "inputs": [
+            "memoriu arhitectura",
+            "planuri",
+            "scenariu existent"
+          ],
+          "rules": [
+            "extrage regimul de inaltime",
+            "extrage inaltimea maxima",
+            "extrage volumul",
+            "extrage aria construita",
+            "extrage aria desfasurata",
+            "extrage suprafata utila daca exista",
+            "verifica coerenta numerica intre date"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ]
+        },
+        {
+          "code": "1.4.d",
+          "title": "precizari referitoare la numarul maxim de utilizatori (persoane, animale)",
+          "inputs": [
+            "scenariu existent",
+            "memoriu arhitectura",
+            "liste de ocupare pe niveluri"
+          ],
+          "rules": [
+            "extrage numarul maxim total de utilizatori",
+            "extrage numarul pe niveluri sau zone",
+            "preia notele de exploatare relevante",
+            "daca exista animale, separa explicit"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ]
+        },
+        {
+          "code": "1.4.e",
+          "title": "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora",
+          "inputs": [
+            "scenariu existent",
+            "memoriu arhitectura",
+            "memoriu functional"
+          ],
+          "rules": [
+            "identifica daca persoanele sunt permanent prezente sau temporar prezente",
+            "identifica daca utilizatorii sunt autoevacuabili",
+            "identifica categorii ce necesita evacuare asistata",
+            "marcheaza lipsa datelor daca nu exista informatie clara"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4",
+            "OMAI nr. 130/2007"
+          ]
+        },
+        {
+          "code": "1.4.f",
+          "title": "capacitati de depozitare",
+          "inputs": [
+            "memoriu arhitectura",
+            "scenariu existent",
+            "liste de incaperi"
+          ],
+          "rules": [
+            "identifica spatiile de depozitare",
+            "identifica ariile relevante",
+            "identifica materialele depozitate",
+            "verifica daca exista substante sau depozitari speciale"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ]
+        },
+        {
+          "code": "1.4.g",
+          "title": "numarul cailor de evacuare si, dupa caz, al refugiilor",
+          "inputs": [
+            "memoriu arhitectura",
+            "planuri de arhitectura",
+            "scenariu existent"
+          ],
+          "rules": [
+            "identifica numarul cailor de evacuare pe niveluri",
+            "identifica refugiile daca exista",
+            "verifica concordanta cu capitolul de evacuare",
+            "marcheaza clar cazurile fara refugii"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4",
+            "P 118/1-2025"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "2",
+      "title": "Identificarea si stabilirea nivelurilor de risc de incendiu",
+      "subpoints": [
+        {
+          "code": "2.A.a",
+          "title": "densitatea sarcinii termice",
+          "inputs": [
+            "arii incaperi",
+            "liste materiale combustibile",
+            "mase materiale",
+            "puteri calorifice",
+            "scenariu existent",
+            "memorii tehnice"
+          ],
+          "rules": [
+            "identifica spatiul pentru care exista date suficiente",
+            "extrage masele materialelor combustibile",
+            "extrage puterile calorifice inferioare",
+            "calculeaza SQ = suma(Mi x Qi)",
+            "calculeaza q = SQ / A, plus eventualele adaosuri justificate documentar",
+            "verifica aritmetica",
+            "compara q cu pragurile de risc"
+          ],
+          "legalBasis": [
+            "P 118/1-2025, art. 2.1.2.2",
+            "P 118/1-2025, Anexa nr. 9",
+            "STAS 10903/2, daca este folosit in documentatiile existente"
+          ],
+          "output": "calcul complet / calcul partial / de verificat"
+        },
+        {
+          "code": "2.A.b",
+          "title": "proprietatile fizico-chimice ale materialelor si substantelor utilizate, prelucrate, manipulate sau depozitate, pentru constructii de productie si/sau depozitare",
+          "inputs": [
+            "memoriu tehnologic",
+            "liste materiale",
+            "liste substante",
+            "scenariu existent"
+          ],
+          "rules": [
+            "verifica daca functiunea este productie/depozitare",
+            "daca nu este cazul, redacteaza explicit acest lucru",
+            "daca este cazul, extrage materialele/substantele si proprietatile necesare evaluarii",
+            "identifica clasele de reactie la foc / clasele de periculozitate disponibile in documentatie",
+            "marcheaza lipsa datelor daca documentatia nu le precizeaza"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4",
+            "P 118/1-2025"
+          ]
+        },
+        {
+          "code": "2.A.c",
+          "title": "clase de periculozitate ale materialelor si substantelor",
+          "inputs": [
+            "memoriu tehnologic",
+            "liste materiale",
+            "liste substante",
+            "scenariu existent"
+          ],
+          "rules": [
+            "verifica daca functiunea este productie/depozitare",
+            "daca nu este cazul, redacteaza explicit acest lucru",
+            "daca este cazul, identifica clasele de periculozitate ale materialelor si substantelor",
+            "marcheaza lipsa datelor daca documentatia nu le precizeaza"
+          ],
+          "legalBasis": [
+            "OMAI nr. 180/2022, Anexa nr. 4",
+            "Legea nr. 59/2016, unde este cazul"
+          ]
+        },
+        {
+          "code": "2.B",
+          "title": "caracteristicile proceselor tehnologice si cantitatile de substante periculoase, potrivit clasificarii din Legea nr. 59/2016",
+          "inputs": [
+            "memoriu tehnologic",
+            "memorii instalatii",
+            "liste materiale/substante",
+            "scenariu existent"
+          ],
+          "rules": [
+            "verifica daca exista procese tehnologice",
+            "verifica daca exista substante periculoase relevante",
+            "daca nu este cazul, redacteaza explicit acest lucru",
+            "daca este cazul, coreleaza cu clasificarea din Legea nr. 59/2016",
+            "marcheaza datele lipsa sau neconfirmate"
+          ],
+          "legalBasis": [
+            "Legea nr. 59/2016",
+            "OMAI nr. 180/2022, Anexa nr. 4"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "3",
+      "title": "Nivelurile criteriilor de performanta privind securitatea la incendiu",
+      "subpoints": [
+        {
+          "code": "3.1",
+          "title": "Stabilitatea la foc si limitarea propagarii incendiului si efluentilor incendiului in interiorul constructiei/compartimentului de incendiu",
+          "inputs": [
+            "proiect de rezistenta",
+            "memoriu arhitectura",
+            "memorii tehnice de specialitate",
+            "declaratii de performanta"
+          ],
+          "rules": [
+            "identifica elementele cele mai defavorabile",
+            "pentru reactia la foc, identifica materialul si clasa declarata sau clasificarea aplicabila a produsului pentru constructii",
+            "pentru rezistenta la foc, nu deduce performanta doar din denumirea materialului; coreleaza tipul elementului, rolul acestuia (portant/neportant), alcatuirea si cerinta minima din normativul aplicabil",
+            "daca documentatia tehnica indica direct LRF, EI, REI sau R, foloseste aceasta performanta si mentioneaza tipul elementului la care se refera",
+            "daca proiectul indica doar materialul, se poate concluziona reactia la foc, iar rezistenta la foc se mentioneaza doar daca rezulta din tabele normative, din solutii clasificate sau din documentatia de specialitate",
+            "pentru centrale termice, verifica si conditiile ușii de acces/evacuare: sensul de deschidere, lipsa pragului sau racordarea prin plan inclinat, daca subpunctul trateaza elemente de separare sau acces tehnic",
+            "evita folosirea clasificarilor nesustinute documentar"
+          ],
+          "legalBasis": [
+            "P 118/1-2025",
+            "P 118-99, tabelul 2.1.9, pentru corelarea documentatiilor vechi, dupa caz",
+            "Ordinul nr. 1822/394/2004",
+            "documentatie de rezistenta",
+            "declaratii de performanta"
+          ]
+        },
+        {
+          "code": "3.2",
+          "title": "Limitarea propagarii incendiilor la vecinatati",
+          "inputs": [
+            "plan de situatie",
+            "vecinatati",
+            "planuri de arhitectura",
+            "alcatuiri fatade/acoperis"
+          ],
+          "rules": [
+            "verifica distantele de siguranta la vecinatati",
+            "verifica masurile alternative daca distantele nu pot fi realizate",
+            "verifica separat limitarea propagarii pe fatade si pe acoperis",
+            "redacteaza masurile strict pe baza proiectului si a reglementarii tehnice aplicabile"
+          ],
+          "legalBasis": [
+            "P 118/1-2025",
+            "P 118-99, pentru corelarea documentatiilor vechi, dupa caz"
+          ]
+        },
+        {
+          "code": "3.3",
+          "title": "Evacuarea utilizatorilor",
+          "inputs": [
+            "planuri de arhitectura",
+            "numar utilizatori",
+            "usi",
+            "scari",
+            "lungimi de evacuare"
+          ],
+          "rules": [
+            "verifica alcatuirea cailor de evacuare",
+            "verifica scarile, geometria cailor de evacuare, fluxurile, lungimile si timpii de evacuare",
+            "calculeaza numarul necesar de fluxuri in raport cu numarul de utilizatori si capacitatea normata a unui flux",
+            "verifica daca latimile usilor si scarilor asigura fluxurile necesare",
+            "verifica dispozitivele de siguranta la usi",
+            "verifica masurile pentru persoane care nu se pot evacua singure"
+          ],
+          "legalBasis": [
+            "P 118/1-2025",
+            "I7-2011 pentru iluminat si semnalizare"
+          ]
+        },
+        {
+          "code": "3.4",
+          "title": "Securitatea fortelor de interventie",
+          "inputs": [
+            "plan de situatie",
+            "accesuri carosabile",
+            "fatade",
+            "documentatie de arhitectura"
+          ],
+          "rules": [
+            "verifica accesurile si caile de interventie",
+            "verifica caracteristicile tehnice ale accesurilor",
+            "verifica daca este cazul de ascensoare de pompieri"
+          ],
+          "legalBasis": [
+            "P 118/1-2025",
+            "OMAI nr. 163/2007"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "4",
+      "title": "Echiparea si dotarea cu instalatii cu rol in asigurarea cerintei fundamentale securitate la incendiu",
+      "subpoints": [
+        {
+          "code": "4.1",
+          "title": "hidranti interiori",
+          "inputs": [
+            "destinatie",
+            "numar utilizatori",
+            "arii",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica pragurile de obligativitate",
+            "verifica daca instalatia este deja prevazuta in proiect",
+            "redacteaza verdictul: obligatorie / neobligatorie / de verificat"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 4.1",
+            "Ordinul nr. 6026/2018"
+          ]
+        },
+        {
+          "code": "4.2",
+          "title": "hidranti exteriori",
+          "inputs": [
+            "destinatie",
+            "numar utilizatori",
+            "arii",
+            "sursa de apa",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica pragurile de obligativitate",
+            "verifica existenta retelei exterioare",
+            "redacteaza verdictul si sursa de apa"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 6.1",
+            "Ordinul nr. 6026/2018"
+          ]
+        },
+        {
+          "code": "4.3",
+          "title": "sprinklere",
+          "inputs": [
+            "destinatie",
+            "arii",
+            "inaltime",
+            "risc de incendiu",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica cazurile expres prevazute de normativ",
+            "verifica daca exista solutie deja prevazuta",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 7.1"
+          ]
+        },
+        {
+          "code": "4.4",
+          "title": "sprinklere deschise / drenchere",
+          "inputs": [
+            "goluri protejate",
+            "zone speciale",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica daca exista goluri sau zone pentru protectie locala",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 7.131"
+          ]
+        },
+        {
+          "code": "4.5",
+          "title": "apa pulverizata",
+          "inputs": [
+            "echipamente speciale",
+            "zone tehnologice",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica daca exista echipamente sau zone ce impun protectie cu apa pulverizata",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 8.1"
+          ]
+        },
+        {
+          "code": "4.6",
+          "title": "ceata de apa",
+          "inputs": [
+            "solutii speciale",
+            "zone speciale",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica daca normativul sau solutia tehnica impun ceata de apa",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 9.1"
+          ]
+        },
+        {
+          "code": "4.7",
+          "title": "gaze inerte",
+          "inputs": [
+            "incaperi speciale",
+            "echipamente sensibile",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica daca exista incinte speciale pentru stingere cu gaze",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/2-2013, art. 15.1"
+          ]
+        },
+        {
+          "code": "4.8",
+          "title": "detectare, semnalizare si alarmare la incendiu",
+          "inputs": [
+            "destinatie",
+            "numar utilizatori",
+            "aria desfasurata",
+            "memoriu IE",
+            "memoriu IS"
+          ],
+          "rules": [
+            "verifica pragurile de obligativitate",
+            "verifica daca sistemul este deja prevazut",
+            "verifica declansatoarele manuale la obiective de cult",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/3-2015, art. 3.3.1",
+            "Ordinul nr. 6025/2018",
+            "Ordinul nr. 28/2009, art. 101"
+          ]
+        },
+        {
+          "code": "4.9",
+          "title": "desfumare / evacuare fum si gaze fierbinti",
+          "inputs": [
+            "configuratia cailor de evacuare",
+            "atrium",
+            "degajamente protejate",
+            "subsol/demisol",
+            "memoriu HVAC"
+          ],
+          "rules": [
+            "verifica cazurile expres prevazute in cap. 8",
+            "verifica daca exista solutie prevazuta",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "P 118/1-2025, cap. 8"
+          ]
+        },
+        {
+          "code": "4.10",
+          "title": "instalatie electrica pentru receptoare cu rol de securitate la incendiu",
+          "inputs": [
+            "memoriu IE",
+            "IDSAI",
+            "iluminat de securitate",
+            "tablou electric",
+            "centrale si echipamente PSI"
+          ],
+          "rules": [
+            "verifica alimentarea ECS si a receptoarelor cu rol PSI",
+            "verifica iluminatul de securitate pentru evacuare, panica, interventie",
+            "verifica iluminatul local pentru declansatoare manuale si ECS",
+            "redacteaza verdictul"
+          ],
+          "legalBasis": [
+            "I7-2011, pct. 7.22.1",
+            "I7-2011, pct. 7.23.9.1",
+            "Ordinul nr. 959/2023"
+          ]
+        },
+        {
+          "code": "4.11",
+          "title": "protectie impotriva trasnetului",
+          "inputs": [
+            "memoriu IE",
+            "date geometrice",
+            "evaluare risc la trasnet"
+          ],
+          "rules": [
+            "verifica existenta instalatiei",
+            "verifica daca exista evaluarea riscului la trasnet",
+            "redacteaza concluzia si stadiul verificarii"
+          ],
+          "legalBasis": [
+            "I7-2011, pct. 6.2.1.2",
+            "Ordinul nr. 959/2023"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "5",
+      "title": "Masuri tehnico-organizatorice privind exploatarea constructiei",
+      "subpoints": [
+        {
+          "code": "5.A",
+          "title": "instructiuni de functionare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu",
+          "rules": [
+            "identifica instructiunile de functionare necesare pentru fiecare instalatie relevanta",
+            "coreleaza instructiunile cu instalatiile existente in proiect"
+          ],
+          "legalBasis": [
+            "OMAI nr. 163/2007",
+            "OMAI nr. 180/2022"
+          ]
+        },
+        {
+          "code": "5.B",
+          "title": "reguli necesare de verificare si intretinere in exploatare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu",
+          "rules": [
+            "identifica obligatiile de verificare si intretinere periodica",
+            "leaga regulile de instalatiile existente"
+          ],
+          "legalBasis": [
+            "OMAI nr. 163/2007",
+            "OMAI nr. 180/2022"
+          ]
+        },
+        {
+          "code": "5.C",
+          "title": "recomandari care trebuie avute in vedere la intocmirea documentelor de organizare a apararii impotriva incendiilor aferente constructiei ori amenajarii respective",
+          "rules": [
+            "identifica recomandarile de exploatare, verificare, acces si organizare PSI",
+            "reda recomandarile strict pe baza proiectului si a reglementarilor aplicabile"
+          ],
+          "legalBasis": [
+            "OMAI nr. 163/2007",
+            "OMAI nr. 180/2022"
+          ]
+        },
+        {
+          "code": "5.D",
+          "title": "stingatoare, alte aparate de stins incendii, utilaje, unelte si mijloace de interventie",
+          "rules": [
+            "identifica tipul si caracteristicile de stingere asigurate",
+            "identifica numarul si modul de amplasare"
+          ],
+          "legalBasis": [
+            "OMAI nr. 163/2007",
+            "reglementarile tehnice specifice"
+          ]
+        }
+      ]
+    },
+    {
+      "code": "6",
+      "title": "Masuri compensatorii propuse pentru lucrari de modificare si/sau schimbare a destinatiei constructiilor existente, in raport cu prevederile reglementarilor tehnice care nu pot fi respectate",
+      "subpoints": [
+        {
+          "code": "6",
+          "title": "masuri compensatorii propuse, daca este cazul",
+          "rules": [
+            "completeaza punctul numai daca exista lucrari de modificare si/sau schimbare de destinatie si prevederi tehnice care nu pot fi respectate",
+            "daca nu este cazul, marcheaza explicit nu este cazul"
+          ],
+          "legalBasis": [
+            "OMAI nr. 130/2007",
+            "OMAI nr. 180/2022"
+          ]
+        }
+      ]
+    }
+  ]
+}

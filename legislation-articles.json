@@ -1,0 +1,330 @@
+{
+  "acts": {
+    "omai_180_2022": {
+      "title": "OMAI nr. 180/2022 - norme metodologice privind avizarea si autorizarea de securitate la incendiu si protectie civila",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/263452"
+    },
+    "p118_1_2025": {
+      "title": "P 118/1-2025 - securitatea la incendiu a constructiilor",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705",
+      "approvedBy": "Ordinul nr. 267 din 28 februarie 2025",
+      "approvedByUrl": "https://legislatie.just.ro/Public/DetaliiDocument/295242",
+      "publishedInMonitorulOficial": "Monitorul Oficial nr. 204 bis din 10 martie 2025",
+      "effectiveDate": "2025-05-09",
+      "replaces": "P 118-1999"
+    },
+    "p118_99": {
+      "title": "P 118-99 - reglementare anterioara, frecvent citata in scenarii existente",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/205877"
+    },
+    "p118_2_2013": {
+      "title": "P 118/2-2013 - instalatii de stingere",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p118_3_2015": {
+      "title": "P 118/3-2015 - detectare, semnalizare si alarmare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/206832"
+    },
+    "i7_2011": {
+      "title": "I7-2011 - instalatii electrice, actualizat prin Ordinul nr. 959/2023",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "omai_130_2007": {
+      "title": "OMAI nr. 130/2007 - metodologia de elaborare a scenariilor de securitate la incendiu",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/79233"
+    },
+    "omai_163_2007": {
+      "title": "OMAI nr. 163/2007 - norme generale de aparare impotriva incendiilor",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/81769"
+    },
+    "hg_571_2016": {
+      "title": "HG nr. 571/2016 - categorii de constructii supuse avizarii/autorizarii",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/180921",
+      "modifiedBy": "H.G. nr. 1.181 din 29 septembrie 2022",
+      "modifiedByUrl": "https://legislatie.just.ro/Public/DetaliiDocument/260287"
+    },
+    "hg_766_1997": {
+      "title": "HG nr. 766/1997 - regulament privind stabilirea categoriei de importanta a constructiilor",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016"
+    },
+    "cr_0_2012": {
+      "title": "CR 0-2012 - Cod de proiectare. Bazele proiectarii structurilor in constructii",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/142596"
+    },
+    "hg_1181_2022": {
+      "title": "HG nr. 1.181/2022 pentru modificarea si completarea HG nr. 571/2016",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/260287"
+    },
+    "hg_971_2006": {
+      "title": "HG nr. 971/2006 - cerinte minime pentru semnalizarea de securitate si/sau sanatate la locul de munca",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/73672"
+    },
+    "legea_307_2006": {
+      "title": "Legea nr. 307/2006 privind apararea impotriva incendiilor",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/189898"
+    },
+    "legea_10_1995": {
+      "title": "Legea nr. 10/1995 privind calitatea in constructii",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/5729"
+    },
+    "legea_59_2016": {
+      "title": "Legea nr. 59/2016 privind controlul asupra pericolelor de accident major in care sunt implicate substante periculoase",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/177654"
+    },
+    "reg_1272_2008_clp": {
+      "title": "Regulamentul (CE) nr. 1272/2008 privind clasificarea, etichetarea si ambalarea substantelor si a amestecurilor",
+      "url": "https://eur-lex.europa.eu/legal-content/ro/TXT/?uri=CELEX%3A32008R1272"
+    },
+    "ordin_28_2009": {
+      "title": "Ordinul nr. 28/2009 - dispozitii generale de aparare impotriva incendiilor la obiective de cult",
+      "url": "https://legislatie.just.ro/public/DetaliiDocument/110661"
+    },
+    "ntpee_2018": {
+      "title": "Norma tehnica pentru proiectarea, executarea si exploatarea sistemelor de alimentare cu gaze naturale",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/201310"
+    }
+  },
+  "references": {
+    "p1182_art_4_1_i": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 4.1 lit. i), modificat prin Ordinul nr. 6026/2018",
+      "location": "Art. 4.1 lit. i)",
+      "summary": "Normativul trateaza echiparea cu hidranti interiori pentru spatii de cult peste pragul de 200 utilizatori. Sub acest prag nu rezulta obligativitatea din aceasta litera.",
+      "excerpt": "„de cult, cu mai mult de 200 de utilizatori”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p1182_art_6_1_4_i": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 6.1 alin. (4) lit. i), modificat prin Ordinul nr. 6026/2018",
+      "location": "Art. 6.1 alin. (4) lit. i)",
+      "summary": "Normativul trateaza echiparea cu hidranti exteriori pentru spatii de cult peste pragul de 200 utilizatori. Sub acest prag nu rezulta obligativitatea din aceasta litera.",
+      "excerpt": "„de cult, cu mai mult de 200 de utilizatori”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p1182_art_7_1": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 7.1",
+      "location": "Art. 7.1",
+      "summary": "Articolul indica situatiile in care instalatiile cu sprinklere se prevad obligatoriu. Pentru o cladire de cult obisnuita, fara pragurile sau situatiile enumerate acolo, nu rezulta automat obligativitatea.",
+      "excerpt": "„Instalațiile de stingere a incendiilor cu sprinklere se prevăd pentru...”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p1182_art_7_131": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 7.131",
+      "location": "Art. 7.131",
+      "summary": "Articolul descrie utilizarea instalatiilor cu sprinklere deschise pentru protectia golurilor ori a unor zone delimitate. Daca obiectivul nu are astfel de situatii, nu rezulta obligativitatea.",
+      "excerpt": "„Instalațiile cu sprinklere deschise pot fi utilizate pentru...”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p1182_art_8_1": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 8.1",
+      "location": "Art. 8.1",
+      "summary": "Articolul introduce cazurile de folosire a instalatiilor de stingere cu apa pulverizata, pentru protectii speciale de echipamente, instalatii sau zone. Fara asemenea cazuri, nu rezulta obligativitatea.",
+      "excerpt": "„Instalațiile de stingere a incendiilor cu apă pulverizată se prevăd pentru...”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p1182_art_9_1": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 9.1",
+      "location": "Art. 9.1",
+      "summary": "Articolul trateaza cazurile in care se prevad instalatii de stingere cu ceata de apa. Fara o solutie speciala ori conditie distincta din normativ, nu rezulta obligativitatea.",
+      "excerpt": "„Instalațiile de stingere a incendiilor cu ceață de apă se prevăd pentru...”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "p1182_art_15_1": {
+      "actKey": "p118_2_2013",
+      "label": "P 118/2-2013, art. 15.1",
+      "location": "Art. 15.1",
+      "summary": "Articolul stabileste domeniul de utilizare al instalatiilor fixe cu gaze pentru incinte si spatii speciale. Pentru o cladire de cult fara astfel de incinte, nu rezulta obligativitatea.",
+      "excerpt": "„Instalațiile fixe de stingere a incendiilor cu gaze se prevăd pentru...”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/198766"
+    },
+    "hg571_anexa1": {
+      "actKey": "hg_571_2016",
+      "label": "H.G. nr. 571/2016, Anexa nr. 1",
+      "location": "Anexa nr. 1",
+      "summary": "Anexa nr. 1 cuprinde categoriile de constructii si amenajari care se supun avizarii si/sau autorizarii privind securitatea la incendiu, in forma actualizata inclusiv prin H.G. nr. 1.181/2022.",
+      "excerpt": "categoriile de construcții și amenajări care se supun avizării",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/259036"
+    },
+    "hg571_anexa1_I_f": {
+      "actKey": "hg_571_2016",
+      "label": "H.G. nr. 571/2016, Anexa nr. 1 pct. I lit. f)",
+      "location": "Anexa nr. 1 pct. I lit. f)",
+      "summary": "Include lacasurile de cult si spatiile de cazare aferente, accesibile publicului, cu aria desfasurata mai mare de 200 mp, in forma modificata prin H.G. nr. 1.181/2022.",
+      "excerpt": "lăcașuri de cult și spații de cazare aferente, accesibile publicului, cu aria desfășurată mai mare de 200 mp",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/259036"
+    },
+    "legea59_general": {
+      "actKey": "legea_59_2016",
+      "label": "Legea nr. 59/2016",
+      "location": "Actul in ansamblu; inclusiv clasificarea din anexe, unde este cazul",
+      "summary": "Legea reglementeaza controlul asupra pericolelor de accident major in care sunt implicate substante periculoase si este relevanta cand intr-un obiectiv exista procese tehnologice ori substante periculoase care pot atrage o incadrare specifica.",
+      "excerpt": "privind controlul asupra pericolelor de accident major în care sunt implicate substanțe periculoase",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/177654"
+    },
+    "reg1272_2008_general": {
+      "actKey": "reg_1272_2008_clp",
+      "label": "Regulamentul (CE) nr. 1272/2008",
+      "location": "Actul in ansamblu",
+      "summary": "Regulamentul CLP priveste clasificarea, etichetarea si ambalarea substantelor si a amestecurilor. Este relevant cand in obiectiv exista substante sau amestecuri periculoase; nu se aplica in mod direct materialelor uzuale privite ca articole, cum sunt mobilierul sau finisajele obisnuite.",
+      "excerpt": "clasificarea, etichetarea si ambalarea substantelor si a amestecurilor",
+      "sourceUrl": "https://eur-lex.europa.eu/legal-content/ro/TXT/?uri=CELEX%3A32008R1272"
+    },
+    "hg766_anexa3_art_6_7": {
+      "actKey": "hg_766_1997",
+      "label": "HG nr. 766/1997, Anexa nr. 3, art. 6-7",
+      "location": "Anexa nr. 3, art. 6-7",
+      "summary": "Articolele stabilesc categoriile de importanta a constructiilor si criteriile generale de incadrare. Categoria C corespunde constructiilor de importanta normala.",
+      "excerpt": "categoria C - constructii de importanta normala",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016"
+    },
+    "hg766_anexa3_art_8_cr0_anexa_a1": {
+      "actKey": "hg_766_1997",
+      "label": "HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1",
+      "location": "Anexa nr. 3, art. 8; CR 0-2012, Anexa A1",
+      "summary": "Art. 8 din anexa HG nr. 766/1997 arata ca stabilirea claselor de importanta se face prin reglementari tehnice specifice. Pentru constructiile obisnuite, clasa III rezulta prin corelare cu clasificarea din CR 0-2012, Anexa A1.",
+      "excerpt": "clasele de importanta sunt stabilite prin reglementari tehnice",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016"
+    },
+    "p11899_pct_1_2_28": {
+      "actKey": "p118_99",
+      "label": "P 118-99, pct. 1.2.28",
+      "location": "Pct. 1.2.28",
+      "summary": "Defineste incaperile cu aglomerari de persoane ca incaperi in care se pot afla simultan cel putin 50 de persoane, fiecarei persoane revenindu-i o arie mai mica de 4 mp.",
+      "excerpt": "incaperi in care se pot afla simultan cel putin 50 de persoane, fiecarei persoane revenindu-i o arie de pardoseala mai mica de 4 mp",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/205877"
+    },
+    "p11899_tabel_2_1_9": {
+      "actKey": "p118_99",
+      "label": "P 118-99, tabelul 2.1.9",
+      "location": "Tabelul 2.1.9",
+      "summary": "Stabileste conditiile minime privind combustibilitatea si rezistenta la foc ale principalelor elemente de constructie pentru gradele de rezistenta la foc.",
+      "excerpt": "conditii minime privind combustibilitatea si rezistenta la foc ale principalelor elemente de constructie",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/205877"
+    },
+    "p1181_art_2_1_2_2_lita": {
+      "actKey": "p118_1_2025",
+      "label": "P 118/1-2025, art. 2.1.2.2 alin. (1) lit. a)",
+      "location": "Art. 2.1.2.2 alin. (1) lit. a)",
+      "summary": "Stabileste incadrarea la risc mic de incendiu pentru densitati mici ale sarcinii termice, in corelare cu functiunea si conditiile de evaluare.",
+      "excerpt": "alin. (1) lit. a)",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705"
+    },
+    "p1181_art_2_1_2_3": {
+      "actKey": "p118_1_2025",
+      "label": "P 118/1-2025, art. 2.1.2.3 alin. (1)",
+      "location": "Art. 2.1.2.3 alin. (1)",
+      "summary": "Completeaza criteriile de evaluare si concluzionare a nivelului riscului de incendiu pe baza densitatii sarcinii termice si a destinatiei spatiului.",
+      "excerpt": "alin. (1)",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705"
+    },
+    "p1181_art_2_1_2_1_3_4": {
+      "actKey": "p118_1_2025",
+      "label": "P 118/1-2025, art. 2.1.2.1 alin. (3) și (4)",
+      "location": "Art. 2.1.2.1 alin. (3) și (4)",
+      "summary": "Precizeaza modul de stabilire a nivelului general al riscului de incendiu pentru ansamblul constructiei sau compartimentului de incendiu, prin raportare la ponderea spatiilor cu risc distinct.",
+      "excerpt": "alin. (3) și (4)",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705"
+    },
+    "p1183_art_3_3_1_e_i": {
+      "actKey": "p118_3_2015",
+      "label": "P 118/3-2015, art. 3.3.1 alin. (1) lit. e) si i), modificat prin Ordinul nr. 6025/2018",
+      "location": "Art. 3.3.1 alin. (1) lit. e) si i)",
+      "summary": "Pentru functiunea de cult, obligativitatea IDSAI apare pentru peste 300 persoane. Litera i) trateaza si cladirile/spatiile civile, altele decat locuintele, cu peste 300 persoane sau aria desfasurata peste 1.000 mp.",
+      "excerpt": "„de cult, cu peste 300 de persoane” / „cu peste 300 de persoane sau cu aria desfășurată mai mare de 1.000 mp”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/206832"
+    },
+    "ordin28_art_101_b": {
+      "actKey": "ordin_28_2009",
+      "label": "Ordinul nr. 28/2009, art. 101 lit. b)",
+      "location": "Art. 101 lit. b)",
+      "summary": "La obiectivele de cult se prevad mijloace de alarmare a personalului, inclusiv declansatoare manuale si semnalizare optica/acustica, potrivit dispozitiilor generale specifice functiunii.",
+      "excerpt": "„declanșatoare manuale de alarmare a personalului”",
+      "sourceUrl": "https://legislatie.just.ro/public/DetaliiDocument/110661"
+    },
+    "p1181_cap_8": {
+      "actKey": "p118_1_2025",
+      "label": "P 118/1-2025, cap. 8",
+      "location": "Cap. 8 - Sisteme de control al fumului si al gazelor fierbinti in caz de incendiu",
+      "summary": "Capitolul 8 stabileste cazurile in care controlul fumului, desfumarea si evacuarea fumului devin necesare. Daca obiectivul nu are degajamente protejate, atrium sau alte situatii distinct reglementate, nu rezulta obligativitatea acestei instalatii.",
+      "excerpt": "„Sisteme de control al fumului și al gazelor fierbinți în caz de incendiu”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705"
+    },
+    "i7_pct_7_22_1": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, pct. 7.22.1, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Pct. 7.22.1",
+      "summary": "Alimentarea cu energie electrica a dispozitivelor cu rol de securitate la incendiu trebuie asigurata conform normativului. Daca proiectul prevede IDSAI, alimentarea ECS si a circuitelor aferente devine obligatorie.",
+      "excerpt": "„alimentarea cu energie electrică a dispozitivelor de securitate la incendiu”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_pct_7_23_9_1_c_f": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, pct. 7.23.9.1 lit. c) si f), cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Pct. 7.23.9.1 lit. c) si f)",
+      "summary": "Normativul cere iluminat local de siguranta pentru declansatoare manuale de alarma si pentru echipamentul de control si semnalizare.",
+      "excerpt": "„declanșatoarelor manuale de alarmă” / „echipamente de control și semnalizare”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_art_7_23_2_c1_7_23_8_1": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, art. 7.23.2 lit. c) pct. 1 si art. 7.23.8.1, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Art. 7.23.2 lit. c) pct. 1; art. 7.23.8.1",
+      "summary": "Iluminatul de securitate pentru evacuare se prevede pe toate caile de evacuare ale obiectivelor care intra sub incidenta normativului.",
+      "excerpt": "„se asigură pe toate căile de evacuare”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_art_7_23_10": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, art. 7.23.10.1-7.23.10.5, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Art. 7.23.10.1-7.23.10.5",
+      "summary": "Iluminatul de securitate impotriva panicii se prevede in spatii unde se poate produce panica, in functie de ocupare si configurarea spatiului.",
+      "excerpt": "„în încăperi sau spații unde se poate produce panică”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_art_7_23_6": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, art. 7.23.6 si art. 7.23.11.3, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Art. 7.23.6; art. 7.23.11.3",
+      "summary": "Iluminatul pentru continuarea lucrului si pentru incaperi tehnice se prevede acolo unde intreruperea alimentarii creeaza riscuri sau unde trebuie mentinute operatii esentiale.",
+      "excerpt": "„centralele de semnalizare”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_art_7_23_9": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, art. 7.23.9 si art. 7.23.11.3, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Art. 7.23.9; art. 7.23.11.3",
+      "summary": "Iluminatul local de siguranta pentru echipamente si puncte de alarma se prevede langa echipamentele ce trebuie identificate si actionate in caz de incendiu.",
+      "excerpt": "„fiecare punct de alarmă”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_art_4_1_5_2_1_4_2_2_8": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, art. 4.1.5.2.1 si art. 4.2.2.8, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Art. 4.1.5.2.1; art. 4.2.2.8",
+      "summary": "Normativul trateaza protectiile diferentiale reziduale pentru circuitele electrice. AFDD se verifica distinct, numai unde se aplica cerinta.",
+      "excerpt": "„dispozitive de protecție cu curent diferențial rezidual”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    },
+    "i7_pct_6_2_1_2": {
+      "actKey": "i7_2011",
+      "label": "I7-2011, pct. 6.2.1.2, cu modificarile prin Ordinul nr. 959/2023",
+      "location": "Pct. 6.2.1.2",
+      "summary": "Necesitatea unei instalatii de protectie impotriva trasnetului se stabileste prin evaluarea riscului la trasnet.",
+      "excerpt": "„necesitatea unei instalații de protecție împotriva trăsnetului se stabilește prin evaluarea riscului la trăsnet”",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/287132"
+    }
+    ,
+    "ntpee_2018_art_129": {
+      "actKey": "ntpee_2018",
+      "label": "Norma tehnica pentru proiectarea, executarea si exploatarea sistemelor de alimentare cu gaze naturale, art. 129",
+      "location": "Art. 129",
+      "summary": "Stabileste suprafata minima a suprafetelor vitrate pentru incaperi cu aparate consumatoare de combustibili gazosi, in functie de volumul net al incaperii, tipul constructiei si existenta detectoarelor automate de gaze naturale.",
+      "excerpt": "0,03 mp/mc pentru beton armat; 0,05 mp/mc pentru zidarie; 0,02 mp/mc in cazul utilizarii detectoarelor automate de gaze naturale.",
+      "sourceUrl": "https://legislatie.just.ro/Public/DetaliiDocument/201310"
+    }
+  }
+}

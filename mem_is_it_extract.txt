@@ -1,0 +1,251 @@
+﻿                 DANINA STAR S.R.L
+MEMORIU TEHNIC
+- INSTALAbII SANITARE _i INSTALAbII TERMICE 
+Cap. I . Date de identificare a investiciei
+Denumire proiect:
+DOCUMENTATIE TEHNIC
+ SECURITATE LA INCENDIU 
+Biserica Ortodoxa Invierea Domnului
+Mun. Bra_ov, str. Marasesti, nr. 47,  jud. Bra_ov 
+Faza de proiectare:
+Proiect nr:
+Proprietar:
+Biserica Ortodoxa 
+Invierea Domnului
+Proiectant:
+DANINA STAR
+ S.R.L. 
+Cap. II. Situacia juridic
+Terenul pentru care se solicit
+ lucrare se afl
+ în intravilanul municipiului Bra_ov, proprietatea Biserica Ortodoxa 
+Invierea Domnului
+, având acces pietonal-auto din str. Marasesti, identificat prin PLAN DE SITUAbIE PE RIDICARE TOPOGRAFIC
+ia constructiei: Biserica
+INSTALAbII SANITARE 
+Cap. III. Situacia existent
+Pe terenul mai sus mencionat, exist
+ o construccie cu destinacia de cl
+dire de cult, cu regim de în
+Alimentarea cu ap
+ rece se realizeaz
+ de la corpul C cu o conducta din PEID De 40 mm. 
+Alimentarea cu ap
+ a grupurilor sanitare se realizeaz
+ de la un  boiler amplasat în centrala termic
+ 80 litri. Conductele interioare de ap
+ rece _i cald
+ sunt executate din cevi din o
+i polipropilen
+, montate îngropat, în ni_e tehnice sau în _licuri practicate în zid
+Scurgerea apelor uzate menajere de la obiectele sanitare se face prin conducte din polipropilen
+ PP pentru canalizare _i sunt leagate la conductele de canalizare exterioare. 
+Coloanele de canalizare sunt prev
+zute cu compensatoare de dilatacie (mufe de compensare PP) _i cu piese de cur
+cire din PP, corespunz
+tor diametrului conductei _i cu aerisitoare cu membran
+ la capetele superioare ale coloanelor.
+La demisol, conductele de canalizare sunt montate îngropat sub pardoseal
+ _i sunt trecute prin fundacie prin tuburi de proteccie aplasate la o adâncime corelat
+ cu adâncimea retelei publice.
+Cap. IV. Nivelul de echipare _i dotare cu mijloace tehnice de ap
+rare împotriva incendiilor
+Construccia nu este prev
+ cu instalacie de stingere a incendiilor de tip hidran
+i interiori. 
+Stingerea din exterior se poate realiza cu hidran
+i exteriori, ace
+tia fiind amplasa
+i în zona de studiu.
+Cap. V. M
+suri de proteccia muncii _i P.S.I.
+Constructorul _i beneficiarul au luat m
+surile specifice de paz
+ _i proteccie împotriva incendiilor impuse de normativele în vigoare, folosind dot
+rile P.S.I. deja existente, pichet de incendiu, etc.
+La execucie s-au respectat Regulamentul privind proteccia _i igiena muncii în construccii aprobat cu Ordinul nr. 9/N/93 al M.L.P.A.T., Capitolul 33, articolele 1583
+1758 _i capitolul 35, articolele 1928, 1963
+1965 _i 1971.
+Cap. VI. Reglement
+ri privind categoria de importanc
+ a construcciilor
+În conformitate cu H.G. 766 din 10 decembrie 1997, imobilul la care se realizeaz
+ racordurile de ap
+-canal _i instalaciile sanitare interioare se încadreaz
+ la categoria de importanc
+INSTALAbII TERMICE
+Cap. VII. Situacia existent
+S-a adoptat solucia de înc
+lzire cu instalacie robust
+ cu corpuri de înc
+lzire din tabl
+ ambutisat
+ de ocel, având conductele din ceav
+ din Cupru în montaj aparent _i în montaj îngropat, dup
+ ce, în prealabil au fost izolate termic.
+Centrala termica este amplas
+ la demisol în încaperea cu destinacia centrala termic
+ _i este dimensionat
+ pentru a acoperi necesarul de energie termic
+ al obiectivului.
+Centrala termica este echipat
+ centrale: 
+- Cazan de pardoseala, tip Protherm PT 50, având puterea termic
+ instalat
+ de 50 kW, cu agent termic ap
+ 70/65ºC, cu reglare automat
+, dotat cu pomp
+ de circulacie _i vas de expansiune închis; 
+- Centrala mural
+, tip Prime TEH Plus V20, având puterea termic
+ instalat
+ de 35 kW, 
+æ³³fffff9³³
+½½½½½½½½y
+cu agent termic ap
+ 70/65ºC, cu reglare automat
+, dotat cu pomp
+ de circulacie _i vas de expansiune închis; 
+turi de separare-izolare _i de siguranc
+- Conducte din Cupru, cu accesoriile lor;
+- Corpuri de înc
+lzire din tabl
+ ambutisat
+ cu accesoriile lor;
+- Detector gaze naturale;
+ incendiu;
+S-a prev
+zut o surs
+ suplimentar
+ a nivelului parter alc
+ dintr-un sistem de înc
+lzire electric
+ a pardoselii cât 
+i o aeroterm
+direa este înc
+ de corpuri de înc
+lzire amplasate pe contur, sub ferestre, alimentate cu agent termic prin coloane ramificate.
+Temperaturile interioare au fost adoptate conform STAS 1907/2-97.
+Apa de umplere _i completare se introduce în circuit sub presiunea apei reci din receaua exterioar
+ printr-o valv
+ de umplere automat
+ pe receaua de ap
+ rece, la colectorul din centrala termic
+cile din instalacia de înc
+lzire sunt colectate în filtrul de impurit
+zut pe retur înainte de intrarea în central
+Eliminarea aerului din instalacie, se realizeaz
+ prin dezaerisitoare automate prev
+zute în punctele cele mai înalte ale instalaciei _i la corpurile de înc
+lzire care sunt alimentate pe la partea inferioar
+Gazele arse rezultate de la centrala sunt evacuate la exterior prin intermediul co_ului de fum.
+Panoul de alimentare _i comand
+ al cazanului s-a racordat la tabloul electric al centralei termice, racordat printr-un circuit monofazic (cu nul de proteccie) la tablou de distribucie. Leg
+turile de la panou la sondele de temperatur
+, la întrerup
+toarele de comand
+ ale pompelor s-a realizat cu cabluri tip CSYY montate în canale. Leg
+turile în panou s-a realizat pe baza schemelor de conexiuni _i a caietului de sarcini din catalogul de produs al centralei.
+Cap. VIII. Instalacii termice interioare
+Pe fiecare ramur
+ la plecarea din racord sunt montaci robineci de trecere.
+Sistemul de distribucie este bitubular cu circulacie forcat
+ realizat din ceav
+ de cupru montat
+ aparent, respectiv îngropat în pardoseal
+ la travers
+rile u_ilor _i a coridoarelor, dup
+ ce în prealabil au fost izolate termic.
+Cap. IX. M
+suri de proteccia muncii
+ durata de execucie a lucr
+rilor s-au respectat prescripciile cuprinse în:  
+- Norme de munc
+ cuprinse în Regulamentul privind proteccia _i igiena muncii în construccii, edicia 1993, capitolul 34;
+-  Norme republicane de proteccia muncii, edicia 1975;
+-  Normativele I 13/2015, I 9/2015, NTPEE/2009;
+-  Normele de proteccie a muncii elaborate de Ministerul S
+Cap. X. M
+suri P.S.I.
+ durata execuciei lucr
+rilor s-au luat m
+suri de respectare a prevederilor cuprinse în:
+-Normativul de siguranc
+ la foc a construcciilor P 118/99.
+-Norme de prevenire a incendiilor pe parcursul efectu
+rii lucr
+rilor de construccii C 300 /96.
+Cap. XI. M
+suri de proteccia mediului înconjur
+Gazele rezultate în urma arderii sunt evacuate prin intermediul co_ului de fum _i nu reprezint
+ surse de poluare.
+Cap. XII. Menciuni finale
+Pentru men
+inerea nivelului de securitate, a instala
+iilor sanitare, termice 
+i a componentelor acestora se vor respecta m
+surile din legisla
+ia în vigoare.
+                                                                                 Întocmit,
+                                                                                       Ing. Coman Alin                                 
+ PAGE   \* MERGEFORMAT 
+Heading 1
+Heading 2
+Heading 3
+Heading 4
+Heading 5
+Heading 6
+Default Paragraph Font
+Table Normal
+Body Text
+Block Text
+Body Text Indent
+Body Text Indent 2
+Body Text Indent 3
+capitole
+PARAGRAF
+Subtitle
+Body Text 2
+Body Text 3
+Footer Char
+[otn_ye]xl
+teeteeteeaae.m
+µ µÕïÝ¹j
+hm/hm/hm1xlYo6¿Ø o'
+wØîÎ\ZG*yIjbÆcX»
+¾6OfåorÜ
+]öà8i³«4d7\
+eàÆûe(M9
+éÇ3åaÐöDØí³ßËèYÕ³
+ða-Y}cÍËÉ
+hm/hm/rl/hmMngrxlrl
+[otn_ye]xlK
+teeteeteeaae.mP
+teeteetee.mP
+teetee_esteeaae.m.esK
+10 noig"T-"sadln
+:lMpxlsa"tp/shmsoexlomt.r/rwnm/06mi"b1"t"t1"k"b2"t"t2"k"acn1"cet"acn2"cet"acn3"cet"acn4"cet"acn5"cet"acn6"cet"hik"ln"flln
+ðüïßj3Ôÿ
+yN¼jÿÿÿÿÿÿÿÿÿ
+rÿÿÿÿÿÿÿÿÿ
+âÿÿÿÿÿÿÿÿÿ
+Jnÿÿÿÿÿÿÿÿÿ
+Unknownÿ
+Times New Roman
+Courier New
+Wingdings
+Century Gothic
+Cambria Math
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿZ
+CAIET DE SARCINI
+Cristi Nastac
+Alin Coman
+CITD ACN
+McootOfc od
+E-EMPOET
+CITD ACN
+þÿþÿþÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿRoot Entry
+WordDocument
+SummaryInformation
+DocumentSummaryInformation
+McootOfc od9-03Dcmn

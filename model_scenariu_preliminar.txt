@@ -1,0 +1,318 @@
+﻿SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR
+1. Caracteristicile construcţiei sau amenajării
+1.1. Datele de identificare
+Denumire: CONSTRUIRE BISERICĂ ORTODOXĂ CORP C24 – SIHLAsi DEMOLARE CONSTRUCȚII C9, C10, C11, C12, C14, C15, C19, C20, RENOVARE CONSTRUCȚII C1, C2, C3, C4, C5 → care nu se incadreaza in prevederile HGR. 571/2016 (actualizata), conform adresa nr. 3855160/2704.2021.Avand in vedere ca sunt propuse doar lucrari de demolare/mentenanta a cladirilor, acesteanu necesita aviz/autorizatie de securitate la incendiu, conform art. 5 din OMAI 180/2022.
+Proprietar/beneficiar: MĂNĂSTIREA NAȘTEREA SFÎNTULUI IOAN BOTEZĂTORUL-SIHLA
+Adresă: COM. AGAPIA, PUNCT SIHLA, JUD. NEAMȚ
+Nr. de telefon: 0764.746.978
+E-mail: sihla.mmb@gmail.com
+1.2. Destinaţia
+F.principale:
+cult
+F. secundare:
+-
+F. conexe:
+-
+1.3. Categoria de importanţă
+Categoria „C”  (normala) de importanță.
+1.4. Particularităţi specifice:
+a) tipul clădirii
+Civilă cu funcţiuni de cult
+b) tipul parcajului
+Nu e cazul
+c) regimul de înălţime şi volumul construcţiei
+Parter,
+V= 7.335,4m3
+d) aria construită şi desfăşurată
+Suprafața construită=407,50 m²
+Suprafatța desfăşurată=407,50 m²
+Suprafața utilă= 280,20 m²
+e) principalele destinaţii ale încăperilor şi ale spaţiilor aferente construcţiei
+Pridvor exterior (26,05 m2) → zonă de tranziție către interior
+Pridvor interior (27,00 m2) → spațiu de acces intermediar
+Pronaos (86,85 m2) → spațiu pentru credincioși, în special femei
+Naos (100,65 m2) → spațiu central liturgic, pentrucredincioși
+Solee (8,50 m2) → platformă ridicată în fața altarului
+Altar (43,80 m2) → spațiu sacru destinat clerului
+Proscomidiar (6,70 m2) → anexă a altarului ptr. pregătire daruri
+Diaconicon (6,70 m2) → spațiu destinat obiectelor liturgice și vestimentației clericale
+f) compartimente de incendiu
+1 compartiment
+Sconstruită
+407,50 m2
+S desfasurată
+407,50 m2
+Volum
+7.335,4m3
+g) număr maxim de utilizatori
+Persoane
+Capacitatea maximă a bisericii este de 190 persoane la nivelul parterului, fără a depăși limita maximă admisă de 199 persoane în incinta bisericii, persoane care se pot evacua singure pe caile de evacuare, mai putin cele cu dizabilitati si copiii care vor fi evacuate primele cu insotitor sau supraveghere, prin grija utilizatorilor cladirii.
+Animale:
+Nu e cazul
+h) capacităţi de depozitare
+Total
+Nu e cazul
+2. Nivelurile riscului de incendiu estimat, stabilit pentru fiecare încăpere/grup de încăperi similare, spaţiu, zonă, compartiment, potrivit reglementărilor tehnice
+Nr. crt.
+Încăpere
+Funcțiune principală
+Arie (m2)
+Riscincendiu
+Observații
+01
+Pridvor exterior
+Spațiu acces, tranzit
+26,05
+Mic
+Spațiu deschis, fără surse de aprindere
+02
+Pridvor interior
+Spațiu de acces
+27,00
+Mic
+Tranzit scurt, fără activități cu risc
+03
+Pronaos
+Spațiu enoriași
+86,85
+Mediu
+Prezență de persoane
+04
+Naos
+Spațiu principal liturgic
+100,65
+Mediu
+Posibile surse de foc (lumânări, candele)
+05
+Solee
+Platformă ridicată în naos
+8,50
+Mediu
+Spațiu expus la prezență umană și ritualuri
+06
+Altar
+Spațiu sacru
+43,80
+Mediu
+Posibile surse de foc (lumânări, candele)
+07
+Proscomidiar
+Pregătire daruri liturgice
+6,70
+Mediu
+Obiecte și textile, utilizare lumânări
+08
+Diaconicon
+Depozitare obiecte liturgice
+6,70
+Mic
+Spațiu de depozitare, folosit ocazional
+q= (5.000 kg lemn x 19,25 MJ/kg+ 200 kg mocheta x 20,95 MJ/kg +100 kg burete x 38,00 MJ/kg): 280,2 m2 = 
+(92,250 MJ+4190 MJ+3800 MJ) : 280 m2 = 372,29 Mj/m2
+→ risc mic de incendiu.
+În ansamblu, nivelul riscului de incendiu estimat pentru această construcție este medijlociu, specific clădirilor de cult ortodoxe, cu o densitate moderată de ocupare și funcțiuni specifice fără procese tehnologice cu pericol ridicat de incendiu.
+3. Nivelurile criteriilor de performanţă privind securitatea la incendiu1)
+3.1. Rezistenţa şi clasa de reacţie la foc a celor mai defavorabile elemente de construcţie
+stâlpi, coloane, pereţi portanţi
+R/REI 180/clasa A1-C0 (beton armat si caramida)
+pereţi interiori nestructurali
+Nu este cazul.
+pereţi exteriori nestructurali
+min. EI 120 clasa A1/C0 ( zidarie de caramida)
+grinzi, planşee, nervuri, acoperişuri terasă
+min. REI 120/ clasa A1/C0 (cupole beton armat)
+acoperişuri autoportante fără pod (inclusiv contravântuiri), şarpanta acoperişuri fără pod
+min. REI 120/ clasa A1/C0 (cupole beton armat)
+panouri de învelitoare şi suportul continuu al învelitorii combustibile
+→ min. C1(CA2a): suportul invelitorii (astereala silati ignifugati);
+→ min. C1(CA2a): invelitoarea din tabla cupru profilatasi termiozolata spre interior cu un stratde vata minerala rigida, peste care este aplicat un strat de folie cu rol de bariera de vapori: C1(CA2a)
+3.2. Gradul de rezistenţă la foc/nivel
+destabilitate la incendiu
+Gradul II de rezistenta la foc 
+(conform tabel 2.1.9 din P118-99 )
+3.3. Asigurarea limitării propagării
+ incendiilor la vecinătăţi
+Se asigura distantele minime impuse de prevederile tab. 4 Art. 2.2.1.2. din P 118/25 intre C24 →Biserica, cladire cu grad de rezistenta  la foc II și C13 Grajd → clădire cu rezistență la foc IV (17,65m) și C16 Chilie → clădire cu grad de rezistență la foc IV (15,85 m).
+3.4. Evacuarea utilizatorilor:
+a)măsuri pentru asigurarea 
+controlului fumului
+Toate spatiile se vor desfuma natural – organizat in caz de incendiu, pe ochiurile mobile ale ferestrelor si ale usilor din fatada.
+b) tipul scărilor, forma şi modul 
+de dispunere a treptelor:
+Exterioare deschise, cu rampe drepte
+c) geometria căilor de evacuare
+Gabarite:
+1 usa interioara, intr-un canat, de minimum 0,8/2,1 m
+2 usi exterioare, intr-un canat, de minimum 0,8/2,1 m
+1 acces principal → usa in doua canate de minimum 1,8/2,1 m
+d) numărul fluxurilor de evacuare
+Se asigura 5 fluxuri de evacuare asigurate 3 necesare
+3.5. Măsuri pentru accesul şi evacuarea copiilor, persoanelor cu dizabilităţi, bolnavilor şi ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu
+Copiii si persoanele cu dizabilități vor  avea acces/se vor evacua in/din cladire, pe caile de acces/evacuare care respecta gabaritele minime impuse de legislatia constructiilor. 
+Acestea vor fi in permanenta insotite.
+În caz de incendiu se va asigura evacuarea persoanelor conform ”Planului de evacuare în caz de incendiu”, întocmit prin grija administratorului imobilului.
+3.6. Securitatea forţelor de intervenţie:
+a)amenajări pentru accesul forţelor de 
+intervenţie în clădire şi incintă, pentru autospeciale şi pentru ascensoarele de 
+incendiu
+Accesul serviciilor de pompieri se poate face prin ușile exterioare, de la parter și ferestrele de la parter.
+Accesul din exteriorul amplasamentului al autospecialelor de pompieri se poate face la cel putin 2 fațade ale construcției. Accesul pentru intervenție a autospecialelor, la constructie, se asigură din drumul care trebuie sa fie de trafic greu, 50 tone, cu latime de 3,5m, sa nu prezinte obstacole pe inaltimea de 4,5 m si sa permita circulația acestora (autospecialelor).
+Căile de acces și circulațiile interioare funcționale ale constructiei vor fi menținute permanent în stare de utilizare, astfel încât, în caz de necesitate, să poată fi utilizate de către serviciile de intervenție pentru situații de urgență. Pentru recunoasterea usoara, accesurile si traseele de interventie vor fi marcate si echipate corespunzator.
+b) caracteristici tehnice şi funcţionale ale accesurilor carosabile şi ale căilor de 
+intervenţie ale autospecialelor, proiectate conform reglementărilor tehnice, 
+regulamentului general de urbanism 
+şi reglementărilor specifice de aplicare
+În caz de incendiu se poate interveni cu dotările PSI din clădire, cu personalul unităţii special instruit şi cu fortele de interventie, apartinand Detașamentului de pompieri Târgu-Neamț al Inspectoratului pentru Situaţii de Urgenţă "Petrodava” din judetul Neamț.
+1. Numărul de accesuri carosabile ‣ 2, din drumul de acces la Manastirea Sihla, care trebuie sa reziste la 44 de tone.
+2. Dimensiuni/gabarite/trasee:
+▪ Drumurile Judetului Neamț  carosabile, care rezista la 44 de tone si au latimi de 7 m.
+Traseul este urmatorul:
+Detașamentul de pompieri Târgu-Neamț → Locatia analizata:
+Mănăstirea “Nasterea Sfantului Ioan Botezatorul” Sihla,comuna Agapia, cod 617010,  judeţul Neamţ.
+▪Caile de acces ale autospecialelor de interventie, in caz de incendiu, vor avea latimea libera minim  de 4 m si inaltimea libera de minimum de 4,5 m, dupa caz.
+3. Realizare si marcare:
+Pentru autospecialele de interventie, in caz de incendiu, caile de acces au gabaritele necesare, fiind realizate si marcate corespunzator. Caile de acces sunt dimensionate astfel încât sa permită accesul autospecialelor la minim 2 fațade.
+Caile de circulatie/evacuare pentru utilizatorii cladirii asigura si accesul personalului de interventie in cladire. Intrarile fortelor de interventie sunt marcate in exeteriorul usilor de evacuare cu iluminat de evacuare si cu flash (dispozitiv alarma optica).
+c) ascensoare de pompieri
+Nu este cazul
+4. Instalaţii cu rol în asigurarea cerinţei fundamentale "securitate la incendiu" - în funcţie de nivelul de echipare1)
+4.1. Hidranţi de incendiu interiori
+tipul instalaţiei (apă-apă, aer-aer)
+Nu este cazul; nu se prevăd, conform P118/2-2013 modificat in 2018, art. 4.1. alin i)
+volumul construcţiei/ compartiment de incendiu
+număr de jeturi în funcţiune simultană
+timp teoretic de funcţionare
+număr de jeturi pe punct
+debit de calcul
+presiune
+număr de racorduri exterioare
+sursa de alimentare cu apă a instalaţiei, cu menţionarea, după caz, a volumului rezervei de apă
+caracteristici funcţionale ale grupului de pompare
+4.2. Hidranţi de incendiu exteriori
+distanţele faţă de construcţie
+Nu este cazul; nu se prevăd, conform P118/2-2013 modificat in 2018, art. 6.1. alin (4), lit. i)
+vol. compartiment incendiu
+timp teoretic de funcţionare
+debit de calcul
+presiune
+sursa de alimentare cu apă a instalaţiei, cu menţionarea, după caz, a volumului rezervei de apă
+caracteristici funcţionale ale grupului de pompare
+4.3. Instalaţii automate de stingere a incendiilor cu sprinklere
+Nu este cazul; nu se prevăd, conform P118/2-2013 modificat in 2018, art. 7.1.
+clasa de pericol de incendiu
+categoria de depozitare şi modul de depozitare
+aria maximă acoperită de un sprinkler
+densitatea de calcul
+aria de declanşare simultană
+presiune
+sursa de alimentare cu apă a instalaţiei
+volumul rezervei de apă
+numărul de racorduri exterioare
+4.4. Instalaţii de limitare şi stingere a incendiilor cu sprinklere deschise
+zona protejată
+Nu este cazul; nu se prevăd.
+înălţimea golului
+aria/lungimea zonei protejate
+timp teoretic de funcţionare
+intensitate de răcire
+intensitatea de stropire
+4.5. Instalaţii de stingere cu apă pulverizată
+densitate min. de pulverizare
+Nu este cazul; nu se prevăd.
+timp de funcţionare
+rezerva de apă
+4.6. Instalaţii de stingere cu ceaţă 
+de apă
+debit specific
+aria de declanşare simultană
+Nu este cazul; nu se prevăd.
+intensitate de pulverizare
+intensitate de stingere
+rezerva de apă
+timp teoretic de funcţionare
+4.7. Instalaţii de stingere cu gaze inerte
+tipul agentului de stingere
+Nu este cazul; nu se prevăd.
+concentraţia de stingere
+volumul protejat
+4.8. Instalaţii de detectare, semnalizare şi alarmare la incendiu (IDSAI)
+gradul de acoperire
+Nu este cazul; nu se prevăd, conform P118/3-2015 modificat în 2018, art. 3.3.1. alin (1), lit. e) și i).
+Conform ORDIN nr. 28 din 26 martie 2009 pentru aprobarea Dispoziţiilor generale de apărare împotriva incendiilor la obiective de cult, art. 101, lit b) s-au prevăzut prin sistemul de efracție declanșatoare manuale de alarmare a personalului (butoane de alarmare) ce vor fi utilizate/acționate la producerea unui incendiu în clădire. Alarmarea se realizează cu dispozitive optice și acustice de alarmare de interior și de exterior (sirene de interior și de exterior cu flash). Aceste elemente sunt poziționate astfel încât declanșarea alarmei sa se realizeze în apropierea ușilor de evacuare, iar dispozitivele optice și acustice de interior și de exterior să asigure un nivel sonor și luminos astfel încât să asigure perceperea clară a semnalului de alarmă.
+condiţii privind stabilirea zonei de detectare
+condiţii de amplasare E.C.S.
+alte dispozitive comandate sau supravegheate de E.C.S.
+4.9. Instalaţie de desfumare/
+evacuare fum şi gaze fierbinţi
+metoda de desfumare
+Nu este cazul; nu se prevăd.
+spaţiile desfumate
+aria spaţiului necesar desfumării/ suprafaţa efectivă de desfumare
+debitul specific pentru introducere aer
+rezistenţă la foc tubulatură
+interacţiuni cu alte sisteme de protecţie
+4.10. Instalaţie electrică
+pentru alimentarea receptoarelor cu rol de securitate la incendiu
+Sursa de bază: Sistemul Energetic Național, prin  blocul de măsură și protecție
+Sursa de rezervă: Grup electrogen nu este cazul. Nu se prevede. Fiecare corp de iluminat de siguranță este echipat cu kit de emergență ce conține acumlatori proprii, iar pentru sistemul de efracție și alarmare local alimentarea cu energie electrica s realizeaza prin surse specifice SR EN 54 echipate cu acumulatori.
+pentru iluminat de siguranţă
+Iluminatul de siguranta se va realiza conform Normativului I 7-2011 cu modificarile si completarile ulterioare din 2023 astfel:
+Tip, zone deservite, condiții de alimentare și funcționare:
+- Iluminat de siguranta de securitate pentru evacuare: conform art. 7.23.2 litera c) pct. 1. si 7.23.8.1. din normatiul I 7-2011, cu modificarile si completarile ulterioare din 2023, se asigura pe toate caile de evacuare.
+Iluminatul de securitate pentru evacuare se va realiza cu corpuri de iluminat cu funcţionare permanentă (inclusiv avertizare luminoasa la prezenta tensiune). Corpurile de iluminat vor avea ca a doua sursă de alimentare o sursă locală cu kit de baterii/acumlatori, cu durata de comutare de 0.5s.
+Corpurile de iluminat pentru evacuare trebuie amplasate astfel incat sa se asigure un nivel de iluminare adecvat conform art. 7.23.3., tabel 7.23.1a, langa fiecare usa de iesire si in locurile unde este necesar sa fie semnalizat un pericol potential sau amplasamentul unui echipament de siguranta, dupa cum urmeaza:
+- lângă orice alta schimbare de nivel;
+- la fiecare uşa de ieşire destinata la fi folosita în caz de urgenta;
+- la panourile de semnalizare de securitate;
+- la fiecare schimbare de directie;
+- în exteriorul şi langa  fiecare ieşire din cladire;
+- langa fiecare echipament de interventie împotriva incendiului şi fiecare punct de alarma.
+Timpul maxim de punere în funcţiune este de 5 sec. (tab. 7.23.1a din normativul I 7-2011, modificat în 2023), având o durată de funcţionare minimă de 3h şi nivel de iluminare de minim 1 lx în orice punct al căilor de evacuare la nivelul pardoselii (avand raportul maxim de neuniformitate de 1:40).
+Corpurile de iluminat pentru evacuare trebuie poziţionate la o înălţime între 2 m şi 3 m faţă de nivelul pardoselii finite.
+- Iluminat de siguranta de securitate impotriva panicii: conform art. 7.23.10 din normatiul I 7-2011, cu modificarile si completarile ulterioare din 2023, se asigura in incaperi sau spatii unde se poate produce panica. Astfel se prevede la parter in încăperea „Pronaos” (având în vedere numarul de persoane, suprafața acesteia și existenta unui mobilier ce poate genera posibile obstacole in momentul evacuarii acestea necesitând a fi evidențiante prin lumină artificială de securitate).
+Iluminatul de siguranta de securitate împotriva panicii se pune în funcțiune automat la căderea sursei de bază. Acest iluminat poate fi pentru spatii/încăperi unde se poate produce panică (de exemplu: încăperi cu aglomerari de persoane), alimentată din instalația electrica pentru iluminat de siguranta ce va fi permanent in functiune.
+Corpurile de iluminat de securitate împotriva panicii vor fi corpuri de timp autonom, echipate cu lampă led, cu kit de baterii inclus, cu autonomie de minim 3h.
+Iluminatul de securitate împotriva panicii trebuie să asigure o iluminare orizontală de minim  0,5 lx la nivelul pardoselii.
+- Iluminat de securitate pentru interventii: se prevede in zona cu centrala termică electrică.
+- Iluminat de siguranta pentru continuarea lucrului: se asigura in zona cu tabloul electric general (TEG)-acces Diaconicon, conform art. 7.23.6 din I 7-2011, cu modificarile si completarile ulterioare din 2023.
+Corpurile de iluminat de siguranta pentru continuarea lucrului vor fi de tip led montate aparent sau incastrat, cu grad de protectie IP20, echipate cu kituri de autonomie 3h.
+Corpurile de iluminat pentru evacuarea din cladire trebuie sa respecte recomandarile din SR EN 60598-2-22 si tipurile de marcaj (sens, schimbari de directie) stabilite in Directiva Consiliului Europei 92/58 EEC din 24 Iunie 1992 transpusa prin H.G. 971/26.Iulie 2006, SR ISO 3864-1 (simboluri grafice). 
+La întreruperea iluminatului normal, bateriile de acumulare din corpurile de iluminat de siguranță au autonomie minim 3h, conform prevederilor Tab.7.23.1b din NP I-7-2011, cu modificarile si completarile ulterioare din 2023, cu excepția corpurilor de iluminat de securitate pentru evacuare care vor avea autonomie de minim 3h si a celor pentru iluminatul de securitate pentru continuarea lucrului care vor avea autonomie de minim 3h.
+- Iluminat de siguranta local pentru marcarea hidrantilor interiori de incendiu Nu este cazul. Nu se prevede.
+- Iluminat de siguranta local pentru indicarea pozitiilor unor echipamente si aparate, conform art. 7.23.2 si tabelul 7.23.1c din I 7-2011, cu modificarile si completarile ulterioare din 2023, se prevede la: echipamente care se utilizează în caz de incendiu (stingătoare), tabloul electric general şi tablourile electrice care alimentează circuitele iluminatului normal şi de siguranţă/securitate, declanșatoarele mnuale de alarmare a personalului amplasate în clădire.
+Iluminatul de siguranţă local trebuie să asigure o iluminare verticală de minim 5 lx, cu excepţia celui pentru grupurile sanitare mari (0,5 lx) sau a celor pentru dizabilităţi (1 lx).
+La dispariția tensiunii electrice, corpurile (aparatele) de iluminat de evacuare, intervenții și continuarea lucrului vor comuta automat, trecând pe sursa proprie acumulator Ni-Cd, cu autonomie de funcţionare conform  I7/2011 cu modificarile si completarile ulterioare din 2023. 
+Corpurile de iluminat de securitate la incendiu sunt de clasa B de reacție la foc – conform prevederilor art.7.23.3.3. din NP I-7 din 2011, cu modificarile si completarile ulterioare din 2023.
+Corpurile de iluminat de securitate la incendiu vor fi cu sursă locală (sursă de iluminat de tip autonom) - art.7.23.4.2. din NP I-7 din 2011, cu modificarile si completarile ulterioare din 2023.
+Circuitele și coloanele (cablurile) de alimentare ale iluminatului de securitate sunt pe aceleași trasee cu circuitele pentru iluminatul normal. Fiecare dintre corpurile de iluminat de siguranță este alimentat separat, cu cabluri cu conductoare din cupru, cu rezistenţa mărită la propagarea flăcării şi emisie redusă de halogeni, de exemplu tip N2XH trase prin tuburi de protecție tip IPEY (conform SR EN IEC 60332-3) şi tensiunea nominală de 0.6/1kV, corespunzând prevederilor SR EN 50266.  
+Circuitele si coloanele corpurilor de iluminat de siguranta  se alimenteaza  din circuitele consumatorilor normali realizati cu cabluri N2XH conform art.7.23.12.1 din I7-2011 cu modificarile si completarile ulterioare din 2023.
+Iluminatul de securitate este realizat cu corpuri de iluminat de siguranță (de tip EXIT), cu LED-uri, echipate cu baterie de acumulatori cu autonomie. 
+Corpurile de iluminat sunt alimentate din rețeaua furnizorului de energie electrică, iar alimentarea de rezervă se face prin bateriile locale de acumulatoare cu dispozitiv de comutare automată, având fluxul luminos de 250 lm, cu distanța de observare de 20 m. Nivelul de iluminare pentru evacuare este de 5 lx pe calea de evacuare. Iluminatul de securitate pentru evacuare este prevăzut pe căile de circulație, pe circulațiile orizontale și în zonele de acces în clădire. Corpurile de iluminat sunt montate la partea superioară a spațiilor, în lungul căilor de evacuare și inflexiunile acestora, la intersecțiile cu alte căi de evacuare, conform prevederilor art. 7.23.7.2. din Normativul I7-2011, cu modificarile si completarile ulterioare din 2023.
+Circuitele de iluminat au fost stabilite astfel încât distanțele traseelor de cabluri să fie cât mai mici, iar pierderile de tensiune să se încadreze în limitele admise.
+Conform art. 7.23.3. din Normativ I7-2011, tabelul 7.23.1b, cu modificarile si completarile ulterioare din 2023, durata minma de functionare a iluminatului de siguranta este de 3h.
+dispozitiv de protecţie cu curent diferenţial rezidual (DDR)
+Toate circuitele din tablourile electrice aferente obiectivului sunt prevazute cu dispozitive de protectie cu curent diferential rezidual (DDR) avand curentul nominal de functionare stabilit in functie de caracteristicile instalatiei (30mA), conform prevederilor art. 4.1.5.2.1. si art. 4.2.2.8 din Normativul I7-2011 cu modificarile si completarile ulterioare din 2023.
+dispozitiv de detectare a defectului de arc electric (AFDD)
+Nu e cazul. Nu se prevăd.
+4.11. Instalaţie de protecţie împotriva trăsnetului
+clasa IPT şi SPT
+Clasa II
+nivel de protecţie
+Nivel II de protectie (întărit).
+metoda de protecţie
+Se propune o instalaţie de protecţie la trăsnet cu conductoare de captare orizontale OL Zn 8mm montate pe coama acoperişului și un dispozitiv de amorsare a trasnetului tip PDA, legat la priza de pământ prin 4 (patru) coborâri OL Zn de 8 mm, prin intermediul pieselor de separaţie (având in vedere înălțimea clădirii -peste 28 metrii, până la crucea din vârful turlei principale 40,15 metri și clasa de importanta III).
+Tabloul electric general va fi echipat cu descărcător tensiuni de origine atmosferică şi protecţie diferenţială de 300 mA.
+Conform art. 6.2.3.7. din Normativul I7-2011 cu modificarile si completarile ulterioare din 2023, este utilizata metoda sferei fictive. Raza sferei fictive va fi de 30 m, conform tabel 6.15.. Este necesar un singur dispozitiv de amorsare a trasnetului tip PDA.
+Se impune utilizarea unui contor de lovituri de trăsnet montat pe conductorul de coborare cel mai scurt, desupra piesei de separatie, conform art. 6.3.3.3. din Normativul I7-2011 cu modificarile si completarile ulterioare din 2023.
+Tabloul electric general va fi echipat cu descărcător tensiuni de origine atmosferică şi protecţie diferenţială de 300 mA.
+Priza de pământ este artificială formată din electrozi prefabricati de 2,5m lungime si platbandă de oțel zincat OlZn40x4mm montate la anâncime de minim 0,8m îngropat în pamânt. Rezistenta de dispersie a prizei de pamant trebuie sa fie cel mult 1 Ohm. Obligatoriu se va proceda la măsurarea ei. Dacă rezistenţa de dispersie a prizei de pământ depăşeşte 1Ohm se va adăuga platbanda OL Zn 40x4 mm si electrozi de otel prefabricati, l=2,5m la adancimea de 0,8m şi la minim 1,5 m-maxim 5 m distanţă faţă de fundaţia construcţiei ingropata in pamant până se va ajunge la 1 Ohm.
+5. Măsuri compensatorii propuse în condiţiile legii2) pentru construcţiile existente care nu pot îndeplini anumite cerinţe din punctul de vedere al securităţii la incendiu
+Prevederea din reglementările tehnice de proiectare care nu poate fi respectată
+Nu e cazul, deoarece se respecta. 
+Proiectanți:
+Proiectant general și de specialitate arhitectură:
+DOMUS DESIGN S.R.L.
+arh. Adrian Păun
+Proiectant instalații (inclusiv electrice, de detecție (IDSAI), instalații de desfumare mecanică și instalații stingere):
+SMART DESIGN INSTALAȚII S.R.L.
+Ing. Mihai Terzi

@@ -1,0 +1,345 @@
+{
+  "generated_for": "generator-ssi",
+  "version": "2026-04-27",
+  "notes": [
+    "Lista reprezinta nucleul legislativ si tehnic in vigoare folosit curent pentru SSI si pentru instalatiile cu rol in securitatea la incendiu.",
+    "Pentru destinatii speciale se pot adauga normative suplimentare."
+  ],
+  "acts": [
+    {
+      "id": "legea-307-2006",
+      "title": "Legea nr. 307/2006 privind apararea impotriva incendiilor",
+      "type": "lege",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/189898",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "legea-10-1995",
+      "title": "Legea nr. 10/1995 privind calitatea in constructii",
+      "type": "lege",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/5729",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "legea-50-1991",
+      "title": "Legea nr. 50/1991 privind autorizarea executarii lucrarilor de constructii",
+      "type": "lege",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/180447",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "legea-59-2016",
+      "title": "Legea nr. 59/2016 privind controlul asupra pericolelor de accident major in care sunt implicate substante periculoase",
+      "type": "lege",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/177654",
+      "appliesWhen": {
+        "anyOf": [
+          { "buildingClass": ["productie", "depozitare", "mixta"] },
+          { "destinations": ["productie", "depozitare"] },
+          { "fireRisk": ["mare", "foarte_mare"] }
+        ]
+      }
+    },
+    {
+      "id": "reg-1272-2008-clp",
+      "title": "Regulamentul (CE) nr. 1272/2008 privind clasificarea, etichetarea si ambalarea substantelor si a amestecurilor",
+      "type": "regulament european",
+      "status": "in_vigoare",
+      "url": "https://eur-lex.europa.eu/legal-content/ro/TXT/?uri=CELEX%3A32008R1272",
+      "appliesWhen": {
+        "anyOf": [
+          { "buildingClass": ["productie", "depozitare", "mixta"] },
+          { "destinations": ["productie", "depozitare"] },
+          { "fireRisk": ["mare", "foarte_mare"] }
+        ]
+      }
+    },
+    {
+      "id": "hg-571-2016",
+      "title": "HG nr. 571/2016 privind categoriile de constructii si amenajari care se supun avizarii si/sau autorizarii privind securitatea la incendiu",
+      "type": "hotarare de guvern",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/180921",
+      "modifiedBy": "H.G. nr. 1.181 din 29 septembrie 2022",
+      "modifiedByUrl": "https://legislatie.just.ro/Public/DetaliiDocument/260287",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "hg-1181-2022",
+      "title": "HG nr. 1.181/2022 pentru modificarea si completarea HG nr. 571/2016",
+      "type": "hotarare de guvern",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/260287",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "omai-180-2022",
+      "title": "Ordinul MAI nr. 180/2022 - Norme metodologice privind avizarea si autorizarea de securitate la incendiu si protectie civila",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/263452",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "omai-130-2007",
+      "title": "Ordinul MAI nr. 130/2007 - Metodologia de elaborare a scenariilor de securitate la incendiu",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/79234",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "p118-1-2025",
+      "title": "P 118/1-2025 - Normativ privind securitatea la incendiu a constructiilor",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705",
+      "approvedBy": "Ordinul nr. 267 din 28 februarie 2025",
+      "approvedByUrl": "https://legislatie.just.ro/Public/DetaliiDocument/295242",
+      "publishedInMonitorulOficial": "Monitorul Oficial nr. 204 bis din 10 martie 2025",
+      "effectiveDate": "2025-05-09",
+      "replaces": "P 118-1999",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "p118-2-2013",
+      "title": "P 118/2-2013 - Instalatii de stingere",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/198766",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["stingere", "hidranti_interiori", "hidranti_exteriori", "sprinklere"] },
+          { "buildingClass": ["productie", "depozitare", "mixta"] },
+          { "heightClass": ["inalta", "foarte_inalta", "sala_aglomerata"] },
+          { "categoryImportance": ["A", "B"] }
+        ]
+      }
+    },
+    {
+      "id": "ordin-6026-2018",
+      "title": "Ordinul nr. 6026/2018 pentru modificarea si completarea P 118/2-2013",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/206927",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["stingere", "hidranti_interiori", "hidranti_exteriori", "sprinklere"] },
+          { "buildingClass": ["productie", "depozitare", "mixta"] }
+        ]
+      }
+    },
+    {
+      "id": "p118-3-2015",
+      "title": "P 118/3-2015 - Instalatii de detectare, semnalizare si alarmare",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/206832",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["detectare_alarmare"] },
+          { "heightClass": ["inalta", "foarte_inalta", "sala_aglomerata"] },
+          { "categoryImportance": ["A", "B"] },
+          { "destinations": ["comert", "invatamant", "turism", "sanatate", "cult", "cultura"] },
+          { "minOccupants": 200 },
+          { "minAreaTotal": 600 }
+        ]
+      }
+    },
+    {
+      "id": "ordin-6025-2018",
+      "title": "Ordinul nr. 6025/2018 pentru modificarea P 118/3-2015",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/206996",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["detectare_alarmare"] },
+          { "destinations": ["comert", "invatamant", "turism", "sanatate", "cult", "cultura"] },
+          { "minOccupants": 200 }
+        ]
+      }
+    },
+    {
+      "id": "i7-2011",
+      "title": "I 7-2011 - Normativ pentru instalatiile electrice aferente cladirilor",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/287132",
+      "appliesWhen": {
+        "anyOf": [
+          { "always": true }
+        ]
+      }
+    },
+    {
+      "id": "ordin-959-2023",
+      "title": "Ordinul nr. 959/2023 pentru modificarea si completarea I 7-2011",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/271142",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["iluminat_siguranta", "alimentare_siguranta", "protectie_trasnet"] },
+          { "destinations": ["invatamant", "sanatate", "comert", "turism", "cult", "cultura"] },
+          { "heightClass": ["inalta", "foarte_inalta", "sala_aglomerata"] },
+          { "buildingClass": ["productie", "depozitare"] }
+        ]
+      }
+    },
+    {
+      "id": "omai-163-2007",
+      "title": "Ordinul MAI nr. 163/2007 - Norme generale de aparare impotriva incendiilor",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/80730",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "ordin-28-2009-cult",
+      "title": "Ordinul nr. 28/2009 pentru aprobarea Dispozitiilor generale de aparare impotriva incendiilor la obiective de cult",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/public/DetaliiDocument/110661",
+      "appliesWhen": {
+        "anyOf": [
+          { "destinations": ["cult"] }
+        ]
+      }
+    },
+    {
+      "id": "hg-925-1995",
+      "title": "HG nr. 925/1995 - Regulamentul privind verificarea si expertizarea tehnica a proiectelor",
+      "type": "hotarare de guvern",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/205190",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "hg-766-1997",
+      "title": "HG nr. 766/1997 - Regulamente privind calitatea in constructii",
+      "type": "hotarare de guvern",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/13583",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "cr-0-2012",
+      "title": "CR 0-2012 - Cod de proiectare. Bazele proiectarii structurilor in constructii",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/142596",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "ordin-1822-394-2004",
+      "title": "Ordinul nr. 1822/394/2004 - clasificarea produselor pentru constructii pe baza performantelor de comportare la foc",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/214485",
+      "appliesWhen": { "always": true }
+    },
+    {
+      "id": "omai-87-2010",
+      "title": "Ordinul MAI nr. 87/2010 - autorizarea persoanelor care efectueaza lucrari in domeniul apararii impotriva incendiilor",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G39JCX12RPUV3V172NEDVZP2KXA",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["stingere", "detectare_alarmare", "desfumare"] }
+        ]
+      }
+    },
+    {
+      "id": "omai-112-2014",
+      "title": "Ordinul MAI nr. 112/2014 - modificarea metodologiei de autorizare pentru lucrari PSI",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/160198",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["desfumare", "stingere", "detectare_alarmare"] }
+        ]
+      }
+    },
+    {
+      "id": "hg-971-2006",
+      "title": "HG nr. 971/2006 privind semnalizarea de securitate si/sau de sanatate la locul de munca",
+      "type": "hotarare de guvern",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/74127",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["iluminat_siguranta"] },
+          { "minOccupants": 1 }
+        ]
+      }
+    },
+    {
+      "id": "np-127-2009",
+      "title": "NP 127:2009 - Normativ de securitate la incendiu a parcajelor subterane pentru autoturisme",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/115784",
+      "appliesWhen": {
+        "isUndergroundParking": true
+      }
+    },
+    {
+      "id": "i5-2010",
+      "title": "I5-2010 - Normativ pentru proiectarea, executarea si exploatarea instalatiilor de ventilare si climatizare",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/130105",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["desfumare", "ventilare_climatizare"] },
+          { "hasBasement": true }
+        ]
+      }
+    },
+    {
+      "id": "i13-2015",
+      "title": "I 13-2015 - Normativ pentru instalatiile de incalzire centrala",
+      "type": "reglementare tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/173507",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["incalzire_centrala"] }
+        ]
+      }
+    },
+    {
+      "id": "omai-51-2024",
+      "title": "Ordinul MAI nr. 51/2024 - Criterii de performanta privind constituirea, incadrarea si dotarea serviciilor voluntare si private pentru situatii de urgenta",
+      "type": "ordin",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G3FTCB6DBO0D3U16QW7CW5C3PEI",
+      "appliesWhen": {
+        "anyOf": [
+          { "buildingClass": ["productie", "depozitare", "mixta"] },
+          { "heightClass": ["inalta", "foarte_inalta"] },
+          { "minOccupants": 300 }
+        ]
+      }
+    },
+    {
+      "id": "ntpee-2018",
+      "title": "Norma tehnica pentru proiectarea, executarea si exploatarea sistemelor de alimentare cu gaze naturale",
+      "type": "norma tehnica",
+      "status": "in_vigoare",
+      "url": "https://legislatie.just.ro/Public/DetaliiDocument/201310",
+      "appliesWhen": {
+        "anyOf": [
+          { "installations": ["gaze_naturale", "incalzire_centrala"] }
+        ]
+      }
+    }
+  ]
+}
