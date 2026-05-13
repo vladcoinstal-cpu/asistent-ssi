@@ -882,7 +882,8 @@ const WORKSPACE_TAB_LABELS = {
   normalTab: "SSI normal",
   legislationTab: "Legislație",
   lawTab: "Lege / articol",
-  issuesTab: "Probleme"
+  issuesTab: "Probleme",
+  autotestTab: "Auto-test"
 };
 
 const ALWAYS_VISIBLE_WORKSPACE_TABS = [
@@ -891,7 +892,8 @@ const ALWAYS_VISIBLE_WORKSPACE_TABS = [
   "preliminaryTab",
   "legislationTab",
   "lawTab",
-  "issuesTab"
+  "issuesTab",
+  "autotestTab"
 ];
 
 const workspaceState = {
@@ -956,6 +958,8 @@ const projectSelector = document.getElementById("projectSelector");
 const projectAddBtn = document.getElementById("projectAddBtn");
 const projectFactsSummary = document.getElementById("projectFactsSummary");
 const workspaceTabsContainer = document.getElementById("workspaceTabs");
+const autotestOutput = document.getElementById("autotestOutput");
+const runAutotestBtn = document.getElementById("runAutotestBtn");
 const tabPanels = Array.from(document.querySelectorAll(".tab-panel"));
 const workspaceContent = document.getElementById("workspaceContent");
 const emptyWorkspace = document.getElementById("emptyWorkspace");
@@ -1754,6 +1758,155 @@ function renderIssuesOutput() {
   issuesOutput.innerHTML = projectCard + sourceMarkup;
 }
 
+async function loadAutotestFixtures() {
+  const fixtures = [
+    {
+      id: "comercial",
+      name: "Comercial cu parcare subsol",
+      path: "test-fixtures/memoriu-arhitectura-comercial-parcare-subsol.txt"
+    },
+    {
+      id: "industrial",
+      name: "Industrial cu depozitare",
+      path: "test-fixtures/memoriu-arhitectura-industrial-depozitare.txt"
+    },
+    {
+      id: "restaurant",
+      name: "Restaurant cu sala aglomerata",
+      path: "test-fixtures/memoriu-arhitectura-restaurant-sala-aglomerata.txt"
+    }
+  ];
+
+  return Promise.all(fixtures.map(async (fixture) => {
+    const response = await fetch(fixture.path);
+    if (!response.ok) {
+      throw new Error(`Nu s-a putut incarca ${fixture.path}`);
+    }
+    return {
+      ...fixture,
+      content: await response.text()
+    };
+  }));
+}
+
+function summarizeAutotestActs(acts) {
+  if (!Array.isArray(acts) || !acts.length) return "Nu au fost identificate acte.";
+  return acts.map((act) => act.title || act.id || "act").join("; ");
+}
+
+function summarizeAutotestProblems(checks) {
+  if (!Array.isArray(checks) || !checks.length) return "Nu au fost generate verificari.";
+  return checks
+    .slice(0, 6)
+    .map((check) => `${check.code || "regula"}: ${check.status || check.verdict || check.observation || "de verificat"}`)
+    .join(" | ");
+}
+
+function runAutotestForContent(label, content) {
+  const saved = {
+    sources: safeClone(state.sources),
+    data: safeClone(state.data),
+    projectProfile: safeClone(state.projectProfile),
+    applicableActs: safeClone(state.applicableActs),
+    complianceChecks: safeClone(state.complianceChecks),
+    rulesCoverage: safeClone(state.rulesCoverage),
+    actCoverageChecks: safeClone(state.actCoverageChecks),
+    normalReport: normalReportOutput.value,
+    preliminaryReport: preliminaryReportOutput.value
+  };
+
+  try {
+    state.sources = [{
+      name: `${label}.txt`,
+      content,
+      type: "text",
+      sizeBytes: content.length,
+      extension: "txt"
+    }];
+    state.data = Object.fromEntries(annexFields.map((field) => [field.key, ""]));
+    state.projectProfile = getDefaultProjectProfile();
+    state.applicableActs = [];
+    state.complianceChecks = [];
+    state.rulesCoverage = [];
+    state.actCoverageChecks = [];
+    normalReportOutput.value = "";
+    preliminaryReportOutput.value = "";
+
+    const lines = content.split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+    const extracted = {};
+    annexFields.forEach((field) => {
+      const value = searchFieldInLines(field.key, lines);
+      if (value) {
+        extracted[field.key] = value;
+      }
+    });
+
+    const aggregate = extractAggregateFactsFromContent(content);
+    mergeExtractedData({ ...aggregate, ...extracted });
+    syncProfileFromDataHints();
+    evaluateApplicableActs();
+    evaluateActCoverageForProject();
+    evaluateComplianceChecks();
+    normalReportOutput.value = buildScenarioMarkdown(state.data, state.sources, state.applicableActs, state.complianceChecks);
+    preliminaryReportOutput.value = buildPreliminaryScenarioMarkdown(state.data, state.sources, state.applicableActs, state.projectProfile, state.complianceChecks);
+
+    const extractedCount = Object.values(state.data).filter((value) => String(value || "").trim()).length;
+    return {
+      label,
+      extractedCount,
+      actsSummary: summarizeAutotestActs(state.applicableActs),
+      problemsSummary: summarizeAutotestProblems(state.complianceChecks),
+      normalLength: normalReportOutput.value.length,
+      preliminaryLength: preliminaryReportOutput.value.length
+    };
+  } finally {
+    state.sources = saved.sources;
+    state.data = saved.data;
+    state.projectProfile = saved.projectProfile;
+    state.applicableActs = saved.applicableActs;
+    state.complianceChecks = saved.complianceChecks;
+    state.rulesCoverage = saved.rulesCoverage;
+    state.actCoverageChecks = saved.actCoverageChecks;
+    normalReportOutput.value = saved.normalReport;
+    preliminaryReportOutput.value = saved.preliminaryReport;
+  }
+}
+
+async function runAutotestSuite() {
+  if (!autotestOutput) return;
+  autotestOutput.innerHTML = `
+    <article class="rule-card">
+      <strong>Auto-test in curs...</strong>
+      <div class="source-meta">Se incarca memoriile de test si se ruleaza verificarile interne.</div>
+    </article>
+  `;
+
+  try {
+    const fixtures = await loadAutotestFixtures();
+    const results = fixtures.map((fixture) => runAutotestForContent(fixture.name, fixture.content));
+    autotestOutput.innerHTML = results
+      .map((result) => `
+        <article class="rule-card">
+          <strong>${escapeHtml(result.label)}</strong>
+          <div class="source-meta">Campuri extrase: ${escapeHtml(String(result.extractedCount))}</div>
+          <div class="source-meta">Acte identificate: ${escapeHtml(result.actsSummary)}</div>
+          <div class="source-meta">Verificari: ${escapeHtml(result.problemsSummary)}</div>
+          <div class="source-meta">SSI normal generat: ${escapeHtml(String(result.normalLength))} caractere</div>
+          <div class="source-meta">SSI preliminar generat: ${escapeHtml(String(result.preliminaryLength))} caractere</div>
+        </article>
+      `)
+      .join("");
+  } catch (error) {
+    console.error(error);
+    autotestOutput.innerHTML = `
+      <article class="rule-card">
+        <strong>Auto-testul a esuat.</strong>
+        <div class="source-meta">${escapeHtml(error?.message || "Eroare necunoscuta.")}</div>
+      </article>
+    `;
+  }
+}
+
 function handleAddManualText() {
   const text = manualText.value.trim();
 
@@ -2535,6 +2688,10 @@ projectSelector?.addEventListener("change", (event) => {
 
 projectAddBtn?.addEventListener("click", () => {
   createNewProject();
+});
+
+runAutotestBtn?.addEventListener("click", () => {
+  runAutotestSuite();
 });
 
 openRulesQuickBtn?.addEventListener("click", () => {

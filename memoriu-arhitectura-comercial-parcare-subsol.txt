@@ -1,0 +1,71 @@
+MEMORIU DE ARHITECTURA
+
+Denumirea obiectivului: Centru comercial Retail Park Orion
+Beneficiar: SC Orion Developments SRL
+Adresa obiectivului: municipiul Brasov, str. Harmanului nr. 74, judetul Brasov
+Telefon beneficiar: 0730 100 200
+E-mail beneficiar: office@orion-developments.ro
+
+Destinatia constructiei: comert, alimentatie publica, servicii, parcaj subteran
+Functiuni principale: spatii comerciale, supermarket, galerii comerciale, food-court
+Functiuni secundare: birouri administrative, spatii tehnice, depozitare marfa
+
+Categoria de importanta: categoria C (normala)
+Clasa de importanta: III
+Tip cladire: cladire civila de comert, cu parcaj subteran
+Tip parcaj: parcaj subteran inchis, 86 autovehicule
+
+Regimul de inaltime: S+P+1E
+Inaltimea maxima a cladirii: 10,80 m
+Aria construita: 2.480 mp
+Aria desfasurata: 5.960 mp
+Volumul constructiei: 24.800 mc
+
+Numarul maxim de utilizatori: 1.140 persoane
+Subsol: 180 persoane
+Parter: 640 persoane
+Etaj: 320 persoane
+
+Sala aglomerata: food-court cu 220 persoane
+Aglomerari de persoane: da
+Persoanele se pot autoevacua singure in conditii normale de exploatare.
+
+Risc de incendiu:
+- spatii comerciale: risc mic
+- supermarket: risc mijlociu
+- food-court: risc mic
+- parcaj subteran: risc mare
+Concluzie: cladirea cu functiuni mixte necesita tratare pe compartimente de incendiu, cu parcaj subteran analizat distinct.
+
+Gradul de rezistenta la foc: II
+Stabilitate la foc: elementele principale sunt din beton armat si otel protejat, cu rezistente la foc conform gradului II.
+Reactia la foc: finisajele de pe caile de evacuare se prevad minimum clasa B-s1,d0, iar in parcaj materiale A1/A2-s1,d0.
+
+Propagare la vecinatati:
+Distanta fata de constructia invecinata spre nord este de 18,00 m.
+Distanta fata de constructia invecinata spre sud este de 24,00 m.
+Rezulta ca distantele de siguranta la vecinatati sunt asigurate.
+
+Evacuare:
+Evacuarea din subsol se face prin doua case de scara protejate si iesiri directe in exterior.
+Evacuarea de la parter se face direct in exterior si prin iesiri distribuite pe fatade.
+Evacuarea de la etaj se face prin doua case de scara inchise si prin cai marcate conform normativului.
+Usile de evacuare de pe traseele principale se deschid in sensul evacuarii.
+
+Instalatii:
+Instalatii de stingere: hidranti interiori, hidranti exteriori, sprinklere in parcajul subteran si in supermarket.
+Detectare, semnalizare si alarmare la incendiu: se prevede instalatie adresabila.
+Desfumare: se prevede desfumare mecanica pentru parcajul subteran si evacuare fum/gaze fierbinti pentru zona mall.
+Alimentarea receptoarelor cu rol de securitate la incendiu: sursa de baza si sursa de rezerva prin grup electrogen.
+Iluminat de siguranta: pentru evacuare, impotriva panicii si pentru interventie.
+Protectie impotriva trasnetului: se prevede instalatie IPT.
+
+Depozitare:
+In depozitele comerciale se stocheaza carton, ambalaje, mase plastice, textile, produse alimentare ambalate.
+
+Surse de aprindere:
+echipamente electrice, tablouri electrice, bucatarie food-court, vehicule in parcaj, operatii de mentenanta.
+
+Masuri organizatorice:
+Se vor intocmi instructiuni de aparare impotriva incendiilor, planuri de evacuare si organizarea apararii impotriva incendiilor.
+
