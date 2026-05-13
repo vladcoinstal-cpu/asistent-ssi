@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Asistent SSI</title>
-  <link rel="stylesheet" href="styles.css?v=2026-05-13-6">
+  <link rel="stylesheet" href="styles.css?v=2026-05-14-1">
 </head>
 <body>
   <div class="page-shell">
@@ -74,7 +74,15 @@
 
         <div class="app-bottomline">
           <div class="browser-tabs workspace-tabs" aria-label="Ferestre proiect">
-            <div id="workspaceTabs" class="workspace-tabs-dynamic"></div>
+            <div id="workspaceTabs" class="workspace-tabs-dynamic">
+              <button type="button" class="browser-tab is-active" data-tab-target="sourcesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('sourcesTab')">Proiect</button>
+              <button type="button" class="browser-tab" data-tab-target="normalTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('normalTab')">SSI normal</button>
+              <button type="button" class="browser-tab" data-tab-target="preliminaryTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('preliminaryTab')">SSI preliminar</button>
+              <button type="button" class="browser-tab" data-tab-target="legislationTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('legislationTab')">Legislatie</button>
+              <button type="button" class="browser-tab" data-tab-target="lawTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('lawTab')">Lege / articol</button>
+              <button type="button" class="browser-tab" data-tab-target="issuesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('issuesTab')">Probleme</button>
+              <button type="button" class="browser-tab" data-tab-target="autotestTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('autotestTab')">Auto-test</button>
+            </div>
           </div>
         </div>
     </header>
@@ -125,6 +133,7 @@
               <div class="button-row">
                 <button id="addTextBtn" class="primary" onclick="window.__ssiCommands?.addManualText()">Adauga textul</button>
                 <button id="extractBtn" class="secondary" onclick="window.__ssiCommands?.extractData()">Extrage informatii</button>
+                <button id="openAutotestBtn" class="secondary" type="button" onclick="window.__ssiCommands?.activateWorkspaceTab?.('autotestTab')">Auto-test</button>
                 <button id="resetBtn" class="ghost" onclick="window.__ssiCommands?.resetProject()">Reseteaza proiectul activ</button>
               </div>
 
@@ -263,8 +272,8 @@
     </main>
   </div>
 
-  <script src="embedded-data.js?v=2026-05-13-3"></script>
-  <script src="app.js?v=2026-05-13-3"></script>
+  <script src="embedded-data.js?v=2026-05-14-3"></script>
+  <script src="app.js?v=2026-05-14-3"></script>
 
   <div id="lawModal" class="law-modal" hidden>
     <div class="law-modal-backdrop" data-close-law-modal></div>

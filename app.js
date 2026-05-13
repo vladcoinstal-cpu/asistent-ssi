@@ -1129,6 +1129,8 @@ async function bootstrap() {
   try {
     if (workspaceState.activeProjectId) {
       loadProjectIntoUI(workspaceState.activeProjectId);
+      showWorkspace();
+      renderWorkspaceTabs();
       activateTab("sourcesTab");
     } else {
       renderEmptyWorkspace();
@@ -1148,6 +1150,22 @@ async function bootstrap() {
     saveActiveProjectStateFromUI();
     persistWorkspace();
   }, AUTO_SAVE_INTERVAL_MS);
+}
+
+function ensureWorkspaceReadyAfterLoad() {
+  const project = getActiveProject();
+  if (!project) {
+    renderEmptyWorkspace();
+    return;
+  }
+
+  showWorkspace();
+  renderProjectSelector();
+  renderWorkspaceTabs();
+  const targetTab = ALWAYS_VISIBLE_WORKSPACE_TABS.includes(project.activeTab) ? project.activeTab : "sourcesTab";
+  tabPanels.forEach((panel) => {
+    panel.classList.toggle("is-active", panel.id === targetTab);
+  });
 }
 
 function getDefaultProjectProfile() {
@@ -1369,21 +1387,43 @@ function renderProjectSelector() {
 }
 
 function renderWorkspaceTabs() {
-  workspaceTabsContainer.innerHTML = "";
   const project = getActiveProject();
   if (!project) return;
-  ALWAYS_VISIBLE_WORKSPACE_TABS.forEach((tabId) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = `browser-tab${project.activeTab === tabId ? " is-active" : ""}`;
-    button.textContent = WORKSPACE_TAB_LABELS[tabId] || tabId;
-    button.dataset.tabTarget = tabId;
-    button.addEventListener("click", () => activateTab(tabId));
-    button.addEventListener("contextmenu", (event) => {
-      event.preventDefault();
-      openContextMenu(event.clientX, event.clientY, { kind: "workspace", id: tabId });
+  const existingButtons = Array.from(workspaceTabsContainer.querySelectorAll("[data-tab-target]"));
+
+  if (!existingButtons.length) {
+    workspaceTabsContainer.innerHTML = "";
+    ALWAYS_VISIBLE_WORKSPACE_TABS.forEach((tabId) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `browser-tab${project.activeTab === tabId ? " is-active" : ""}`;
+      button.textContent = WORKSPACE_TAB_LABELS[tabId] || tabId;
+      button.dataset.tabTarget = tabId;
+      button.addEventListener("click", () => activateTab(tabId));
+      button.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        openContextMenu(event.clientX, event.clientY, { kind: "workspace", id: tabId });
+      });
+      workspaceTabsContainer.appendChild(button);
     });
-    workspaceTabsContainer.appendChild(button);
+    return;
+  }
+
+  existingButtons.forEach((button) => {
+    const tabId = button.dataset.tabTarget;
+    const isKnownTab = ALWAYS_VISIBLE_WORKSPACE_TABS.includes(tabId);
+    button.hidden = !isKnownTab;
+    if (!isKnownTab) return;
+    button.textContent = WORKSPACE_TAB_LABELS[tabId] || tabId;
+    button.classList.toggle("is-active", project.activeTab === tabId);
+    if (!button.dataset.boundWorkspaceTab) {
+      button.addEventListener("click", () => activateTab(tabId));
+      button.addEventListener("contextmenu", (event) => {
+        event.preventDefault();
+        openContextMenu(event.clientX, event.clientY, { kind: "workspace", id: tabId });
+      });
+      button.dataset.boundWorkspaceTab = "true";
+    }
   });
 }
 
@@ -2157,6 +2197,10 @@ window.__ssiCommands = {
     if (!projectId || projectId === workspaceState.activeProjectId) return;
     switchProject(projectId);
   },
+  activateWorkspaceTab: (tabId) => {
+    if (!tabId) return;
+    activateTab(tabId);
+  },
   openSources: () => openProjectTab("sourcesTab"),
   openFields: () => openProjectTab("sourcesTab", projectFactsSummary),
   openLawRef: (refKey) => openLawModal(refKey),
@@ -2692,6 +2736,10 @@ projectAddBtn?.addEventListener("click", () => {
 
 runAutotestBtn?.addEventListener("click", () => {
   runAutotestSuite();
+});
+
+window.addEventListener("load", () => {
+  ensureWorkspaceReadyAfterLoad();
 });
 
 openRulesQuickBtn?.addEventListener("click", () => {

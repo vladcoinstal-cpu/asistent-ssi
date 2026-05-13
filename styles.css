@@ -80,8 +80,10 @@ body {
 }
 
 .app-bottomline {
-  margin-top: calc(-1 * var(--ui-tabs-lift));
-  margin-bottom: calc(-10px - (var(--ui-tabs-lift) / 3));
+  min-height: 30px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-bottom: 2px;
   align-items: flex-end;
 }
 
@@ -281,7 +283,8 @@ h3 {
   gap: 4px;
   flex: 1;
   justify-content: flex-end;
-  min-height: 22px;
+  min-height: 24px;
+  overflow: visible;
 }
 
 .utility-tab {
