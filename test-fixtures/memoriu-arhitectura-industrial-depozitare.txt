@@ -1,0 +1,66 @@
+MEMORIU DE ARHITECTURA
+
+Denumirea obiectivului: Hala industriala Fabricatie si Depozitare MetalPack
+Beneficiar: SC MetalPack Industrie SA
+Adresa obiectivului: oras Ghimbav, str. Industriilor nr. 12, judetul Brasov
+Telefon beneficiar: 0268 455 210
+E-mail beneficiar: proiecte@metalpack.ro
+
+Destinatia constructiei: productie industriala, depozitare materii prime, depozitare produse finite, administratie
+Functiuni principale: productie, depozitare, expeditie marfa
+Functiuni secundare: birouri, vestiare, laborator, spatii tehnice
+
+Categoria de importanta: categoria C (normala)
+Clasa de importanta: III
+Tip cladire: cladire de productie si depozitare
+Tip parcaj: fara parcaj interior; platforma exterioara pentru autocamioane si 24 autoturisme
+
+Regimul de inaltime: P+mezanin tehnic partial
+Inaltimea maxima a cladirii: 12,50 m
+Aria construita: 3.980 mp
+Aria desfasurata: 4.320 mp
+Volumul constructiei: 41.600 mc
+
+Numarul maxim de utilizatori: 148 persoane
+Parter: 132 persoane
+Mezanin tehnic: 16 persoane
+
+Procese tehnologice si substante:
+Se prelucreaza tabla subtire, profile metalice usoare, ambalaje din carton, folii PVC, paleti din lemn, vopsele si diluanti in cantitati limitate pentru retusuri.
+
+Risc de incendiu:
+- zona productie generala: risc mijlociu
+- zona depozitare carton si paleti: risc mare
+- camera compresoare: risc mijlociu
+- birouri si vestiare: risc mic
+Concluzie: compartimentul principal de depozitare necesita masuri suplimentare fata de restul halei.
+
+Gradul de rezistenta la foc: II
+Stabilitate la foc: structura metalica protejata, stalpi si grinzi cu protectie la foc, pereti exteriori din panouri termoizolante cu miez incombustibil.
+Reactia la foc: panouri de fatada clasa A2-s1,d0; izolatii si finisaje interioare alese conform destinatiilor.
+
+Propagare la vecinatati:
+Cea mai apropiata constructie industriala este la 28,00 m.
+Rezulta ca distantele de siguranta la vecinatati sunt asigurate.
+
+Evacuare:
+Hala are 6 iesiri de evacuare direct in exterior, dispuse pe laturi opuse.
+Birourile administrative au evacuare separata catre exterior.
+Usile de evacuare de pe traseele principale se deschid in sensul evacuarii.
+
+Instalatii:
+Instalatii de stingere: hidranti interiori, hidranti exteriori, sprinklere in depozitul principal de carton si paleti.
+Detectare, semnalizare si alarmare la incendiu: instalatie adresabila cu detectoare si butoane manuale.
+Desfumare: trape de evacuare fum si gaze fierbinti in hala si desfumare naturala in depozitul principal.
+Alimentarea receptoarelor cu rol de securitate la incendiu: sursa de baza si UPS pentru consumatorii critici.
+Iluminat de siguranta: pentru evacuare si interventie.
+Protectie impotriva trasnetului: se prevede instalatie IPT.
+
+Depozitare:
+Materiale depozitate: carton, folii PVC, paleti lemn, profile metalice, ambalaje, produse finite ambalate.
+
+Surse de aprindere:
+sudura de mentenanta, tablouri electrice, utilaje electrice, stivuitoare electrice, camera compresoare.
+
+Masuri organizatorice:
+Lucrul cu foc se va face pe baza de permis.
