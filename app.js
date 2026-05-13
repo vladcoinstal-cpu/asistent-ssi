@@ -2201,6 +2201,10 @@ window.__ssiCommands = {
     if (!tabId) return;
     activateTab(tabId);
   },
+  openAutotest: async () => {
+    activateTab("autotestTab");
+    await runAutotestSuite();
+  },
   openSources: () => openProjectTab("sourcesTab"),
   openFields: () => openProjectTab("sourcesTab", projectFactsSummary),
   openLawRef: (refKey) => openLawModal(refKey),
