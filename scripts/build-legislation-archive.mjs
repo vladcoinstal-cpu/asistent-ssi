@@ -150,7 +150,7 @@ async function main() {
     source: "official URLs listed per act",
     count: records.length,
     readOnly: true,
-    acts: records
+    acts: Object.fromEntries(records.map((record) => [record.id, record]))
   };
 
   fs.writeFileSync(path.join(archiveRoot, "index.json"), JSON.stringify(archiveIndex, null, 2), "utf8");
