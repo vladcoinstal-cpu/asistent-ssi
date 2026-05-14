@@ -24,6 +24,7 @@ Volumul constructiei: 41.600 mc
 Numarul maxim de utilizatori: 148 persoane
 Parter: 132 persoane
 Mezanin tehnic: 16 persoane
+Persoanele se pot autoevacua singure in conditii normale de exploatare.
 
 Materiale si procese:
 Se prelucreaza tabla subtire si profile metalice usoare.
