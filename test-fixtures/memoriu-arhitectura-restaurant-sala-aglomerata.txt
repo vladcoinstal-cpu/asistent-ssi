@@ -1,4 +1,4 @@
-EMORIU DE ARHITECTURA
+MEMORIU DE ARHITECTURA
 
 Denumirea obiectivului: Restaurant Evenimente Magnolia Ballroom
 Beneficiar: SC Magnolia Events SRL
@@ -25,31 +25,25 @@ Numarul maxim de utilizatori: 420 persoane
 Parter: 260 persoane
 Etaj: 160 persoane
 
-Sala aglomerata: da
-Aglomerari de persoane: sala de evenimente pentru 260 persoane la parter si salon etaj 160 persoane.
+Sala de evenimente: 260 persoane la parter.
+Salon etaj: 160 persoane.
 Persoanele se pot autoevacua singure in conditii normale de exploatare.
 
-Risc de incendiu:
-- salon evenimente: risc mic
-- bucatarie: risc mijlociu
-- depozit alimentare si ambalaje: risc mic
-- bar si zona tehnica: risc mic
-Concluzie: obiectivul include sala aglomerata si necesita tratarea evacuarii si a instalatiilor de alarmare conform destinatiei.
+Materiale si alcatuiri constructive:
+Structura principala este din beton armat si zidarie.
+Planseele sunt din beton armat.
+Compartimentarile pentru bucatarie si spatiile tehnice sunt din zidarie.
+Finisajele din saloane sunt placari decorative, pardoseli ceramice si tavane suspendate agrementate.
 
-Gradul de rezistenta la foc: II
-Stabilitate la foc: structura din beton armat si zidarie, compartimentari rezistente la foc la bucatarie si spatiile tehnice.
-Reactia la foc: finisajele de pe caile de evacuare vor respecta clasele de reactie la foc aplicabile salilor aglomerate.
-
-Propagare la vecinatati:
+Vecinatati:
 Distanta minima la constructia vecina este de 21,50 m.
-Rezulta ca distantele de siguranta la vecinatati sunt asigurate.
 
-Evacuare:
-Evacuarea se realizeaza prin 4 iesiri distincte direct in exterior de la parter si prin 2 case de scara inchise pentru nivelul etaj.
-Usile de evacuare din salile aglomerate se deschid in sensul evacuarii.
-Numarul de fluxuri de evacuare se asigura conform capacitatii maxime simultane de persoane.
+Cai de circulatie si iesiri:
+Parterul are 4 iesiri distincte direct in exterior.
+Etajul are 2 case de scara inchise.
+Usile principale ale salilor se deschid spre exterior.
 
-Instalatii:
+Instalatii prevazute in proiect:
 Instalatii de stingere: hidranti interiori si hidranti exteriori.
 Detectare, semnalizare si alarmare la incendiu: instalatie adresabila.
 Desfumare: evacuare fum/gaze fierbinti in salonul principal, unde este cazul.
@@ -57,8 +51,9 @@ Alimentarea receptoarelor cu rol de securitate la incendiu: sursa de baza si sur
 Iluminat de siguranta: pentru evacuare, impotriva panicii si pentru interventie.
 Protectie impotriva trasnetului: se prevede instalatie IPT.
 
-Bucatarie:
+Bucatarie si depozitare:
 Bucataria functioneaza cu echipamente electrice si cu gaze naturale pentru linia calda.
+Depozitul alimentar contine ambalaje, bauturi, textile pentru evenimente si materiale de curatenie uzuale.
 
-Surse de aprindere:
-aragaz, cuptoare, echipamente electrice, tablouri electrice, surse decorative, lumanari doar controlat la evenimente.
+Surse specifice de aprindere:
+aragaz, cuptoare, echipamente electrice, tablouri electrice, surse decorative, lumanari folosite controlat la evenimente.
