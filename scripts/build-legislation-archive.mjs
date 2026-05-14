@@ -15,7 +15,7 @@ const URL_OVERRIDES = {
 };
 
 function readJson(file) {
-  return JSON.parse(fs.readFileSync(path.join(root, file), "utf8"));
+  return JSON.parse(fs.readFileSync(path.join(root, file), "utf8").replace(/^\uFEFF/, ""));
 }
 
 function ensureDir(dir) {
