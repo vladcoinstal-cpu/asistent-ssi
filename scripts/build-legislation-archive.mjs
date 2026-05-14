@@ -6,6 +6,7 @@ const archiveRoot = path.join(root, "legislation-original");
 const htmlDir = path.join(archiveRoot, "source-html");
 const textDir = path.join(archiveRoot, "source-text");
 const programDir = path.join(root, "legislation-program");
+const discoveryFile = path.join(root, "legislation-discovery", "pending-acts.json");
 
 const URL_OVERRIDES = {
   p118_1_2025: "https://legislatie.just.ro/Public/FormaPrintabila/00000G01QVZ9POFCH793CM3CGOOUUBU6",
@@ -51,6 +52,40 @@ function stripHtml(html) {
     .trim();
 }
 
+function slugifyActId(value) {
+  return String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 80);
+}
+
+function collectPendingActs() {
+  if (!fs.existsSync(discoveryFile)) return [];
+  const pending = JSON.parse(fs.readFileSync(discoveryFile, "utf8").replace(/^\uFEFF/, ""));
+  const acts = Array.isArray(pending?.acts) ? pending.acts : [];
+  return acts
+    .map((act) => ({
+      id: slugifyActId(act.id || act.title),
+      title: String(act.title || act.id || "").trim(),
+      url: String(act.url || act.officialUrl || "").trim(),
+      type: act.type || "act detectat",
+      status: act.status || "candidate_unverified",
+      discoveredFrom: act.sourceName || pending.source || "",
+      sourceSnippet: act.snippet || ""
+    }))
+    .filter((act) => act.id && act.title && act.url);
+}
+
+function detectLegalStatus(text) {
+  const normalized = String(text || "").toLowerCase();
+  if (/abrogat|iesit din vigoare|ie\u0219it din vigoare/.test(normalized)) return "posibil_abrogat";
+  if (/in vigoare|\u00een vigoare|forma in vigoare|forma \u00een vigoare/.test(normalized)) return "in_vigoare";
+  return "de_verificat";
+}
+
 function collectActs() {
   const articles = readJson("legislation-articles.json");
   const fullActs = readJson("legislation-full-acts.json");
@@ -75,6 +110,10 @@ function collectActs() {
     });
   });
 
+  collectPendingActs().forEach((act) => {
+    if (!map.has(act.id)) map.set(act.id, act);
+  });
+
   return Array.from(map.values())
     .map((act) => ({ ...act, url: URL_OVERRIDES[act.id] || act.url }))
     .filter((act) => act.url)
@@ -96,7 +135,8 @@ function buildProgramIndex(records) {
         textLength: record.textLength,
         httpStatus: record.httpStatus,
         readOnly: true,
-        isAuthenticFullAct: record.httpStatus >= 200 && record.httpStatus < 300 && record.textLength > 3000,
+        isAuthenticFullAct: record.httpStatus >= 200 && record.httpStatus < 300 && record.textLength > 5000,
+        legalStatus: record.legalStatus || "de_verificat",
         downloadedAt: record.downloadedAt
       }
     ]))
@@ -139,6 +179,7 @@ async function main() {
       htmlLength: html.length,
       textLength: text.length,
       isAuthenticFullAct: response.status >= 200 && response.status < 300 && text.length > 3000,
+      legalStatus: detectLegalStatus(text || html),
       readOnly: true
     });
 
