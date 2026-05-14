@@ -10,6 +10,7 @@ on:
       - .github/workflows/build-legislation-archive.yml
       - legislation-articles.json
       - legislation-full-acts.json
+      - legislation-discovery/pending-acts.json
 
 permissions:
   contents: write
