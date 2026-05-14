@@ -132,10 +132,13 @@ async function main() {
       ...act,
       htmlPath,
       textPath,
+      htmlFile: htmlPath,
+      textFile: textPath,
       httpStatus: response.status,
       downloadedAt: new Date().toISOString(),
       htmlLength: html.length,
       textLength: text.length,
+      isAuthenticFullAct: response.status >= 200 && response.status < 300 && text.length > 3000,
       readOnly: true
     });
 
