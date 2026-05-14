@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-14T14:37:52.132Z",
+  "generatedAt": "2026-05-14T15:17:35.212Z",
   "source": "official URLs listed per act",
   "count": 31,
   "readOnly": true,
@@ -15,10 +15,11 @@
       "htmlFile": "source-html/cr_0_2012.html",
       "textFile": "source-text/cr_0_2012.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:02.094Z",
+      "downloadedAt": "2026-05-14T15:16:53.720Z",
       "htmlLength": 735826,
       "textLength": 167945,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "hg_1181_2022": {
@@ -32,10 +33,11 @@
       "htmlFile": "source-html/hg_1181_2022.html",
       "textFile": "source-text/hg_1181_2022.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:02.588Z",
+      "downloadedAt": "2026-05-14T15:16:54.113Z",
       "htmlLength": 51487,
       "textLength": 3909,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "hg_571_2016": {
@@ -49,10 +51,11 @@
       "htmlFile": "source-html/hg_571_2016.html",
       "textFile": "source-text/hg_571_2016.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:03.594Z",
+      "downloadedAt": "2026-05-14T15:16:54.991Z",
       "htmlLength": 116054,
       "textLength": 20409,
       "isAuthenticFullAct": true,
+      "legalStatus": "posibil_abrogat",
       "readOnly": true
     },
     "hg_766_1997": {
@@ -66,10 +69,11 @@
       "htmlFile": "source-html/hg_766_1997.html",
       "textFile": "source-text/hg_766_1997.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:04.847Z",
+      "downloadedAt": "2026-05-14T15:16:56.013Z",
       "htmlLength": 70846,
       "textLength": 6619,
       "isAuthenticFullAct": true,
+      "legalStatus": "de_verificat",
       "readOnly": true
     },
     "hg_925_1995": {
@@ -83,10 +87,11 @@
       "htmlFile": "source-html/hg_925_1995.html",
       "textFile": "source-text/hg_925_1995.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:05.716Z",
+      "downloadedAt": "2026-05-14T15:16:57.060Z",
       "htmlLength": 149874,
       "textLength": 30599,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "hg_971_2006": {
@@ -100,10 +105,11 @@
       "htmlFile": "source-html/hg_971_2006.html",
       "textFile": "source-text/hg_971_2006.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:06.387Z",
+      "downloadedAt": "2026-05-14T15:16:57.594Z",
       "htmlLength": 91113,
       "textLength": 9699,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "i13_2015": {
@@ -117,10 +123,11 @@
       "htmlFile": "source-html/i13_2015.html",
       "textFile": "source-text/i13_2015.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:07.470Z",
+      "downloadedAt": "2026-05-14T15:16:58.504Z",
       "htmlLength": 809654,
       "textLength": 281017,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "i5_2010": {
@@ -134,10 +141,11 @@
       "htmlFile": "source-html/i5_2010.html",
       "textFile": "source-text/i5_2010.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:07.949Z",
+      "downloadedAt": "2026-05-14T15:16:58.956Z",
       "htmlLength": 56684,
       "textLength": 6072,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "i7_2011": {
@@ -151,10 +159,11 @@
       "htmlFile": "source-html/i7_2011.html",
       "textFile": "source-text/i7_2011.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:10.890Z",
+      "downloadedAt": "2026-05-14T15:17:01.749Z",
       "htmlLength": 5888490,
       "textLength": 1099201,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "legea_10_1995": {
@@ -168,10 +177,11 @@
       "htmlFile": "source-html/legea_10_1995.html",
       "textFile": "source-text/legea_10_1995.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:11.887Z",
+      "downloadedAt": "2026-05-14T15:17:03.046Z",
       "htmlLength": 179147,
       "textLength": 34503,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "legea_307_2006": {
@@ -185,10 +195,11 @@
       "htmlFile": "source-html/legea_307_2006.html",
       "textFile": "source-text/legea_307_2006.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:14.170Z",
+      "downloadedAt": "2026-05-14T15:17:05.100Z",
       "htmlLength": 352993,
       "textLength": 86191,
       "isAuthenticFullAct": true,
+      "legalStatus": "posibil_abrogat",
       "readOnly": true
     },
     "legea_50_1991": {
@@ -202,10 +213,11 @@
       "htmlFile": "source-html/legea_50_1991.html",
       "textFile": "source-text/legea_50_1991.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:16.627Z",
+      "downloadedAt": "2026-05-14T15:17:08.013Z",
       "htmlLength": 523000,
       "textLength": 186633,
       "isAuthenticFullAct": true,
+      "legalStatus": "posibil_abrogat",
       "readOnly": true
     },
     "legea_59_2016": {
@@ -219,10 +231,11 @@
       "htmlFile": "source-html/legea_59_2016.html",
       "textFile": "source-text/legea_59_2016.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:17.946Z",
+      "downloadedAt": "2026-05-14T15:17:10.042Z",
       "htmlLength": 519022,
       "textLength": 115381,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "np_127_2009": {
@@ -236,10 +249,11 @@
       "htmlFile": "source-html/np_127_2009.html",
       "textFile": "source-text/np_127_2009.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:19.749Z",
+      "downloadedAt": "2026-05-14T15:17:10.668Z",
       "htmlLength": 462495,
       "textLength": 96211,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "ntpee_2018": {
@@ -253,10 +267,11 @@
       "htmlFile": "source-html/ntpee_2018.html",
       "textFile": "source-text/ntpee_2018.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:22.750Z",
+      "downloadedAt": "2026-05-14T15:17:13.162Z",
       "htmlLength": 1964818,
       "textLength": 357856,
       "isAuthenticFullAct": true,
+      "legalStatus": "posibil_abrogat",
       "readOnly": true
     },
     "omai_112_2014": {
@@ -270,10 +285,11 @@
       "htmlFile": "source-html/omai_112_2014.html",
       "textFile": "source-text/omai_112_2014.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:23.352Z",
+      "downloadedAt": "2026-05-14T15:17:13.653Z",
       "htmlLength": 188591,
       "textLength": 54887,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "omai_130_2007": {
@@ -287,10 +303,11 @@
       "htmlFile": "source-html/omai_130_2007.html",
       "textFile": "source-text/omai_130_2007.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:24.679Z",
+      "downloadedAt": "2026-05-14T15:17:13.994Z",
       "htmlLength": 54541,
       "textLength": 3695,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "omai_163_2007": {
@@ -304,10 +321,11 @@
       "htmlFile": "source-html/omai_163_2007.html",
       "textFile": "source-text/omai_163_2007.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:25.335Z",
+      "downloadedAt": "2026-05-14T15:17:14.475Z",
       "htmlLength": 63606,
       "textLength": 12807,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "omai_180_2022": {
@@ -321,10 +339,11 @@
       "htmlFile": "source-html/omai_180_2022.html",
       "textFile": "source-text/omai_180_2022.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:29.951Z",
+      "downloadedAt": "2026-05-14T15:17:19.696Z",
       "htmlLength": 438217,
       "textLength": 85844,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "omai_51_2024": {
@@ -338,10 +357,11 @@
       "htmlFile": "source-html/omai_51_2024.html",
       "textFile": "source-text/omai_51_2024.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:30.609Z",
+      "downloadedAt": "2026-05-14T15:17:20.250Z",
       "htmlLength": 380267,
       "textLength": 68416,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "omai_87_2010": {
@@ -355,10 +375,11 @@
       "htmlFile": "source-html/omai_87_2010.html",
       "textFile": "source-text/omai_87_2010.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:31.288Z",
+      "downloadedAt": "2026-05-14T15:17:20.995Z",
       "htmlLength": 404413,
       "textLength": 78081,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "ordin_1822_394_2004": {
@@ -372,10 +393,11 @@
       "htmlFile": "source-html/ordin_1822_394_2004.html",
       "textFile": "source-text/ordin_1822_394_2004.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:31.829Z",
+      "downloadedAt": "2026-05-14T15:17:21.481Z",
       "htmlLength": 57095,
       "textLength": 4918,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "ordin_28_2009": {
@@ -389,10 +411,11 @@
       "htmlFile": "source-html/ordin_28_2009.html",
       "textFile": "source-text/ordin_28_2009.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:33.167Z",
+      "downloadedAt": "2026-05-14T15:17:22.719Z",
       "htmlLength": 672433,
       "textLength": 161622,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "ordin_6025_2018": {
@@ -406,10 +429,11 @@
       "htmlFile": "source-html/ordin_6025_2018.html",
       "textFile": "source-text/ordin_6025_2018.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:33.703Z",
+      "downloadedAt": "2026-05-14T15:17:23.312Z",
       "htmlLength": 118351,
       "textLength": 16383,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "ordin_6026_2018": {
@@ -423,10 +447,11 @@
       "htmlFile": "source-html/ordin_6026_2018.html",
       "textFile": "source-text/ordin_6026_2018.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:34.452Z",
+      "downloadedAt": "2026-05-14T15:17:23.942Z",
       "htmlLength": 301569,
       "textLength": 47319,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "ordin_959_2023": {
@@ -440,10 +465,11 @@
       "htmlFile": "source-html/ordin_959_2023.html",
       "textFile": "source-text/ordin_959_2023.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:35.338Z",
+      "downloadedAt": "2026-05-14T15:17:25.385Z",
       "htmlLength": 429033,
       "textLength": 87158,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "p118_1_2025": {
@@ -457,10 +483,11 @@
       "htmlFile": "source-html/p118_1_2025.html",
       "textFile": "source-text/p118_1_2025.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:38.447Z",
+      "downloadedAt": "2026-05-14T15:17:28.209Z",
       "htmlLength": 7370937,
       "textLength": 1993835,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "p118_2_2013": {
@@ -474,10 +501,11 @@
       "htmlFile": "source-html/p118_2_2013.html",
       "textFile": "source-text/p118_2_2013.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:40.584Z",
+      "downloadedAt": "2026-05-14T15:17:30.551Z",
       "htmlLength": 4829106,
       "textLength": 785341,
       "isAuthenticFullAct": true,
+      "legalStatus": "posibil_abrogat",
       "readOnly": true
     },
     "p118_3_2015": {
@@ -491,10 +519,11 @@
       "htmlFile": "source-html/p118_3_2015.html",
       "textFile": "source-text/p118_3_2015.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:43.350Z",
+      "downloadedAt": "2026-05-14T15:17:32.127Z",
       "htmlLength": 837497,
       "textLength": 208162,
       "isAuthenticFullAct": true,
+      "legalStatus": "posibil_abrogat",
       "readOnly": true
     },
     "p118_99": {
@@ -508,10 +537,11 @@
       "htmlFile": "source-html/p118_99.html",
       "textFile": "source-text/p118_99.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:45.427Z",
+      "downloadedAt": "2026-05-14T15:17:34.136Z",
       "htmlLength": 1762214,
       "textLength": 666558,
       "isAuthenticFullAct": true,
+      "legalStatus": "in_vigoare",
       "readOnly": true
     },
     "reg_1272_2008_clp": {
@@ -525,10 +555,11 @@
       "htmlFile": "source-html/reg_1272_2008_clp.html",
       "textFile": "source-text/reg_1272_2008_clp.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:37:52.031Z",
+      "downloadedAt": "2026-05-14T15:17:35.103Z",
       "htmlLength": 2694193,
       "textLength": 2543491,
       "isAuthenticFullAct": true,
+      "legalStatus": "de_verificat",
       "readOnly": true
     }
   }

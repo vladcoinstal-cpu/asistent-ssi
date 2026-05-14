@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-14T14:37:52.132Z",
+  "generatedAt": "2026-05-14T15:17:35.213Z",
   "source": "legislation-original read-only archive",
   "acts": {
     "cr_0_2012": {
@@ -12,7 +12,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:02.094Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:16:53.720Z"
     },
     "hg_1181_2022": {
       "id": "hg_1181_2022",
@@ -23,8 +24,9 @@
       "textLength": 3909,
       "httpStatus": 200,
       "readOnly": true,
-      "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:02.588Z"
+      "isAuthenticFullAct": false,
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:16:54.113Z"
     },
     "hg_571_2016": {
       "id": "hg_571_2016",
@@ -36,7 +38,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:03.594Z"
+      "legalStatus": "posibil_abrogat",
+      "downloadedAt": "2026-05-14T15:16:54.991Z"
     },
     "hg_766_1997": {
       "id": "hg_766_1997",
@@ -48,7 +51,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:04.847Z"
+      "legalStatus": "de_verificat",
+      "downloadedAt": "2026-05-14T15:16:56.013Z"
     },
     "hg_925_1995": {
       "id": "hg_925_1995",
@@ -60,7 +64,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:05.716Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:16:57.060Z"
     },
     "hg_971_2006": {
       "id": "hg_971_2006",
@@ -72,7 +77,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:06.387Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:16:57.594Z"
     },
     "i13_2015": {
       "id": "i13_2015",
@@ -84,7 +90,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:07.470Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:16:58.504Z"
     },
     "i5_2010": {
       "id": "i5_2010",
@@ -96,7 +103,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:07.949Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:16:58.956Z"
     },
     "i7_2011": {
       "id": "i7_2011",
@@ -108,7 +116,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:10.890Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:01.749Z"
     },
     "legea_10_1995": {
       "id": "legea_10_1995",
@@ -120,7 +129,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:11.887Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:03.046Z"
     },
     "legea_307_2006": {
       "id": "legea_307_2006",
@@ -132,7 +142,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:14.170Z"
+      "legalStatus": "posibil_abrogat",
+      "downloadedAt": "2026-05-14T15:17:05.100Z"
     },
     "legea_50_1991": {
       "id": "legea_50_1991",
@@ -144,7 +155,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:16.627Z"
+      "legalStatus": "posibil_abrogat",
+      "downloadedAt": "2026-05-14T15:17:08.013Z"
     },
     "legea_59_2016": {
       "id": "legea_59_2016",
@@ -156,7 +168,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:17.946Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:10.042Z"
     },
     "np_127_2009": {
       "id": "np_127_2009",
@@ -168,7 +181,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:19.749Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:10.668Z"
     },
     "ntpee_2018": {
       "id": "ntpee_2018",
@@ -180,7 +194,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:22.750Z"
+      "legalStatus": "posibil_abrogat",
+      "downloadedAt": "2026-05-14T15:17:13.162Z"
     },
     "omai_112_2014": {
       "id": "omai_112_2014",
@@ -192,7 +207,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:23.352Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:13.653Z"
     },
     "omai_130_2007": {
       "id": "omai_130_2007",
@@ -203,8 +219,9 @@
       "textLength": 3695,
       "httpStatus": 200,
       "readOnly": true,
-      "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:24.679Z"
+      "isAuthenticFullAct": false,
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:13.994Z"
     },
     "omai_163_2007": {
       "id": "omai_163_2007",
@@ -216,7 +233,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:25.335Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:14.475Z"
     },
     "omai_180_2022": {
       "id": "omai_180_2022",
@@ -228,7 +246,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:29.951Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:19.696Z"
     },
     "omai_51_2024": {
       "id": "omai_51_2024",
@@ -240,7 +259,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:30.609Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:20.250Z"
     },
     "omai_87_2010": {
       "id": "omai_87_2010",
@@ -252,7 +272,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:31.288Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:20.995Z"
     },
     "ordin_1822_394_2004": {
       "id": "ordin_1822_394_2004",
@@ -263,8 +284,9 @@
       "textLength": 4918,
       "httpStatus": 200,
       "readOnly": true,
-      "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:31.829Z"
+      "isAuthenticFullAct": false,
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:21.481Z"
     },
     "ordin_28_2009": {
       "id": "ordin_28_2009",
@@ -276,7 +298,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:33.167Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:22.719Z"
     },
     "ordin_6025_2018": {
       "id": "ordin_6025_2018",
@@ -288,7 +311,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:33.703Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:23.312Z"
     },
     "ordin_6026_2018": {
       "id": "ordin_6026_2018",
@@ -300,7 +324,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:34.452Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:23.942Z"
     },
     "ordin_959_2023": {
       "id": "ordin_959_2023",
@@ -312,7 +337,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:35.338Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:25.385Z"
     },
     "p118_1_2025": {
       "id": "p118_1_2025",
@@ -324,7 +350,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:38.447Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:28.209Z"
     },
     "p118_2_2013": {
       "id": "p118_2_2013",
@@ -336,7 +363,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:40.584Z"
+      "legalStatus": "posibil_abrogat",
+      "downloadedAt": "2026-05-14T15:17:30.551Z"
     },
     "p118_3_2015": {
       "id": "p118_3_2015",
@@ -348,7 +376,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:43.350Z"
+      "legalStatus": "posibil_abrogat",
+      "downloadedAt": "2026-05-14T15:17:32.127Z"
     },
     "p118_99": {
       "id": "p118_99",
@@ -360,7 +389,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:45.427Z"
+      "legalStatus": "in_vigoare",
+      "downloadedAt": "2026-05-14T15:17:34.136Z"
     },
     "reg_1272_2008_clp": {
       "id": "reg_1272_2008_clp",
@@ -372,7 +402,8 @@
       "httpStatus": 200,
       "readOnly": true,
       "isAuthenticFullAct": true,
-      "downloadedAt": "2026-05-14T14:37:52.031Z"
+      "legalStatus": "de_verificat",
+      "downloadedAt": "2026-05-14T15:17:35.103Z"
     }
   }
 }
