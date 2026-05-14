@@ -26,45 +26,36 @@ Subsol: 180 persoane
 Parter: 640 persoane
 Etaj: 320 persoane
 
-Sala aglomerata: food-court cu 220 persoane
-Aglomerari de persoane: da
+Sala pentru alimentatie publica: food-court cu 220 persoane
+Aglomerari de persoane: flux ridicat de clienti in zona galeriei comerciale si food-court.
 Persoanele se pot autoevacua singure in conditii normale de exploatare.
 
-Risc de incendiu:
-- spatii comerciale: risc mic
-- supermarket: risc mijlociu
-- food-court: risc mic
-- parcaj subteran: risc mare
-Concluzie: cladirea cu functiuni mixte necesita tratare pe compartimente de incendiu, cu parcaj subteran analizat distinct.
+Materiale si alcatuiri constructive:
+Structura principala este din beton armat, cu stalpi, grinzi si plansee din beton.
+Inchiderile exterioare sunt din panouri termoizolante cu miez din vata minerala si fatade vitrate.
+Peretii de compartimentare ai spatiilor tehnice sunt din zidarie si placari rezistente la uzura.
+Acoperisul este tip terasa necirculabila, cu termoizolatie in sistem agrementat.
 
-Gradul de rezistenta la foc: II
-Stabilitate la foc: elementele principale sunt din beton armat si otel protejat, cu rezistente la foc conform gradului II.
-Reactia la foc: finisajele de pe caile de evacuare se prevad minimum clasa B-s1,d0, iar in parcaj materiale A1/A2-s1,d0.
-
-Propagare la vecinatati:
+Vecinatati:
 Distanta fata de constructia invecinata spre nord este de 18,00 m.
 Distanta fata de constructia invecinata spre sud este de 24,00 m.
-Rezulta ca distantele de siguranta la vecinatati sunt asigurate.
 
-Evacuare:
-Evacuarea din subsol se face prin doua case de scara protejate si iesiri directe in exterior.
-Evacuarea de la parter se face direct in exterior si prin iesiri distribuite pe fatade.
-Evacuarea de la etaj se face prin doua case de scara inchise si prin cai marcate conform normativului.
-Usile de evacuare de pe traseele principale se deschid in sensul evacuarii.
+Cai de circulatie si iesiri:
+Subsolul are doua case de scara protejate si iesiri catre exterior prin circulatii marcate.
+Parterul are iesiri distribuite pe fatade si accese directe pentru public.
+Etajul are doua case de scara inchise si trasee marcate catre acestea.
 
-Instalatii:
+Instalatii prevazute in proiect:
 Instalatii de stingere: hidranti interiori, hidranti exteriori, sprinklere in parcajul subteran si in supermarket.
-Detectare, semnalizare si alarmare la incendiu: se prevede instalatie adresabila.
-Desfumare: se prevede desfumare mecanica pentru parcajul subteran si evacuare fum/gaze fierbinti pentru zona mall.
+Detectare, semnalizare si alarmare la incendiu: instalatie adresabila.
+Desfumare: sistem mecanic pentru parcajul subteran si evacuare fum/gaze fierbinti pentru zona mall.
 Alimentarea receptoarelor cu rol de securitate la incendiu: sursa de baza si sursa de rezerva prin grup electrogen.
 Iluminat de siguranta: pentru evacuare, impotriva panicii si pentru interventie.
 Protectie impotriva trasnetului: se prevede instalatie IPT.
 
-Depozitare:
-In depozitele comerciale se stocheaza carton, ambalaje, mase plastice, textile, produse alimentare ambalate.
+Depozitare si materiale combustibile:
+In depozitele comerciale se stocheaza carton, ambalaje, mase plastice, textile si produse alimentare ambalate.
+In zona de aprovizionare sunt paleti din lemn si folie pentru ambalare.
 
-Surse de aprindere:
+Surse specifice de aprindere:
 echipamente electrice, tablouri electrice, bucatarie food-court, vehicule in parcaj, operatii de mentenanta.
-
-Masuri organizatorice:
-Se vor intocmi instructiuni de aparare impotriva incendiilor, planuri de evacuare si organizarea apararii impotriva incendiilor.
