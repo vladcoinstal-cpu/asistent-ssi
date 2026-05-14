@@ -42,7 +42,7 @@
               <div class="menu-panel">
                 <div class="menu-note">Versiune: 0.2</div>
                 <label class="menu-control">
-                  <span>Compactare bandÄƒ sus</span>
+                  <span>Compactare banda sus</span>
                   <input id="uiDensityRange" type="range" min="0" max="16" step="1" value="8">
                 </label>
                 <label class="menu-control">
@@ -72,19 +72,19 @@
         </div>
       </div>
 
-        <div class="app-bottomline">
-          <div class="browser-tabs workspace-tabs" aria-label="Ferestre proiect">
-            <div id="workspaceTabs" class="workspace-tabs-dynamic">
-              <button type="button" class="browser-tab is-active" data-tab-target="sourcesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('sourcesTab')">Proiect</button>
-              <button type="button" class="browser-tab" data-tab-target="normalTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('normalTab')">SSI normal</button>
-              <button type="button" class="browser-tab" data-tab-target="preliminaryTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('preliminaryTab')">SSI preliminar</button>
-              <button type="button" class="browser-tab" data-tab-target="legislationTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('legislationTab')">Legislatie</button>
-              <button type="button" class="browser-tab" data-tab-target="lawTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('lawTab')">Lege / articol</button>
-              <button type="button" class="browser-tab" data-tab-target="issuesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('issuesTab')">Probleme</button>
-              <button type="button" class="browser-tab" data-tab-target="autotestTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('autotestTab')">Auto-test</button>
-            </div>
+      <div class="app-bottomline">
+        <div class="browser-tabs workspace-tabs" aria-label="Ferestre proiect">
+          <div id="workspaceTabs" class="workspace-tabs-dynamic">
+            <button type="button" class="browser-tab is-active" data-tab-target="sourcesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('sourcesTab')">Proiect</button>
+            <button type="button" class="browser-tab" data-tab-target="normalTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('normalTab')">SSI normal</button>
+            <button type="button" class="browser-tab" data-tab-target="preliminaryTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('preliminaryTab')">SSI preliminar</button>
+            <button type="button" class="browser-tab" data-tab-target="legislationTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('legislationTab')">Legislatie</button>
+            <button type="button" class="browser-tab" data-tab-target="lawTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('lawTab')">Lege / articol</button>
+            <button type="button" class="browser-tab" data-tab-target="issuesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('issuesTab')">Probleme</button>
+            <button type="button" class="browser-tab" data-tab-target="autotestTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('autotestTab')">Auto-test</button>
           </div>
         </div>
+      </div>
     </header>
 
     <main class="workspace-shell">
@@ -164,110 +164,26 @@
                 <button id="downloadPreliminaryDocBtn" class="primary">Export DOCX SSI preliminar</button>
               </div>
             </div>
-
             <textarea id="preliminaryReportOutput" class="report-output report-output-hidden" placeholder="Aici va aparea draftul scenariului preliminar."></textarea>
-            <div class="report-split report-split-preview-only">
-              <div class="report-column report-column-full">
-                <div class="preview-heading">
-                  <h3>Previzualizare</h3>
-                </div>
-                <div id="preliminaryReportPreview" class="report-preview"></div>
-              </div>
-            </div>
+            <div class="report-split report-split-preview-only"><div class="report-column report-column-full"><div class="preview-heading"><h3>Previzualizare</h3></div><div id="preliminaryReportPreview" class="report-preview"></div></div></div>
           </section>
         </section>
 
         <section id="normalTab" class="tab-panel">
           <section class="panel panel-report panel-span">
-            <div class="report-topbar">
-              <div class="section-heading">
-                <h2>SSI normal</h2>
-                <p>Structura pe baza Anexei nr. 4 din OMAI 180/2022.</p>
-              </div>
-              <div class="button-row report-actions-row">
-                <button id="downloadDocBtn" class="primary">Export DOCX SSI normal</button>
-                <button id="downloadJsonBtn" class="ghost">Date proiect</button>
-              </div>
-            </div>
-
+            <div class="report-topbar"><div class="section-heading"><h2>SSI normal</h2><p>Structura pe baza Anexei nr. 4 din OMAI 180/2022.</p></div><div class="button-row report-actions-row"><button id="downloadDocBtn" class="primary">Export DOCX SSI normal</button><button id="downloadJsonBtn" class="ghost">Date proiect</button></div></div>
             <textarea id="normalReportOutput" class="report-output report-output-hidden" placeholder="Aici va aparea draftul scenariului de securitate la incendiu."></textarea>
-            <div class="report-split report-split-preview-only">
-              <div class="report-column report-column-full">
-                <div class="preview-heading">
-                  <h3>Previzualizare</h3>
-                </div>
-                <div id="normalReportPreview" class="report-preview"></div>
-              </div>
-            </div>
+            <div class="report-split report-split-preview-only"><div class="report-column report-column-full"><div class="preview-heading"><h3>Previzualizare</h3></div><div id="normalReportPreview" class="report-preview"></div></div></div>
           </section>
         </section>
 
-        <section id="legislationTab" class="tab-panel">
-          <div class="layout layout-wide">
-            <section class="panel panel-rules panel-span">
-              <div class="section-heading">
-                <h2>Legislatie si verificari</h2>
-                <p>Acte aplicabile, reguli active si justificari detectate pentru proiect.</p>
-              </div>
+        <section id="legislationTab" class="tab-panel"><div class="layout layout-wide"><section class="panel panel-rules panel-span"><div class="section-heading"><h2>Legislatie si verificari</h2><p>Acte aplicabile, reguli active si justificari detectate pentru proiect.</p></div><div id="rulesOutput" class="rules-list"></div></section></div></section>
 
-              <div id="rulesOutput" class="rules-list"></div>
-            </section>
-          </div>
-        </section>
+        <section id="lawTab" class="tab-panel"><section class="panel panel-rules panel-span"><div class="report-topbar"><div class="section-heading"><h2>Lege / articol</h2><p>Aici apare articolul selectat din verificari sau din previzualizarea SSI.</p></div><div id="lawTabHeaderMeta" class="law-tab-header-meta"></div></div><div id="lawTabContent" class="rules-list"><article class="rule-card"><strong>Niciun articol selectat</strong><div class="source-meta">Apasa pe o referinta legislativa pentru a o deschide aici.</div></article></div></section></section>
 
-        <section id="lawTab" class="tab-panel">
-          <section class="panel panel-rules panel-span">
-            <div class="report-topbar">
-              <div class="section-heading">
-                <h2>Lege / articol</h2>
-                <p>Aici apare articolul selectat din verificari sau din previzualizarea SSI.</p>
-              </div>
-              <div id="lawTabHeaderMeta" class="law-tab-header-meta"></div>
-            </div>
+        <section id="issuesTab" class="tab-panel"><section class="panel panel-rules panel-span"><div class="section-heading"><h2>Probleme, lipsuri si date de verificat</h2><p>Aici apar lipsurile detectate in surse si verificarile care trebuie confirmate.</p></div><div id="issuesOutput" class="rules-list"><article class="rule-card"><strong>Nu au fost analizate inca problemele proiectului.</strong></article></div></section></section>
 
-            <div id="lawTabContent" class="rules-list">
-              <article class="rule-card">
-                <strong>Niciun articol selectat</strong>
-                <div class="source-meta">Apasa pe o referinta legislativa pentru a o deschide aici.</div>
-              </article>
-            </div>
-          </section>
-        </section>
-
-        <section id="issuesTab" class="tab-panel">
-          <section class="panel panel-rules panel-span">
-            <div class="section-heading">
-              <h2>Probleme, lipsuri si date de verificat</h2>
-              <p>Aici apar lipsurile detectate in surse si verificarile care trebuie confirmate.</p>
-            </div>
-
-            <div id="issuesOutput" class="rules-list">
-              <article class="rule-card">
-                <strong>Nu au fost analizate inca problemele proiectului.</strong>
-              </article>
-            </div>
-          </section>
-        </section>
-
-        <section id="autotestTab" class="tab-panel">
-          <section class="panel panel-rules panel-span">
-            <div class="report-topbar">
-              <div class="section-heading">
-                <h2>Auto-test memorii</h2>
-                <p>Ruleaza verificarea interna pe cele 3 memorii de test si afiseaza rezultatele intr-un singur loc.</p>
-              </div>
-              <div class="button-row report-actions-row">
-                <button id="runAutotestBtn" class="primary" type="button">Ruleaza auto-test</button>
-              </div>
-            </div>
-
-            <div id="autotestOutput" class="rules-list">
-              <article class="rule-card">
-                <strong>Auto-testul nu a fost rulat inca.</strong>
-              </article>
-            </div>
-          </section>
-        </section>
+        <section id="autotestTab" class="tab-panel"><section class="panel panel-rules panel-span"><div class="report-topbar"><div class="section-heading"><h2>Auto-test memorii</h2><p>Ruleaza verificarea interna pe cele 3 memorii de test si afiseaza rezultatele intr-un singur loc.</p></div><div class="button-row report-actions-row"><button id="runAutotestBtn" class="primary" type="button">Ruleaza auto-test</button></div></div><div id="autotestOutput" class="rules-list"><article class="rule-card"><strong>Auto-testul nu a fost rulat inca.</strong></article></div></section></section>
       </section>
     </main>
   </div>
@@ -275,6 +191,7 @@
   <script src="embedded-data.js?v=2026-05-14-4"></script>
   <script src="app.js?v=2026-05-14-4"></script>
   <script src="hotfix.js?v=2026-05-14-1"></script>
+  <script src="hotfix3.js?v=2026-05-14-1"></script>
 
   <div id="lawModal" class="law-modal" hidden>
     <div class="law-modal-backdrop" data-close-law-modal></div>
@@ -291,6 +208,5 @@
   <div id="tabContextMenu" class="tab-context-menu" hidden>
     <button id="contextCloseTabBtn" type="button" class="menu-item">Inchide</button>
   </div>
-
-  </body>
+</body>
 </html>
