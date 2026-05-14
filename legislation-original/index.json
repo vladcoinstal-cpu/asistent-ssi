@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-05-14T14:31:18.318Z",
+  "generatedAt": "2026-05-14T14:37:52.132Z",
   "source": "official URLs listed per act",
   "count": 31,
   "readOnly": true,
-  "acts": [
-    {
+  "acts": {
+    "cr_0_2012": {
       "id": "cr_0_2012",
       "title": "CR 0-2012 - Cod de proiectare. Bazele proiectării structurilor în construcții",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/142596",
@@ -15,13 +15,13 @@
       "htmlFile": "source-html/cr_0_2012.html",
       "textFile": "source-text/cr_0_2012.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:33.033Z",
+      "downloadedAt": "2026-05-14T14:37:02.094Z",
       "htmlLength": 735826,
       "textLength": 167945,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "hg_1181_2022": {
       "id": "hg_1181_2022",
       "title": "H.G. nr. 1.181/2022 pentru modificarea și completarea H.G. nr. 571/2016",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/260287",
@@ -32,13 +32,13 @@
       "htmlFile": "source-html/hg_1181_2022.html",
       "textFile": "source-text/hg_1181_2022.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:33.528Z",
+      "downloadedAt": "2026-05-14T14:37:02.588Z",
       "htmlLength": 51487,
       "textLength": 3909,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "hg_571_2016": {
       "id": "hg_571_2016",
       "title": "H.G. nr. 571/2016 - categorii de construcții supuse avizării/autorizării",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/180921",
@@ -49,13 +49,13 @@
       "htmlFile": "source-html/hg_571_2016.html",
       "textFile": "source-text/hg_571_2016.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:35.413Z",
+      "downloadedAt": "2026-05-14T14:37:03.594Z",
       "htmlLength": 116054,
       "textLength": 20409,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "hg_766_1997": {
       "id": "hg_766_1997",
       "title": "H.G. nr. 766/1997 - regulament privind stabilirea categoriei de importanță a construcțiilor",
       "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016",
@@ -66,13 +66,13 @@
       "htmlFile": "source-html/hg_766_1997.html",
       "textFile": "source-text/hg_766_1997.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:37.376Z",
+      "downloadedAt": "2026-05-14T14:37:04.847Z",
       "htmlLength": 70846,
       "textLength": 6619,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "hg_925_1995": {
       "id": "hg_925_1995",
       "title": "H.G. nr. 925/1995 - Regulamentul privind verificarea și expertizarea tehnică a proiectelor",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/205190",
@@ -83,13 +83,13 @@
       "htmlFile": "source-html/hg_925_1995.html",
       "textFile": "source-text/hg_925_1995.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:40.207Z",
+      "downloadedAt": "2026-05-14T14:37:05.716Z",
       "htmlLength": 149874,
       "textLength": 30599,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "hg_971_2006": {
       "id": "hg_971_2006",
       "title": "H.G. nr. 971/2006 - cerințe minime pentru semnalizarea de securitate și/sau sănătate la locul de muncă",
       "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/74127",
@@ -100,13 +100,13 @@
       "htmlFile": "source-html/hg_971_2006.html",
       "textFile": "source-text/hg_971_2006.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:41.452Z",
+      "downloadedAt": "2026-05-14T14:37:06.387Z",
       "htmlLength": 91113,
       "textLength": 9699,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "i13_2015": {
       "id": "i13_2015",
       "title": "I 13-2015 - Normativ pentru proiectarea, executarea și exploatarea instalațiilor de încălzire centrală",
       "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G0LEDNN0MT7ITN3GUGOZV49HJ6N",
@@ -117,13 +117,13 @@
       "htmlFile": "source-html/i13_2015.html",
       "textFile": "source-text/i13_2015.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:42.393Z",
+      "downloadedAt": "2026-05-14T14:37:07.470Z",
       "htmlLength": 809654,
       "textLength": 281017,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "i5_2010": {
       "id": "i5_2010",
       "title": "I5-2010 - Normativ pentru proiectarea, executarea și exploatarea instalațiilor de ventilare și climatizare",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/130105",
@@ -134,13 +134,13 @@
       "htmlFile": "source-html/i5_2010.html",
       "textFile": "source-text/i5_2010.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:42.818Z",
+      "downloadedAt": "2026-05-14T14:37:07.949Z",
       "htmlLength": 56684,
       "textLength": 6072,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "i7_2011": {
       "id": "i7_2011",
       "title": "I7-2011 - instalații electrice, actualizat prin Ordinul nr. 959/2023",
       "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G16IGYIBJMONJS1TQZWUTSYW731",
@@ -151,13 +151,13 @@
       "htmlFile": "source-html/i7_2011.html",
       "textFile": "source-text/i7_2011.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:45.656Z",
+      "downloadedAt": "2026-05-14T14:37:10.890Z",
       "htmlLength": 5888490,
       "textLength": 1099201,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "legea_10_1995": {
       "id": "legea_10_1995",
       "title": "Legea nr. 10/1995 privind calitatea în construcții",
       "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/5729",
@@ -168,13 +168,13 @@
       "htmlFile": "source-html/legea_10_1995.html",
       "textFile": "source-text/legea_10_1995.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:46.500Z",
+      "downloadedAt": "2026-05-14T14:37:11.887Z",
       "htmlLength": 179147,
       "textLength": 34503,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "legea_307_2006": {
       "id": "legea_307_2006",
       "title": "Legea nr. 307/2006 privind apărarea împotriva incendiilor",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/189898",
@@ -185,13 +185,13 @@
       "htmlFile": "source-html/legea_307_2006.html",
       "textFile": "source-text/legea_307_2006.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:48.004Z",
+      "downloadedAt": "2026-05-14T14:37:14.170Z",
       "htmlLength": 352993,
       "textLength": 86191,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "legea_50_1991": {
       "id": "legea_50_1991",
       "title": "Legea nr. 50/1991 privind autorizarea executării lucrărilor de construcții",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/180447",
@@ -202,13 +202,13 @@
       "htmlFile": "source-html/legea_50_1991.html",
       "textFile": "source-text/legea_50_1991.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:50.449Z",
+      "downloadedAt": "2026-05-14T14:37:16.627Z",
       "htmlLength": 523000,
       "textLength": 186633,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "legea_59_2016": {
       "id": "legea_59_2016",
       "title": "Legea nr. 59/2016 privind controlul asupra pericolelor de accident major în care sunt implicate substanțe periculoase",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/177654",
@@ -219,13 +219,13 @@
       "htmlFile": "source-html/legea_59_2016.html",
       "textFile": "source-text/legea_59_2016.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:52.175Z",
+      "downloadedAt": "2026-05-14T14:37:17.946Z",
       "htmlLength": 519022,
       "textLength": 115381,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "np_127_2009": {
       "id": "np_127_2009",
       "title": "NP 127:2009 - Normativ de securitate la incendiu a parcajelor subterane pentru autoturisme",
       "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/115784",
@@ -236,13 +236,13 @@
       "htmlFile": "source-html/np_127_2009.html",
       "textFile": "source-text/np_127_2009.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:52.782Z",
+      "downloadedAt": "2026-05-14T14:37:19.749Z",
       "htmlLength": 462495,
       "textLength": 96211,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "ntpee_2018": {
       "id": "ntpee_2018",
       "title": "Norma tehnică pentru proiectarea, executarea și exploatarea sistemelor de alimentare cu gaze naturale",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/201310",
@@ -253,13 +253,13 @@
       "htmlFile": "source-html/ntpee_2018.html",
       "textFile": "source-text/ntpee_2018.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:56.133Z",
+      "downloadedAt": "2026-05-14T14:37:22.750Z",
       "htmlLength": 1964818,
       "textLength": 357856,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "omai_112_2014": {
       "id": "omai_112_2014",
       "title": "OMAI nr. 112/2014 - modificarea metodologiei de autorizare pentru lucrări PSI",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/160198",
@@ -270,13 +270,13 @@
       "htmlFile": "source-html/omai_112_2014.html",
       "textFile": "source-text/omai_112_2014.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:56.619Z",
+      "downloadedAt": "2026-05-14T14:37:23.352Z",
       "htmlLength": 188591,
       "textLength": 54887,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "omai_130_2007": {
       "id": "omai_130_2007",
       "title": "OMAI nr. 130/2007 - metodologia de elaborare a scenariilor de securitate la incendiu",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/79233",
@@ -287,13 +287,13 @@
       "htmlFile": "source-html/omai_130_2007.html",
       "textFile": "source-text/omai_130_2007.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:57.096Z",
+      "downloadedAt": "2026-05-14T14:37:24.679Z",
       "htmlLength": 54541,
       "textLength": 3695,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "omai_163_2007": {
       "id": "omai_163_2007",
       "title": "OMAI nr. 163/2007 - norme generale de apărare împotriva incendiilor",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/81769",
@@ -304,13 +304,13 @@
       "htmlFile": "source-html/omai_163_2007.html",
       "textFile": "source-text/omai_163_2007.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:30:57.531Z",
+      "downloadedAt": "2026-05-14T14:37:25.335Z",
       "htmlLength": 63606,
       "textLength": 12807,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "omai_180_2022": {
       "id": "omai_180_2022",
       "title": "OMAI nr. 180/2022 - norme metodologice privind avizarea și autorizarea de securitate la incendiu și protecție civilă",
       "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/263452",
@@ -321,13 +321,13 @@
       "htmlFile": "source-html/omai_180_2022.html",
       "textFile": "source-text/omai_180_2022.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:00.951Z",
+      "downloadedAt": "2026-05-14T14:37:29.951Z",
       "htmlLength": 438217,
       "textLength": 85844,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "omai_51_2024": {
       "id": "omai_51_2024",
       "title": "OMAI nr. 51/2024 - criterii de performanță privind constituirea, încadrarea și dotarea serviciilor voluntare și private pentru situații de urgență",
       "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G3FTCB6DBO0D3U16QW7CW5C3PEI",
@@ -338,13 +338,13 @@
       "htmlFile": "source-html/omai_51_2024.html",
       "textFile": "source-text/omai_51_2024.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:01.526Z",
+      "downloadedAt": "2026-05-14T14:37:30.609Z",
       "htmlLength": 380267,
       "textLength": 68416,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "omai_87_2010": {
       "id": "omai_87_2010",
       "title": "OMAI nr. 87/2010 - autorizarea persoanelor care efectuează lucrări în domeniul apărării împotriva incendiilor",
       "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G39JCX12RPUV3V172NEDVZP2KXA",
@@ -355,13 +355,13 @@
       "htmlFile": "source-html/omai_87_2010.html",
       "textFile": "source-text/omai_87_2010.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:02.126Z",
+      "downloadedAt": "2026-05-14T14:37:31.288Z",
       "htmlLength": 404413,
       "textLength": 78081,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "ordin_1822_394_2004": {
       "id": "ordin_1822_394_2004",
       "title": "Ordinul nr. 1822/394/2004 privind clasificarea produselor pentru construcții pe baza comportării la foc",
       "url": "https://legislatie.just.ro/Public/DetaliiDocumentAfis/58917",
@@ -372,13 +372,13 @@
       "htmlFile": "source-html/ordin_1822_394_2004.html",
       "textFile": "source-text/ordin_1822_394_2004.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:02.922Z",
+      "downloadedAt": "2026-05-14T14:37:31.829Z",
       "htmlLength": 57095,
       "textLength": 4918,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "ordin_28_2009": {
       "id": "ordin_28_2009",
       "title": "Ordinul nr. 28/2009 - dispoziții generale de apărare împotriva incendiilor la obiective de cult",
       "url": "https://legislatie.just.ro/public/DetaliiDocument/110661",
@@ -389,13 +389,13 @@
       "htmlFile": "source-html/ordin_28_2009.html",
       "textFile": "source-text/ordin_28_2009.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:04.056Z",
+      "downloadedAt": "2026-05-14T14:37:33.167Z",
       "htmlLength": 672433,
       "textLength": 161622,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "ordin_6025_2018": {
       "id": "ordin_6025_2018",
       "title": "Ordinul nr. 6025/2018 pentru modificarea P 118/3-2015",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/206996",
@@ -406,13 +406,13 @@
       "htmlFile": "source-html/ordin_6025_2018.html",
       "textFile": "source-text/ordin_6025_2018.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:04.891Z",
+      "downloadedAt": "2026-05-14T14:37:33.703Z",
       "htmlLength": 118351,
       "textLength": 16383,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "ordin_6026_2018": {
       "id": "ordin_6026_2018",
       "title": "Ordinul nr. 6026/2018 pentru modificarea și completarea P 118/2-2013",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/206927",
@@ -423,13 +423,13 @@
       "htmlFile": "source-html/ordin_6026_2018.html",
       "textFile": "source-text/ordin_6026_2018.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:05.873Z",
+      "downloadedAt": "2026-05-14T14:37:34.452Z",
       "htmlLength": 301569,
       "textLength": 47319,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "ordin_959_2023": {
       "id": "ordin_959_2023",
       "title": "Ordinul nr. 959/2023 pentru modificarea și completarea I 7-2011",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/271142",
@@ -440,13 +440,13 @@
       "htmlFile": "source-html/ordin_959_2023.html",
       "textFile": "source-text/ordin_959_2023.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:06.794Z",
+      "downloadedAt": "2026-05-14T14:37:35.338Z",
       "htmlLength": 429033,
       "textLength": 87158,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "p118_1_2025": {
       "id": "p118_1_2025",
       "title": "P 118/1-2025 - securitatea la incendiu a construcțiilor",
       "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G01QVZ9POFCH793CM3CGOOUUBU6",
@@ -457,13 +457,13 @@
       "htmlFile": "source-html/p118_1_2025.html",
       "textFile": "source-text/p118_1_2025.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:10.888Z",
+      "downloadedAt": "2026-05-14T14:37:38.447Z",
       "htmlLength": 7370937,
       "textLength": 1993835,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "p118_2_2013": {
       "id": "p118_2_2013",
       "title": "P 118/2-2013 - instalații de stingere",
       "url": "https://legislatie.just.ro/Public/FormaPrintabila/00000G0HNIJIX5VTWB11FJ0S1GTIDV0G",
@@ -474,13 +474,13 @@
       "htmlFile": "source-html/p118_2_2013.html",
       "textFile": "source-text/p118_2_2013.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:14.199Z",
+      "downloadedAt": "2026-05-14T14:37:40.584Z",
       "htmlLength": 4829106,
       "textLength": 785341,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "p118_3_2015": {
       "id": "p118_3_2015",
       "title": "P 118/3-2015 - detectare, semnalizare și alarmare",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/206832",
@@ -491,13 +491,13 @@
       "htmlFile": "source-html/p118_3_2015.html",
       "textFile": "source-text/p118_3_2015.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:16.134Z",
+      "downloadedAt": "2026-05-14T14:37:43.350Z",
       "htmlLength": 837497,
       "textLength": 208162,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "p118_99": {
       "id": "p118_99",
       "title": "P 118-99 - reglementare anterioară, frecvent citată în scenarii existente",
       "url": "https://legislatie.just.ro/Public/DetaliiDocument/205877",
@@ -508,13 +508,13 @@
       "htmlFile": "source-html/p118_99.html",
       "textFile": "source-text/p118_99.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:17.297Z",
+      "downloadedAt": "2026-05-14T14:37:45.427Z",
       "htmlLength": 1762214,
       "textLength": 666558,
       "isAuthenticFullAct": true,
       "readOnly": true
     },
-    {
+    "reg_1272_2008_clp": {
       "id": "reg_1272_2008_clp",
       "title": "Regulamentul (CE) nr. 1272/2008 privind clasificarea, etichetarea și ambalarea substanțelor și a amestecurilor",
       "url": "https://publications.europa.eu/resource/cellar/6bf54b59-7673-461b-b8e1-f24c545cbd3c.0006.01/DOC_1",
@@ -525,11 +525,11 @@
       "htmlFile": "source-html/reg_1272_2008_clp.html",
       "textFile": "source-text/reg_1272_2008_clp.txt",
       "httpStatus": 200,
-      "downloadedAt": "2026-05-14T14:31:18.219Z",
+      "downloadedAt": "2026-05-14T14:37:52.031Z",
       "htmlLength": 2694193,
       "textLength": 2543491,
       "isAuthenticFullAct": true,
       "readOnly": true
     }
-  ]
+  }
 }
