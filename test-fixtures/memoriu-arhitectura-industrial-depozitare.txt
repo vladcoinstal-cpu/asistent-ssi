@@ -25,30 +25,26 @@ Numarul maxim de utilizatori: 148 persoane
 Parter: 132 persoane
 Mezanin tehnic: 16 persoane
 
-Procese tehnologice si substante:
-Se prelucreaza tabla subtire, profile metalice usoare, ambalaje din carton, folii PVC, paleti din lemn, vopsele si diluanti in cantitati limitate pentru retusuri.
+Materiale si procese:
+Se prelucreaza tabla subtire si profile metalice usoare.
+In fluxul tehnologic se folosesc utilaje electrice, bancuri de lucru si stivuitoare electrice.
+Pentru retusuri se pastreaza vopsele si diluanti in recipiente mici, in dulap metalic ventilat.
 
-Risc de incendiu:
-- zona productie generala: risc mijlociu
-- zona depozitare carton si paleti: risc mare
-- camera compresoare: risc mijlociu
-- birouri si vestiare: risc mic
-Concluzie: compartimentul principal de depozitare necesita masuri suplimentare fata de restul halei.
+Materiale si alcatuiri constructive:
+Structura principala este metalica, cu stalpi si grinzi protejate conform proiectului de specialitate.
+Peretii exteriori sunt din panouri termoizolante cu miez din vata minerala.
+Zona de birouri este compartimentata cu zidarie si pereti usori agrementati.
+Pardoseala halei este din beton elicopterizat.
 
-Gradul de rezistenta la foc: II
-Stabilitate la foc: structura metalica protejata, stalpi si grinzi cu protectie la foc, pereti exteriori din panouri termoizolante cu miez incombustibil.
-Reactia la foc: panouri de fatada clasa A2-s1,d0; izolatii si finisaje interioare alese conform destinatiilor.
-
-Propagare la vecinatati:
+Vecinatati:
 Cea mai apropiata constructie industriala este la 28,00 m.
-Rezulta ca distantele de siguranta la vecinatati sunt asigurate.
 
-Evacuare:
-Hala are 6 iesiri de evacuare direct in exterior, dispuse pe laturi opuse.
-Birourile administrative au evacuare separata catre exterior.
-Usile de evacuare de pe traseele principale se deschid in sensul evacuarii.
+Cai de circulatie si iesiri:
+Hala are 6 iesiri directe in exterior, dispuse pe laturi opuse.
+Birourile administrative au acces separat catre exterior.
+Mezaninul tehnic este accesibil prin scara metalica interioara.
 
-Instalatii:
+Instalatii prevazute in proiect:
 Instalatii de stingere: hidranti interiori, hidranti exteriori, sprinklere in depozitul principal de carton si paleti.
 Detectare, semnalizare si alarmare la incendiu: instalatie adresabila cu detectoare si butoane manuale.
 Desfumare: trape de evacuare fum si gaze fierbinti in hala si desfumare naturala in depozitul principal.
@@ -56,11 +52,9 @@ Alimentarea receptoarelor cu rol de securitate la incendiu: sursa de baza si UPS
 Iluminat de siguranta: pentru evacuare si interventie.
 Protectie impotriva trasnetului: se prevede instalatie IPT.
 
-Depozitare:
-Materiale depozitate: carton, folii PVC, paleti lemn, profile metalice, ambalaje, produse finite ambalate.
+Depozitare si materiale combustibile:
+Materiale depozitate: carton, folii PVC, paleti lemn, profile metalice, ambalaje si produse finite ambalate.
+Depozitul principal are rafturi metalice si culoare pentru manipulare cu stivuitor electric.
 
-Surse de aprindere:
+Surse specifice de aprindere:
 sudura de mentenanta, tablouri electrice, utilaje electrice, stivuitoare electrice, camera compresoare.
-
-Masuri organizatorice:
-Lucrul cu foc se va face pe baza de permis.
