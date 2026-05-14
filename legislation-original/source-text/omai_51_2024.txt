@@ -1,0 +1,730 @@
+CRITERII 15/03/2024 
+
+CRITERII DE PERFORMANȚĂ din 15 martie 2024 privind constituirea, încadrarea și dotarea serviciilor voluntare și a serviciilor private pentru situații de urgență EMITENT MINISTERUL AFACERILOR INTERNE
+
+Publicat în 
+MONITORUL OFICIAL nr. 291 din 3 aprilie 2024 
+Notă ...
+
+Aprobate prin ORDINUL nr. 51 din 15 martie 2024, publicat în Monitorul Oficial al României, Partea I, nr. 291 din 3 aprilie 2024. 
+
+Capitolul I Dispoziții comune 
+
+Articolul 1 
+(1) Serviciile voluntare și serviciile private pentru situații de urgență, denumite în continuare servicii voluntare și servicii private, sunt structuri specializate, altele decât cele aparținând serviciilor de urgență profesioniste, organizate cu personal angajat și/sau voluntar, în scopul apărării vieții, avutului public și/sau privat în situații de urgență. (2) Serviciile voluntare se constituie, potrivit legii, în comune, orașe și municipii, în subordinea consiliilor locale. (3) Serviciile private se constituie potrivit legii, la operatori economici și instituții. (4) Serviciile private pot fi:
+a) servicii proprii, organizate în cadrul operatorilor economici și instituțiilor;  ...  
+b) societăți prestatoare de servicii.  ...  
+
+Articolul 2 
+
+Termenii și expresiile utilizate în prezentele criterii de performanță au următoarele înțelesuri:
+a) autospecială de capacitate mare - autospecială de stingere cu apă și spumă al cărei rezervor de apă este mai mare sau egal cu 5.000 litri;  ...  
+b) autospecială de capacitate medie - autospecială de stingere cu apă și spumă al cărei rezervor de apă este mai mare sau egal cu 2.000 litri și mai mic de 5.000 litri;  ...  
+c) autospecială de capacitate mică - autospecială de stingere cu apă și spumă al cărei rezervor de apă este sub 2.000 litri;  ...  
+d) autospecială de intervenție - autospecială destinată intervenției pentru diferite tipuri de risc, alta decât autospeciala de stingere cu apă și spumă;  ...  
+e) autospecială - oricare dintre autospecialele prevăzute la lit. a)-d) ;  ...  
+f) sector de competență - reprezintă, în cazul serviciului voluntar, suprafața unității administrativ-teritoriale în care acesta a fost constituit, iar în cazul serviciului privat, suprafața desfășurată a construcțiilor/clădirilor sau a ansamblului de clădiri, precum și spații amenajate din acestea, dintr-un singur amplasament, inclusiv terenul aferent acestora, precum și suprafața aferentă utilajelor și instalațiilor tehnologice, administrate de operatorul economic/instituția care are obligația constituirii serviciului pentru amplasamentul respectiv;  ...  
+g) formație de intervenție - structură de intervenție care are în compunere o grupă/grupe de intervenție și/sau echipă/echipe specializată(e) și care își desfășoară activitatea într-un singur sector de competență;  ...  
+h) grupă de intervenție - structură de intervenție care încadrează o autospecială;  ...  
+i) echipă specializată - structură de intervenție care îndeplinește atribuții privind gestionarea situațiilor de urgență determinate de tipurile de riscuri identificate în sectorul de competență;  ...  
+j) forțe de intervenție - oricare dintre entitățile prevăzute la lit. g)-i) ;  ...  
+k) timp de răspuns - intervalul de timp cuprins între momentul alarmării forțelor de intervenție și intrarea acestora în acțiune la locul intervenției;  ...  
+l) capacitate de răspuns - potențialul forțelor de intervenție de a gestiona o situație de urgență;  ...  
+m) societate prestatoare de servicii - societate constituită în baza Legii societăților nr. 31/1990, republicată, cu modificările și completările ulterioare, având ca domeniu de activitate și activitate principală „Activități de luptă împotriva incendiilor și de prevenire a acestora“, potrivit Clasificării activităților din economia națională (CAEN);  ...  
+n) dispecerat - structură a cărei activitate se desfășoară într-un spațiu prevăzut cu mijloace de comunicații, care asigură primirea și transmiterea informațiilor și mesajelor necesare pentru desfășurarea unei intervenții;  ...  
+o) compartiment pentru prevenire - structura cu atribuții de prevenire a situațiilor de urgență;  ...  
+p) tură de serviciu - totalitatea persoanelor care lucrează în același timp și după același program într-o structură a serviciului voluntar sau a serviciului privat, care execută serviciul în ture.  ...  
+
+Articolul 3 
+
+Constituirea, încadrarea și dotarea serviciilor voluntare și a serviciilor private sunt realizate în funcție de:
+a) numărul de gospodării și/sau clădiri de locuit colective;  ...  
+b) distanța față de structurile de intervenție ale serviciilor profesioniste pentru situații de urgență;  ...  
+c) tipurile de riscuri identificate în sectorul de competență și concluziile rezultate din Planul de analiză și acoperire a riscurilor, întocmit potrivit Metodologiei de elaborare a Planului de analiză și acoperire a riscurilor și Structurii-cadru a Planului de analiză și acoperire a riscurilor, aprobate prin Ordinul ministrului administrației și internelor nr. 132/2007;  ...  
+d) destinația, numărul de utilizatori și/sau suprafața construcțiilor/aferentă utilajelor și instalațiilor tehnologice și nivelul riscului de incendiu;  ...  
+e) asigurarea timpului de răspuns;  ...  
+f) asigurarea permanentă a intervenției;  ...  
+g) dotarea cu instalații de stingere a incendiilor.  ...  
+
+Articolul 4 
+(1) Avizul de înființare și de desființare a unui serviciu voluntar sau serviciu privat, prevăzute la art. 33 alin. (5) din Legea nr. 307/2006 privind apărarea împotriva incendiilor, republicată, cu modificările și completările ulterioare, se emite:
+a) de către inspectoratul pentru situații de urgență județean sau de către Inspectoratul pentru Situații de Urgență „Dealul Spirii“ București-Ilfov, denumit în continuare inspectorat, în a cărui zonă de competență își are sediul autoritatea administrației publice locale, pentru serviciul voluntar;  ...  
+b) de către inspectoratul în a cărui zonă de competență își are sediul instituția, respectiv sediul social în cazul operatorului economic, pentru serviciul privat.  ...  (2) Avizul pentru sector de competență, prevăzut la art. 33 alin. (1) din Legea nr. 307/2006, republicată, cu modificările și completările ulterioare, se emite de către inspectoratul în a cărui zonă de competență serviciul voluntar/privat solicită să își desfășoare activitatea. 
+
+Articolul 5 
+(1) Structura organizatorică generală a unui serviciu voluntar sau a unui serviciu privat se compune din:
+a) comandă;  ...  
+b) compartiment pentru prevenire;  ...  
+c) una sau mai multe formații de intervenție.  ...  (2) Structura organizatorică menționată la alin. (1) se completează în funcție de tipul serviciului voluntar sau al serviciului privat, la nevoie, cu următoarele componente:
+a) compartiment atelier propriu de întreținere și reparații;  ...  
+b) dispecerat.  ...  
+
+Articolul 6 
+(1) Regulamentul de organizare și funcționare a serviciilor voluntare și a serviciilor private este emis, după caz, de consiliile locale, de conducerile operatorilor economici sau de instituțiile care au constituit serviciile. (2) Structura-cadru a Regulamentului de organizare și funcționare a serviciilor voluntare și serviciilor private este prevăzută în anexa nr. 1 . 
+
+Articolul 7 
+(1) Documentele de organizare și funcționare a serviciilor voluntare și a serviciilor private sunt prevăzute în anexa nr. 2 . (2) Documentele prevăzute la alin. (1) sunt păstrate de către șeful serviciului/formației de intervenție, în sectorul de competență. (3) Documentele prevăzute la alin. (1) pot fi întocmite, completate sau păstrate în format letric și/sau în format electronic. 
+
+Articolul 8 
+
+Funcțiile specifice serviciilor voluntare și serviciilor private sunt următoarele:
+a) șef serviciu;  ...  
+b) șef compartiment pentru prevenire;  ...  
+c) șef formație de intervenție;  ...  
+d) șef grupă de intervenție;  ...  
+e) șef echipă specializată;  ...  
+f) specialist pentru prevenire;  ...  
+g) conducător autospecială;  ...  
+h) servant pompier;  ...  
+i) dispecer/telefonist.  ...  
+
+Articolul 9 
+(1) Personalul serviciilor voluntare și al serviciilor private este apt din punct de vedere fizic, medical și psihologic și se compune, după caz, din:
+a) personal voluntar;  ...  
+b) personal angajat pe funcțiile specifice serviciului;  ...  
+c) personal angajat pe alte funcții ale operatorului economic, instituției sau autorității publice locale care a constituit serviciul.  ...  (2) Evaluarea personalului prevăzut la alin. (1) lit. a) se realizează potrivit Statutului personalului voluntar din serviciile de urgență voluntare, aprobat prin Hotărârea Guvernului nr. 1.579/2005, cu modificările și completările ulterioare. (3) Evaluarea personalului prevăzut la alin. (1) lit. b) și c) se realizează:
+a) pentru aptitudinile fizice, la încadrare de către angajator, pe baza baremelor prevăzute în anexa nr. 3 ;  ...  
+b) pentru aptitudinile medicale, la încadrare și, ulterior, anual;  ...  
+c) pentru aptitudinile psihologice, la încadrare și, ulterior, cel puțin o dată la 3 ani.  ...  
+
+Articolul 10 
+(1) Pregătirea personalului serviciilor voluntare și al serviciilor private se realizează prin: programe de pregătire, instruiri, convocări, verificări, exerciții și concursuri profesionale, care se cuprind în Planul de pregătire în domeniul situațiilor de urgență, întocmit potrivit Structurii-cadru, aprobate prin ordin al inspectorului general al Inspectoratului General pentru Situații de Urgență. (2) Coordonarea activității de pregătire a personalului din sectoarele de competență ale serviciilor voluntare și serviciilor private se execută de inspectoratele în a căror zonă de competență se află acestea. (3) Programele de pregătire și exercițiile din Planul de pregătire prevăzut la alin. (1) se stabilesc în funcție de tipurile de risc identificate în sectorul de competență și de particularitățile intervenției. 
+
+Articolul 11 
+
+În vederea antrenării personalului propriu, serviciile voluntare și serviciile private asigură spații de pregătire, dotate cu aparate, utilaje și echipamente specifice intervenției în situații de urgență, inclusiv pentru concursurile profesionale. 
+
+Articolul 12 
+(1) Serviciile voluntare și serviciile private se dotează cu autospeciale și utilaje, în funcție de riscurile gestionate în sectorul de competență. (2) Autospecialele, utilajele, mijloacele și echipamentul de protecție, uniforma și mijloacele de anunțare-alarmare, alertare și conducere a intervenției sunt deținute în baza unor titluri valabile, pe toată durata de funcționare a serviciului de către:
+a) administrația publică locală, în cazul constituirii serviciului voluntar;  ...  
+b) instituția sau operatorul economic, în cazul constituirii serviciului privat propriu;  ...  
+c) operatorul economic constituit ca societate prestatoare de servicii, atât la înființare, cât și în sectorul/sectoarele de competență avizat/avizate.  ...  (3) Pe timpul sezonului rece, autospecialele se garează în spații închise care asigură o temperatură de minimum 5 grade Celsius. (4) Scoaterea și repunerea din/în funcțiune a oricărei autospeciale se comunică imediat telefonic/prin e-mail/fax, la dispeceratul inspectoratului în a cărui zonă de competență aceasta asigură acțiunile de răspuns. (5) Înlocuirea unei autospeciale se comunică în scris în termen de 5 zile lucrătoare inspectoratului care a emis avizul de înființare și celui care a emis aviz pentru sector de competență. (6) Autospeciala cu care se face înlocuirea trebuie să fie cel puțin similară din punctul de vedere al capacității de intervenție cu cea înlocuită. 
+
+Articolul 13 
+(1) Echipamentul de protecție și uniforma trebuie să fie inscripționate, vizibil, cu denumirea serviciului voluntar/serviciului privat. (2) Autospecialele trebuie să fie inscripționate cu denumirea serviciului voluntar/privat și numărul de telefon la care poate fi apelat serviciul. (3) Numărul de telefon se afișează atât la sediul serviciului, cât și în zonele cu risc din sectorul de competență. 
+
+Articolul 14 
+(1) Uniforma și echipamentul de protecție se asigură, gratuit, potrivit prevederilor art. 39 alin. (3) din Legea nr. 307/2006, republicată, cu modificările și completările ulterioare. (2) Portul, condițiile de acordare și folosire a uniformei, echipamentului de protecție și a însemnelor distinctive ale personalului serviciilor voluntare și serviciilor private se realizează în conformitate cu prevederile Regulamentului privind portul, descrierea, condițiile de acordare și folosire a uniformei, echipamentului de protecție și însemnelor distinctive ale personalului serviciilor pentru situații de urgență voluntare/private, aprobat prin Hotărârea Guvernului nr. 160/2007. (3) Norma de dotare cu echipament de protecție a personalului serviciului voluntar și serviciului privat este prevăzută în anexa nr. 4 . (4) Echipamentul de protecție este obligatoriu pentru personalul din tura de serviciu și pentru cel care participă la intervenție. 
+
+Articolul 15 
+(1) Norma orientativă privind dotarea spațiilor, a autospecialelor de stingere cu apă și spumă și a echipelor specializate este prevăzută în anexa nr. 5 . (2) În baza normei orientative de dotare, fiecare serviciu voluntar/serviciu privat își stabilește propria normă de dotare în funcție de tipul serviciului, riscurile identificate, precum și de tipul/capacitatea/destinația autospecialei, astfel încât să asigure:
+a) intervenția operativă și gestionarea tuturor situațiilor de urgență în funcție de riscurile identificate;  ...  
+b) spații pentru garare/revizie a mijloacelor de intervenție și funcționalitatea dispeceratului;  ...  
+c) capacitatea maximă de lucru a autospecialelor;  ...  
+d) îndeplinirea atribuțiilor și asigurarea protecției personalului serviciului.  ...  (3) Personalul serviciilor voluntare și private își desfășoară activitatea într-un spațiu de lucru special destinat acestora, care să îi permită îndeplinirea corespunzătoare a atribuțiilor. 
+
+Articolul 16 
+(1) Efectuarea lucrărilor de verificare, întreținere și reparare a mijloacelor de intervenție din dotarea serviciilor voluntare și serviciilor private se execută cu personal atestat/calificat. (2) Pentru efectuarea lucrărilor prevăzute la alin. (1) , serviciile voluntare și serviciile private pot să își constituie atelier propriu de întreținere și reparații. 
+
+Articolul 17 
+
+Serviciile voluntare și private organizează un sistem de comunicații, care să asigure fluxul informațional specific desfășurării unei intervenții eficiente și operative. 
+
+Articolul 18 
+(1) Serviciile voluntare și private intervin singure sau în cooperare cu structurile profesioniste de intervenție ale inspectoratului competent teritorial. (2) Atunci când intervin singure, șeful serviciului voluntar/serviciului privat notifică inspectoratul în a cărui zonă de competență se află, în termen de maximum 5 ore de la finalizarea intervenției. 
+
+Capitolul II Criterii specifice pentru serviciile voluntare 
+
+Secţiunea 1 Criterii specifice privind constituirea și dotarea 
+
+Articolul 19 
+
+Serviciile voluntare se constituie în comune, orașe și municipii, în subordinea consiliilor locale, pe următoarele tipuri:
+a) servicii tip V1 - la nivelul unităților administrativ-teritoriale care au în evidență un număr de cel mult 1.000 de gospodării și/sau clădiri de locuit colective;  ...  
+b) servicii tip V2 - la nivelul unităților administrativ-teritoriale care au în evidență un număr cuprins între 1.000 și 3.000 de gospodării și/sau clădiri de locuit colective;  ...  
+c) servicii tip V3 - la nivelul unităților administrativ-teritoriale care au în evidență un număr de peste 3.000 de gospodării și/sau clădiri de locuit colective.  ...  
+
+Articolul 20 
+(1) În funcție de tipul lor, serviciile voluntare au următoarea compunere:
+a) servicii tip V1: șef serviciu, compartiment pentru prevenire și echipe specializate constituite în una sau mai multe formații de intervenție;  ...  
+b) servicii tip V2: șef serviciu, compartiment pentru prevenire, precum și o grupă de intervenție care încadrează o autospecială de stingere cu apă și spumă și, după caz, una sau mai multe echipe specializate, constituite în una sau mai multe formații de intervenție;  ...  
+c) servicii tip V3: șef serviciu, compartiment pentru prevenire, precum și două sau mai multe grupe de intervenție care încadrează autospeciale de stingere cu apă și spumă și, după caz, una sau mai multe echipe specializate, constituite în una sau mai multe formații de intervenție.  ...  (2) Serviciile tip V2 au obligația să se doteze cu o autospecială de stingere cu apă și spumă, iar serviciile tip V3 cu minimum două autospeciale de stingere cu apă și spumă. (3) Serviciile voluntare care dețin una sau mai multe autospeciale de stingere cu apă și spumă, dar nu au obligația dotării cu aceasta/acestea se pot constitui ca servicii de tip V2 sau tip V3, indiferent de numărul de gospodării și/sau clădiri de locuit colective din sectorul de competență, cu respectarea criteriilor de performanță. (4) În situația în care o localitate nu are obligația constituirii serviciului voluntar, dar constituie serviciul, acesta se supune avizării, cu respectarea criteriilor de performanță, măsură ce nu poate substitui obligațiile legale privind apărarea împotriva incendiilor, serviciul constituit fiind minimum de tip V1. 
+
+Articolul 21 
+(1) Prin excepție de la art. 19 , în cazul unităților administrativ-teritoriale amplasate la o distanță mai mică de 20 km față de localitatea unde funcționează subunități din cadrul serviciilor profesioniste pentru situații de urgență, consiliile locale au obligația constituirii serviciului voluntar, minimum de tip V1. (2) Prevederile alin. (1) se aplică doar în cazul în care subunitatea din cadrul serviciilor profesioniste are în dotare minimum două autospeciale de stingere cu apă și spumă și unitatea administrativ-teritorială se află în raionul de intervenție al acesteia. (3) Distanța prevăzută la alin. (1) se măsoară pe căi de comunicații rutiere, între punctele care marchează km 0/centrul civic al localității de reședință al unității administrativ-teritoriale și cel al localității unde funcționează serviciile profesioniste. 
+
+Secţiunea a 2-a Criterii specifice privind încadrarea 
+
+Articolul 22 
+(1) Serviciul voluntar se încadrează cu personal angajat pe funcțiile specifice și personal voluntar. (2) Personalul angajat pe funcții specifice deține calificarea sau competențele profesionale acelor funcții, atestate potrivit reglementărilor în vigoare. (3) Funcția de șef serviciu voluntar se încadrează, în mod obligatoriu, cu personal angajat pe această funcție. (4) Funcția de conducător autospecială se încadrează cu personal angajat pe această funcție sau, prin excepție de la alin. (1) , cu personal angajat pe alte funcții în cadrul autorității publice locale, care deține competențele specifice funcției, atestate potrivit reglementărilor în vigoare. (5) Încadrarea personalului voluntar se realizează potrivit Statutului personalului voluntar din serviciile de urgență voluntare, aprobat prin Hotărârea Guvernului nr. 1.579/2005, cu modificările și completările ulterioare. (6) În situația în care, la data avizării unui serviciu, nu sunt îndeplinite condițiile prevăzute la alin. (2) , cu excepția funcțiilor de șef serviciu și servant pompier, personalul respectiv trebuie să dețină cel puțin calificarea sau competențele specifice de cadru tehnic cu atribuții în domeniul prevenirii și stingerii incendiilor, inspector protecție civilă sau de servant pompier. 
+
+Articolul 23 
+
+Șeful serviciului voluntar trebuie să îndeplinească următoarele condiții:
+a) să aibă avizul inspectoratului competent teritorial, potrivit modelului prevăzut în anexa nr. 6 ;  ...  
+b) să fie apt din punct de vedere fizic, medical și psihologic.  ...  
+
+Articolul 24 
+
+Compartimentul pentru prevenire este compus dintr-un șef de compartiment și un număr de specialiști pentru prevenire, astfel încât să se asigure:
+a) un specialist pentru toate instituțiile publice și operatorii economici din subordinea consiliilor locale;  ...  
+b) un specialist la fiecare 500 de gospodării și/sau clădiri de locuit colective, în mediul rural;  ...  
+c) un specialist la fiecare 1.000 de gospodării și/sau clădiri de locuit colective, în mediul urban.  ...  
+
+Articolul 25 
+
+Atribuțiile specialiștilor pentru prevenire pot fi îndeplinite și de către personalul grupei/grupelor de intervenție/ echipelor specializate, precum și de către personalul care deține competențe certificate pentru a desfășura activități de verificare, curățare și reparare a coșurilor de fum. 
+
+Articolul 26 
+(1) Grupa de intervenție care încadrează o autospecială de capacitate medie sau mare este compusă din șef grupă de intervenție, 3 servanți pompieri și conducător autospecială. (2) Grupa de intervenție care încadrează o autospecială de capacitate mică este compusă din șef grupă de intervenție, 2 servanți pompieri și conducător autospecială. (3) În situația în care programul serviciului voluntar este organizat în ture de serviciu, încadrarea grupelor de intervenție prevăzută la alin. (1) și (2) este obligatorie pentru fiecare tură. (4) Compunerea grupei de intervenție care încadrează alte tipuri de autospeciale de intervenție este stabilită conform cărții tehnice. (5) Personalul care încadrează grupa de intervenție poate îndeplini și atribuțiile echipelor specializate. 
+
+Articolul 27 
+(1) Echipa specializată se constituie pentru:
+a) stingere incendii, numai pentru serviciile voluntare constituite în cadrul unităților administrativ-teritoriale care nu au obligația dotării cu autospeciale de stingere cu apă și spumă;  ...  
+b) avertizare-alarmare-căutare-deblocare-salvare-evacuare, cu atribuții în cazul situațiilor de urgență determinate de toate tipurile de risc identificate.  ...  (2) Echipa specializată se încadrează cu minimum 3 persoane, care include și șeful echipei specializate. (3) În situația în care programul serviciului voluntar este organizat în ture de serviciu, încadrarea echipei specializate este obligatorie pentru fiecare tură. 
+
+Secţiunea a 3-a Criterii operaționale 
+
+Articolul 28 
+(1) Amplasarea în teritoriu a formației de intervenție a serviciului voluntar se realizează astfel încât timpul de răspuns în caz de incendiu să fie:
+a) la instituțiile și operatorii economici din subordinea consiliului local - maximum 15 minute;  ...  
+b) în cel mai îndepărtat punct al sectorului de competență - maximum 20 de minute.  ...  (2) În funcție de mărimea sectorului de competență, în vederea respectării timpului de răspuns, formația de intervenție poate avea amplasate grupe de intervenție/echipe specializate în locații diferite. 
+
+Articolul 29 
+
+Grupa de intervenție care încadrează autospeciala de stingere cu apă și spumă asigură intervenția 24 de ore din 24 de ore, indiferent dacă programul de lucru este organizat în ture de serviciu sau prin permanență de la domiciliu. 
+
+Articolul 30 
+(1) Autoritățile administrației publice locale pot încheia convenții de cooperare pe bază de reciprocitate cu alte asemenea autorități care au constituit servicii voluntare. (2) Pentru limitarea și înlăturarea urmărilor situațiilor de urgență, autoritățile administrației publice locale care au constituit servicii voluntare pot încheia convenții de cooperare cu organizații nonguvernamentale ce desfășoară activități în domeniu. 
+
+Articolul 31 
+(1) Conducerea intervenției se asigură de către primar, până la finalizarea acesteia ori până la sosirea structurilor serviciilor profesioniste pentru situații de urgență ale inspectoratului competent teritorial. (2) Intervenția serviciului voluntar se realizează gradual, astfel:
+a) alertarea serviciului voluntar, concomitent cu informarea serviciilor profesioniste pentru situații de urgență ale inspectoratului competent teritorial, precum și, după caz, a entității cu care a fost încheiat protocol ori convenție de colaborare;  ...  
+b) executarea acțiunilor de intervenție de către serviciul voluntar și raportarea operativă a acțiunilor de intervenție la dispeceratul inspectoratului județean pentru situații de urgență și către primar/factorii decidenți de la nivel local;  ...  
+c) continuarea acțiunilor de intervenție cu sprijinul entității cu care a fost încheiat protocol ori convenție de colaborare;  ...  
+d) continuarea acțiunilor de intervenție în sprijinul serviciilor profesioniste pentru situații de urgență, după ajungerea acestora la locul intervenției.  ...  
+
+Secţiunea a 4-a Documente necesare avizării 
+
+Articolul 32 
+(1) Emiterea avizului de înființare, a avizului pentru sector de competență, precum și a avizului de desființare a serviciului voluntar se solicită printr-o cerere, însoțită de documentele prevăzute în anexa nr. 7 , depuse în format:
+a) letric, direct la sediul unității sau prin curier, în dublu exemplar, certificate pentru conformitate cu originalul;  ...  
+b) electronic, pe adresa de e-mail dedicată acestei activități a fiecărui inspectorat, însoțită de semnătura electronică a solicitantului.  ...  (2) Un exemplar al avizului de înființare, al avizului pentru sector de competență, precum și al avizului de desființare al serviciului voluntar, însoțite de un exemplar din documentația depusă, vizate spre neschimbare, se restituie solicitantului. (3) În cazul depunerii în format electronic, avizul de înființare, avizul pentru sector de competență, precum și avizul de desființare al serviciului voluntar, însoțite de documentația depusă, pe care se aplică sigiliul electronic avansat al inspectoratelor, se transmit pe adresa de e-mail menționată în cererea de emitere a avizelor. 
+
+Articolul 33 
+(1) Avizul de înființare și avizul pentru sector de competență a serviciului voluntar se solicită și se emit simultan. (2) Serviciul voluntar se poate desființa dacă în localitatea în care acesta este constituit s-a înființat o subunitate din cadrul serviciilor profesioniste pentru situații de urgență, care are în dotare minimum o autospecială de stingere cu apă și spumă. 
+
+Capitolul III Criterii specifice pentru serviciile private 
+
+Secţiunea 1 Criterii specifice privind constituirea și dotarea 
+
+Articolul 34 
+
+Serviciile private se constituie la nivelul operatorilor economici și instituțiilor care desfășoară activități cu risc de incendiu, pe următoarele tipuri:
+a) servicii tip P1 - ca servicii proprii;  ...  
+b) servicii tip P2 - ca servicii proprii;  ...  
+c) servicii tip P3 - ca servicii proprii sau ca societăți prestatoare de servicii.  ...  
+
+Articolul 35 
+(1) În funcție de tipul lor, serviciile private au următoarea compunere:
+a) servicii tip P1: șef serviciu, compartiment pentru prevenire și echipe specializate constituite în una sau mai multe formații de intervenție;  ...  
+b) servicii tip P2: șef serviciu, compartiment pentru prevenire, precum și o grupă de intervenție care încadrează o autospecială de stingere cu apă și spumă și, după caz, una sau mai multe echipe specializate, constituite în una sau mai multe formații de intervenție;  ...  
+c) servicii tip P3: șef serviciu, compartiment pentru prevenire, precum și două sau mai multe grupe de intervenție care încadrează autospeciale de stingere cu apă și spumă și, după caz, una sau mai multe echipe specializate, constituite în una sau mai multe formații de intervenție.  ...  (2) Serviciile private proprii care dețin una sau mai multe autospeciale de stingere cu apă și spumă, dar nu au obligația dotării cu aceasta/acestea se pot constitui ca servicii de tip P2 sau tip P3, cu respectarea criteriilor de performanță. (3) Serviciile private care funcționează în mai multe sectoare de competență vor avea în compunere funcția de șef formație de intervenție pentru fiecare sector de competență. (4) În cazul formațiilor de intervenție care își desfășoară activitatea pe o singură tură, constituite dintr-o singură echipă specializată încadrată cu 3 persoane/tură, nu este obligatorie încadrarea funcției de șef de formație de intervenție, atribuțiile acestuia fiind îndeplinite de persoana ce încadrează funcția de șef echipă specializată. 
+
+Articolul 36 
+(1) Au obligația constituirii serviciului tip P1 operatorii economici și instituțiile care au în administrare, în același sector de competență:
+a) clădiri/spații amenajate în clădiri/ansamblu de clădiri de învățământ de nivel campus, cu capacitatea mai mare de 1.000 de locuri;  ...  
+b) clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru sănătate, cu un număr mai mare de 300 de paturi;  ...  
+c) clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru cultură, cu capacitatea mai mare de 600 de persoane;  ...  
+d) clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru activități sportive și spectacole cu capacitatea mai mare de 600 de persoane;  ...  
+e) clădiri/spații amenajate în clădiri/ansamblu de clădiri și spații anexe pentru comerț și/sau alimentație publică, cu suprafața desfășurată peste 3.500 mp;  ...  
+f) clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru turism, având un număr mai mare de 400 de locuri de cazare;  ...  
+g) clădiri înalte sau foarte înalte, cu excepția clădirilor de locuit;  ...  
+h) construcții, clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru producție și/sau depozitare și utilajele și instalațiile tehnologice aferente, identificate cu risc mare și/sau foarte mare de incendiu, pe o suprafață desfășurată însumată între 10.000 mp și 30.000 mp.  ...  (2) Au obligația constituirii serviciului tip P2 operatorii economici și instituțiile care au în administrare, în același sector de competență:
+a) construcții, clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru producție și/sau depozitare, identificate cu risc mare și/sau foarte mare de incendiu, pe o suprafață desfășurată însumată între 30.000 mp și 50.000 mp;  ...  
+b) utilaje și instalații tehnologice identificate cu risc mare și/sau foarte mare de incendiu, amplasate pe o suprafață desfășurată însumată între 30.000 mp și 50.000 mp;  ...  
+c) tipul de construcții/clădiri, utilaje și instalații specificate la lit. a) și b) , dacă suma suprafețelor desfășurate identificate cu risc mare și/sau foarte mare de incendiu este între 30.000 mp și 50.000 mp.  ...  (3) Au obligația constituirii serviciului tip P3 operatorii economici și instituțiile care au în administrare, în același sector de competență:
+a) construcții, clădiri/spații amenajate în clădiri/ansamblu de clădiri pentru producție și/sau depozitare, identificate cu risc mare și/sau foarte mare de incendiu, pe o suprafață desfășurată însumată mai mare de 50.000 mp;  ...  
+b) utilaje și instalații tehnologice identificate cu risc mare și/sau foarte mare de incendiu, amplasate pe o suprafață desfășurată însumată mai mare de 50.000 mp;  ...  
+c) tipul de construcții/clădiri, utilaje și instalații specificate la lit. a) și b) , dacă suma suprafețelor desfășurate identificate cu risc mare și/sau foarte mare de incendiu este mai mare de 50.000 mp.  ...  (4) Serviciile private constituite ca societăți prestatoare de servicii sunt obligatoriu de tip P3. 
+
+Articolul 37 
+
+În cazul în care construcțiile pentru producție și/sau depozitare sau utilajele și instalațiile tehnologice, prevăzute la art. 36 alin. (2) și (3) , sunt dotate cu instalații de stingere a incendiilor, potrivit scenariilor de securitate la incendiu și/sau altor documente justificative, exceptând pe cea de hidranți interiori și exteriori, operatorul economic sau instituția care le administrează nu are obligația dotării serviciului cu autospecială/autospeciale de stingere cu apă și spumă, serviciul constituit fiind de tip P1. 
+
+Articolul 38 
+
+În situația în care un operator economic/instituție nu are obligația constituirii serviciului privat, dar constituie serviciul, acesta se supune avizării, cu respectarea criteriilor de performanță, măsură ce nu poate substitui obligațiile legale privind apărarea împotriva incendiilor, serviciul constituit fiind minimum de tip P1. 
+
+Articolul 39 
+(1) Obligația operatorilor economici/instituțiilor de a constitui servicii private poate fi îndeplinită și prin încheierea unui contract cu un serviciu privat propriu sau cu un serviciu privat constituit ca societate prestatoare de servicii. (2) Contractul prevăzut la alin. (1) are ca obiect îndeplinirea de către serviciul privat a atribuțiilor corespunzătoare serviciului pe care are obligația să îl constituie operatorul economic/ instituția, potrivit prezentelor criterii de performanță. (3) Serviciul privat al operatorului economic/instituției cu care s-a încheiat contract în baza prevederilor alin. (1) are obligația obținerii avizului pentru sector de competență în termen de 30 de zile de la data intrării în vigoare a contractului. (4) În cazul serviciului privat propriu, contractul prevăzut la alin. (1) se poate încheia numai dacă sunt îndeplinite cumulativ următoarele condiții:
+a) beneficiarul își desfășoară activitatea în același amplasament;  ...  
+b) tipul serviciului este în concordanță cu prevederile art. 36 , având în vedere suma suprafețelor desfășurate a construcțiilor, clădirilor/spațiilor amenajate în clădiri/ansamblu de clădiri pentru producție și/sau depozitare, precum și a suprafeței desfășurate pe care sunt amplasate utilajele și instalațiile tehnologice aferente, identificate cu risc mare și/sau foarte mare de incendiu, administrate de operatorii economici beneficiari;  ...  
+c) dimensionarea formației/formațiilor de intervenție este în acord cu riscurile identificate la toți beneficiarii;  ...  
+d) formația de intervenție este încadrată cu personal angajat exclusiv pe funcțiile specifice;  ...  
+e) personalul formației de intervenție trebuie să aibă calificarea sau competențele profesionale specifice, atestate potrivit reglementărilor în vigoare.  ...  (5) Încheierea de noi contracte în condițiile alin. (4) implică obligativitatea obținerii unui nou aviz pentru sectorul de competență, iar cel emis anterior își pierde valabilitatea. (6) În cazul încheierii unui contract cu un serviciu privat constituit ca societate prestatoare de servicii, încadrarea și dotarea formației de intervenție se realizează cu respectarea prevederilor alin. (4) lit. b)-e) . (7) Prevederile alin. (5) se aplică și în cazul serviciilor private constituite ca societate prestatoare de servicii în condițiile alin. (4) lit. a) . 
+
+Articolul 40 
+
+Operatorii economici și instituțiile care nu au obligația constituirii serviciului privat pot constitui serviciu privat sau pot încheia un contract potrivit prevederilor art. 39 alin. (1) , numai în condițiile respectării criteriilor de performanță, măsură ce nu poate substitui obligațiile legale privind apărarea împotriva incendiilor ale acestuia. 
+
+Secţiunea a 2-a Criterii specifice privind încadrarea 
+
+Articolul 41 
+(1) Funcțiile serviciului privat propriu care nu are în dotare autospecială/autospeciale de stingere cu apă și spumă se exercită de personalul angajat al operatorului economic sau al instituției, încadrat, de regulă, pe alte funcții. (2) Funcțiile serviciului privat propriu care are în dotare autospecială/autospeciale de stingere cu apă și spumă se exercită de personalul angajat al operatorului economic sau al instituției, încadrat astfel:
+a) exclusiv pe funcțiile de șef serviciu, precum și șef grupă și conducător autospecială pentru fiecare grupă de intervenție pe tura de serviciu;  ...  
+b) de regulă prin cumul de funcții, pentru celelalte funcții din cadrul serviciului.  ...  (3) Funcțiile serviciilor private constituite ca societăți prestatoare de servicii se exercită de personalul angajat al societății încadrat exclusiv pe aceste funcții. (4) Personalul prevăzut la alin. (3) desfășoară exclusiv atribuții prevăzute în sarcina serviciului privat pentru situații de urgență. (5) Funcțiile specifice formațiilor de intervenție sunt încadrate cu personal distinct, în fiecare sector de competență. (6) În cazul serviciilor private care își desfășoară activitatea în mai multe sectoare de competență, atribuțiile șefului serviciului pot fi îndeplinite de către șefii formațiilor de intervenție. 
+
+Articolul 42 
+(1) Personalul angajat pe funcțiile specifice, precum și cel care îndeplinește funcția de șef serviciu, șef formație de intervenție, șef compartiment pentru prevenire și șef echipă specializată trebuie să aibă calificarea sau competențele profesionale specifice, atestate potrivit reglementărilor în vigoare. (2) În situația în care, la data avizării unui serviciu, nu sunt îndeplinite prevederile alin. (1) , cu excepția funcțiilor de șef serviciu și servant pompier, personalul specificat trebuie să dețină cel puțin calificarea sau competențele specifice de cadru tehnic cu atribuții în domeniul prevenirii și stingerii incendiilor, inspector protecție civilă sau de servant pompier. 
+
+Articolul 43 
+
+Compartimentul pentru prevenire are în componență minimum 2 specialiști pentru prevenire, care include și șeful compartimentului. 
+
+Articolul 44 
+(1) Grupa de intervenție care încadrează o autospecială de capacitate medie sau mare este compusă din șef grupă de intervenție, 3 servanți pompieri și conducător autospecială, pe fiecare tură. (2) Grupa de intervenție care încadrează o autospecială de capacitate mică este compusă din șef grupă de intervenție, 2 servanți pompieri și conducător autospecială, pe fiecare tură. (3) Compunerea grupei de intervenție care încadrează alte tipuri de autospeciale de intervenție este stabilită conform cărții tehnice. (4) Personalul grupei de intervenție care încadrează o autospecială de stingere cu apă și spumă și deține calificarea sau competențele profesionale specifice atestate potrivit reglementărilor în vigoare poate îndeplini și atribuțiile echipelor specializate. 
+
+Articolul 45 
+(1) Echipa specializată se constituie pentru:
+a) stingere incendii;  ...  
+b) avertizare-alarmare-căutare-deblocare-salvare-evacuare, cu atribuții în cazul situațiilor de urgență determinate de toate tipurile de risc identificate;  ...  
+c) cercetare-intervenție pentru riscurile chimic, biologic și nuclear.  ...  (2) Echipa specializată are în compunere minimum 3 persoane/tură, care include și șeful echipei specializate. (3) În cazul în care echipa pentru stingere incendii este încadrată cu personal angajat pe funcțiile specifice și deține calificarea sau competențele profesionale specifice atestate potrivit reglementărilor în vigoare, aceasta poate îndeplini și atribuțiile echipei constituite pentru avertizare-alarmare-căutare-deblocare-salvare-evacuare. (4) Echipa specializată pentru cercetare-intervenție pentru riscurile chimic, biologic și nuclear se constituie de către operatorii economici care sunt sub incidența prezentelor criterii de performanță și care prin natura activității desfășurate prezintă risc chimic, biologic și nuclear. 
+
+Articolul 46 
+
+Serviciile private pot să își constituie dispecerat, încadrat cu personal care execută serviciul în ture, 24 de ore din 24 de ore. 
+
+Secţiunea a 3-a Criterii operaționale 
+
+Articolul 47 
+(1) Serviciile private au obligația de a menține autospecialele deținute, permanent, în sectorul de competență. (2) În cazul în care în sectorul de competență al serviciului privat sunt identificate spații/zone cu risc de explozie, remiza poate fi amplasată în afara sectorului de competență, astfel încât să fie asigurată intervenția operativă, precum și protecția personalului și a tehnicii de intervenție. (3) În cadrul unui sector de competență nu pot funcționa simultan două servicii private. (4) Serviciile private constituite ca societăți prestatoare de servicii asigură în sectorul de competență, prin formația de intervenție, gestionarea intervenției pentru toate riscurile identificate. 
+
+Articolul 48 
+(1) Pentru fiecare sector de competență avizat se asigură prezența grupelor de intervenție și a echipelor specializate doar pe timpul programului de lucru. (2) Pentru fiecare sector de competență avizat se asigură prezența șefului serviciului sau șefului formației de intervenție, în zilele lucrătoare, 8 ore/zi, pe timpul programului de lucru. 
+
+Articolul 49 
+(1) Serviciile private constituite ca societăți prestatoare de servicii au obligația să dețină cel puțin două autospeciale de capacitate medie sau de capacitate mare, funcționale. (2) Toate autospecialele de stingere cu apă și spumă ale unui serviciu privat constituit ca societate prestatoare de servicii sunt deținute în baza unui titlu valabil de utilizare. 
+
+Articolul 50 
+(1) Conducerea intervenției se asigură de către administratorul operatorului economic/conducătorul instituției sau de către persoanele desemnate de acesta. (2) Conducerea intervenției la serviciul privat constituit ca societate prestatoare de servicii se asigură de către șeful serviciului sau șeful formației de intervenție. 
+
+Secţiunea a 4-a Documente necesare avizării 
+
+Articolul 51 
+(1) Emiterea avizului de înființare, a avizului pentru sector de competență, precum și a avizului de desființare a serviciului privat se solicită printr-o cerere, însoțită de documentele prevăzute în anexa nr. 8 , depuse în format:
+a) letric, direct la sediul unității sau prin curier, în dublu exemplar, certificate pentru conformitate cu originalul;  ...  
+b) electronic, pe adresa de e-mail dedicată acestei activități a fiecărui inspectorat, însoțită de semnătura electronică a solicitantului.  ...  (2) Un exemplar al avizului de înființare, al avizului pentru sector de competență, precum și al avizului de desființare al serviciului privat, însoțite de un exemplar din documentația depusă, vizate spre neschimbare, se restituie solicitantului. (3) În cazul depunerii în format electronic, avizul de înființare, avizul pentru sector de competență, precum și avizul de desființare a serviciului privat, însoțite de documentația depusă, pe care se aplică sigiliul electronic avansat al inspectoratelor, se transmit pe adresa de e-mail menționată în cererea de emitere a avizelor. 
+
+Articolul 52 
+(1) Avizul de înființare și avizul pentru sector de competență a serviciului privat se pot solicita și emite simultan. (2) Serviciul privat se desființează în următoarele situații:
+a) la încetarea activității operatorului economic;  ...  
+b) în caz de restrângere a activității operatorului economic/instituției, dacă prin aceasta nu mai are obligația constituirii serviciului privat;  ...  
+c) dacă intervenția în situații de urgență se realizează prin încheierea unui contract, potrivit legii.  ...  
+
+Articolul 53 
+(1) Avizul de înființare a serviciului privat se anulează în următoarele situații:
+a) nerespectarea dotării cu autospeciale de stingere cu apă și spumă, care a stat la baza emiterii acestuia;  ...  
+b) funcționarea serviciului privat într-un sector de competență pentru care nu deține aviz.  ...  (2) Avizul pentru sector de competență al serviciului privat se anulează în următoarele situații:
+a) neîncadrarea grupei/grupelor de intervenție și/sau a echipelor specializate pentru stingere incendii;  ...  
+b) nemenținerea în stare de funcționare a autospecialelor care au stat la baza emiterii avizului;  ...  
+c) nemenținerea permanent în sectorul de competență a autospecialelor care au stat la baza emiterii avizului.  ...  (3) În situația în care avizul de înființare a serviciului privat a fost anulat potrivit legii, avizele pentru sector de competență ale serviciului privat, emise în baza avizului de înființare anulat, își pierd valabilitatea. 
+
+Capitolul IV Dispoziții finale 
+
+Articolul 54 
+(1) Serviciile voluntare și serviciile private pot asigura măsuri de prevenire și intervenție fără aviz pentru sectorul de competență, în situațiile și în condițiile prevăzute în Dispozițiile generale de apărare împotriva incendiilor la amenajări temporare în spații închise sau în aer liber, aprobate prin Ordinul viceprim-ministrului, ministrul administrației și internelor, nr. 14/2009. (2) Măsurile de prevenire și intervenție la activitățile prevăzute la alin. (1) nu trebuie să afecteze capacitatea de intervenție și dispunerea mijloacelor tehnice de intervenție în sectoarele de competență avizate. 
+
+Articolul 55 
+(1) Modelul cererii pentru solicitarea emiterii avizelor precizate la art. 32 alin. (1) și art. 51 alin. (1) este prevăzut în anexa nr. 9 . (2) Modelul opisului cu documentele depuse la inspectorat în vederea obținerii avizelor precizate la art. 32 alin. (1) și art. 51 alin. (1) este prevăzut în anexa nr. 10 . (3) Tipizatul de avize emise de inspectorate este prevăzut în anexele nr. 11-13 . 
+
+Articolul 56 
+
+Anexele nr. 1-13 fac parte integrantă din prezentele criterii de performanță. 
+
+Anexa nr. 1 
+
+la criteriile de performanță 
+STRUCTURA-CADRU 
+a Regulamentului de organizare și funcționare a serviciilor voluntare și a serviciilor private pentru situații de urgență 
+Capitolul 1 - Dispoziții generale: 1. date referitoare la constituirea serviciului;  ...  2. prezentarea succintă a activității serviciului în funcție de tipurile de risc gestionate;  ...  3. alte date de interes general.  ...  
+Capitolul 2 - Organizarea și atribuțiile serviciului: 1. conducerea și structura organizatorică;  ...  2. atribuțiile serviciului;  ...  3. atribuțiile compartimentului și ale specialiștilor pentru prevenire;  ...  4. atribuțiile formațiilor de intervenție;  ...  5. atribuțiile grupelor de intervenție;  ...  6. atribuțiile echipelor specializate;  ...  7. atribuțiile dispeceratului;  ...  8. atribuțiile compartimentului atelier propriu de întreținere și reparații.  ...  
+Capitolul 3 - Atribuțiile personalului din structura serviciului: 1. atribuțiile șefului serviciului*;  ...  2. atribuțiile șefului compartimentului pentru prevenire;  ...  3. atribuțiile specialiștilor pentru prevenire;  ...  4. atribuțiile șefului formației de intervenție**;  ...  5. atribuțiile șefului grupei de intervenție;  ...  6. atribuțiile șefului echipei specializate;  ...  7. atribuțiile membrilor grupelor de intervenție;  ...  8. atribuțiile membrilor echipelor specializate;  ...  9. atribuțiile conducătorilor autospecialelor de intervenție;  ...  10. atribuțiile dispecerului/telefonistului;  ...  11. atribuțiile operatorului în verificarea, întreținerea și repararea autospecialelor destinate apărării împotriva incendiilor.  ...  
+Capitolul 4 - Gestionarea patrimoniului serviciului privat: –  dotare, exploatare, întreținere, evidență și control al patrimoniului.  ...  
+* La stabilirea atribuțiilor șefului serviciului voluntar și al serviciului privat pentru situații de urgență se au în vedere următoarele obligații principale:
+a) întocmește documentele de organizare și funcționare a activității serviciului voluntar/serviciului privat;  ...  
+b) planifică și conduce activitatea de pregătire a personalului serviciului voluntar/serviciului privat;  ...  
+c) asigură respectarea prevederilor actelor normative specifice în vigoare;  ...  
+d) organizează activitatea de prevenire;  ...  
+e) verifică întreținerea autospecialelor, a utilajelor și a materialelor din dotare;  ...  
+f) conduce acțiunile de intervenție în limita competențelor stabilite;  ...  
+g) întocmește rapoartele de intervenție.  ...  
+** În cazul serviciului privat cu mai multe sectoare de competență, atribuțiile șefului serviciului pot fi îndeplinite de către șeful formației de intervenție. 
+
+Anexa nr. 2 
+
+la criteriile de performanță 
+DOCUMENTELE 
+de organizare și funcționare a serviciilor voluntare și a serviciilor private pentru situații de urgență I. Regulamentul de organizare și funcționare a serviciului  ...  II. Dosarul privind activitatea și înzestrarea serviciului: 1. hotărârea consiliului local/dispoziția administratorului/ conducătorului privind înființarea serviciului voluntar/serviciului privat, cu organigrama și nominalizarea personalului pe funcții;  ...  2. contractele de voluntariat încheiate între consiliul local și voluntari;  ...  3. protocoalele ori convențiile de colaborare încheiate cu alte entități;  ...  4. tabelul nominal cu personalul, funcțiile ocupate în cadrul serviciului, locul de muncă și modul de înștiințare;  ...  5. tabelul cu materialele și tehnica de intervenție existente în dotare, stabilite conform normei proprii de dotare;  ...  6. evidența referatelor privind completarea cu materiale și tehnică, întocmite de șeful serviciului;  ...  7. schema legăturilor fir-radio cu forțele ce acționează în cazul situațiilor de urgență.  ...   ...  III. Dosar cu planurile operative ale serviciului: 1. planuri de apărare, în funcție de riscurile identificate în sectorul de competență;  ...  2. planuri de cooperare;  ...  3. planul de evacuare în caz de situații de urgență;  ...  4. planul sectorului de competență pe care sunt marcate zonele locuite, operatorii economici și instituțiile, sursele de alimentare cu apă, zonele greu accesibile și vulnerabile la riscuri;  ...  5. planuri de urgență internă (pentru obiectivele SEVESO).  ...   ...  IV. Dosar operativ: 1. organizarea intervenției pe ture de serviciu;  ...  2. registrul cu note de anunțare și de evidență a intervențiilor;  ...  3. rapoartele de intervenție;  ...  4. proceduri specifice de intervenție pe tipuri de riscuri.  ...   ...  V. Dosar privind pregătirea personalului: 1. planul de pregătire profesională lunară și anuală, pe teme și exerciții;  ...  2. registrul de evidență a participării la pregătirea profesională și calificativele obținute;  ...  3. planificarea exercițiilor și aplicațiilor.  ...   ...  VI. Dosar privind activitatea de prevenire
+A. Serviciul voluntar: 1. graficul controalelor la gospodăriile populației, operatorilor economici și instituțiilor din subordine;  ...  2. graficul activităților de verificare, curățare și reparare a coșurilor de fum;  ...  3. carnetele și notele de control cu constatările rezultate din controale;  ...  4. graficul acțiunilor de informare preventivă.  ...   ...  
+B. Serviciul privat: 1. graficul de control;  ...  2. programul serviciului de rond;  ...  3. registrul cu constatările rezultate din serviciul de rond;  ...  4. notele de control;  ...  5. registrul cu evidența lucrărilor cu foc sau a lucrărilor periculoase.  ...   ...   ...  VII. Dosar tehnic: 1. planul de asistență al autospecialelor și utilajelor;  ...  2. dosar tehnic al autospecialelor și utilajelor;  ...  3. instrucțiuni de exploatare a sistemelor și instalațiilor de protecție împotriva incendiilor.  ...   ...  VIII. Registrul istoric (pentru serviciile voluntare)  ...  
+
+Anexa nr. 3 
+
+la criteriile de performanță 
+BAREMELE 
+pentru evaluarea aptitudinilor fizice la încadrarea personalului 
+Nr. crt. Probe Dotare necesară Barem 
+1. Pista cu obstacole pe 100 m, conform regulamentului concursurilor profesionale ale serviciilor voluntare și private pentru situații de urgență 
+a) costum de protecție tip pompier 
+b) o țeavă de refulare a apei 
+c) 2 furtunuri de refulare tip C 
+d) un distribuitor B-CBC 
+e) un gard de 2 metri 
+f) o bârnă de echilibru maximum 35 de secunde 
+2. Alergare de rezistență pe 1.000 m Echipament sportiv maximum 7 minute 
+3. Alergare de viteză pe 50 m Echipament sportiv maximum 10 secunde 
+4. Abdomene Echipament sportiv minimum 20 de repetări 
+
+Anexa nr. 4 
+
+la criteriile de performanță 
+NORMA DE DOTARE CU ECHIPAMENT DE PROTECȚIE 
+a personalului serviciilor voluntare și serviciilor private pentru situații de urgență 
+a) Șef serviciu/Șef formație de intervenție: 1. costum de protecție tip pompier;  ...  2. cizme scurte din piele cu branț metalic;  ...  3. cască de protecție cu vizor;  ...  4. brâu pompier (centură de siguranță);  ...  5. mănuși de protecție.  ...   ...  
+b) Membrii grupelor de intervenție: 1. costum de protecție tip pompier;  ...  2. cizme scurte din piele cu branț metalic;  ...  3. cască de protecție cu vizor;  ...  4. brâu pompier (centură de siguranță);  ...  5. aparat de respirat cu aer comprimat (minimum 2 buc./grupă);  ...  6. mănuși de protecție.  ...   ...  
+c) Membrii echipelor specializate de stins incendii: 1. costum de protecție tip pompier;  ...  2. cizme scurte din piele cu branț metalic;  ...  3. cască de protecție cu vizor;  ...  4. brâu pompier (centură de siguranță);  ...  5. mănuși de protecție.  ...   ...  
+d) Membrii echipelor specializate, altele decât cele de stins incendii: 1. costum de protecție;  ...  2. bocanci;  ...  3. cască de protecție;  ...  4. brâu pompier (centură de siguranță);  ...  5. mănuși de protecție.  ...   ...  
+
+Anexa nr. 5 
+
+la criteriile de performanță 
+NORMĂ ORIENTATIVĂ 
+privind dotarea spațiilor, a autospecialelor de stingere cu apă și spumă și a echipelor specializate 
+A. Dotarea spațiilor aferente serviciului
+a) Dispeceratul: 1. mese de lucru și scaune;  ...  2. post telefonic cu legătură directă la beneficiar;  ...  3. stații de emisie-recepție mobile;  ...  4. mijloace de alarmare;  ...  5. calculator;  ...  6. imprimantă.  ...   ...  
+b) Spații pentru gararea/revizia mijloacelor de intervenție: 1. spații pentru gararea/depozitarea, adăpostirea și întreținerea materialelor/mijloacelor tehnice, încălzite pe timpul sezonului rece;  ...  2. utilaje și scule adecvate lucrărilor de întreținere și reparații.  ...   ...   ...  
+B. Dotarea unei autospeciale de stingere cu apă și spumă
+
+Nr. crt. 
+Denumirea 
+Nr. bucăți 
+
+1 
+furtun de refulare tip C 
+15 
+
+2 
+furtun de refulare tip B 
+10 
+
+3 
+țeavă de refulare tip C 
+4 
+
+4 
+tub de absorbție tip A 
+6 
+
+5 
+distribuitor B-CBC 
+2 
+
+6 
+hidrant portativ + cheie 
+1 set 
+
+7 
+colector 
+1 
+
+8 
+sorb pentru tuburile de aspirație 
+2 
+
+9 
+coș metalic 
+2 
+
+10 
+cordiță susținere sorb 
+2 
+
+11 
+ejector pentru ape mici 
+1 
+
+12 
+reducții de racorduri 
+- tip A-B 
+- tip B-C 
+1 
+1 
+
+13 
+țeavă generatoare de spumă mecanică 
+2 
+
+14 
+costum de protecție anticalorică (pentru serviciile private pentru situații de urgență): 
+- apropiere normală (bluză, pantaloni, glugă, mănuși, cizme) 
+- pătrundere grea (combinezon cu glugă și cizme etanșe și mănuși) 
+1 
+1 
+
+15 
+aparate de respirat cu aer comprimat 
+2* 
+
+16 
+butelie cu aer comprimat, de rezervă 
+2* 
+
+17 
+coardă de salvare 
+2 
+
+18 
+cordiță de salvare 
+2 
+
+19 
+topor târnăcop + toc 
+1 
+
+20 
+toporaș + toc 
+2 
+
+21 
+cange 
+1 
+
+22 
+rangă 
+1 
+
+23 
+proiector mobil 
+1 
+
+24 
+trepied pentru proiector 
+1 
+
+25 
+bobină pentru cablu de 50 m 
+1 
+
+26 
+punte de trecere peste furtun 
+2 
+
+27 
+cot furtun 
+1 
+
+28 
+geantă pentru chei și feșe 
+2 
+
+29 
+cheie pentru racordare (furtunuri) 
+4 
+
+30 
+fașă pentru furtun 
+- tip B 
+- tip C 
+4 
+4 
+
+31 
+scară de fereastră 
+1 
+
+32 
+scară culisabilă 
+1 
+
+33 
+stingător tip P 6 
+2 
+
+34 
+trusă medicală de prim ajutor 
+1 
+
+* Cu caracter de obligativitate.  ...  
+C. Dotarea echipei specializate
+Nr. crt. Tipul echipei specializate Dotare minimă/echipă 
+1 Stingere incendii 
+- 6 furtunuri tip C 
+- 2 țevi de refulare** 
+- 1 aparat de respirat cu aer comprimat (1 butelie de rezervă) 
+- 3 lanterne 
+- hidrant portativ cu cheie 
+2 Avertizare-alarmare-căutare-deblocare-salvare-evacuare 
+- unelte de deblocare-salvare 
+- targă - 1 
+- vestă reflectorizantă - 1/persoană 
+- lanternă - 1/persoană 
+- mijloace de avertizare-alarmare 
+3 Cercetare-intervenție pentru riscurile chimic, biologic și nuclear 
+- echipament detecție - 1 
+- complet de protecție CBRN - 1/persoană*** 
+
+** În cazul în care clădirea nu este echipată cu instalație de hidranți interiori. 
+*** Conform fișei/fișelor de securitate a/ale substanței/substanțelor periculoase prezente în amplasament.  ...  
+
+Anexa nr. 6 
+
+la criteriile de performanță 
+Model de aviz pentru funcția de șef serviciu voluntar 
+MINISTERUL AFACERILOR INTERNE 
+Inspectoratul pentru Situații de Urgență „...........“ 
+Nr. ......... 
+din ........ 
+AVIZ 
+Domnul/Doamna, ..............................., posesor/posesoare al/a BI/CI seria ..... nr. ..................., CNP .........................., întrunește condițiile legale*) pentru a putea fi încadrat (ă) pe funcția de șef serviciu voluntar pentru situații de urgență al localității .......... 
+Avizul se emite astăzi, .............. 
+Inspector-șef, 
+........................ 
+*) Deține competențele specifice ocupației de șef serviciu voluntar/privat sau deține brevet de pompier specialist. 
+
+Anexa nr. 7 
+
+la criteriile de performanță 
+DOCUMENTE 
+pe baza cărora se solicită emiterea avizelor specifice serviciilor voluntare pentru situații de urgență 
+Aviz Tip serviciu Documente 
+1. 2. 3. 4. 5. 6. 7. 8. 9. 10. 11. 12. 
+1. Înființare V1 X X X X X X X X X X X - 
+V2 X X X X X X X X X X X X 
+V3 X X X X X X X X X X X X 
+2. Pentru sector de competență V1 X X X X X X X X X X X - 
+V2 X X X X X X X X X X X X 
+V3 X X X X X X X X X X X X 
+3. Desființare V1 X X - - 
+- - - - - - - 
+V2 X X - - 
+- - - - - - - 
+V3 X X - - 
+- - - - - - - 
+
+Descrierea documentelor prevăzute în tabel: 1. cerere;  ...  2. opis cu documentele depuse;  ...  3. hotărârea consiliului local privind înființarea serviciului voluntar;  ...  4. documente care atestă încadrarea unității administrativ-teritoriale în criteriile de performanță;  ...  5. organigrama serviciului voluntar, cu nominalizarea personalului pe funcții;  ...  6. regulamentul de organizare și funcționare;  ...  7. contractele individuale de muncă ale personalului angajat/documente care atestă încadrarea personalului angajat;  ...  8. contractele de voluntariat ale personalului voluntar;  ...  9. documente care atestă calificarea sau competențele profesionale specifice;  ...  10. tabel cu materialele și tehnica de intervenție existente în dotare, stabilite conform normei proprii de dotare;  ...  11. documente care atestă deținerea în baza unui titlu valabil a dotării serviciului voluntar;  ...  12. documente care atestă funcționarea autospecialelor din punct de vedere tehnic.  ...  
+
+Anexa nr. 8 
+
+la criteriile de performanță 
+DOCUMENTE 
+pe baza cărora se solicită emiterea avizelor specifice serviciilor private pentru situații de urgență 
+Aviz Tip serviciu Documente 
+1. 2. 3. 4. 5. 6. 7. 8. 9. 10. 11. 12. 
+1. Înființare P1 X X X X X X X X - - - - 
+P2 X X X X X X X X X - - - 
+P3 X X X X X X X X X - - - 
+2. Pentru sector de competență P1 X X - X X^1 - X^2 X^2 - X X X 
+P2 X X - X X^1 - X^2 X^2 X^2 X X X 
+P3 X X - X X^1 - X^2 X^2 X^2 X X X 
+3. Desființare P1 X X - X - - - - - - - - 
+P2 X X - X - - - - - - - - 
+P3 X X - X - - - - - - - - 
+
+Descrierea documentelor prevăzute în tabel: 1. cerere;  ...  2. opis cu documentele depuse;  ...  3. dispoziția administratorului/conducătorului privind înființarea serviciului privat;  ...  4. documente care atestă încadrarea operatorului economic/instituției în criteriile de performanță;  ...  5. organigrama serviciului privat;  ...  6. regulamentul de organizare și funcționare;  ...  7. tabel cu materialele și tehnica de intervenție existente în dotare, stabilite conform normei proprii de dotare;  ...  8. documente care atestă deținerea în baza unui titlu valabil a dotării serviciului privat;  ...  9. documente care atestă funcționarea autospecialelor din punct de vedere tehnic;  ...  10. contractele individuale de muncă ale personalului serviciului privat destinat sectorului de competență;  ...  11. documente care atestă calificarea sau competențele profesionale specifice personalului serviciului privat destinat sectorului de competență;  ...  12. contractul încheiat cu operatorul economic/instituția prin care este îndeplinită obligația constituirii serviciului privat.  ...  
+^1 Completată cu nominalizarea personalului pe funcții. 
+^2 Destinată intervenției în sectorul de competență. 
+
+Anexa nr. 9 
+
+la criteriile de performanță 
+Către 
+Inspectoratul pentru situații de urgență „..........................................“ 
+al Județului ..................../București-Ilfov 
+Domnului inspector-șef 
+CERERE 
+Nr. ............. din ............... 20..... 
+Subscrisa, ................................, cu sediul/sediul social în județul/sectorul ........., municipiul/orașul/comuna .........................., str. ....................... nr. ..... bl. ....., sc. ...., et. ...., ap. ...., codul poștal ........., telefon ..............., fax ..............., e-mail ........................., reprezentată prin ......................, în calitate de .........................., în conformitate cu prevederile art. 33 alin. (1) și (5) din Legea nr. 307/2006 privind apărarea împotriva incendiilor, republicată, cu modificările și completările ulterioare, solicit emiterea avizului ..........................^1 al .............................^2. 
+Anexez documentele prevăzute în Criteriile de performanță privind constituirea, încadrarea și dotarea serviciilor voluntare și a serviciilor private pentru situații de urgență, aprobate prin Ordinul viceprim-ministrului, ministrul afacerilor interne, nr. 51/2024, conform opisului. 
+Declar pe propria răspundere că documentele depuse în copie sunt conforme cu originalul^3. 
+Data ......................... Semnătura ....................... 
+^1 De înființare/Pentru sector de competență/De desființare. 
+^2 Serviciului voluntar pentru situații de urgență/Serviciului privat propriu pentru situații de urgență/Serviciului privat pentru situații de urgență constituit ca societate prestatoare de servicii. 
+^3 Doar în cazul depunerii în format electronic. 
+
+Anexa nr. 10 
+
+la criteriile de performanță 
+OPIS 
+cu documentele depuse pentru emiterea avizului 
+Nr. crt. Denumirea documentului Numărul de înregistrare Numărul de file Observații 
+
+Data ......................... Semnătura ......................... 
+
+Anexa nr. 11 
+
+la criteriile de performanță 
+MINISTERUL AFACERILOR INTERNE 
+DEPARTAMENTUL PENTRU SITUAȚII DE URGENȚĂ 
+INSPECTORATUL GENERAL PENTRU SITUAȚII DE URGENȚĂ 
+ 
+
+Inspectoratul pentru Situații de Urgență „..........................“ ..................... 
+AVIZ 
+de înființare a ................................*) 
+nr. ...................... din ......................... 
+Ca urmare a Cererii înregistrate cu nr. ........din ........., adresată de ................**), cu sediul/sediul social în județul ..........................., municipiul/orașul/comuna ......................., sectorul ..., str. ...................... nr. ..., bl. ..., sc. ..., et. ...., ap. ..., 
+în baza prevederilor art. 11 lit. e) din Hotărârea Guvernului nr. 1.492/2004 privind principiile de organizare, funcționarea și atribuțiile serviciilor de urgență profesioniste, cu modificările și completările ulterioare, ale art. 33 alin. (1) și (5) din Legea nr. 307/2006 privind apărarea împotriva incendiilor, republicată, cu modificările și completările ulterioare, și ale art. 4 din anexa la Ordinul viceprim-ministrului, ministrul afacerilor interne, nr. 51/2024 pentru aprobarea Criteriilor de performanță privind constituirea, încadrarea și dotarea serviciilor voluntare și a serviciilor private pentru situații de urgență, 
+se avizează înființarea 
+................................***) 
+tip .................. 
+Inspector-șef, 
+................................ 
+(nume și prenume, semnătură) 
+*) Serviciului voluntar pentru situații de urgență/Serviciului privat propriu pentru situații de urgență/Serviciului privat pentru situații de urgență constituit ca societate prestatoare de servicii. 
+**) Consiliul local al localității ......./Operatorul economic ......./Instituția ........ . 
+***) Serviciului voluntar pentru situații de urgență al localității ......./Serviciului privat propriu pentru situații de urgență al operatorului economic ....../instituției ....../Serviciului privat pentru situații de urgență constituit ca societate prestatoare de servicii ..... . 
+Avizul este valabil numai însoțit de documentele care au stat la baza emiterii acestuia, vizate spre neschimbare/care conțin sigiliul electronic avansat al inspectoratului emitent. 
+
+Anexa nr. 12 
+
+la criteriile de performanță 
+MINISTERUL AFACERILOR INTERNE 
+DEPARTAMENTUL PENTRU SITUAȚII DE URGENȚĂ 
+INSPECTORATUL GENERAL PENTRU SITUAȚII DE URGENȚĂ 
+ 
+
+Inspectoratul pentru Situații de Urgență „..........................“ ..................... 
+AVIZ 
+pentru sectorul de competență al ...............................*) 
+nr. ...................... din ......................... 
+Ca urmare a Cererii înregistrate cu nr. ...........din ........., adresată de ...............**), tip ......, cu sediul/sediul social în județul ......................................, municipiul/orașul/comuna ..............................., sectorul ......, str. ............................................... nr. ...., bl. ....., sc. ......., et. ......, ap. ....., 
+în baza prevederilor art. 11 lit. e) din Hotărârea Guvernului nr. 1.492/2004 privind principiile de organizare, funcționarea și atribuțiile serviciilor de urgență profesioniste, cu modificările și completările ulterioare, ale art. 33 alin. (1) și (5) din Legea nr. 307/2006 privind apărarea împotriva incendiilor, republicată, cu modificările și completările ulterioare, și ale art. 4 din anexa la Ordinul viceprim-ministrului, ministrul afacerilor interne, nr. 51/2024 pentru aprobarea Criteriilor de performanță privind constituirea, încadrarea și dotarea serviciilor voluntare și a serviciilor private pentru situații de urgență, 
+se avizează sectorul de competență 
+.............................***) 
+specific serviciului tip ............ 
+Adresa sectorului de competență:
+str. ................................. nr. ......., județul ........................, municipiul/orașul/comuna ..........................., sectorul ....... 
+Inspector-șef, 
+................................ 
+(nume și prenume, semnătură) 
+*) Serviciului voluntar pentru situații de urgență/Serviciului privat propriu pentru situații de urgență/Serviciului privat pentru situații de urgență constituit ca societate prestatoare de servicii. 
+**) Serviciul voluntar pentru situații de urgență al localității ......./Serviciul privat propriu pentru situații de urgență al operatorului economic ......./instituției ......./Serviciul privat pentru situații de urgență constituit ca societate prestatoare de servicii ...... . 
+***) Localitatea ......./Operatorul economic ......./Instituția ....... . 
+Avizul este valabil numai însoțit de documentele care au stat la baza emiterii acestuia, vizate spre neschimbare/care conțin sigiliul electronic avansat al inspectoratului emitent. 
+
+Anexa nr. 13 
+
+la criteriile de performanță 
+MINISTERUL AFACERILOR INTERNE 
+DEPARTAMENTUL PENTRU SITUAȚII DE URGENȚĂ 
+INSPECTORATUL GENERAL PENTRU SITUAȚII DE URGENȚĂ 
+ 
+
+Inspectoratul pentru Situații de Urgență „..........................“ ..................... 
+AVIZ 
+de desființare a ............................*) 
+nr. ...................... din .................. 
+Ca urmare a Cererii înregistrate cu nr. ...........din ........., adresată de .............**), cu sediul/sediul social în județul ..................................................., municipiul/orașul/comuna ..........................................., sectorul ....., str. ........................................... nr. ..., bl. ...., sc. ......, et. ....., ap. ...., 
+în baza prevederilor art. 11 lit. e) din Hotărârea Guvernului nr. 1.492/2004 privind principiile de organizare, funcționarea și atribuțiile serviciilor de urgență profesioniste, cu modificările și completările ulterioare, ale art. 33 alin. (1) și (5) din Legea nr. 307/2006 privind apărarea împotriva incendiilor, republicată, cu modificările și completările ulterioare, și ale art. 4 din anexa la Ordinul viceprim-ministrului, ministrul afacerilor interne, nr. 51/2024 pentru aprobarea Criteriilor de performanță privind constituirea, încadrarea și dotarea serviciilor voluntare și a serviciilor private pentru situații de urgență, 
+se avizează desființarea 
+...................................................***) 
+tip .................. 
+Inspector-șef 
+................................ 
+(nume și prenume, semnătură) 
+*) Serviciului voluntar pentru situații de urgență/Serviciului privat propriu pentru situații de urgență/Serviciului privat pentru situații de urgență constituit ca societate prestatoare de servicii. 
+**) Consiliul local al localității ......./Operatorul economic ......./Instituția ....... . 
+***) Serviciului voluntar pentru situații de urgență al localității ......./Serviciului privat propriu pentru situații de urgență al operatorului economic ...../instituției ...../Serviciului privat pentru situații de urgență constituit ca societate prestatoare de servicii ... . 
+Avizul este valabil numai însoțit de documentele care au stat la baza emiterii acestuia, vizate spre neschimbare/care conțin sigiliul electronic avansat al inspectoratului emitent. 
+-------
