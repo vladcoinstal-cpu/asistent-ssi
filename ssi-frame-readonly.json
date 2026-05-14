@@ -1,0 +1,17 @@
+{
+  "normal": [
+    ["1. Caracteristicile constructiei sau amenajarii", ["denumire_obiectiv", "beneficiar", "adresa", "funcțiuni", "categoria_importanta", "tip_cladire", "tip_parcaj", "caracteristici_dimensionale", "numar_utilizatori", "autoevacuare", "capacitati_depozitare"]],
+    ["2. Identificarea si stabilirea nivelurilor de risc de incendiu", ["risc_incendiu", "surse_aprindere_specifice", "procese_substante"]],
+    ["3. Nivelurile criteriilor de performanta privind securitatea la incendiu", ["stabilitate_foc", "limitare_vecinatati", "evacuare", "interventie"]],
+    ["4. Echiparea si dotarea cu instalatii cu rol de securitate la incendiu", ["instalații_stingere", "idsai", "desfumare", "alimentare_electrica", "iluminat_siguranta", "trsnet"]],
+    ["5. Masuri tehnico-organizatorice privind exploatarea constructiei", ["măsuri_organizatorice", "stingatoare"]],
+    ["6. Masuri compensatorii propuse", ["măsuri_compensatorii"]]
+  ],
+  "preliminary": [
+    ["1. Caracteristicile constructiei sau amenajarii", ["denumire_obiectiv", "beneficiar", "adresa", "funcțiuni", "tip_cladire", "caracteristici_dimensionale", "numar_utilizatori"]],
+    ["2. Nivelurile riscului de incendiu estimat", ["risc_incendiu", "capacitati_depozitare", "surse_aprindere_specifice"]],
+    ["3. Nivelurile criteriilor de performanta privind securitatea la incendiu", ["stabilitate_foc", "evacuare", "limitare_vecinatati"]],
+    ["4. Instalatii cu rol in asigurarea cerintei securitate la incendiu", ["instalații_stingere", "idsai", "desfumare", "iluminat_siguranta", "trsnet"]],
+    ["5. Masuri compensatorii", ["măsuri_compensatorii"]]
+  ]
+}
