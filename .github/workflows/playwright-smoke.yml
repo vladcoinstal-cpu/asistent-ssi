@@ -10,7 +10,6 @@ jobs:
   smoke:
     runs-on: ubuntu-latest
     env:
-      PLAYWRIGHT_BASE_URL: https://asistent-bln7j9bec-vladcoinstal-cpus-projects.vercel.app
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     steps:
       - name: Checkout
