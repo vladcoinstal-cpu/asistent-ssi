@@ -86,7 +86,7 @@ test.describe("smoke cloud app", () => {
       await expect(page.locator("#issuesOutput")).not.toContainText(/nu are inca text local disponibil/i);
 
       await page.locator('[data-tab-target="preliminaryTab"]').click();
-      await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcției/i);
+      await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcÈ›iei/i);
 
       await verifyLawReaderFromPreview(page);
     });
@@ -100,3 +100,4 @@ test.describe("smoke cloud app", () => {
     await expect(page.locator("#autotestOutput")).toContainText(/SSI normal generat/i, { timeout: 60_000 });
     await expect(page.locator("#autotestOutput")).toContainText(/SSI preliminar generat/i, { timeout: 60_000 });
   });
+});
