@@ -12,6 +12,10 @@
       return;
     }
 
+    if (typeof window.extractAggregateFactsFromContent !== "function" && typeof runExtraction === "function") {
+      window.extractAggregateFactsFromContent = (content) => runExtraction([{ name: "Auto-test", content: String(content || "") }]);
+    }
+
     function activeProject() {
       try {
         return typeof getActiveProject === "function" ? getActiveProject() : null;
@@ -165,6 +169,10 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         ...window.__ssiCommands,
         extractData: () => handleExtractData(),
         resetProject: () => resetProjectState(),
+        openAutotest: async () => {
+          if (typeof activateTab === "function") activateTab("autotestTab");
+          if (typeof runAutotestSuite === "function") await runAutotestSuite();
+        },
         restoreFullSsiFrame: () => writeFullReports(true)
       };
     }
