@@ -69,18 +69,18 @@
           .replace(/inaltime/gi, "inaltime")
           .replace(/desfasurat/gi, "desfasurat")
           .replace(/construita/gi, "construita")
-          .replace(/([0-9])\s*m\s*([23²³])/gi, "$1 m$2")
-          .replace(/([0-9])m([23²³])/gi, "$1 m$2")
+          .replace(/([0-9])\s*m\s*([23\u00b2\u00b3])/gi, "$1 m$2")
+          .replace(/([0-9])m([23\u00b2\u00b3])/gi, "$1 m$2")
           .replace(/([0-9])m\b/gi, "$1 m");
         const num = "[0-9]{1,3}(?:[.\\s][0-9]{3})*(?:[,.][0-9]+)?|[0-9]+(?:[,.][0-9]+)?";
         const regimMatch =
-          normalizedRaw.match(/regim(?:ul)?\s+de\s+(?:inaltime|[îi]n[ăa]l[țt]ime)\s*[: ]\s*([^;.\n]+)/i) ||
-          normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
+          normalizedRaw.match(/regim(?:ul)?\s+de\s+(?:inaltime|[\u00eei]n[\u0103a]l[\u021bt]ime)\s*[: ]\s*([^;.\n]+)/i) ||
+          normalizedRaw.match(/((?:demisol|subsol|parter|supant[\u0103a]|mansard[\u0103a]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
           normalizedRaw.match(/((?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))+)/i);
-        const heightMatch = normalizedRaw.match(new RegExp(`(?:(?:inaltime|[îi]n[ăa]l[țt](?:imea|imea?\\s+maxim[ăa]|țimea\\s+maxim[ăa]))[^:;]*[: ]\\s*|[îi]n[ăa]l[țt]imea?\\s+maxim[ăa]\\s+a\\s+cl[ăa]dirii\\s*[: ]\\s*)(${num}\\s*m)`, "i"));
-        const volumeMatch = normalizedRaw.match(new RegExp(`volum(?:ul)?(?:\\s+construc[țt]iei)?[^:;]*[: ]\\s*(${num}\\s*m(?:3|³|c))`, "i"));
-        const builtMatch = normalizedRaw.match(new RegExp(`aria\\s+construit[ăa]?[^:;]*[: ]\\s*(${num}\\s*m(?:2|²|p))`, "i"));
-        const totalMatch = normalizedRaw.match(new RegExp(`aria\\s+(?:desfasurat[ăa]?|desf[ăa][șs]urat[ăa])[^:;]*[: ]\\s*(${num}\\s*m(?:2|²|p))`, "i"));
+        const heightMatch = normalizedRaw.match(new RegExp(`(?:(?:inaltime|[\u00eei]n[\u0103a]l[\u021bt](?:imea|imea?\\s+maxim[\u0103a]|\u021bimea\\s+maxim[\u0103a]))[^:;]*[: ]\\s*|[\u00eei]n[\u0103a]l[\u021bt]imea?\\s+maxim[\u0103a]\\s+a\\s+cl[\u0103a]dirii\\s*[: ]\\s*)(${num}\\s*m)`, "i"));
+        const volumeMatch = normalizedRaw.match(new RegExp(`volum(?:ul)?(?:\\s+construc[\u021bt]iei)?[^:;]*[: ]\\s*(${num}\\s*m(?:3|\u00b3|c))`, "i"));
+        const builtMatch = normalizedRaw.match(new RegExp(`aria\\s+construit[\u0103a]?[^:;]*[: ]\\s*(${num}\\s*m(?:2|\u00b2|p))`, "i"));
+        const totalMatch = normalizedRaw.match(new RegExp(`aria\\s+(?:desfasurat[\u0103a]?|desf[\u0103a][\u0219s]urat[\u0103a])[^:;]*[: ]\\s*(${num}\\s*m(?:2|\u00b2|p))`, "i"));
         return {
           regim: regimMatch?.[1]?.trim() || "",
           inaltime: heightMatch?.[1]?.trim() || "",
@@ -219,11 +219,11 @@
         { key: "denumire", label: "Denumire obiectiv", re: /\bdenumir(?:ea|e)\s+(?:obiectivului|obiectiv|constructiei|investitiei)\s*[:\-]\s*(.+)/i },
         { key: "beneficiar", label: "Beneficiar", re: /\b(?:beneficiar|proprietar|investitor)\s*[:\-]\s*(.+)/i },
         { key: "adresa", label: "Adresa", re: /\b(?:adresa|amplasament)(?:\s+obiectivului)?\s*[:\-]\s*(.+)/i },
-        { key: "regim", label: "Regim de inaltime", re: /regim(?:ul)?\s+de\s+(?:inaltime|[îi]n[ăa]l[țt]ime)\s*[:\-]\s*([^;.\n]+)/i },
-        { key: "ariaConstruita", label: "Aria construita", re: /aria\s+construit[ăa]?\s*[:\-]\s*([^;.\n]+)/i, numeric: true },
-        { key: "ariaDesfasurata", label: "Aria desfasurata", re: /aria\s+(?:desfasurat[ăa]?|desf[ăa][șs]urat[ăa])\s*[:\-]\s*([^;.\n]+)/i, numeric: true },
-        { key: "volum", label: "Volum", re: /volum(?:ul)?(?:\s+construc[țt]iei)?\s*[:\-]\s*([^;.\n]+)/i, numeric: true },
-        { key: "utilizatori", label: "Numar utilizatori", re: /num[aă]r(?:ul)?(?:\s+maxim)?\s+(?:de\s+)?utilizatori\s*[:\-]\s*([^;.\n]+)/i, numeric: true }
+        { key: "regim", label: "Regim de inaltime", re: /regim(?:ul)?\s+de\s+(?:inaltime|[\u00eei]n[\u0103a]l[\u021bt]ime)\s*[:\-]\s*([^;.\n]+)/i },
+        { key: "ariaConstruita", label: "Aria construita", re: /aria\s+construit[\u0103a]?\s*[:\-]\s*([^;\n]+)/i, numeric: true },
+        { key: "ariaDesfasurata", label: "Aria desfasurata", re: /aria\s+(?:desfasurat[\u0103a]?|desf[\u0103a][\u0219s]urat[\u0103a])\s*[:\-]\s*([^;\n]+)/i, numeric: true },
+        { key: "volum", label: "Volum", re: /volum(?:ul)?(?:\s+construc[\u021bt]iei)?\s*[:\-]\s*([^;\n]+)/i, numeric: true },
+        { key: "utilizatori", label: "Numar utilizatori", re: /num[a\u0103]r(?:ul)?(?:\s+maxim)?\s+(?:de\s+)?utilizatori\s*[:\-]\s*([^;\n]+)/i, numeric: true }
       ];
       const sources = (state.sources || []).filter((source) => String(source.content || "").trim());
       const rows = [];
