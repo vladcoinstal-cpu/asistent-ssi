@@ -36,6 +36,7 @@ async function createProject(page, name) {
 }
 
 async function injectManualSource(page, fixtureText) {
+  await page.locator('[data-tab-target="sourcesTab"]').click();
   await page.locator("#manualText").fill(fixtureText);
   await page.locator("#addTextBtn").click();
   await expect(page.locator("#sourceCount")).not.toHaveText(/^0$/);
@@ -56,7 +57,21 @@ async function verifyLawReaderFromPreview(page) {
   expect(lawRef).toBeTruthy();
   await page.evaluate((ref) => window.__ssiCommands?.openLawRef?.(ref), lawRef);
   await expect(page.locator("#lawTabContent")).not.toBeEmpty({ timeout: 30_000 });
-  await expect(page.locator("#lawTabContent")).toContainText(/art|anexa|pct|cap|sectiune/i, { timeout: 30_000 });
+  await expect(page.locator("#lawTabContent")).toContainText(/art|anexa|pct|cap|sectiune|Text integral act/i, { timeout: 30_000 });
+}
+
+async function verifyLegislationMovedOutOfProblems(page) {
+  await page.locator('[data-tab-target="legislationTab"]').click();
+  await expect(page.locator("#rulesOutput")).toContainText(/Acte legislative detectate de Extrage|P 118|OMAI|Legea|HG/i, { timeout: 30_000 });
+
+  await page.locator('[data-tab-target="issuesTab"]').click();
+  await expect(page.locator("#issuesOutput")).not.toContainText(/Acte legislative detectate de Extrage|Acte legislative noi descoperite automat/i);
+}
+
+async function verifyReset(page) {
+  await page.locator('[data-tab-target="sourcesTab"]').click();
+  await page.locator("#resetBtn").click();
+  await expect(page.locator("#sourceCount")).toHaveText("0");
 }
 
 test.describe("smoke cloud app", () => {
@@ -72,7 +87,7 @@ test.describe("smoke cloud app", () => {
   });
 
   for (const fixture of FIXTURES) {
-    test(`extrage si genereaza corect fluxul de baza pentru ${fixture.file}`, async ({ page }) => {
+    test(`extrage si genereaza corect fluxul complet pentru ${fixture.file}`, async ({ page }) => {
       await page.goto("/");
       await createProject(page, fixture.projectName);
       await injectManualSource(page, readFixture(fixture.file));
@@ -84,8 +99,33 @@ test.describe("smoke cloud app", () => {
       await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcÈ›iei/i);
 
       await verifyLawReaderFromPreview(page);
+      await verifyLegislationMovedOutOfProblems(page);
+      await verifyReset(page);
     });
   }
+
+  test("detecteaza neconcordante si numere cu punct de mii", async ({ page }) => {
+    await page.goto("/");
+    await createProject(page, "Neconcordante memorii");
+
+    const sourceA = `Denumirea obiectivului: Obiectiv verificare neconcordante\nBeneficiar: SC Alfa Test SRL\nAdresa: Str. Exemplu nr. 1\nRegim de inaltime: P+1\nAria construita: 1.120 mp\nAria desfasurata: 1.980 mp\nVolumul constructiei: 4.250 mc\nNumar maxim de utilizatori: 120 persoane\nDestinatia: comert\nP 118/1-2025; OMAI nr. 180/2022`;
+    const sourceB = `Denumirea obiectivului: Obiectiv verificare neconcordante\nBeneficiar: SC Beta Test SRL\nAdresa: Str. Exemplu nr. 2\nRegim de inaltime: P+2\nAria construita: 1.250 mp\nAria desfasurata: 2.100 mp\nVolumul constructiei: 4.900 mc\nNumar maxim de utilizatori: 140 persoane\nDestinatia: comert\nP 118/1-2025; OMAI nr. 180/2022`;
+
+    await injectManualSource(page, sourceA);
+    await injectManualSource(page, sourceB);
+    await runExtraction(page, "Obiectiv verificare neconcordante");
+
+    await page.locator('[data-tab-target="issuesTab"]').click();
+    await expect(page.locator("#issuesOutput")).toContainText(/Neconcordante intre memorii/i, { timeout: 30_000 });
+    await expect(page.locator("#issuesOutput")).toContainText(/SC Alfa Test SRL|SC Beta Test SRL/i);
+    await expect(page.locator("#issuesOutput")).toContainText(/1\.120|1\.250|1120|1250/i);
+    await expect(page.locator("#issuesOutput")).not.toContainText(/Acte legislative detectate de Extrage|Acte legislative noi descoperite automat/i);
+
+    await page.locator('[data-tab-target="legislationTab"]').click();
+    await expect(page.locator("#rulesOutput")).toContainText(/Acte legislative detectate de Extrage/i, { timeout: 30_000 });
+
+    await verifyReset(page);
+  });
 
   test("butonul Auto-test deschide zona si ruleaza verificarile", async ({ page }) => {
     await page.goto("/");
