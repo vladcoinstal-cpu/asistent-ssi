@@ -762,10 +762,11 @@ function evaluateActCoverageForProject() {
     const sectionCount = getActLocalSectionCount(act.id);
     const hasAnyLocalText = hasLocalActText(act.id);
     const hasAuthenticFullAct = hasAuthenticIntegralActText(act.id);
+    const isDiscoveredAct = /^custom-/i.test(String(act.id || ""));
     const missingLocalRecord = !hasAnyLocalText;
     const thinLocalRecord = hasAnyLocalText && sectionCount > 0 && sectionCount < 7;
     const weakStatus = /fișă|fisa|parțial$/i.test(String(status || ""));
-    const needsAttention = missingLocalRecord || thinLocalRecord || weakStatus || !hasAuthenticFullAct;
+    const needsAttention = !isDiscoveredAct && (missingLocalRecord || thinLocalRecord || weakStatus || !hasAuthenticFullAct);
     let message = "";
 
     if (missingLocalRecord) {
@@ -776,6 +777,8 @@ function evaluateActCoverageForProject() {
       message = `Actul ${act.title} are text local disponibil, dar nu este încă arhivat integral în forma autentică a sursei oficiale.`;
     } else if (weakStatus) {
       message = `Actul ${act.title} este marcat încă la nivel ${status} și trebuie aprofundat în baza programului.`;
+    } else if (isDiscoveredAct) {
+      message = `Actul ${act.title} a fost descoperit automat și este afișat separat în zona de acte legislative noi.`;
     } else {
       message = `Actul ${act.title} este disponibil local, cu ${sectionCount} secțiuni.`;
     }
@@ -786,6 +789,7 @@ function evaluateActCoverageForProject() {
       status,
       sectionCount,
       needsAttention,
+      isDiscoveredAct,
       message
     };
   });
@@ -1729,7 +1733,7 @@ function renderIssuesOutput() {
     structuralIssues.push("La evaluarea sarcinii termice există calcul complet doar pentru naos parter; pentru celelalte încăperi/spații lipsesc calculele detaliate.");
   }
   const localActIssues = (state.actCoverageChecks || [])
-    .filter((item) => item.needsAttention)
+    .filter((item) => item.needsAttention && !item.isDiscoveredAct)
     .map((item) => `${item.title}: ${item.message} Nivel local: ${item.status}; secțiuni locale: ${item.sectionCount}.`);
   const checkProblems = (state.complianceChecks || []).filter(
     (check) => {
