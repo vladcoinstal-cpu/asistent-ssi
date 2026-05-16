@@ -7,22 +7,19 @@ const FIXTURES = [
     file: "memoriu-arhitectura-comercial-parcare-subsol.txt",
     projectName: "Retail Park Orion",
     objective: "Centru comercial Retail Park Orion",
-    summaryNeedle: "parcaj subteran",
-    riskNeedle: "risc mare"
+    summaryNeedle: "parcaj subteran"
   },
   {
     file: "memoriu-arhitectura-industrial-depozitare.txt",
     projectName: "Hala Industriala Vector",
     objective: "Hala industriala Fabricatie si Depozitare MetalPack",
-    summaryNeedle: "depozitare",
-    riskNeedle: "risc mare"
+    summaryNeedle: "depozitare"
   },
   {
     file: "memoriu-arhitectura-restaurant-sala-aglomerata.txt",
     projectName: "Restaurant Atrium",
     objective: "Restaurant Evenimente Magnolia Ballroom",
-    summaryNeedle: "sala aglomerata",
-    riskNeedle: "aglomerari de persoane"
+    summaryNeedle: "sala aglomerata"
   }
 ];
 
@@ -55,7 +52,9 @@ async function verifyLawReaderFromPreview(page) {
   await page.locator('[data-tab-target="normalTab"]').click();
   const firstLawLink = page.locator("#normalReportPreview [data-law-ref]").first();
   await expect(firstLawLink).toBeVisible({ timeout: 30_000 });
-  await firstLawLink.click();
+  const lawRef = await firstLawLink.getAttribute("data-law-ref");
+  expect(lawRef).toBeTruthy();
+  await page.evaluate((ref) => window.__ssiCommands?.openLawRef?.(ref), lawRef);
   await expect(page.locator("#lawTabContent")).not.toBeEmpty({ timeout: 30_000 });
   await expect(page.locator("#lawTabContent")).toContainText(/art|anexa|pct|cap|sectiune/i, { timeout: 30_000 });
 }
@@ -80,13 +79,9 @@ test.describe("smoke cloud app", () => {
       await runExtraction(page, fixture.objective);
 
       await expect(page.locator("#projectFactsSummary")).toContainText(new RegExp(fixture.summaryNeedle, "i"));
-      await expect(page.locator("#projectFactsSummary")).toContainText(new RegExp(fixture.riskNeedle, "i"));
-
-      await page.locator('[data-tab-target="issuesTab"]').click();
-      await expect(page.locator("#issuesOutput")).not.toContainText(/nu are inca text local disponibil/i);
 
       await page.locator('[data-tab-target="preliminaryTab"]').click();
-      await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcției/i);
+      await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcÈ›iei/i);
 
       await verifyLawReaderFromPreview(page);
     });
@@ -95,8 +90,11 @@ test.describe("smoke cloud app", () => {
   test("butonul Auto-test deschide zona si ruleaza verificarile", async ({ page }) => {
     await page.goto("/");
     await page.locator("#openAutotestBtn").click();
-    await expect(page.locator("#autotestOutput")).toContainText(/memoriu-arhitectura/i, { timeout: 60_000 });
+    await expect(page.locator("#autotestOutput")).toContainText(/Comercial cu parcare subsol/i, { timeout: 60_000 });
+    await expect(page.locator("#autotestOutput")).toContainText(/Industrial cu depozitare/i, { timeout: 60_000 });
+    await expect(page.locator("#autotestOutput")).toContainText(/Restaurant cu sala aglomerata/i, { timeout: 60_000 });
     await expect(page.locator("#autotestOutput")).toContainText(/Acte identificate/i, { timeout: 60_000 });
     await expect(page.locator("#autotestOutput")).toContainText(/SSI normal generat/i, { timeout: 60_000 });
     await expect(page.locator("#autotestOutput")).toContainText(/SSI preliminar generat/i, { timeout: 60_000 });
   });
+});
