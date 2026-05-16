@@ -16,6 +16,82 @@
       .replace(/[^a-z0-9]+/g, "_")
       .replace(/^_+|_+$/g, "");
 
+    const localeNumberPattern = /[0-9]{1,3}(?:[.\s][0-9]{3})+(?:[,.][0-9]+)?|[0-9]+(?:[,.][0-9]+)?/;
+
+    function parseLocaleNumber(value) {
+      const raw = String(value || "").replace(/\u00a0/g, " ").trim();
+      const match = raw.match(localeNumberPattern);
+      if (!match) return null;
+      let text = match[0].replace(/\s+/g, "");
+      const lastComma = text.lastIndexOf(",");
+      const lastDot = text.lastIndexOf(".");
+      if (lastComma >= 0 && lastDot >= 0) {
+        const decimal = lastComma > lastDot ? "," : ".";
+        const thousand = decimal === "," ? "." : ",";
+        text = text.split(thousand).join("").replace(decimal, ".");
+      } else if (lastDot >= 0) {
+        const parts = text.split(".");
+        text = parts.length > 1 && parts[parts.length - 1].length === 3
+          ? parts.join("")
+          : text;
+      } else if (lastComma >= 0) {
+        const parts = text.split(",");
+        text = parts.length > 1 && parts[parts.length - 1].length === 3 && parts[0].length <= 3
+          ? parts.join("")
+          : text.replace(",", ".");
+      }
+      const parsed = Number(text);
+      return Number.isFinite(parsed) ? parsed : null;
+    }
+
+    window.parseLocaleNumber = parseLocaleNumber;
+    window.extractFirstNumber = extractFirstNumber = function (text) {
+      return parseLocaleNumber(text);
+    };
+    window.extractDecimalValue = extractDecimalValue = function (text, anchors = []) {
+      const source = String(text || "");
+      if (!source) return null;
+      for (const anchor of anchors) {
+        const index = source.toLowerCase().indexOf(String(anchor || "").toLowerCase());
+        if (index >= 0) {
+          const value = parseLocaleNumber(source.slice(index, index + 160));
+          if (value !== null) return value;
+        }
+      }
+      return parseLocaleNumber(source);
+    };
+
+    if (typeof parseDimensionParts === "function") {
+      parseDimensionParts = window.parseDimensionParts = function (rawValue) {
+        const raw = sanitizeDisplayText(rawValue);
+        const normalizedRaw = raw
+          .replace(/\u00a0/g, " ")
+          .replace(/inaltime/gi, "inaltime")
+          .replace(/desfasurat/gi, "desfasurat")
+          .replace(/construita/gi, "construita")
+          .replace(/([0-9])\s*m\s*([23\u00b2\u00b3])/gi, "$1 m$2")
+          .replace(/([0-9])m([23\u00b2\u00b3])/gi, "$1 m$2")
+          .replace(/([0-9])m\b/gi, "$1 m");
+        const num = "[0-9]{1,3}(?:[.\\s][0-9]{3})*(?:[,.][0-9]+)?|[0-9]+(?:[,.][0-9]+)?";
+        const regimMatch =
+          normalizedRaw.match(/regim(?:ul)?\s+de\s+(?:inaltime|[\u00eei]n[\u0103a]l[\u021bt]ime)\s*[: ]\s*([^;.\n]+)/i) ||
+          normalizedRaw.match(/((?:demisol|subsol|parter|supant[\u0103a]|mansard[\u0103a]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
+          normalizedRaw.match(/((?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))+)/i);
+        const heightMatch = normalizedRaw.match(new RegExp(`(?:(?:inaltime|[\u00eei]n[\u0103a]l[\u021bt](?:imea|imea?\\s+maxim[\u0103a]|\u021bimea\\s+maxim[\u0103a]))[^:;]*[: ]\\s*|[\u00eei]n[\u0103a]l[\u021bt]imea?\\s+maxim[\u0103a]\\s+a\\s+cl[\u0103a]dirii\\s*[: ]\\s*)(${num}\\s*m)`, "i"));
+        const volumeMatch = normalizedRaw.match(new RegExp(`volum(?:ul)?(?:\\s+construc[\u021bt]iei)?[^:;]*[: ]\\s*(${num}\\s*m(?:3|\u00b3|c))`, "i"));
+        const builtMatch = normalizedRaw.match(new RegExp(`aria\\s+construit[\u0103a]?[^:;]*[: ]\\s*(${num}\\s*m(?:2|\u00b2|p))`, "i"));
+        const totalMatch = normalizedRaw.match(new RegExp(`aria\\s+(?:desfasurat[\u0103a]?|desf[\u0103a][\u0219s]urat[\u0103a])[^:;]*[: ]\\s*(${num}\\s*m(?:2|\u00b2|p))`, "i"));
+        return {
+          regim: regimMatch?.[1]?.trim() || "",
+          inaltime: heightMatch?.[1]?.trim() || "",
+          volum: volumeMatch?.[1]?.trim() || "",
+          ariaConstruita: builtMatch?.[1]?.trim() || "",
+          ariaDesfasurata: totalMatch?.[1]?.trim() || "",
+          raw: normalizedRaw
+        };
+      };
+    }
+
     const sourceSnippetFor = (needle, content) => {
       const clean = String(content || "").replace(/\s+/g, " ");
       const idx = clean.toLowerCase().indexOf(String(needle || "").toLowerCase().slice(0, 24));
@@ -104,7 +180,7 @@
         }))
       };
       return `
-        <article class="rule-card">
+        <article class="rule-card" data-ssi-legislation-discovery="true">
           <strong>Acte legislative detectate de Extrage</strong>
           <div class="source-meta">${rows.length} trimiteri gasite; ${pending.length} necesita verificare/integrate in arhiva.</div>
           <ul class="issues-bullets">
@@ -121,17 +197,148 @@
       `;
     }
 
+    function normalizeComparableText(value) {
+      return normalizeSearchText(String(value || ""))
+        .replace(/\[[^\]]+\]/g, "")
+        .replace(/[^a-z0-9]+/g, " ")
+        .replace(/\s+/g, " ")
+        .trim();
+    }
+
+    function readLineValue(content, regex) {
+      const lines = String(content || "").split(/\r?\n/).map((line) => line.trim()).filter(Boolean);
+      for (const line of lines) {
+        const match = line.match(regex);
+        if (match) return (match[1] || match[0]).replace(/^.*?[:\-]\s*/i, "").trim();
+      }
+      return "";
+    }
+
+    function detectSourceDiscrepancies() {
+      const specs = [
+        { key: "denumire", label: "Denumire obiectiv", re: /\bdenumir(?:ea|e)\s+(?:obiectivului|obiectiv|constructiei|investitiei)\s*[:\-]\s*(.+)/i },
+        { key: "beneficiar", label: "Beneficiar", re: /\b(?:beneficiar|proprietar|investitor)\s*[:\-]\s*(.+)/i },
+        { key: "adresa", label: "Adresa", re: /\b(?:adresa|amplasament)(?:\s+obiectivului)?\s*[:\-]\s*(.+)/i },
+        { key: "regim", label: "Regim de inaltime", re: /regim(?:ul)?\s+de\s+(?:inaltime|[\u00eei]n[\u0103a]l[\u021bt]ime)\s*[:\-]\s*([^;.\n]+)/i },
+        { key: "ariaConstruita", label: "Aria construita", re: /aria\s+construit[\u0103a]?\s*[:\-]\s*([^;\n]+)/i, numeric: true },
+        { key: "ariaDesfasurata", label: "Aria desfasurata", re: /aria\s+(?:desfasurat[\u0103a]?|desf[\u0103a][\u0219s]urat[\u0103a])\s*[:\-]\s*([^;\n]+)/i, numeric: true },
+        { key: "volum", label: "Volum", re: /volum(?:ul)?(?:\s+construc[\u021bt]iei)?\s*[:\-]\s*([^;\n]+)/i, numeric: true },
+        { key: "utilizatori", label: "Numar utilizatori", re: /num[a\u0103]r(?:ul)?(?:\s+maxim)?\s+(?:de\s+)?utilizatori\s*[:\-]\s*([^;\n]+)/i, numeric: true }
+      ];
+      const sources = (state.sources || []).filter((source) => String(source.content || "").trim());
+      const rows = [];
+      specs.forEach((spec) => {
+        const values = sources
+          .map((source) => {
+            const value = readLineValue(source.content, spec.re);
+            if (!value) return null;
+            const normalized = spec.numeric
+              ? String(parseLocaleNumber(value))
+              : normalizeComparableText(value);
+            if (!normalized || normalized === "null") return null;
+            return { sourceName: source.name || "sursa fara nume", value, normalized };
+          })
+          .filter(Boolean);
+        const distinct = Array.from(new Set(values.map((item) => item.normalized)));
+        if (distinct.length > 1) {
+          rows.push({ key: spec.key, label: spec.label, values });
+        }
+      });
+      state.sourceDiscrepancies = rows;
+      return rows;
+    }
+
+    window.detectSourceDiscrepancies = detectSourceDiscrepancies;
+
+    function renderSourceDiscrepancyCard() {
+      const rows = detectSourceDiscrepancies();
+      if (!rows.length) return "";
+      return `
+        <article class="rule-card" data-ssi-source-discrepancies="true">
+          <strong>Neconcordante intre memorii</strong>
+          <div class="source-meta">${rows.length} campuri au valori diferite intre sursele proiectului.</div>
+          <ul class="issues-bullets">
+            ${rows.slice(0, 12).map((row) => `
+              <li>
+                <strong>${escapeHtml(row.label)}</strong>:
+                ${row.values.map((item) => `${escapeHtml(item.sourceName)} = ${escapeHtml(item.value)}`).join(" | ")}
+              </li>
+            `).join("")}
+          </ul>
+        </article>
+      `;
+    }
+
+    function removeLegislationCardsFromIssues() {
+      if (!issuesOutput) return;
+      issuesOutput.querySelectorAll("article.rule-card").forEach((card) => {
+        const title = card.querySelector("strong")?.textContent || "";
+        if (/Acte legislative (?:noi descoperite automat|detectate de Extrage)/i.test(title)) {
+          card.remove();
+        }
+      });
+    }
+
+    function renderDiscoveryInRules() {
+      if (!rulesOutput) return;
+      rulesOutput.querySelectorAll("[data-ssi-legislation-discovery]").forEach((node) => node.remove());
+      const card = renderLegislationDiscoveryCard();
+      if (card) rulesOutput.insertAdjacentHTML("afterbegin", card);
+    }
+
     const nativeRenderIssuesOutput = window.renderIssuesOutput || renderIssuesOutput;
     window.renderIssuesOutput = renderIssuesOutput = function () {
       nativeRenderIssuesOutput();
       if (!issuesOutput) return;
-      const card = renderLegislationDiscoveryCard();
-      if (card) issuesOutput.insertAdjacentHTML("afterbegin", card);
+      removeLegislationCardsFromIssues();
+      const discrepancyCard = renderSourceDiscrepancyCard();
+      if (discrepancyCard) issuesOutput.insertAdjacentHTML("afterbegin", discrepancyCard);
+      renderDiscoveryInRules();
+    };
+
+    if (typeof refreshRulesOutput === "function") {
+      const nativeRefreshRulesOutput = window.refreshRulesOutput || refreshRulesOutput;
+      window.refreshRulesOutput = refreshRulesOutput = function () {
+        nativeRefreshRulesOutput();
+        renderDiscoveryInRules();
+      };
+    }
+
+    if (typeof handleExtractData === "function") {
+      const nativeHandleExtractData = window.handleExtractData || handleExtractData;
+      window.handleExtractData = handleExtractData = async function () {
+        const result = await nativeHandleExtractData();
+        detectLegislationCandidatesFromSources();
+        detectSourceDiscrepancies();
+        if (typeof refreshRulesOutput === "function") refreshRulesOutput();
+        renderIssuesOutput();
+        return result;
+      };
+    }
+
+    if (typeof resetProjectState === "function") {
+      const nativeResetProjectState = window.resetProjectState || resetProjectState;
+      window.resetProjectState = resetProjectState = function () {
+        state.legislationDiscovery = [];
+        state.sourceDiscrepancies = [];
+        return nativeResetProjectState();
+      };
+    }
+
+    const previousExtract = window.__ssiCommands.extractData;
+    window.__ssiCommands.extractData = async function () {
+      const result = await previousExtract?.();
+      detectLegislationCandidatesFromSources();
+      detectSourceDiscrepancies();
+      if (typeof refreshRulesOutput === "function") refreshRulesOutput();
+      renderIssuesOutput();
+      return result;
     };
 
     const previousReset = window.__ssiCommands.resetProject;
     window.__ssiCommands.resetProject = function () {
       state.legislationDiscovery = [];
+      state.sourceDiscrepancies = [];
       return previousReset?.();
     };
   }
