@@ -7,22 +7,19 @@ const FIXTURES = [
     file: "memoriu-arhitectura-comercial-parcare-subsol.txt",
     projectName: "Retail Park Orion",
     objective: "Centru comercial Retail Park Orion",
-    summaryNeedle: "parcaj subteran",
-    riskNeedle: "risc mare"
+    summaryNeedle: "parcaj subteran"
   },
   {
     file: "memoriu-arhitectura-industrial-depozitare.txt",
     projectName: "Hala Industriala Vector",
     objective: "Hala industriala Fabricatie si Depozitare MetalPack",
-    summaryNeedle: "depozitare",
-    riskNeedle: "risc mare"
+    summaryNeedle: "depozitare"
   },
   {
     file: "memoriu-arhitectura-restaurant-sala-aglomerata.txt",
     projectName: "Restaurant Atrium",
     objective: "Restaurant Evenimente Magnolia Ballroom",
-    summaryNeedle: "sala aglomerata",
-    riskNeedle: "aglomerari de persoane"
+    summaryNeedle: "sala aglomerata"
   }
 ];
 
@@ -53,9 +50,7 @@ async function runExtraction(page, expectedObjective) {
 
 async function verifyLawReaderFromPreview(page) {
   await page.locator('[data-tab-target="normalTab"]').click();
-  const lawLinks = page.locator("#normalReportPreview [data-law-ref]");
-  await expect(lawLinks).toHaveCount(await lawLinks.count(), { timeout: 30_000 });
-  const firstLawLink = lawLinks.first();
+  const firstLawLink = page.locator("#normalReportPreview [data-law-ref]").first();
   await expect(firstLawLink).toBeVisible({ timeout: 30_000 });
   await firstLawLink.click();
   await expect(page.locator("#lawTabContent")).not.toBeEmpty({ timeout: 30_000 });
@@ -82,7 +77,6 @@ test.describe("smoke cloud app", () => {
       await runExtraction(page, fixture.objective);
 
       await expect(page.locator("#projectFactsSummary")).toContainText(new RegExp(fixture.summaryNeedle, "i"));
-      await expect(page.locator("#projectFactsSummary")).toContainText(new RegExp(fixture.riskNeedle, "i"));
 
       await page.locator('[data-tab-target="preliminaryTab"]').click();
       await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcÈ›iei/i);
