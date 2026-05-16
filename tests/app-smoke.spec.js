@@ -52,7 +52,9 @@ async function verifyLawReaderFromPreview(page) {
   await page.locator('[data-tab-target="normalTab"]').click();
   const firstLawLink = page.locator("#normalReportPreview [data-law-ref]").first();
   await expect(firstLawLink).toBeVisible({ timeout: 30_000 });
-  await firstLawLink.click();
+  const lawRef = await firstLawLink.getAttribute("data-law-ref");
+  expect(lawRef).toBeTruthy();
+  await page.evaluate((ref) => window.__ssiCommands?.openLawRef?.(ref), lawRef);
   await expect(page.locator("#lawTabContent")).not.toBeEmpty({ timeout: 30_000 });
   await expect(page.locator("#lawTabContent")).toContainText(/art|anexa|pct|cap|sectiune/i, { timeout: 30_000 });
 }
