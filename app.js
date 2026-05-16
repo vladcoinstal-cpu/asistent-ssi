@@ -769,7 +769,9 @@ function evaluateActCoverageForProject() {
     const needsAttention = !isDiscoveredAct && (missingLocalRecord || thinLocalRecord || weakStatus || !hasAuthenticFullAct);
     let message = "";
 
-    if (missingLocalRecord) {
+    if (isDiscoveredAct) {
+      message = `Actul ${act.title} a fost descoperit automat și este afișat separat în zona de acte legislative noi.`;
+    } else if (missingLocalRecord) {
       message = `Actul ${act.title} nu are încă text local disponibil în baza programului.`;
     } else if (thinLocalRecord) {
       message = `Actul ${act.title} are doar ${sectionCount} secțiuni locale și trebuie extins în baza programului.`;
@@ -777,8 +779,6 @@ function evaluateActCoverageForProject() {
       message = `Actul ${act.title} are text local disponibil, dar nu este încă arhivat integral în forma autentică a sursei oficiale.`;
     } else if (weakStatus) {
       message = `Actul ${act.title} este marcat încă la nivel ${status} și trebuie aprofundat în baza programului.`;
-    } else if (isDiscoveredAct) {
-      message = `Actul ${act.title} a fost descoperit automat și este afișat separat în zona de acte legislative noi.`;
     } else {
       message = `Actul ${act.title} este disponibil local, cu ${sectionCount} secțiuni.`;
     }
@@ -1735,6 +1735,9 @@ function renderIssuesOutput() {
   const localActIssues = (state.actCoverageChecks || [])
     .filter((item) => item.needsAttention && !item.isDiscoveredAct)
     .map((item) => `${item.title}: ${item.message} Nivel local: ${item.status}; secțiuni locale: ${item.sectionCount}.`);
+  const discoveredActs = (state.actCoverageChecks || [])
+    .filter((item) => item.isDiscoveredAct)
+    .map((item) => `${item.title}: ${item.message}`);
   const checkProblems = (state.complianceChecks || []).filter(
     (check) => {
       const verdictText = `${check.verdict || ""} ${check.observation || ""}`;
@@ -1759,7 +1762,7 @@ function renderIssuesOutput() {
     return { source, items };
   });
 
-  if (!sourceCards.length && !emptyFields.length && !checkProblems.length && !localActIssues.length) {
+  if (!sourceCards.length && !emptyFields.length && !checkProblems.length && !localActIssues.length && !discoveredActs.length) {
     issuesOutput.innerHTML = `
       <article class="rule-card">
         <strong>Nu au fost identificate probleme evidente.</strong>
@@ -1786,6 +1789,14 @@ function renderIssuesOutput() {
       }
     </article>
   `;
+  const discoveredActsCard = discoveredActs.length
+    ? `
+    <article class="rule-card">
+      <strong>Acte legislative noi descoperite automat</strong>
+      <ul class="issues-bullets">${discoveredActs.map((item) => `<li>${renderInline(item, "html")}</li>`).join("")}</ul>
+    </article>
+  `
+    : "";
 
   const sourceMarkup = sourceCards
     .map(({ source, items }) => `
@@ -1799,7 +1810,7 @@ function renderIssuesOutput() {
     `)
     .join("");
 
-  issuesOutput.innerHTML = projectCard + sourceMarkup;
+  issuesOutput.innerHTML = projectCard + discoveredActsCard + sourceMarkup;
 }
 
 async function loadAutotestFixtures() {
@@ -7145,7 +7156,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 
