@@ -71,6 +71,8 @@ async function verifyAnnexFrameIntegrity(page) {
     const escaped = subpoint.replace(/\./g, "\\.");
     expect(normalText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
+  expect(normalText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+  expect(normalText).toMatch(/## Nota\n[\s\S]*?\n## 1\. Caracteristicile construcției sau amenajării/i);
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
   const prelimOutput = page.locator("#preliminaryReportOutput");
@@ -80,6 +82,8 @@ async function verifyAnnexFrameIntegrity(page) {
     const escaped = subpoint.replace(/\./g, "\\.");
     expect(prelimText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
+  expect(prelimText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+  expect(prelimText).toMatch(/# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR\n\n## 1\. Caracteristicile construcției sau amenajării/i);
 }
 
 async function verifyLawReaderFromPreview(page) {

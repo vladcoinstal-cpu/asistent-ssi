@@ -1,14 +1,51 @@
+MEMORIU TEHNIC ARHITECTURA - SCENARIU BISERICA SPRENGHI
+
 Denumirea obiectivului: Biserica Invierea Domnului Sprenghi
 Beneficiar: Parohia Invierea Domnului
-Adresa: Str. Marasesti nr. 10
-Destinatia: lacas de cult cu spatii anexe
+Amplasament: Str. Marasesti nr. 10, municipiu
+Destinatia: lacas de cult ortodox cu spatii anexe
+Functiuni principale: naos, altar, pronaos, spatiu cor, spatii administrative
+Functiuni secundare: holuri, grupuri sanitare, birou parohial, camera tehnica
 Regim de inaltime: D+P+M
 Aria construita: 320 mp
 Aria desfasurata: 760 mp
 Volumul constructiei: 3.200 mc
+Categoria de importanta: C
+Clasa de importanta: II
 Numar maxim de utilizatori: 420 persoane
-Capacitati de depozitare: materiale bisericesti si arhiva, depozitare limitata
-Cai de evacuare: 4 iesiri, fluxuri separate pentru nivelurile principale
-IDSAI: sistem adresabil cu detectoare, butoane manuale, ECS la parter
-Iluminat de siguranta: prevazut pe cai de evacuare
-P 118/1-2025; OMAI nr. 180/2022; HG 571/2016
+
+Compartimentare pe niveluri:
+- Demisol: Naos 114,86 mp; Altar 22,17 mp; Hol + vanzare 27,03 mp; Birou 12,56 mp; depozitari multiple
+- Parter: Naos 121,69 mp; Altar 22,89 mp; Pronaos 11,35 mp; Spatiu vanzare 5,88 mp
+- Supanta: Spatiu cor 27,58 mp; Veranda 16,45 mp
+- Mansarda: Hol 18,87 mp; Camera 17,69 mp; Casa scarii 11,91 mp
+
+Capacitati de depozitare:
+- obiecte de cult, carti, textile liturgice
+- arhiva administrativa parohie
+- materiale intretinere si curatenie in cantitati reduse
+
+Date evacuare:
+- 4 iesiri de evacuare la nivelurile principale
+- latimi de evacuare conform P118
+- fluxuri separate pentru demisol/parter
+- praguri si usi analizate conform cerintelor de evacuare
+
+Instalatii relevante:
+- IDSAI: sistem adresabil, detectoare de fum, butoane manuale, sirene, ECS la parter
+- Instalatii de stingere: hidranti interiori/exteriori conform proiect
+- Desfumare: naturala in zonele prevazute
+- Iluminat de siguranta: prevazut pe cai de evacuare
+- Instalatie electrica: alimentare receptori de securitate la incendiu
+- Protectie trasnet: IPT/SPT conform documentatiei
+
+Prevederi si reglementari invocate:
+- OMAI nr. 180/2022
+- P 118/1-2025
+- P 118/2-2013
+- P 118/3-2015
+- HG 571/2016 (incadrare avizare/autorizare)
+
+Observatii proiectant:
+- incaperi cu aglomerari de persoane in zona naos
+- verificarea finala a masurilor de securitate la incendiu se face pe proiect tehnic complet

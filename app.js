@@ -5521,8 +5521,6 @@ function buildScenarioMarkdown(data, sources, applicableActs, complianceChecks =
 
 ## Nota
 Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4 la Ordinul MAI nr. 180/2022. Revizuirea de catre proiectantii de specialitate și verificatorii atestati ramane obligatorie.
-${buildAuthorizationQualificationText(state.projectProfile, data, "normal")}
-
 ${identificationBlock}
 ${specialCharacteristicsBlock}
 
@@ -6279,8 +6277,6 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
   ].join("<br>");
 
   return normalizeRomanianDiacritics(`# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR
-
-${buildAuthorizationQualificationText(profile, data, "preliminary")}
 
 ## 1. Caracteristicile construcției sau amenajării
 
