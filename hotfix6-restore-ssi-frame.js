@@ -34,10 +34,19 @@
 
     function isShortBrokenFrame(text) {
       const value = String(text || "");
+      const requiredSubpoints = [
+        "1.1", "1.2", "1.3", "1.4",
+        "3.1", "3.2", "3.3", "3.4", "3.5", "3.6",
+        "4.1", "4.2", "4.3"
+      ];
+      const missingRequiredSubpoint = requiredSubpoints.some((code) => {
+        const escaped = code.replace(".", "\\.");
+        return !(new RegExp(`(^|[^0-9])${escaped}([^0-9]|$)`, "m").test(value));
+      });
       return /Cadru generat curat|ssi-frame-readonly|Structura este incarcata din fisierul read-only/i.test(value) ||
-        !/1\.1\.\s*Datele de identificare/i.test(value) ||
-        !/3\.1\.\s*Rezisten/i.test(value) ||
-        !/4\.1\.\s*Hidran/i.test(value);
+        !/Scenariu de securitate la incendiu - draft de lucru/i.test(value) ||
+        !/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i.test(value) ||
+        missingRequiredSubpoint;
     }
 
     function buildFullReports() {
@@ -48,14 +57,15 @@
         state.applicableActs || [],
         state.complianceChecks || []
       );
-      const preliminary = buildPreliminaryScenarioMarkdown(
+      const preliminaryBase = buildPreliminaryScenarioMarkdown(
         state.data || {},
         state.sources || [],
         state.applicableActs || [],
         state.projectProfile || {},
         state.complianceChecks || []
       );
-      const normal = buildCompleteNormalFromAnnexFrame(normalBase, preliminary);
+      const normal = buildCompleteNormalFromAnnexFrame(normalBase, preliminaryBase);
+      const preliminary = buildCompletePreliminaryFromAnnexFrame(normal, preliminaryBase);
       return { normal, preliminary };
     }
 
@@ -73,6 +83,20 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         .replace(/^##\s+2\.\s+Nivelurile riscului de incendiu estimat/im, "## 2. Nivelurile riscului de incendiu")
         .replace(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/g, "SCENARIU DE SECURITATE LA INCENDIU");
       return `${header}\n\n${body}`.trim();
+    }
+
+
+
+    function buildCompletePreliminaryFromAnnexFrame(normal, preliminaryBase) {
+      const normalText = String(normal || "");
+      const prelimText = String(preliminaryBase || "");
+      if (isShortBrokenFrame(prelimText)) {
+        const converted = normalText
+          .replace(/^#\s+.*$/m, "# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR")
+          .replace(/SCENARIU DE SECURITATE LA INCENDIU(?! PRELIMINAR)/g, "SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR");
+        return converted;
+      }
+      return prelimText.replace(/Cadru generat curat[^\n]*\n?/gi, "");
     }
 
     function writeFullReports(force) {
@@ -94,6 +118,16 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
       try { restoredRenderDocLikePreview("normal"); } catch {}
       try { restoredRenderDocLikePreview("preliminary"); } catch {}
       try { if (typeof refreshCounters === "function") refreshCounters(); } catch {}
+    }
+
+    function enforceFrameIntegrity() {
+      try {
+        const normalBroken = isShortBrokenFrame(normalReportOutput && normalReportOutput.value);
+        const prelimBroken = isShortBrokenFrame(preliminaryReportOutput && preliminaryReportOutput.value);
+        if (normalBroken || prelimBroken) {
+          writeFullReports(true);
+        }
+      } catch {}
     }
 
     function markdownPreviewHtml(markdown) {
@@ -164,6 +198,17 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
       };
     }
 
+    if (typeof activateTab === "function") {
+      const previousActivateTab = activateTab;
+      activateTab = window.activateTab = function (tabId) {
+        const result = previousActivateTab(tabId);
+        if (tabId === "normalTab" || tabId === "preliminaryTab") {
+          enforceFrameIntegrity();
+        }
+        return result;
+      };
+    }
+
     if (window.__ssiCommands) {
       window.__ssiCommands = {
         ...window.__ssiCommands,
@@ -178,6 +223,9 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
     }
 
     writeFullReports(false);
+    window.setTimeout(enforceFrameIntegrity, 0);
+    window.setTimeout(enforceFrameIntegrity, 250);
+    window.setTimeout(enforceFrameIntegrity, 1000);
   }
 
   init();

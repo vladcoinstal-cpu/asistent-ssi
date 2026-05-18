@@ -49,6 +49,32 @@ async function runExtraction(page, expectedObjective) {
   await expect(page.locator("#preliminaryReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
 }
 
+
+async function verifyAnnexFrameIntegrity(page) {
+  const requiredSubpoints = ["1.1", "1.2", "1.3", "1.4", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "4.1", "4.2", "4.3"];
+
+  await page.locator('[data-tab-target="normalTab"]').click();
+  const normalOutput = page.locator("#normalReportOutput");
+  await expect(normalOutput).toHaveValue(/Scenariu de securitate la incendiu - draft de lucru/i, { timeout: 60_000 });
+  const normalText = await normalOutput.inputValue();
+
+  expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
+  expect(normalText).toMatch(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
+  for (const subpoint of requiredSubpoints) {
+    const escaped = subpoint.replace(/\./g, "\\.");
+    expect(normalText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
+  }
+
+  await page.locator('[data-tab-target="preliminaryTab"]').click();
+  const prelimOutput = page.locator("#preliminaryReportOutput");
+  await expect(prelimOutput).toHaveValue(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
+  const prelimText = await prelimOutput.inputValue();
+  for (const subpoint of requiredSubpoints) {
+    const escaped = subpoint.replace(/\./g, "\\.");
+    expect(prelimText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
+  }
+}
+
 async function verifyLawReaderFromPreview(page) {
   await page.locator('[data-tab-target="normalTab"]').click();
   const firstLawLink = page.locator("#normalReportPreview [data-law-ref]").first();
@@ -95,8 +121,7 @@ test.describe("smoke cloud app", () => {
 
       await expect(page.locator("#projectFactsSummary")).toContainText(new RegExp(fixture.summaryNeedle, "i"));
 
-      await page.locator('[data-tab-target="preliminaryTab"]').click();
-      await expect(page.locator("#preliminaryReportPreview")).toContainText(/Caracteristicile constructiei|Caracteristicile construcÈ›iei/i);
+      await verifyAnnexFrameIntegrity(page);
 
       await verifyLawReaderFromPreview(page);
       await verifyLegislationMovedOutOfProblems(page);
