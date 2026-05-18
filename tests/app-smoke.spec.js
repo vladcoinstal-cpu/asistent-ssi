@@ -15,6 +15,13 @@ const FIXTURES = [
     objective: "Hala industriala Fabricatie si Depozitare MetalPack",
     summaryNeedle: "depozitare"
   },
+
+  {
+    file: "memoriu-arhitectura-biserica-sprenghi.txt",
+    projectName: "Biserica Sprenghi",
+    objective: "Biserica Invierea Domnului Sprenghi",
+    summaryNeedle: "lacas de cult"
+  },
   {
     file: "memoriu-arhitectura-restaurant-sala-aglomerata.txt",
     projectName: "Restaurant Atrium",
