@@ -57,14 +57,15 @@
         state.applicableActs || [],
         state.complianceChecks || []
       );
-      const preliminary = buildPreliminaryScenarioMarkdown(
+      const preliminaryBase = buildPreliminaryScenarioMarkdown(
         state.data || {},
         state.sources || [],
         state.applicableActs || [],
         state.projectProfile || {},
         state.complianceChecks || []
       );
-      const normal = buildCompleteNormalFromAnnexFrame(normalBase, preliminary);
+      const normal = buildCompleteNormalFromAnnexFrame(normalBase, preliminaryBase);
+      const preliminary = buildCompletePreliminaryFromAnnexFrame(normal, preliminaryBase);
       return { normal, preliminary };
     }
 
@@ -82,6 +83,20 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         .replace(/^##\s+2\.\s+Nivelurile riscului de incendiu estimat/im, "## 2. Nivelurile riscului de incendiu")
         .replace(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/g, "SCENARIU DE SECURITATE LA INCENDIU");
       return `${header}\n\n${body}`.trim();
+    }
+
+
+
+    function buildCompletePreliminaryFromAnnexFrame(normal, preliminaryBase) {
+      const normalText = String(normal || "");
+      const prelimText = String(preliminaryBase || "");
+      if (isShortBrokenFrame(prelimText)) {
+        const converted = normalText
+          .replace(/^#\s+.*$/m, "# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR")
+          .replace(/SCENARIU DE SECURITATE LA INCENDIU(?! PRELIMINAR)/g, "SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR");
+        return converted;
+      }
+      return prelimText.replace(/Cadru generat curat[^\n]*\n?/gi, "");
     }
 
     function writeFullReports(force) {
