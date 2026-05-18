@@ -67,6 +67,7 @@ async function verifyAnnexFrameIntegrity(page) {
 
   expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
   expect(normalText).toMatch(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
+  expect(normalText).toMatch(/## 1\.[\s\S]*## 2\.[\s\S]*## 3\.[\s\S]*## 4\.[\s\S]*## 5\./i);
   for (const subpoint of requiredSubpoints) {
     const escaped = subpoint.replace(/\./g, "\\.");
     expect(normalText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
@@ -84,6 +85,12 @@ async function verifyAnnexFrameIntegrity(page) {
   }
   expect(prelimText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
   expect(prelimText).toMatch(/# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR[\s\S]*?## 1\. Caracteristicile construcției sau amenajării/i);
+  expect(prelimText).toMatch(/## 1\.[\s\S]*## 2\.[\s\S]*## 3\.[\s\S]*## 4\.[\s\S]*## 5\./i);
+  expect(prelimText).not.toMatch(/1\.4\.g[\s\S]{0,220}(depozit|stoc|evacuar|procese)/i);
+  expect(prelimText).not.toMatch(/1\.4\.h[\s\S]{0,220}(evacuar|flux|număr.*utilizatori|procese)/i);
+  expect(prelimText).not.toMatch(/3\.4\.[cd][\s\S]{0,220}(depozit|stoc|procese)/i);
+  expect(prelimText).not.toMatch(/4\.8[\s\S]{0,260}(iluminat|DDR|AFDD)/i);
+  expect(prelimText).not.toMatch(/4\.10\.[cd][\s\S]{0,260}(iluminat de siguranță|IDSAI|detectare.*incendiu)/i);
 }
 
 async function verifyLawReaderFromPreview(page) {

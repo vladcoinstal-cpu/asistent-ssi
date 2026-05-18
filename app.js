@@ -5233,8 +5233,8 @@ function buildNormalSpecialCharacteristicsBlock(data) {
   const dimensions = String(data.caracteristici_dimensionale || "").trim();
   const users = String(data.numar_utilizatori || "").trim();
   const autoev = String(data.autoevacuare || "").trim();
-  const storage = String(data.capacitati_depozitare || "").trim();
-  const egress = String(data.cai_evacuare_rezumat || "").trim();
+  const storage = sanitizeSubpointValue(String(data.capacitati_depozitare || "").trim(), "1.4.h");
+  const egress = sanitizeSubpointValue(String(data.cai_evacuare_rezumat || "").trim(), "3.4.cd");
 
   lines.push("### 1.4. Particularitati specifice constructiei/amenajarii");
   lines.push(`- a) tipul cladirii: ${typeText || "De completat."}`);
@@ -5246,6 +5246,22 @@ function buildNormalSpecialCharacteristicsBlock(data) {
   lines.push(`- g) numarul cailor de evacuare si, dupa caz, al refugiilor: ${egress || "De completat."}`);
 
   return lines.join("\n");
+}
+
+function sanitizeSubpointValue(text, ruleKey) {
+  const value = String(text || "").trim();
+  if (!value) return value;
+  const rules = {
+    "1.4.g": [/depozit/i, /stoc/i, /procese?/i, /evacuar/i],
+    "1.4.h": [/evacuar/i, /flux/i, /num[aă]r.*utilizatori/i, /procese?/i],
+    "3.4.cd": [/depozit/i, /stoc/i, /procese?/i],
+    "4.8": [/iluminat/i, /ddr/i, /afdd/i],
+    "4.10.cd": [/iluminat de siguran/i, /idsai/i, /detectare.*incendiu/i]
+  };
+  const forbidden = rules[ruleKey] || [];
+  const parts = value.split(/[;\n]+/).map((x) => x.trim()).filter(Boolean);
+  const filtered = parts.filter((part) => !forbidden.some((rx) => rx.test(part)));
+  return filtered.join("; ").trim() || "De completat.";
 }
 
 function buildNormalIdentificationBlock(data) {
@@ -6307,8 +6323,8 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
 ${roomInventoryTable}
 
 | f) compartimente de incendiu | ${fireCompartmentMarkdown || fireCompartments} |
-| g) numărul maxim de utilizatori | ${occupantMarkdown || `${occupantText}; prezența permanentă a persoanelor și capacitatea de autoevacuare: ${users}`} |
-| h) capacități de depozitare | ${storage} |
+| g) numărul maxim de utilizatori | ${sanitizeSubpointValue((occupantMarkdown || occupantText), "1.4.g")} |
+| h) capacități de depozitare | ${sanitizeSubpointValue(storage, "1.4.h")} |
 
 ## 2. Nivelurile riscului de incendiu estimat, stabilit pentru fiecare încăpere/grup de încăperi similare, spațiu, zonă, compartiment, potrivit reglementărilor tehnice
 | Denumirea punctului / subpunctului | Conținut |
@@ -6343,8 +6359,8 @@ ${roomInventoryTable}
 |---|---|
 | a) măsuri pentru asigurarea controlului fumului | ${smoke} |
 | b) tipul scărilor, forma și modul de dispunere a treptelor | ${val("scari_interioare", "De completat.")} |
-| c) geometria căilor de evacuare | ${val("evacuare_geometrie", evacuation)} |
-| d) numărul fluxurilor de evacuare | ${val("evacuare_fluxuri", "De completat distinct de geometria căilor de evacuare.")} |
+| c) geometria căilor de evacuare | ${sanitizeSubpointValue(val("evacuare_geometrie", evacuation), "3.4.cd")} |
+| d) numărul fluxurilor de evacuare | ${sanitizeSubpointValue(val("evacuare_fluxuri", "De completat distinct de geometria căilor de evacuare."), "3.4.cd")} |
 
 ### 3.5. Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu
 | Denumirea punctului / subpunctului | Conținut |
@@ -6439,10 +6455,10 @@ ${roomInventoryTable}
 ### 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
-| a) gradul de acoperire | ${val("idsai_acoperire", idsai)} |
-| b) condiții privind stabilirea zonei de detectare | ${val("idsai_zone_detectare", "De completat distinct de subpct. a).") } |
-| c) condiții pentru amplasarea e.c.s. | ${val("idsai_ecs", "De completat distinct de subpct. a).") } |
-| d) alte dispozitive comandate sau supravegheate de e.c.s. | ${val("idsai_dispozitive", "De completat distinct de subpct. a).") } |
+| a) gradul de acoperire | ${sanitizeSubpointValue(val("idsai_acoperire", idsai), "4.8")} |
+| b) condiții privind stabilirea zonei de detectare | ${sanitizeSubpointValue(val("idsai_zone_detectare", "De completat distinct de subpct. a)."), "4.8")} |
+| c) condiții pentru amplasarea e.c.s. | ${sanitizeSubpointValue(val("idsai_ecs", "De completat distinct de subpct. a)."), "4.8")} |
+| d) alte dispozitive comandate sau supravegheate de e.c.s. | ${sanitizeSubpointValue(val("idsai_dispozitive", "De completat distinct de subpct. a)."), "4.8")} |
 
 ### 4.9. Instalație de desfumare / evacuare fum și gaze fierbinți
 | Denumirea punctului / subpunctului | Conținut |
@@ -6459,8 +6475,8 @@ ${roomInventoryTable}
 |---|---|
 | a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică) | ${electric} |
 | b) pentru iluminat de siguranță (tip zone deservite, condiții de alimentare și funcționare) | ${val("iluminat_siguranta", "De completat.")} |
-| c) dispozitiv de protecție cu curent diferențial rezidual (DDR) | ${val("ddr", "De completat (nu se preia automat din iluminatul de siguranță)." )} |
-| d) dispozitiv de detectare a defectului de arc electric (AFDD) | ${val("afdd", "De completat (nu se preia automat din iluminatul de siguranță)." )} |
+| c) dispozitiv de protecție cu curent diferențial rezidual (DDR) | ${sanitizeSubpointValue(val("ddr", "De completat (nu se preia automat din iluminatul de siguranță)."), "4.10.cd")} |
+| d) dispozitiv de detectare a defectului de arc electric (AFDD) | ${sanitizeSubpointValue(val("afdd", "De completat (nu se preia automat din iluminatul de siguranță)."), "4.10.cd")} |
 
 ### 4.11. Instalație de protecție împotriva trăsnetului
 | Denumirea punctului / subpunctului | Conținut |
@@ -7139,7 +7155,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 
