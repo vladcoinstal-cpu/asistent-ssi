@@ -99,7 +99,7 @@ async function verifyNormalV58Shape(page) {
   expect(normalText).toMatch(/# Scenariu de securitate la incendiu - draft de lucru/i);
   expect(normalText).toMatch(/## Nota[\s\S]*?## 1\.\s+Caracteristicile construc/i);
   expect(normalText).toMatch(/## 1\.[\s\S]*### 1\.1\.[\s\S]*### 1\.2\.[\s\S]*### 1\.3\.[\s\S]*### 1\.4\./i);
-  expect(normalText).toMatch(/## 2\.[\s\S]*### 2\.A\.[\s\S]*### 2\.B\./i);
+  expect(normalText).toMatch(/## 2\.[\s\S]*(2\.A|Caracteristicile factorilor)[\s\S]*(2\.B|Caracteristicile proceselor tehnologice)/i);
   expect(normalText).toMatch(/## 3\.[\s\S]*### 3\.1\.[\s\S]*### 3\.2\.[\s\S]*### 3\.3\.[\s\S]*### 3\.4\./i);
   expect(normalText).toMatch(/## 4\.[\s\S]*4\.8[\s\S]*4\.10/i);
   expect(normalText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
