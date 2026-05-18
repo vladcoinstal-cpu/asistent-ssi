@@ -96,6 +96,16 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
       try { if (typeof refreshCounters === "function") refreshCounters(); } catch {}
     }
 
+    function enforceFrameIntegrity() {
+      try {
+        const normalBroken = isShortBrokenFrame(normalReportOutput && normalReportOutput.value);
+        const prelimBroken = isShortBrokenFrame(preliminaryReportOutput && preliminaryReportOutput.value);
+        if (normalBroken || prelimBroken) {
+          writeFullReports(true);
+        }
+      } catch {}
+    }
+
     function markdownPreviewHtml(markdown) {
       if (typeof markdownToHtml === "function") {
         return markdownToHtml(markdown, "html");
@@ -178,6 +188,9 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
     }
 
     writeFullReports(false);
+    window.setTimeout(enforceFrameIntegrity, 0);
+    window.setTimeout(enforceFrameIntegrity, 250);
+    window.setTimeout(enforceFrameIntegrity, 1000);
   }
 
   init();
