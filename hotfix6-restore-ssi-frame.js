@@ -81,6 +81,9 @@
     function buildCompleteNormalFromAnnexFrame(normalBase, preliminary) {
       const base = String(normalBase || "");
       const prelim = String(preliminary || "");
+      if (/###\s*2\.A\./i.test(base) && /###\s*2\.B\./i.test(base)) {
+        return sanitizeForbiddenFrameText(base);
+      }
       const baseBodyIndex = base.search(/^##\s+1\.\s+/m);
       const prelimBodyIndex = prelim.search(/^##\s+1\.\s+/m);
       if (prelimBodyIndex < 0) return base;
