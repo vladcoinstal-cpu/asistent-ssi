@@ -5199,9 +5199,9 @@ function buildNormalRiskSection(data) {
   const lines = [];
   const procese = String(data.procese_substante || "").trim() || "Nu este cazul, pe baza datelor disponibile.";
 
-  lines.push("## 2. Identificarea și stabilirea nivelurilor de risc de incendiu");
-  lines.push("### 2.A. Identificarea și stabilirea nivelurilor de risc de incendiu");
-  lines.push("- a) densitatea sarcinii termice:");
+  lines.push("## 2. Nivelurile riscului de incendiu, stabilite pentru fiecare încăpere, spațiu, zonă și compartiment de incendiu");
+  lines.push("### 2.A. Caracteristicile factorilor care pot genera incendiu");
+  lines.push("#### 2.A.a. Densitatea sarcinii termice");
   lines.push("  Pentru obiectivul analizat, evaluarea densitatii sarcinii termice se face pentru fiecare incapere/grup de incaperi similare, spatiu și compartiment de incendiu, în masura în care exista datele de intrare necesare.");
   lines.push("  Pentru naos parter exista date suficiente în documentația disponibilă pentru refacerea calculului.");
   lines.push("  Caz analizat: naos parter, aria 121,60 mp.");
@@ -5212,14 +5212,14 @@ function buildNormalRiskSection(data) {
   lines.push("  Densitatea sarcinii termice: q = 3.406 / 121,60 + 35 = 28,01 + 35 = 63,01 MJ/mp.");
   lines.push("  Concluzie pentru naos parter: q = 63,01 MJ/mp, deci risc mic de incendiu, conform P 118/1-2025, art. 2.1.2.2 alin. (1) lit. a), coroborat cu alin. (2) și (3).");
   lines.push("  [[RED]]Pentru celelalte incaperi și spatii nu exista în documentele disponibile calcule detaliate similare; acestea trebuie completate pe baza materialelor reale, maselor și ariilor corespunzătoare.[[/RED]]");
-  lines.push("- b) date privind materialele, proprietatile relevante și clasele de reactie/periculozitate:");
+  lines.push("#### 2.A.b. Proprietățile fizico-chimice / materiale / substanțe");
   lines.push("  Nu este cazul că functiune principală de productie sau depozitare; obiectivul este cladire civilă pentru cult și nu rezultă procese de productie.");
   lines.push("  Din datele disponibile rezultă materiale combustibile uzuale de tip lemn, hartie, textile și materiale metalice / aparatură.");
   lines.push("  Din datele rezultăte din documentația tehnică analizata, cu raportare la P 118-99, art. 6.2.19, rezultă clasă P.1 pentru materiale incombustibile metalice și clasă P.2 pentru aparatură și materiale similare cu periculozitate redusă.");
   lines.push("  [[RED]]Pentru substante periculoase speciale și pentru restul spatiilor nu rezultă date complete în documentele analizate.[[/RED]]");
-  lines.push("- c) surse potentiale de aprindere și imprejurarile care pot favoriza aprinderea:");
+  lines.push("#### 2.A.c. Sursele potențiale de aprindere");
   lines.push("  Instalații electrice, lumanari, candele, lucrari cu foc deschis, surse termice, defectiuni de exploatare, trasnet, actiuni intentionate.");
-  lines.push(`### 2.B. Caracteristicile proceselor tehnologice și cantitatile de substante periculoase, potrivit clasificarii din ${makeLawRef("legea59_general", "Legea nr. 59/2016")} privind controlul asupra pericolelor de accident major în care sunt implicate substante periculoase, cu completarile ulterioare`);
+  lines.push(`### 2.B. Nivelurile riscului de incendiu / caracteristicile proceselor tehnologice și substanțe periculoase, după caz`);
   lines.push(`- Nu este cazul pentru acest obiectiv, ${procese.toLowerCase().startsWith("nu ") ? procese.charAt(0).toLowerCase() + procese.slice(1) : procese.toLowerCase()}.`);
   lines.push(`- Pentru obiectivul analizat, nu sunt substante periculoase relevante care să atraga o încadrare potrivit ${makeLawRef("legea59_general", "Legii nr. 59/2016")}.`);
 
@@ -7155,7 +7155,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 
