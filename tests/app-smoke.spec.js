@@ -55,6 +55,7 @@ async function verifyAnnexFrameIntegrity(page) {
 
   await page.locator('[data-tab-target="normalTab"]').click();
   const normalOutput = page.locator("#normalReportOutput");
+  await expect(normalOutput).toHaveValue(/Scenariu de securitate la incendiu - draft de lucru/i, { timeout: 60_000 });
   const normalText = await normalOutput.inputValue();
 
   expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
@@ -65,8 +66,8 @@ async function verifyAnnexFrameIntegrity(page) {
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
   const prelimOutput = page.locator("#preliminaryReportOutput");
+  await expect(prelimOutput).toHaveValue(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
   const prelimText = await prelimOutput.inputValue();
-  await expect(page.locator("#preliminaryReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i);
   for (const subpoint of requiredSubpoints) {
     expect(prelimText).toMatch(new RegExp(`(^|\\n)(?:[-*]\\s*)?${subpoint.replace('.', '\\\\.')}\\.`, "m"));
   }
