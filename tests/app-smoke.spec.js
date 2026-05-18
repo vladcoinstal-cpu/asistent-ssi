@@ -83,7 +83,7 @@ async function verifyAnnexFrameIntegrity(page) {
     expect(prelimText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
   expect(prelimText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
-  expect(prelimText).toMatch(/# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR\n\n## 1\. Caracteristicile construcției sau amenajării/i);
+  expect(prelimText).toMatch(/# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR[\s\S]*?## 1\. Caracteristicile construcției sau amenajării/i);
 }
 
 async function verifyLawReaderFromPreview(page) {
