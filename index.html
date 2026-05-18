@@ -81,7 +81,6 @@
             <button type="button" class="browser-tab" data-tab-target="legislationTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('legislationTab')">Legislatie</button>
             <button type="button" class="browser-tab" data-tab-target="lawTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('lawTab')">Lege / articol</button>
             <button type="button" class="browser-tab" data-tab-target="issuesTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('issuesTab')">Probleme</button>
-            <button type="button" class="browser-tab" data-tab-target="autotestTab" onclick="window.__ssiCommands?.activateWorkspaceTab?.('autotestTab')">Auto-test</button>
           </div>
         </div>
       </div>
@@ -133,17 +132,11 @@
               <div class="button-row">
                 <button id="addTextBtn" class="primary" onclick="window.__ssiCommands?.addManualText()">Adauga textul</button>
                 <button id="extractBtn" class="secondary" onclick="window.__ssiCommands?.extractData()">Extrage informatii</button>
-                <button id="openAutotestBtn" class="secondary" type="button" onclick="window.__ssiCommands?.openAutotest?.()">Auto-test</button>
                 <button id="resetBtn" class="ghost" onclick="window.__ssiCommands?.resetProject()">Reseteaza proiectul activ</button>
               </div>
 
               <div id="uiStatus" class="source-meta">Astept surse pentru proiectul activ.</div>
               <div id="extractionSummary" class="source-meta">Extragerea inca nu a fost rulata.</div>
-
-              <div class="button-row">
-                <button id="evaluateRulesBtn" class="primary">Evalueaza legislatia</button>
-                <button id="downloadRulesBtn" class="ghost">Descarca baza de reguli</button>
-              </div>
 
               <div class="project-hidden-data" aria-hidden="true">
                 <div id="profileInputs" class="field-grid"></div>
@@ -183,7 +176,7 @@
 
         <section id="issuesTab" class="tab-panel"><section class="panel panel-rules panel-span"><div class="section-heading"><h2>Probleme, lipsuri si date de verificat</h2><p>Aici apar lipsurile detectate in surse si verificarile care trebuie confirmate.</p></div><div id="issuesOutput" class="rules-list"><article class="rule-card"><strong>Nu au fost analizate inca problemele proiectului.</strong></article></div></section></section>
 
-        <section id="autotestTab" class="tab-panel"><section class="panel panel-rules panel-span"><div class="report-topbar"><div class="section-heading"><h2>Auto-test memorii</h2><p>Ruleaza verificarea interna pe cele 3 memorii de test si afiseaza rezultatele intr-un singur loc.</p></div><div class="button-row report-actions-row"><button id="runAutotestBtn" class="primary" type="button">Ruleaza auto-test</button></div></div><div id="autotestOutput" class="rules-list"><article class="rule-card"><strong>Auto-testul nu a fost rulat inca.</strong></article></div></section></section>
+        
       </section>
     </main>
   </div>
