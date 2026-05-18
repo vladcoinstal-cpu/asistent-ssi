@@ -51,19 +51,24 @@ async function runExtraction(page, expectedObjective) {
 
 
 async function verifyAnnexFrameIntegrity(page) {
-  await page.locator('[data-tab-target="normalTab"]').click();
-  const normalPreview = page.locator("#normalReportPreview");
-  await expect(normalPreview).toContainText(/Scenariu de securitate la incendiu - draft de lucru/i);
-  await expect(normalPreview).toContainText(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
+  const requiredSubpoints = ["1.1", "1.2", "1.3", "1.4", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "4.1", "4.2", "4.3"];
 
-  for (const subpoint of ["1.1", "1.2", "1.3", "1.4", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "4.1", "4.2", "4.3"]) {
-    await expect(normalPreview).toContainText(subpoint);
+  await page.locator('[data-tab-target="normalTab"]').click();
+  const normalOutput = page.locator("#normalReportOutput");
+  const normalText = await normalOutput.inputValue();
+
+  expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
+  expect(normalText).toMatch(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
+  for (const subpoint of requiredSubpoints) {
+    expect(normalText).toMatch(new RegExp(`(^|\\n)(?:[-*]\\s*)?${subpoint.replace('.', '\\\\.')}\\.`, "m"));
   }
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
-  const prelimPreview = page.locator("#preliminaryReportPreview");
-  for (const subpoint of ["1.1", "1.2", "1.3", "1.4", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "4.1", "4.2", "4.3"]) {
-    await expect(prelimPreview).toContainText(subpoint);
+  const prelimOutput = page.locator("#preliminaryReportOutput");
+  const prelimText = await prelimOutput.inputValue();
+  await expect(page.locator("#preliminaryReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i);
+  for (const subpoint of requiredSubpoints) {
+    expect(prelimText).toMatch(new RegExp(`(^|\\n)(?:[-*]\\s*)?${subpoint.replace('.', '\\\\.')}\\.`, "m"));
   }
 }
 
