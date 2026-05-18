@@ -5398,12 +5398,19 @@ function buildNormalPerformănceCriteriaBlock(data, complianceChecks = []) {
   lines.push("");
   lines.push("### 3.3. Evacuarea utilizatorilor");
   lines.push(`- Alcatuirea și dimensionarea cailor de evacuare, controlul fumului, fluxuri/lungimi/timpi de evacuare: ${val("evacuare")}.${buildObs("3.3")}`);
-  lines.push(`- Măsuri pentru persoane care nu se pot evacua singure: ${val("evacuare_persoane_vulnerabile", "Nu rezultă categorii ce necesita evacuare asistata, pe baza datelor disponibile.")}.${buildObs("3.5")}`);
   lines.push("");
   lines.push("### 3.4. Securitatea fortelor de interventie");
   lines.push(`- Accesuri și cai de interventie: ${val("interventie")}.${buildObs("3.4")}`);
   lines.push(`- Caracteristici tehnice ale accesurilor: ${val("interventie", "De completat cu gabarite, portanta și traseele de acces relevante.")}.`);
   lines.push(`- Ascensoare de pompieri, unde este cazul: ${val("ascensoare_pompieri", "Nu este cazul.")}.`);
+  lines.push("");
+  lines.push("### 3.5. Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și altor categorii care nu se pot evacua singure");
+  lines.push(`- Măsuri specifice: ${val("evacuare_persoane_vulnerabile", "Nu rezultă categorii ce necesita evacuare asistata, pe baza datelor disponibile.")}.${buildObs("3.5")}`);
+  lines.push("");
+  lines.push("### 3.6. Securitatea forțelor de intervenție");
+  lines.push(`- Amenajări pentru accesul forțelor de intervenție: ${val("interventie", "De completat.")}.`);
+  lines.push(`- Caracteristici tehnice și funcționale ale accesurilor carosabile/căilor de intervenție: ${val("interventie", "De completat.")}.`);
+  lines.push(`- Ascensoare de pompieri: ${val("ascensoare_pompieri", "Nu este cazul.")}.`);
 
   return lines.join("\n");
 }
@@ -5442,7 +5449,9 @@ function buildNormalEquipmentBlock(data, complianceChecks = []) {
     const detailText = val(item.dataKey, "Nu rezultă date suficiente în documentele disponibile.");
     const decision = composeDecision(check, "Este de verificat.");
     const observation = check?.details ? ` Observatie: ${check.details}` : "";
-    lines.push(`- ${item.code} ${item.title}: [[RED]]${decision}[[/RED]] Date proiect: ${detailText}.${observation}`);
+    lines.push(`### ${item.code}. ${item.title}`);
+    lines.push(`- Concluzie: [[RED]]${decision}[[/RED]]`);
+    lines.push(`- Date proiect: ${detailText}.${observation}`);
 
     if (item.code === "4.8") {
       const cultCheck = findCheck("4.8.cult");
@@ -7155,7 +7164,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 
