@@ -174,6 +174,17 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
       };
     }
 
+    if (typeof activateTab === "function") {
+      const previousActivateTab = activateTab;
+      activateTab = window.activateTab = function (tabId) {
+        const result = previousActivateTab(tabId);
+        if (tabId === "normalTab" || tabId === "preliminaryTab") {
+          enforceFrameIntegrity();
+        }
+        return result;
+      };
+    }
+
     if (window.__ssiCommands) {
       window.__ssiCommands = {
         ...window.__ssiCommands,
