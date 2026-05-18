@@ -109,7 +109,6 @@ test.describe("smoke cloud app", () => {
     await expect(page.locator("#workspaceTabs")).toBeVisible();
     await expect(page.locator('[data-tab-target="sourcesTab"]')).toBeVisible();
     await expect(page.locator('[data-tab-target="normalTab"]')).toBeVisible();
-    await expect(page.locator("#openAutotestBtn")).toBeVisible();
   });
 
   for (const fixture of FIXTURES) {
@@ -150,16 +149,5 @@ test.describe("smoke cloud app", () => {
     await expect(page.locator("#rulesOutput")).toContainText(/Acte legislative detectate de Extrage/i, { timeout: 30_000 });
 
     await verifyReset(page);
-  });
-
-  test("butonul Auto-test deschide zona si ruleaza verificarile", async ({ page }) => {
-    await page.goto("/");
-    await page.locator("#openAutotestBtn").click();
-    await expect(page.locator("#autotestOutput")).toContainText(/Comercial cu parcare subsol/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Industrial cu depozitare/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Restaurant cu sala aglomerata/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Acte identificate/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/SSI normal generat/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/SSI preliminar generat/i, { timeout: 60_000 });
   });
 });

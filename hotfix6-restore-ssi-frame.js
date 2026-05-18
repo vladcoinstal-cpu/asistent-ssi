@@ -49,6 +49,22 @@
         missingRequiredSubpoint;
     }
 
+
+    function sanitizeForbiddenFrameText(text) {
+      return String(text || "")
+        .replace(/Cadru generat curat[^
+]*
+?/gi, "")
+        .replace(/[^
+]*ssi-frame-readonly[^
+]*
+?/gi, "")
+        .replace(/Structura este incarcata din fisierul read-only[^
+]*
+?/gi, "")
+        .trim();
+    }
+
     function buildFullReports() {
       syncBeforeBuild();
       const normalBase = buildScenarioMarkdown(
@@ -94,7 +110,7 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         const converted = normalText
           .replace(/^#\s+.*$/m, "# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR")
           .replace(/SCENARIU DE SECURITATE LA INCENDIU(?! PRELIMINAR)/g, "SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR");
-        return converted;
+        return sanitizeForbiddenFrameText(converted);
       }
       return prelimText.replace(/Cadru generat curat[^\n]*\n?/gi, "");
     }
@@ -102,6 +118,8 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
     function writeFullReports(force) {
       const project = activeProject();
       const reports = buildFullReports();
+      reports.normal = sanitizeForbiddenFrameText(reports.normal);
+      reports.preliminary = sanitizeForbiddenFrameText(reports.preliminary);
 
       if (force || isShortBrokenFrame(normalReportOutput.value)) {
         normalReportOutput.value = reports.normal;
@@ -214,10 +232,6 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         ...window.__ssiCommands,
         extractData: () => handleExtractData(),
         resetProject: () => resetProjectState(),
-        openAutotest: async () => {
-          if (typeof activateTab === "function") activateTab("autotestTab");
-          if (typeof runAutotestSuite === "function") await runAutotestSuite();
-        },
         restoreFullSsiFrame: () => writeFullReports(true)
       };
     }
