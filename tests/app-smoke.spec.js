@@ -61,7 +61,8 @@ async function verifyAnnexFrameIntegrity(page) {
   expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
   expect(normalText).toMatch(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
   for (const subpoint of requiredSubpoints) {
-    expect(normalText).toMatch(new RegExp(`(^|[^0-9])${subpoint.replace('.', '\\\\.')}([^0-9]|$)`, "m"));
+    const escaped = subpoint.replace(/\./g, "\\.");
+    expect(normalText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
@@ -69,7 +70,8 @@ async function verifyAnnexFrameIntegrity(page) {
   await expect(prelimOutput).toHaveValue(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
   const prelimText = await prelimOutput.inputValue();
   for (const subpoint of requiredSubpoints) {
-    expect(prelimText).toMatch(new RegExp(`(^|[^0-9])${subpoint.replace('.', '\\\\.')}([^0-9]|$)`, "m"));
+    const escaped = subpoint.replace(/\./g, "\\.");
+    expect(prelimText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
 }
 
