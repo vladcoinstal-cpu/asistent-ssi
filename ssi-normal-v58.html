@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <title>Scenariu de securitate la incendiu - control HTML</title>
+  <style>
+    @page {
+      margin: 12mm 14mm 12mm 21mm;
+    }
+    body {
+      font-family: Calibri, Arial, sans-serif;
+      font-size: 11pt;
+      line-height: 1.2;
+      color: #111;
+      margin: 0;
+    }
+    h1 {
+      text-align: center;
+      font-size: 16pt;
+      margin: 0 0 8pt;
+    }
+    h2 {
+      font-size: 13pt;
+      margin: 10pt 0 4pt;
+    }
+    h3 {
+      font-size: 11.5pt;
+      margin: 7pt 0 3pt;
+    }
+    p {
+      margin: 2pt 0;
+      text-align: justify;
+    }
+    .intro {
+      text-indent: 1.2cm;
+    }
+    .indent {
+      margin-left: 16pt;
+    }
+    .value {
+      font-weight: 400;
+    }
+    .label {
+      font-weight: 700;
+    }
+    .red {
+      color: #111;
+      font-weight: 400;
+    }
+    table.room-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4pt 0 8pt 0;
+      table-layout: fixed;
+    }
+    table.room-table th,
+    table.room-table td {
+      border: 1px solid #666;
+      padding: 3pt 4pt;
+      vertical-align: top;
+      font-size: 10.5pt;
+    }
+    table.room-table th {
+      text-align: center;
+      font-weight: 700;
+    }
+    a {
+      color: #a33020;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>SCENARIU DE SECURITATE LA INCENDIU</h1>
+
+  <p class="intro">Prezenta lucrare a fost întocmită conform Metodologiei privind elaborarea scenariilor de securitate la incendiu, aprobată prin Ordinul ministrului afacerilor interne nr. 180/2022, Anexa nr. 4, pentru obținerea avizului/autorizației de securitate la incendiu, având în vedere că obiectivul se încadrează în categoriile de construcții și amenajări care se supun avizării și/sau autorizării privind securitatea la incendiu, aprobate prin <a href="https://legislatie.just.ro/Public/DetaliiDocument/180921">H.G. nr. 571 din 10 august 2016</a>, cu modificările și completările ulterioare, având aria desfășurată mai mare de 200 mp, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/180921">Anexei nr. 1 pct. I lit. f)</a>.</p>
+
+  <h2>1. Caracteristicile construcției sau amenajării</h2>
+
+  <h3>1.1. Date de identificare</h3>
+  <p><span class="label">A. Date necesare identificării construcției/amenajării</span></p>
+  <p class="indent"><span class="label">a) denumire:</span> <span class="value">lăcaș de cult.</span></p>
+  <p class="indent"><span class="label">b) proprietar/beneficiar:</span> <span class="value">Parohia Ortodoxă Învierea Domnului.</span></p>
+  <p class="indent"><span class="label">c) adresa:</span> <span class="value">municipiul Brașov, str. Mărășești nr. 47, județul Brașov.</span></p>
+  <p><span class="label">B. Datele de contact ale beneficiarului</span></p>
+  <p class="indent"><span class="label">a) nr. de telefon:</span> <span class="value">nu sunt detalii.</span></p>
+  <p class="indent"><span class="label">b) fax:</span> <span class="value">nu sunt detalii.</span></p>
+  <p class="indent"><span class="label">c) e-mail:</span> <span class="value">nu sunt detalii.</span></p>
+  <p><span class="label">C. Profilul de activitate și, după caz, programul de lucru al obiectivului</span></p>
+  <p class="indent"><span class="label">a) profil de activitate:</span> <span class="value">cult.</span></p>
+  <p class="indent"><span class="label">b) program de lucru:</span> <span class="value">permanent.</span></p>
+
+  <h3>1.2. Destinația</h3>
+  <p><span class="label">Funcțiuni principale:</span> <span class="value">cult.</span></p>
+  <p><span class="label">Funcțiuni secundare:</span> <span class="value">locuință.</span></p>
+  <p><span class="label">Funcțiuni conexe:</span> <span class="value">utilități.</span></p>
+
+  <h3>1.3. Categoria și clasă de importanță</h3>
+  <p><span class="label">Categoria de importanță:</span> <span class="value">categoria C - construcție de importanță normală, conform <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016">HG nr. 766/1997, Anexa nr. 3, art. 6</a> și <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016">art. 7</a>.</span></p>
+  <p><span class="label">Clasă de importanță:</span> <span class="value">clasă III-a, conform <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/194016">HG nr. 766/1997, Anexa nr. 3, art. 8</a>, coroborat cu <a href="https://legislatie.just.ro/Public/DetaliiDocument/142596">CR 0-2012, Anexa A1 - Clasificarea construcțiilor în clase de importanță-expunere</a>.</span></p>
+
+  <h3>1.4. Particularități specifice construcției sau amenajării</h3>
+  <p><span class="label">a) tipul clădirii:</span> <span class="value">clădire civilă pentru cult, cu încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, pct. 1.2.28</a>.</span></p>
+  <p><span class="label">b) tipul parcajului:</span> <span class="value">nu este cazul.</span></p>
+  <p><span class="label">c) caracteristici dimensionale:</span> <span class="value">demisol + parter + supantă + mansardă parțială, D+P+Sp+M; înălțime maximă 20,98 m; volum 2900 m3; aria construită 350,75 m2; aria desfășurată 693,08 m2; suprafața utilă -.</span></p>
+  <p><span class="label">d) precizări referitoare la numărul maxim de utilizatori:</span> <span class="value">150 persoane în total; demisol 120 persoane; parter 130 persoane; supantă 20 persoane; mansardă 2 persoane.</span></p>
+  <p><span class="label">e) prezența permanentă a persoanelor, capacitatea de autoevacuare a acestora:</span> <span class="value">persoanele care folosesc clădirea sunt, în mod obișnuit, autoevacuabile.</span></p>
+  <p><span class="label">f) capacități de depozitare:</span> <span class="value">nu sunt spații de depozitare mai mari de 36 m2; în spațiile de depozitare de la demisol sunt menționate preponderent materiale metalice.</span></p>
+  <p><span class="label">g) numărul căilor de evacuare și, după caz, al refugiilor:</span> <span class="value">două căi de evacuare de la demisol, două căi de evacuare de la parter; de la mansardă și supantă evacuarea se realizează pe o scară către parter; refugii - nu este cazul.</span></p>
+
+  <h2>2. Identificarea și stabilirea nivelurilor de risc de incendiu</h2>
+
+  <h3>2.A. Identificarea și stabilirea nivelurilor de risc de incendiu</h3>
+  <p><span class="value">Se fac potrivit reglementărilor tehnice specifice, pentru fiecare încăpere/grup de încăperi similare, spațiu, compartiment de incendiu, luându-se în considerare:</span></p>
+  <p><span class="label">a) densitatea sarcinii termice:</span> <span class="value">pentru naos parter, q = 63,01 MJ/mp, ceea ce conduce la risc mic de incendiu, conform <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705">P 118/1-2025, art. 2.1.2.2 alin. (1) lit. a)</a> și <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/295705">art. 2.1.2.3 alin. (1)</a>.</span></p>
+  <p><span class="label">b) proprietățile fizico-chimice ale materialelor și substanțelor utilizate, prelucrate, manipulate sau depozitate, pentru construcții de producție și/sau depozitare:</span> <span class="value">nu este cazul pentru acest obiectiv, nefiind construcție de productie și/sau depozitare. În exploatarea curentă rezultă materiale combustibile uzuale de tip lemn, hârtie/carton și textile, precum și materiale metalice/aparatură; aceste materiale participa la sarcina termică a spațiilor, însă nu rezultă din documentația disponibilă substanțe sau amestecuri periculoase care să necesite o clasificare specifică de tip CLP potrivit <a href="https://eur-lex.europa.eu/legal-content/ro/TXT/?uri=CELEX%3A32008R1272">Regulamentului (CE) nr. 1272/2008</a>.</span></p>
+  <p><span class="label">c) clase de periculozitate ale materialelor și substanțelor:</span> <span class="value">nu este cazul pentru acest obiectiv, nefiind construcție de producție și/sau depozitare și nefiind identificate substanțe sau amestecuri periculoase care să atragă o clasificare în clase de pericol în sensul <a href="https://eur-lex.europa.eu/legal-content/ro/TXT/?uri=CELEX%3A32008R1272">Regulamentului (CE) nr. 1272/2008</a>.</span></p>
+
+  <h3>2.B. Caracteristicile proceselor tehnologice și cantitățile de substanțe periculoase, potrivit clasificării din Legea nr. 59/2016 privind controlul asupra pericolelor de accident major în care sunt implicate substanțe periculoase, cu completările ulterioare</h3>
+  <p><span class="value">Nu este cazul pentru acest obiectiv, neavând substanțe periculoase relevante care să atragă o încadrare potrivit Legii nr. 59/2016.</span></p>
+
+  <h2>3. Nivelurile criteriilor de performănță privind securitatea la incendiu</h2>
+
+  <h3>3.1. Stabilitatea la foc și limitarea propagării incendiului și efluentilor incendiului în interiorul construcției/compartimentului de incendiu</h3>
+  <p><span class="label">a) rezistență și clasă de reacție la foc a elementelor cele mai defavorabile din punctul de vedere al criteriului de performănță stabilitate la foc:</span> </p>
+  <p class="indent"><span class="label">elemente portante din beton armat turnat monolit:</span> incombustibile, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>; pentru stalpi, coloane și pereți portanti, documentația tehnică indică LRF minimum 2 ore, corelat cu cerintele pentru gradul II de rezistență la foc din <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, pct. 2.1.9</a>.</p>
+  <p class="indent"><span class="label">grinzi, planșee și nervuri din beton armat:</span> incombustibile, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>; pentru aceste elemente, documentația tehnică indică LRF minimum 1 ora, corelat cu cerintele pentru gradul II de rezistență la foc din <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, pct. 2.1.9</a>.</p>
+  <p class="indent"><span class="label">pereți de compartimentare din zidărie:</span> incombustibili, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>; pentru pereții de zidărie, documentația tehnică indică LRF minimum 30 minute, corelat cu <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, pct. 2.1.9</a>.</p>
+  <p class="indent"><span class="label">suportul continuu al învelitorii din lemn ignifugat:</span> material combustibil ameliorat, încadrat în clasă de reacție la foc B-s3,d1, respectiv C1 (CA2b), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>.</p>
+  <p class="indent"><span class="label">învelitoarea din țiglă ceramică:</span> incombustibila, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>.</p>
+  <p><span class="label">b) elemente de construcție de separare a compartimentelor de incendiu sau a ariilor protejate:</span> </p>
+  <p class="indent"><span class="label">pereți din zidărie de compartimentare:</span> incombustibili, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>; pentru pereții de zidărie, documentația tehnică indică LRF minimum 30 minute.</p>
+  <p class="indent"><span class="label">planșeu din beton armat:</span> incombustibil, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>; pentru grinzi, planșee și nervuri din beton, documentația tehnică indică LRF minimum 1 ora.</p>
+  <p class="indent"><span class="label">elemente portante din beton armat:</span> incombustibile, clasă de reacție la foc A1, respectiv C0 (CA1), conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/214485">Ordinului nr. 1822/394/2004</a>; pentru stalpi, coloane și pereți portanti din beton, documentația tehnică indică LRF minimum 2 ore.</p>
+  <p class="indent"><span class="red">Pentru încăperea centralei termice de la demisol, care se încadrează în risc mijlociu de incendiu, separarea față de restul clădirii se realizează prin pereți din zidărie și planșeu din beton armat, elemente rezistente la foc, corespunzătoare cerinței de separare prevăzute de <a href="https://legislatie.just.ro/Public/DetaliiDocument/174761">I 13-2015, art. 7.181-7.182</a>.</span></p>
+  <p><span class="label">c) măsuri de protecție la foc pentru instalațiile electrice, de ventilare, climatizare și alte utilități:</span> </p>
+  <p class="indent"><span class="label">instalații electrice:</span> alimentarea cu energie electrica se realizează prin BMP amplasat în exterior, distributia facandu-se din TEG și tablouri electrice de nivel. Din proiect rezultă utilizarea conductoarelor de cupru și a tablourilor echipate cu protectii; trecerile conductoarelor, tuburilor și cablurilor prin elemente de construcție rezistente la foc trebuie inchise pe toata grosimea elementului cu materiale incombustibile, astfel incat să se asigure o rezistență la foc cel putin egala cu cea a elementului strapuns, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/287132">I7-2011, art. 5.2.7.2.6-5.2.7.2.7</a>; se interzice traversarea cosurilor și canalelor de fum cu cabluri și tuburi de protecție, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/287132">art. 5.2.7.2.8</a>.</p>
+  <p class="indent"><span class="label">instalații de ventilare/climatizare:</span> nu este cazul.</p>
+  <p class="indent"><span class="label">instalații de încălzire / centrala termică:</span> centrala termică este amplasată la demisol și este echipată, conform memoriului, cu un cazan de pardoseală Protherm PT 50 de 50 kW, o centrală murală Prime TEH Plus V20 de 35 kW și detector de gaze naturale. Pentru încăperea centralei termice, separarea față de restul clădirii se realizează prin pereți din zidărie și planșeu din beton armat, elemente rezistente la foc, conform cerinței din <a href="https://legislatie.just.ro/Public/DetaliiDocument/174761">I 13-2015, art. 7.181-7.182</a>. Ușa de acces a centralei termice trebuie să aibă deschiderea în afară, direct spre exterior sau într-un spațiu în legătură cu exteriorul care nu poate fi blocat, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/174761">I 13-2015, art. 7.187</a>; ușa de acces/evacuare nu trebuie să aibă prag, iar dacă pragul nu poate fi evitat, acesta se racordează cu pardoseală prin plan înclinat cu pantă 1:8, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/174761">art. 7.190</a>.</p>
+  <p class="indent"><span class="label">instalații pentru gaze combustibile:</span> este menționată alimentarea cu gaze naturale a centralelor termice și existența unui aragaz pe gaze la mansardă; încăperea centralei termice este echipată cu detectori de gaze și are spațiu vitrat. Măsuri concrete rezultăte din proiect: detector de gaze naturale în încăperea centralei termice, evacuarea gazelor arse prin coș de fum și prevederea unui spațiu vitrat pentru încăperea centralei. Suprafață minimă a spațiului vitrat se verifică în raport cu volumul net al încăperii, conform normei tehnice pentru gaze naturale: 0,03 mp/mc pentru încăperi în construcții din beton armat, 0,05 mp/mc pentru încăperi în construcții din zidărie, respectiv 0,02 mp/mc dacă sunt prevăzuți detectori automati de gaze naturale. Pentru acest obiectiv, lipsesc din datele disponibile dimensiunile efective ale spațiului vitrat, astfel incat verificarea numerică rămâne de completat.</p>
+  <p class="indent"><span class="label">instalații cu rol de securitate la incendiu:</span> sunt prevăzute iluminat de securitate pentru evacuare, împotriva panicii și pentru intervenție în centrala termică, protecție împotriva trăsnetului si, prin proiect, IDSAI cu ECS amplasat la demisol. Măsuri concrete rezultăte din proiect: iluminat de securitate pe căile de evacuare la toate nivelurile, iluminat împotriva panicii în spațiile mari, circuit dedicat pentru ECS, sursă de rezervă locala pentru sistemul IDSAI, interdictia traversarii încăperii ECS de către conducte utilitare și prevederea iluminatului de siguranță pentru continuarea lucrului în încăperea ECS.</p>
+
+  <h3>3.2. Limitarea propagării incendiilor la vecinătăți</h3>
+  <p><span class="label">a) distante de siguranță asigurate conform reglementărilor tehnice sau măsurile alternative conforme cu reglementarile tehnice, atunci cand aceste distante nu pot fi realizate:</span> <span class="value">cea mai apropiata construcție se afla la peste 20 m. Rezulta că distantele de siguranță la vecinătăți sunt asigurate, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, art. 2.2.2 și tabelul 2.2.2</a>.</span></p>
+  <p><span class="label">b) măsuri constructive pentru limitarea propagării incendiului pe fațade și pe acoperiș, după caz:</span> <span class="value">porțiunea mansardată este separată față de pod prin perete incombustibil, clasă de reacție la foc A1, respectiv C0 (CA1), cu rezistență la foc de 2 ore. Limitarea propagării pe acoperiș se corelează cu învelitoarea din țiglă ceramică, material incombustibil, și cu separarea dintre mansardă și pod.</span> <span class="red">La nivelul clădirii se mențin măsurile constructive de limitare a propagării pe acoperiș și în zona de separare dintre mansardă și pod; dacă apar modificări ale anvelopei, acestea trebuie reverificate în raport cu reglementarea tehnică aplicabilă.</span></p>
+
+  <h3>3.3. Evacuarea utilizatorilor</h3>
+  <p><span class="label">A. Pentru căile de evacuare a persoanelor în caz de incendiu se precizeaza:</span></p>
+  <p class="indent"><span class="label">a) alcătuirea constructivă a căilor de evacuare, separarea față de alte funcțiuni prin elemente de separare la foc și fum, protecția golurilor din pereții ce le delimitează:</span> evacuarea persoanelor din naosul de la parter se face direct în exterior prin intrarea principală și prin ușa laterală; evacuarea persoanelor de la demisol se face direct în exterior prin ușa principală și prin ușa laterală. De la mansardă și supantă evacuarea se realizează pe o scară închisă către parter, prin ușa cu un canat.</p>
+  <p class="indent"><span class="label">b) tipul scărilor, formă și modul de dispunere a treptelor:</span> evacuarea de la mansardă și supantă se face pe o scara închisă. Scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, art. 2.6.40 și art. 3.6.4</a>.</p>
+  <p class="indent"><span class="label">c) geometria căilor de evacuare:</span> ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux. Geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4</a>.</p>
+  <p class="indent"><span class="label">d) timpii/lungimile de evacuare:</span> nu rezultă calculul explicit al timpilor și al lungimilor de evacuare; acestea se verifică în corelare cu traseele reale, numărul de utilizatori și configurația finală a căilor de evacuare, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, art. 2.6.55-2.6.57</a>.</p>
+  <p class="indent"><span class="label">e) numărul fluxurilor de evacuare:</span> pentru demisol, raportat la 120 utilizatori, rezultă F = N / C = 120 / 70 = 1,71, deci sunt necesare 2 fluxuri; acestea sunt asigurate. Pentru parter, raportat la 150 utilizatori, rezultă F = N / C = 150 / 70 = 2,14, deci sunt necesare 3 fluxuri; acestea sunt asigurate prin ușa principală de 1,80 m și ușa laterală de 0,80 m. Pentru mansardă și supantă, raportat la 22 utilizatori, un flux este suficient și este asigurat prin scara de evacuare. Verificarea s-a facut conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/205877">P 118-99, art. 2.6.55, art. 2.6.56 și art. 3.6.4</a>.</p>
+  <p class="indent"><span class="label">f) prevederea de dispozitive de siguranță la uși, cum ar fi dispozitive de autoînchidere sau închidere automată în caz de incendiu, bare antipanic etc.:</span> pentru ușa de acces a încăperii centralei termice este prevăzută ușa rezistență la foc, protejată corespunzator; aceasta trebuie să aibă deschiderea în afară și să nu aibă prag, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/174761">I 13-2015, art. 7.187 și art. 7.190</a>. Pentru celelalte uși de evacuare, prevederea dispozitivelor de siguranță se verifică în raport cu funcțiunea și soluția finală de arhitectură.</p>
+  <p class="indent"><span class="label">g) marcarea căilor de evacuare:</span> clădirea este prevăzută cu iluminat de securitate pentru evacuare și împotriva panicii; marcarea căilor de evacuare se corelează cu această dotare și cu semnalizarea de securitate la exploatare, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/74127">HG nr. 971/2006, art. 7</a>.</p>
+  <p><span class="label">B. Daca este cazul, se precizeaza măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilitati, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu.</span></p>
+  <p class="indent"><span class="value">Nu rezultă din datele proiectului categorii de persoane care nu se pot evacua singure.</span></p>
+
+  <h3>3.4. Securitatea forțelor de intervenție</h3>
+  <p><span class="label">A. Amenajarile pentru accesul forțelor de intervenție în clădire și incinta, pentru autospeciale și pentru ascensoarele de incendiu.</span></p>
+  <p class="indent">Intervenția forțelor se poate desfășura pe toate laturile/fațadele accesibile ale clădirii, din drumul de acces existent.</p>
+  <p><span class="label">B. Caracteristicile tehnice și functionale ale accesurilor carosabile și ale căilor de intervenție ale autospecialelor, ale numărului de accesuri și trasee de intervenție, ale realizarii și marcarii lor.</span></p>
+  <p class="indent">Accesul autospecialelor se realizează pe drumuri publice cu două benzi pana la adresă obiectivului. Caile de acces sunt dimensionate pentru trafic greu, peste 30 tone, și au latime care permite trecerea autospecialelor, mai mare de 3,80 m.</p>
+  <p><span class="label">C. Pentru ascensoarele de pompieri se precizeaza: tipul, numărul și caracteristicile acestora; amplasarea și posibilitatile de acces, sursă de alimentare cu energie electrica de rezervă; timpul de siguranță.</span></p>
+  <p class="indent">Nu este cazul.</p>
+
+  <h2>4. Echiparea și dotarea cu instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu”</h2>
+  <p><span class="label">A. Instalație de stingere a incendiilor</span></p>
+  <p class="indent"><span class="label">a) tip: cu apa, gaze/aerosoli, spumă, pulberi:</span> <span class="value">nu se prevad instalații fixe de stingere cu apa, gaze/aerosoli, spumă sau pulberi.</span> <span class="red">Nu este obligatorie dotarea cu hidranți interiori, hidranți exteriori, sprinklere, sprinklere deschise, instalații cu apa pulverizată, ceață de apa sau gaze inerte, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/198766">P 118/2-2013, art. 4.1 lit. i), art. 6.1 alin. (4) lit. i), art. 7.1, art. 7.131, art. 8.1, art. 9.1 și art. 15.1</a>.</span></p>
+  <p class="indent"><span class="label">b) zone, încăperi, spații, instalații echipate:</span> <span class="value">nu este cazul, nefiind prevăzute instalații fixe de stingere a incendiilor.</span></p>
+  <p class="indent"><span class="label">c) parametri functionali: debite, intensitati de stingere și stropire, cantitati calculate de substanță de stingere, concentratii de stingere proiectate pe durata de timp normata, presiuni, rezerve de substanță de stingere, surse de alimentare:</span> <span class="value">nu este cazul.</span></p>
+  <p class="indent"><span class="label">d) timp normat de funcționare:</span> <span class="value">nu este cazul.</span></p>
+
+  <p><span class="label">B. Instalație de detectare, semnalizare și alarmare la incendiu (e.c.s.)</span></p>
+  <p class="indent"><span class="label">a) gradul de acoperire, zonele de detectare și alarmare la incendiu:</span> <span class="value">prin proiect se propune echiparea construcției cu instalatie de detectare, semnalizare și alarmare la incendiu, cu acoperirea spațiilor clădirii prin zone de detectare și alarmare.</span> <span class="red">Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/206832">P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i)</a>, dar prin proiect se propune dotarea cu IDSAI.</span></p>
+  <p class="indent"><span class="label">b) tipul detectoarelor, declansatoarelor manuale, dispozitivelor de alarmare și parametrii functionali specifici instalațiilor respective:</span> <span class="value">sunt prevăzute centrala adresabilă de semnalizare și alarmare la incendiu, detectoare adresabile, butoane/declansatoare manuale de alarmare și dispozitive optice și acustice de alarmare.</span></p>
+  <p class="indent"><span class="label">c) condiții pentru amplasarea e.c.s.:</span> <span class="value">ECS este amplasat la demisol, în încăpere dedicată, fără traversarea altor conducte/utilități prin aceasta încăpere.</span></p>
+  <p class="indent"><span class="label">d) alte dispozitive comandate/supravegheate de e.c.s.:</span> <span class="value">se supravegheaza și se comanda elementele prevăzute prin proiectul de detectare, semnalizare și alarmare la incendiu, conform solutiei tehnice adoptate.</span></p>
+
+  <p><span class="label">C. Instalație de desfumare/evacuare fum și gaze fierbinti</span></p>
+  <p class="indent"><span class="red">Nu este obligatorie dotarea, neavând degajamente protejate, tuneluri de evacuare, circulatii comune orizontale deschise spre atrium și alte situatii reglementate distinct, conform P 118/1-2025, cap. 8 - Sisteme de control al fumului și al gazelor fierbinti în caz de incendiu.</span></p>
+
+  <p><span class="label">D. Instalație electrică pentru alimentarea receptoarelor cu rol de securitate la incendiu</span></p>
+  <p class="indent"><span class="red">Este obligatorie dotarea, conform I7-2011, pct. 7.22.1 și pct. 7.23.9.1 lit. c) și f), cu modificările prin Ordinul nr. 959/2023.</span></p>
+
+  <p><span class="label">E. Instalație electrică pentru iluminat de siguranță, inclușiv condițiile de alimentare și de funcționare a acesteia</span></p>
+  <p class="indent"><span class="value">Se prevede iluminat de siguranță pentru evacuare pe căile de evacuare, iluminat împotriva panicii în cele două naosuri și iluminat pentru intervenție în centrala termică.</span> <span class="red">Instalatia se prevede conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/287132">I7-2011, art. 7.23.2, art. 7.23.9 și art. 7.23.10</a>, cu respectarea condițiilor de alimentare și funcționare prevăzute de normativ.</span></p>
+
+  <p><span class="label">F. Instalație de protecție împotriva trăsnetului</span></p>
+  <p class="indent"><span class="red">Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru intreaga clădire, conform I7-2011, cu modificările prin Ordinul nr. 959/2023.</span></p>
+
+  <h2>5. Măsuri tehnico-organizatorice privind exploatarea construcției</h2>
+  <p><span class="label">A. Instructiuni de funcționare a instalațiilor cu rol în asigurarea cerinței fundamentale „securitate la incendiu”</span></p>
+  <p class="indent"><span class="value">Se vor elabora și aplica instructiuni de funcționare pentru instalațiile electrice, instalatia de detectare, semnalizare și alarmare la incendiu, iluminatul de siguranță, instalatia de protecție împotriva trăsnetului și centrala termică.</span></p>
+  <p><span class="label">B. Reguli necesare de verificare și întreținere în exploatare a instalațiilor cu rol în asigurarea cerinței fundamentale „securitate la incendiu”</span></p>
+  <p class="indent"><span class="value">Se vor asigura verificarea periodică, mentenanta și pastrarea în stare de funcționare a instalațiilor cu rol în asigurarea cerinței fundamentale securitate la incendiu, conform legislatiei și reglementarilor în vigoare.</span></p>
+  <p><span class="label">C. Recomandari care trebuie avute în vedere la intocmirea documentelor de organizare a apararii împotriva incendiilor aferente construcției ori amenajării respective</span></p>
+  <p class="indent"><span class="value">Verificarea periodică a instalațiilor utilitare și tehnologice și a dotarilor aferente construcției conform legislatiei și reglementarilor în vigoare; asigurarea în permanenta a căilor de acces interioare și exterioare libere și practicabile, indiferent de anotimp, în vederea facilitarii evacuarii și intervenției în caz de incendiu; intocmirea planului de intervenție și avizarea acestuia de către unitatea teritoriala de pompieri militari; intocmirea și afisarea organizarii apararii împotriva incendiilor pe locurile de munca; instruirea personalului privind cunoasterea și respectarea normelor și reglementarilor de p.s.i.; elaborarea actelor de autoritate referitoare la organizarea activitatii de aparare împotriva incendiilor.</span></p>
+  <p><span class="label">D. Stingatoare, alte aparate de stins incendii, utilaje, unelte și mijloace de intervenție</span></p>
+  <p class="indent"><span class="label">a) tipul și caracteristicile de stingere asigurate:</span> <span class="value">stingătoare portative cu pulbere tip P, minimum 6 kg, pentru incendii din clasele A, B și C, stabilite în raport cu riscul de incendiu și materialele combustibile protejate, conform anexei nr. 6 la <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/80730">OMAI nr. 163/2007</a>.</span></p>
+  <p class="indent"><span class="label">b) numărul și modul de amplasare în functie de suprafața și clasă de incendiu, potrivit reglementărilor tehnice specifice:</span> <span class="value">stingătoarele portative cu pulbere tip P, minimum 6 kg, se repartizeaza astfel: cate 4 bucati pentru parter și demisol, 2 bucati la supantă și 2 bucati pentru centrala termică, în total 12 bucati, în corelare cu anexa nr. 6 la <a href="https://legislatie.just.ro/Public/DetaliiDocumentAfis/80730">OMAI nr. 163/2007</a>. Stingatoarele și celelalte mijloace tehnice PSI se amplaseaza la vedere, iar locurile de amplasare vor fi indicăte prin marcaje sau panouri de semnalizare, conform <a href="https://legislatie.just.ro/Public/DetaliiDocument/74127">HG nr. 971/2006, art. 7</a>.</span></p>
+
+  <h2>6. Măsuri compensatorii propuse pentru lucrari de modificare și/sau schimbare a destinatiei construcțiilor existente, în raport cu prevederile reglementărilor tehnice care nu pot fi respectate</h2>
+  <p><span class="value">Nu este cazul.</span></p>
+</body>
+</html>
+
