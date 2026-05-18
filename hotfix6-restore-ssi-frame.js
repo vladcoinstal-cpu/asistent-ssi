@@ -34,10 +34,19 @@
 
     function isShortBrokenFrame(text) {
       const value = String(text || "");
+      const requiredSubpoints = [
+        "1.1", "1.2", "1.3", "1.4",
+        "3.1", "3.2", "3.3", "3.4", "3.5", "3.6",
+        "4.1", "4.2", "4.3"
+      ];
+      const missingRequiredSubpoint = requiredSubpoints.some((code) => {
+        const escaped = code.replace(".", "\\.");
+        return !(new RegExp(`(^|[^0-9])${escaped}([^0-9]|$)`, "m").test(value));
+      });
       return /Cadru generat curat|ssi-frame-readonly|Structura este incarcata din fisierul read-only/i.test(value) ||
-        !/1\.1\.\s*Datele de identificare/i.test(value) ||
-        !/3\.1\.\s*Rezisten/i.test(value) ||
-        !/4\.1\.\s*Hidran/i.test(value);
+        !/Scenariu de securitate la incendiu - draft de lucru/i.test(value) ||
+        !/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i.test(value) ||
+        missingRequiredSubpoint;
     }
 
     function buildFullReports() {
