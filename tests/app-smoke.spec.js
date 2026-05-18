@@ -15,6 +15,13 @@ const FIXTURES = [
     objective: "Hala industriala Fabricatie si Depozitare MetalPack",
     summaryNeedle: "depozitare"
   },
+
+  {
+    file: "memoriu-arhitectura-biserica-sprenghi.txt",
+    projectName: "Biserica Sprenghi",
+    objective: "Biserica Invierea Domnului Sprenghi",
+    summaryNeedle: "lacas de cult"
+  },
   {
     file: "memoriu-arhitectura-restaurant-sala-aglomerata.txt",
     projectName: "Restaurant Atrium",
@@ -60,10 +67,13 @@ async function verifyAnnexFrameIntegrity(page) {
 
   expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
   expect(normalText).toMatch(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
+  expect(normalText).toMatch(/## 1\.[\s\S]*## 2\.[\s\S]*## 3\.[\s\S]*## 4\.[\s\S]*## 5\./i);
   for (const subpoint of requiredSubpoints) {
     const escaped = subpoint.replace(/\./g, "\\.");
     expect(normalText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
+  expect(normalText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+  expect(normalText).toMatch(/## Nota\n[\s\S]*?\n## 1\. Caracteristicile construcției sau amenajării/i);
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
   const prelimOutput = page.locator("#preliminaryReportOutput");
@@ -73,6 +83,48 @@ async function verifyAnnexFrameIntegrity(page) {
     const escaped = subpoint.replace(/\./g, "\\.");
     expect(prelimText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
   }
+  expect(prelimText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+  expect(prelimText).toMatch(/# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR[\s\S]*?## 1\. Caracteristicile construcției sau amenajării/i);
+  expect(prelimText).toMatch(/## 1\.[\s\S]*## 2\.[\s\S]*## 3\.[\s\S]*## 4\.[\s\S]*## 5\./i);
+  expect(prelimText).not.toMatch(/1\.4\.g[\s\S]{0,220}(depozit|stoc|evacuar|procese)/i);
+  expect(prelimText).not.toMatch(/1\.4\.h[\s\S]{0,220}(evacuar|flux|număr.*utilizatori|procese)/i);
+  expect(prelimText).not.toMatch(/3\.4\.[cd][\s\S]{0,220}(depozit|stoc|procese)/i);
+  expect(prelimText).not.toMatch(/4\.8[\s\S]{0,260}(iluminat|DDR|AFDD)/i);
+  expect(prelimText).not.toMatch(/4\.10\.[cd][\s\S]{0,260}(iluminat de siguranță|IDSAI|detectare.*incendiu)/i);
+}
+
+async function verifyNormalV58Shape(page) {
+  await page.locator('[data-tab-target="normalTab"]').click();
+  const normalText = await page.locator("#normalReportOutput").inputValue();
+  expect(normalText).toMatch(/# Scenariu de securitate la incendiu - draft de lucru/i);
+  expect(normalText).toMatch(/## Nota[\s\S]*?## 1\.\s+Caracteristicile construc/i);
+  expect(normalText).toMatch(/## 1\.[\s\S]*### 1\.1\.[\s\S]*### 1\.2\.[\s\S]*### 1\.3\.[\s\S]*### 1\.4\./i);
+  expect(normalText).toMatch(/## 2\.[\s\S]*(2\.A|Caracteristicile factorilor)[\s\S]*(2\.B|Caracteristicile proceselor tehnologice)/i);
+  expect(normalText).toMatch(/## 3\.[\s\S]*### 3\.1\.[\s\S]*### 3\.2\.[\s\S]*### 3\.3\.[\s\S]*### 3\.4\./i);
+  expect(normalText).toMatch(/## 4\.[\s\S]*4\.8[\s\S]*4\.10/i);
+  expect(normalText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+}
+
+async function verifyPreliminaryV85Shape(page) {
+  await page.locator('[data-tab-target="preliminaryTab"]').click();
+  const prelimText = await page.locator("#preliminaryReportOutput").inputValue();
+  expect(prelimText).toMatch(/# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i);
+  expect(prelimText).toMatch(/## 1\. Caracteristicile construcției sau amenajării[\s\S]*### 1\.1\.[\s\S]*### 1\.2\.[\s\S]*### 1\.3\.[\s\S]*### 1\.4\./i);
+  expect(prelimText).toMatch(/## 2\.[\s\S]*## 3\.[\s\S]*### 3\.1\.[\s\S]*### 3\.6\./i);
+  expect(prelimText).toMatch(/## 4\.[\s\S]*### 4\.1\.[\s\S]*### 4\.11\./i);
+  expect(prelimText).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+}
+
+async function verifyWordExportGenerators(page) {
+  const exported = await page.evaluate(() => {
+    const normal = window.buildNormalScenarioWordHtml?.(window.state?.data || {}, window.state?.sources || [], window.state?.applicableActs || [], window.state?.complianceChecks || []) || "";
+    const preliminary = window.buildPreliminaryScenarioWordHtml?.(window.state?.data || {}, window.state?.sources || [], window.state?.applicableActs || [], window.state?.projectProfile || {}, window.state?.complianceChecks || []) || "";
+    return { normal, preliminary };
+  });
+  expect(exported.normal).toMatch(/1\. Caracteristicile construcției sau amenajării/i);
+  expect(exported.preliminary).toMatch(/1\. Caracteristicile construcției sau amenajării/i);
+  expect(exported.normal).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
+  expect(exported.preliminary).not.toMatch(/Surse analizate|Legislatie relevanta detectata|Verificare normativa automata|Acoperire reguli pe subpuncte|Cadru generat curat|ssi-frame-readonly/i);
 }
 
 async function verifyLawReaderFromPreview(page) {
@@ -109,7 +161,6 @@ test.describe("smoke cloud app", () => {
     await expect(page.locator("#workspaceTabs")).toBeVisible();
     await expect(page.locator('[data-tab-target="sourcesTab"]')).toBeVisible();
     await expect(page.locator('[data-tab-target="normalTab"]')).toBeVisible();
-    await expect(page.locator("#openAutotestBtn")).toBeVisible();
   });
 
   for (const fixture of FIXTURES) {
@@ -122,6 +173,9 @@ test.describe("smoke cloud app", () => {
       await expect(page.locator("#projectFactsSummary")).toContainText(new RegExp(fixture.summaryNeedle, "i"));
 
       await verifyAnnexFrameIntegrity(page);
+      await verifyNormalV58Shape(page);
+      await verifyPreliminaryV85Shape(page);
+      await verifyWordExportGenerators(page);
 
       await verifyLawReaderFromPreview(page);
       await verifyLegislationMovedOutOfProblems(page);
@@ -150,16 +204,5 @@ test.describe("smoke cloud app", () => {
     await expect(page.locator("#rulesOutput")).toContainText(/Acte legislative detectate de Extrage/i, { timeout: 30_000 });
 
     await verifyReset(page);
-  });
-
-  test("butonul Auto-test deschide zona si ruleaza verificarile", async ({ page }) => {
-    await page.goto("/");
-    await page.locator("#openAutotestBtn").click();
-    await expect(page.locator("#autotestOutput")).toContainText(/Comercial cu parcare subsol/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Industrial cu depozitare/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Restaurant cu sala aglomerata/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Acte identificate/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/SSI normal generat/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/SSI preliminar generat/i, { timeout: 60_000 });
   });
 });

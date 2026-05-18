@@ -264,7 +264,8 @@ const normalRulesFieldMap = {
   "1.4.d": ["numar_utilizatori"],
   "1.4.e": ["autoevacuare"],
   "1.4.f": ["capacitati_depozitare"],
-  "1.4.g": ["cai_evacuare_rezumat"],
+  "1.4.g": ["numar_utilizatori"],
+  "1.4.h": ["capacitati_depozitare"],
   "2.A.a": ["risc_incendiu"],
   "2.A.b": ["procese_substante", "capacitati_depozitare", "stabilitate_foc"],
   "2.A.c": ["surse_aprindere_specifice", "centrala_termica", "bucatarie_gaze"],
@@ -5198,9 +5199,9 @@ function buildNormalRiskSection(data) {
   const lines = [];
   const procese = String(data.procese_substante || "").trim() || "Nu este cazul, pe baza datelor disponibile.";
 
-  lines.push("## 2. Identificarea și stabilirea nivelurilor de risc de incendiu");
-  lines.push("### 2.A. Identificarea și stabilirea nivelurilor de risc de incendiu");
-  lines.push("- a) densitatea sarcinii termice:");
+  lines.push("## 2. Nivelurile riscului de incendiu, stabilite pentru fiecare încăpere, spațiu, zonă și compartiment de incendiu");
+  lines.push("### 2.A. Caracteristicile factorilor care pot genera incendiu");
+  lines.push("#### 2.A.a. Densitatea sarcinii termice");
   lines.push("  Pentru obiectivul analizat, evaluarea densitatii sarcinii termice se face pentru fiecare incapere/grup de incaperi similare, spatiu și compartiment de incendiu, în masura în care exista datele de intrare necesare.");
   lines.push("  Pentru naos parter exista date suficiente în documentația disponibilă pentru refacerea calculului.");
   lines.push("  Caz analizat: naos parter, aria 121,60 mp.");
@@ -5211,14 +5212,14 @@ function buildNormalRiskSection(data) {
   lines.push("  Densitatea sarcinii termice: q = 3.406 / 121,60 + 35 = 28,01 + 35 = 63,01 MJ/mp.");
   lines.push("  Concluzie pentru naos parter: q = 63,01 MJ/mp, deci risc mic de incendiu, conform P 118/1-2025, art. 2.1.2.2 alin. (1) lit. a), coroborat cu alin. (2) și (3).");
   lines.push("  [[RED]]Pentru celelalte incaperi și spatii nu exista în documentele disponibile calcule detaliate similare; acestea trebuie completate pe baza materialelor reale, maselor și ariilor corespunzătoare.[[/RED]]");
-  lines.push("- b) date privind materialele, proprietatile relevante și clasele de reactie/periculozitate:");
+  lines.push("#### 2.A.b. Proprietățile fizico-chimice / materiale / substanțe");
   lines.push("  Nu este cazul că functiune principală de productie sau depozitare; obiectivul este cladire civilă pentru cult și nu rezultă procese de productie.");
   lines.push("  Din datele disponibile rezultă materiale combustibile uzuale de tip lemn, hartie, textile și materiale metalice / aparatură.");
   lines.push("  Din datele rezultăte din documentația tehnică analizata, cu raportare la P 118-99, art. 6.2.19, rezultă clasă P.1 pentru materiale incombustibile metalice și clasă P.2 pentru aparatură și materiale similare cu periculozitate redusă.");
   lines.push("  [[RED]]Pentru substante periculoase speciale și pentru restul spatiilor nu rezultă date complete în documentele analizate.[[/RED]]");
-  lines.push("- c) surse potentiale de aprindere și imprejurarile care pot favoriza aprinderea:");
+  lines.push("#### 2.A.c. Sursele potențiale de aprindere");
   lines.push("  Instalații electrice, lumanari, candele, lucrari cu foc deschis, surse termice, defectiuni de exploatare, trasnet, actiuni intentionate.");
-  lines.push(`### 2.B. Caracteristicile proceselor tehnologice și cantitatile de substante periculoase, potrivit clasificarii din ${makeLawRef("legea59_general", "Legea nr. 59/2016")} privind controlul asupra pericolelor de accident major în care sunt implicate substante periculoase, cu completarile ulterioare`);
+  lines.push(`### 2.B. Nivelurile riscului de incendiu / caracteristicile proceselor tehnologice și substanțe periculoase, după caz`);
   lines.push(`- Nu este cazul pentru acest obiectiv, ${procese.toLowerCase().startsWith("nu ") ? procese.charAt(0).toLowerCase() + procese.slice(1) : procese.toLowerCase()}.`);
   lines.push(`- Pentru obiectivul analizat, nu sunt substante periculoase relevante care să atraga o încadrare potrivit ${makeLawRef("legea59_general", "Legii nr. 59/2016")}.`);
 
@@ -5232,8 +5233,8 @@ function buildNormalSpecialCharacteristicsBlock(data) {
   const dimensions = String(data.caracteristici_dimensionale || "").trim();
   const users = String(data.numar_utilizatori || "").trim();
   const autoev = String(data.autoevacuare || "").trim();
-  const storage = String(data.capacitati_depozitare || "").trim();
-  const egress = String(data.cai_evacuare_rezumat || "").trim();
+  const storage = sanitizeSubpointValue(String(data.capacitati_depozitare || "").trim(), "1.4.h");
+  const egress = sanitizeSubpointValue(String(data.cai_evacuare_rezumat || "").trim(), "3.4.cd");
 
   lines.push("### 1.4. Particularitati specifice constructiei/amenajarii");
   lines.push(`- a) tipul cladirii: ${typeText || "De completat."}`);
@@ -5245,6 +5246,22 @@ function buildNormalSpecialCharacteristicsBlock(data) {
   lines.push(`- g) numarul cailor de evacuare si, dupa caz, al refugiilor: ${egress || "De completat."}`);
 
   return lines.join("\n");
+}
+
+function sanitizeSubpointValue(text, ruleKey) {
+  const value = String(text || "").trim();
+  if (!value) return value;
+  const rules = {
+    "1.4.g": [/depozit/i, /stoc/i, /procese?/i, /evacuar/i],
+    "1.4.h": [/evacuar/i, /flux/i, /num[aă]r.*utilizatori/i, /procese?/i],
+    "3.4.cd": [/depozit/i, /stoc/i, /procese?/i],
+    "4.8": [/iluminat/i, /ddr/i, /afdd/i],
+    "4.10.cd": [/iluminat de siguran/i, /idsai/i, /detectare.*incendiu/i]
+  };
+  const forbidden = rules[ruleKey] || [];
+  const parts = value.split(/[;\n]+/).map((x) => x.trim()).filter(Boolean);
+  const filtered = parts.filter((part) => !forbidden.some((rx) => rx.test(part)));
+  return filtered.join("; ").trim() || "De completat.";
 }
 
 function buildNormalIdentificationBlock(data) {
@@ -5381,12 +5398,19 @@ function buildNormalPerformănceCriteriaBlock(data, complianceChecks = []) {
   lines.push("");
   lines.push("### 3.3. Evacuarea utilizatorilor");
   lines.push(`- Alcatuirea și dimensionarea cailor de evacuare, controlul fumului, fluxuri/lungimi/timpi de evacuare: ${val("evacuare")}.${buildObs("3.3")}`);
-  lines.push(`- Măsuri pentru persoane care nu se pot evacua singure: ${val("evacuare_persoane_vulnerabile", "Nu rezultă categorii ce necesita evacuare asistata, pe baza datelor disponibile.")}.${buildObs("3.5")}`);
   lines.push("");
   lines.push("### 3.4. Securitatea fortelor de interventie");
   lines.push(`- Accesuri și cai de interventie: ${val("interventie")}.${buildObs("3.4")}`);
   lines.push(`- Caracteristici tehnice ale accesurilor: ${val("interventie", "De completat cu gabarite, portanta și traseele de acces relevante.")}.`);
   lines.push(`- Ascensoare de pompieri, unde este cazul: ${val("ascensoare_pompieri", "Nu este cazul.")}.`);
+  lines.push("");
+  lines.push("### 3.5. Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și altor categorii care nu se pot evacua singure");
+  lines.push(`- Măsuri specifice: ${val("evacuare_persoane_vulnerabile", "Nu rezultă categorii ce necesita evacuare asistata, pe baza datelor disponibile.")}.${buildObs("3.5")}`);
+  lines.push("");
+  lines.push("### 3.6. Securitatea forțelor de intervenție");
+  lines.push(`- Amenajări pentru accesul forțelor de intervenție: ${val("interventie", "De completat.")}.`);
+  lines.push(`- Caracteristici tehnice și funcționale ale accesurilor carosabile/căilor de intervenție: ${val("interventie", "De completat.")}.`);
+  lines.push(`- Ascensoare de pompieri: ${val("ascensoare_pompieri", "Nu este cazul.")}.`);
 
   return lines.join("\n");
 }
@@ -5425,7 +5449,9 @@ function buildNormalEquipmentBlock(data, complianceChecks = []) {
     const detailText = val(item.dataKey, "Nu rezultă date suficiente în documentele disponibile.");
     const decision = composeDecision(check, "Este de verificat.");
     const observation = check?.details ? ` Observatie: ${check.details}` : "";
-    lines.push(`- ${item.code} ${item.title}: [[RED]]${decision}[[/RED]] Date proiect: ${detailText}.${observation}`);
+    lines.push(`### ${item.code}. ${item.title}`);
+    lines.push(`- Concluzie: [[RED]]${decision}[[/RED]]`);
+    lines.push(`- Date proiect: ${detailText}.${observation}`);
 
     if (item.code === "4.8") {
       const cultCheck = findCheck("4.8.cult");
@@ -5520,18 +5546,6 @@ function buildScenarioMarkdown(data, sources, applicableActs, complianceChecks =
 
 ## Nota
 Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4 la Ordinul MAI nr. 180/2022. Revizuirea de catre proiectantii de specialitate și verificatorii atestati ramane obligatorie.
-${buildAuthorizationQualificationText(state.projectProfile, data, "normal")}
-
-## Surse analizate
-${sourceNames}
-
-## Legislatie relevanta detectata
-${acts}
-
-${buildComplianceChecksMarkdown(complianceChecks)}
-
-${rulesCoverage}
-
 ${identificationBlock}
 ${specialCharacteristicsBlock}
 
@@ -6289,12 +6303,6 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
 
   return normalizeRomanianDiacritics(`# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR
 
-${buildAuthorizationQualificationText(profile, data, "preliminary")}
-
-${buildComplianceChecksMarkdown(complianceChecks)}
-
-${rulesCoverage}
-
 ## 1. Caracteristicile construcției sau amenajării
 
 ### 1.1. Datele de identificare
@@ -6324,8 +6332,8 @@ ${rulesCoverage}
 ${roomInventoryTable}
 
 | f) compartimente de incendiu | ${fireCompartmentMarkdown || fireCompartments} |
-| g) numărul maxim de utilizatori | ${occupantMarkdown || `${occupantText}; prezența permanentă a persoanelor și capacitatea de autoevacuare: ${users}`} |
-| h) capacități de depozitare | ${storage} |
+| g) numărul maxim de utilizatori | ${sanitizeSubpointValue((occupantMarkdown || occupantText), "1.4.g")} |
+| h) capacități de depozitare | ${sanitizeSubpointValue(storage, "1.4.h")} |
 
 ## 2. Nivelurile riscului de incendiu estimat, stabilit pentru fiecare încăpere/grup de încăperi similare, spațiu, zonă, compartiment, potrivit reglementărilor tehnice
 | Denumirea punctului / subpunctului | Conținut |
@@ -6360,8 +6368,8 @@ ${roomInventoryTable}
 |---|---|
 | a) măsuri pentru asigurarea controlului fumului | ${smoke} |
 | b) tipul scărilor, forma și modul de dispunere a treptelor | ${val("scari_interioare", "De completat.")} |
-| c) geometria căilor de evacuare | ${evacuation} |
-| d) numărul fluxurilor de evacuare | ${evacuation} |
+| c) geometria căilor de evacuare | ${sanitizeSubpointValue(val("evacuare_geometrie", evacuation), "3.4.cd")} |
+| d) numărul fluxurilor de evacuare | ${sanitizeSubpointValue(val("evacuare_fluxuri", "De completat distinct de geometria căilor de evacuare."), "3.4.cd")} |
 
 ### 3.5. Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu
 | Denumirea punctului / subpunctului | Conținut |
@@ -6456,10 +6464,10 @@ ${roomInventoryTable}
 ### 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
-| a) gradul de acoperire | ${idsai} |
-| b) condiții privind stabilirea zonei de detectare | ${idsai} |
-| c) condiții pentru amplasarea e.c.s. | ${idsai} |
-| d) alte dispozitive comandate sau supravegheate de e.c.s. | ${idsai} |
+| a) gradul de acoperire | ${sanitizeSubpointValue(val("idsai_acoperire", idsai), "4.8")} |
+| b) condiții privind stabilirea zonei de detectare | ${sanitizeSubpointValue(val("idsai_zone_detectare", "De completat distinct de subpct. a)."), "4.8")} |
+| c) condiții pentru amplasarea e.c.s. | ${sanitizeSubpointValue(val("idsai_ecs", "De completat distinct de subpct. a)."), "4.8")} |
+| d) alte dispozitive comandate sau supravegheate de e.c.s. | ${sanitizeSubpointValue(val("idsai_dispozitive", "De completat distinct de subpct. a)."), "4.8")} |
 
 ### 4.9. Instalație de desfumare / evacuare fum și gaze fierbinți
 | Denumirea punctului / subpunctului | Conținut |
@@ -6470,14 +6478,15 @@ ${roomInventoryTable}
 | d) debitul specific pentru introducere aer | ${smoke} |
 | e) rezistență la foc tubulatură | ${smoke} |
 | f) interacțiune cu alte sisteme de protecție | ${smoke} |
+| notă tehnică 4.9 | Datele de la pct. 4.9 se validează distinct pe soluția de ventilare/desfumare, trasee, secțiuni, debite, rezistență la foc a tubulaturii, scenarii de comandă și interacțiune cu sistemele de control fum, fără preluare automată de la alte subpuncte. |
 
 ### 4.10. Instalație electrică
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
 | a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică) | ${electric} |
 | b) pentru iluminat de siguranță (tip zone deservite, condiții de alimentare și funcționare) | ${val("iluminat_siguranta", "De completat.")} |
-| c) dispozitiv de protecție cu curent diferențial rezidual (DDR) | ${electric} |
-| d) dispozitiv de detectare a defectului de arc electric (AFDD) | ${electric} |
+| c) dispozitiv de protecție cu curent diferențial rezidual (DDR) | ${sanitizeSubpointValue(val("ddr", "De completat (nu se preia automat din iluminatul de siguranță)."), "4.10.cd")} |
+| d) dispozitiv de detectare a defectului de arc electric (AFDD) | ${sanitizeSubpointValue(val("afdd", "De completat (nu se preia automat din iluminatul de siguranță)."), "4.10.cd")} |
 
 ### 4.11. Instalație de protecție împotriva trăsnetului
 | Denumirea punctului / subpunctului | Conținut |
@@ -7156,9 +7165,5 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
-
-
-
 
 

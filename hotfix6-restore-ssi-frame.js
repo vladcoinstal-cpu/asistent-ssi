@@ -49,6 +49,15 @@
         missingRequiredSubpoint;
     }
 
+
+    function sanitizeForbiddenFrameText(text) {
+      return String(text || "")
+        .replace(/Cadru generat curat[^\n]*\n?/gi, "")
+        .replace(/[^\n]*ssi-frame-readonly[^\n]*\n?/gi, "")
+        .replace(/Structura este incarcata din fisierul read-only[^\n]*\n?/gi, "")
+        .trim();
+    }
+
     function buildFullReports() {
       syncBeforeBuild();
       const normalBase = buildScenarioMarkdown(
@@ -72,6 +81,9 @@
     function buildCompleteNormalFromAnnexFrame(normalBase, preliminary) {
       const base = String(normalBase || "");
       const prelim = String(preliminary || "");
+      if (/###\s*2\.A\./i.test(base) && /###\s*2\.B\./i.test(base)) {
+        return sanitizeForbiddenFrameText(base);
+      }
       const baseBodyIndex = base.search(/^##\s+1\.\s+/m);
       const prelimBodyIndex = prelim.search(/^##\s+1\.\s+/m);
       if (prelimBodyIndex < 0) return base;
@@ -82,7 +94,7 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
       const body = prelim.slice(prelimBodyIndex)
         .replace(/^##\s+2\.\s+Nivelurile riscului de incendiu estimat/im, "## 2. Nivelurile riscului de incendiu")
         .replace(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/g, "SCENARIU DE SECURITATE LA INCENDIU");
-      return `${header}\n\n${body}`.trim();
+      return sanitizeForbiddenFrameText(`${header}\n\n${body}`);
     }
 
 
@@ -94,14 +106,16 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         const converted = normalText
           .replace(/^#\s+.*$/m, "# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR")
           .replace(/SCENARIU DE SECURITATE LA INCENDIU(?! PRELIMINAR)/g, "SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR");
-        return converted;
+        return sanitizeForbiddenFrameText(converted);
       }
-      return prelimText.replace(/Cadru generat curat[^\n]*\n?/gi, "");
+      return sanitizeForbiddenFrameText(prelimText);
     }
 
     function writeFullReports(force) {
       const project = activeProject();
       const reports = buildFullReports();
+      reports.normal = sanitizeForbiddenFrameText(reports.normal);
+      reports.preliminary = sanitizeForbiddenFrameText(reports.preliminary);
 
       if (force || isShortBrokenFrame(normalReportOutput.value)) {
         normalReportOutput.value = reports.normal;
@@ -214,10 +228,6 @@ Acest document este un draft asistat, generat pe structura-cadru din Anexa nr. 4
         ...window.__ssiCommands,
         extractData: () => handleExtractData(),
         resetProject: () => resetProjectState(),
-        openAutotest: async () => {
-          if (typeof activateTab === "function") activateTab("autotestTab");
-          if (typeof runAutotestSuite === "function") await runAutotestSuite();
-        },
         restoreFullSsiFrame: () => writeFullReports(true)
       };
     }
