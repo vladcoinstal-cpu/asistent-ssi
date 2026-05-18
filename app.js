@@ -6478,6 +6478,7 @@ ${roomInventoryTable}
 | d) debitul specific pentru introducere aer | ${smoke} |
 | e) rezistență la foc tubulatură | ${smoke} |
 | f) interacțiune cu alte sisteme de protecție | ${smoke} |
+| notă tehnică 4.9 | Datele de la pct. 4.9 se validează distinct pe soluția de ventilare/desfumare, trasee, secțiuni, debite, rezistență la foc a tubulaturii, scenarii de comandă și interacțiune cu sistemele de control fum, fără preluare automată de la alte subpuncte. |
 
 ### 4.10. Instalație electrică
 | Denumirea punctului / subpunctului | Conținut |
@@ -7164,6 +7165,5 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
