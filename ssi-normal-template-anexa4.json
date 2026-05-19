@@ -86,35 +86,83 @@
           ]
         },
         {
-          "code": "1.4",
-          "title": "Particularitati specifice constructiei sau amenajarii",
+          "code": "1.4.a",
+          "title": "tipul cladirii",
           "value": "",
           "fallback": "nu este cazul",
           "fields": [
             {
               "label": "tipul cladirii",
               "value": ""
-            },
+            }
+          ]
+        },
+        {
+          "code": "1.4.b",
+          "title": "tipul parcajului",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
             {
               "label": "tipul parcajului",
               "value": ""
-            },
+            }
+          ]
+        },
+        {
+          "code": "1.4.c",
+          "title": "caracteristici dimensionale",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
             {
               "label": "caracteristici dimensionale",
               "value": ""
-            },
+            }
+          ]
+        },
+        {
+          "code": "1.4.d",
+          "title": "precizari referitoare la numarul maxim de utilizatori",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
             {
               "label": "precizari referitoare la numarul maxim de utilizatori",
               "value": ""
-            },
+            }
+          ]
+        },
+        {
+          "code": "1.4.e",
+          "title": "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
             {
               "label": "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora",
               "value": ""
-            },
+            }
+          ]
+        },
+        {
+          "code": "1.4.f",
+          "title": "capacitati de depozitare",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
             {
               "label": "capacitati de depozitare",
               "value": ""
-            },
+            }
+          ]
+        },
+        {
+          "code": "1.4.g",
+          "title": "numarul cailor de evacuare si, dupa caz, al refugiilor",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
             {
               "label": "numarul cailor de evacuare si, dupa caz, al refugiilor",
               "value": ""
