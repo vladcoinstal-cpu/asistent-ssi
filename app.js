@@ -1025,10 +1025,14 @@ async function loadJsonAsset(url, embeddedKey) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Nu s-a putut incarca ${url}`);
+      throw new Error(`Nu s-a putut incarca ${url} (HTTP ${response.status})`);
     }
     return await response.json();
   } catch (error) {
+    if (embeddedKey === "ssiNormalTemplate" || embeddedKey === "ssiPreliminaryTemplate") {
+      console.error(`Template obligatoriu indisponibil: ${embeddedKey} din ${url}.`, error);
+      throw error;
+    }
     const fallback = window.__SSI_EMBEDDED_DATA?.[embeddedKey];
     if (fallback) {
       return safeClone(fallback);
@@ -1128,6 +1132,18 @@ async function bootstrap() {
   state.ssiPreliminaryStructure = preliminaryStructure;
   state.ssiNormalTemplate = normalTemplate;
   state.ssiPreliminaryTemplate = preliminaryTemplate;
+  if (!Array.isArray(state.ssiNormalTemplate?.sections) || !state.ssiNormalTemplate.sections.length) {
+    throw new Error("Template SSI normal invalid: lipseste sections[].");
+  }
+  if (!Array.isArray(state.ssiPreliminaryTemplate?.sections) || !state.ssiPreliminaryTemplate.sections.length) {
+    throw new Error("Template SSI preliminar invalid: lipseste sections[].");
+  }
+  window.__ssiTemplateLoadStatus = {
+    normalLoaded: true,
+    preliminaryLoaded: true,
+    normalSections: state.ssiNormalTemplate.sections.length,
+    preliminarySections: state.ssiPreliminaryTemplate.sections.length
+  };
   state.fireResistanceRules = fireResistanceRules;
   loadCustomActs().forEach((act) => ensureCustomActInLocalFullActs(act));
   ensureLawReferenceAliases();

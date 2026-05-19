@@ -13,6 +13,25 @@ function expectPoint1Only(text) {
 
 test('template flow strict normal+preliminar with reset and no leakage', async ({ page }) => {
   await page.goto('/');
+  // Template assets must be loaded (HTTP 200) and parsed before creating project
+  const templateStatus = await page.evaluate(async () => {
+    const [normalRes, prelimRes] = await Promise.all([
+      fetch('ssi-normal-template-anexa4.json', { cache: 'no-store' }),
+      fetch('ssi-preliminar-template-anexa5.json', { cache: 'no-store' })
+    ]);
+    return {
+      normalHttp: normalRes.status,
+      prelimHttp: prelimRes.status,
+      stateStatus: window.__ssiTemplateLoadStatus || null
+    };
+  });
+  expect(templateStatus.normalHttp).toBe(200);
+  expect(templateStatus.prelimHttp).toBe(200);
+  expect(templateStatus.stateStatus?.normalLoaded).toBeTruthy();
+  expect(templateStatus.stateStatus?.preliminaryLoaded).toBeTruthy();
+  expect(templateStatus.stateStatus?.normalSections).toBeGreaterThan(0);
+  expect(templateStatus.stateStatus?.preliminarySections).toBeGreaterThan(0);
+
   await newProject(page, 'Template Flow');
 
   const normal = page.locator('#normalReportOutput');
