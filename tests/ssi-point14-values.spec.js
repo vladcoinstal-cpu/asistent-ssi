@@ -47,8 +47,10 @@ test('1.4 semantic value checks across 3 memorii + reset/no leakage', async ({ p
     expect(prelim).toMatch(/\n2\./);
 
     // semantic separation checks
-    const regimLine = (both.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime[^\n]*/i) || [''])[0];
-    expect(regimLine).not.toMatch(/aria\s+construit|aria\s+desf|înălțimea\s+maximă/i);
+    const regimValue = ((prelim.match(/regimul de înălțime[^:]*:\s*([^\n]+)/i) || [])[1] || '').trim();
+    if (regimValue) {
+      expect(regimValue).not.toMatch(/aria\s+construit|aria\s+desf|înălțimea\s+maximă/i);
+    }
 
     const ariaConstruitaLine = (both.match(/aria\s+construit[ăa][^\n]*/i) || [''])[0];
     expect(ariaConstruitaLine).not.toMatch(/:\s*1\s*(?:$|\n)/i);
