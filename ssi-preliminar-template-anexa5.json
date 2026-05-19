@@ -1,0 +1,804 @@
+{
+  "templateMeta": {
+    "templateId": "ssi-preliminar-anexa5-template",
+    "basis": "OMAI nr. 180/2022 Anexa 5",
+    "readOnly": true,
+    "useAs": "new_project_and_reset_source",
+    "notes": [
+      "Fara date de proiect",
+      "Fara texte extrase",
+      "Fara legislatie detectata",
+      "Fara sectiuni interne automate"
+    ]
+  },
+  "projectData": {},
+  "sections": [
+    {
+      "code": "1",
+      "title": "Caracteristicile construcției sau amenajării",
+      "subpoints": [
+        {
+          "code": "1.1",
+          "title": "Datele de identificare",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "denumire",
+              "value": ""
+            },
+            {
+              "label": "proprietar/beneficiar",
+              "value": ""
+            },
+            {
+              "label": "adresă",
+              "value": ""
+            },
+            {
+              "label": "nr. de telefon",
+              "value": ""
+            },
+            {
+              "label": "fax",
+              "value": ""
+            },
+            {
+              "label": "e-mail etc.",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.2",
+          "title": "Destinația",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "funcțiuni principale, secundare și conexe ale construcției/amenajării",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.3",
+          "title": "Categoria de importanță",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "categoria de importanță",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4",
+          "title": "Particularități specifice construcției/amenajării",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "tipul clădirii",
+              "value": "",
+              "children": [
+                {
+                  "label": "civilă (obișnuită, înaltă, foarte înaltă, cu săli aglomerate etc.)",
+                  "value": ""
+                },
+                {
+                  "label": "de producție sau depozitare (obișnuită, monobloc, blindată etc.)",
+                  "value": ""
+                },
+                {
+                  "label": "cu funcțiuni mixte",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "tipul parcajului, cu precizarea numărului de autovehicule",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "regimul de înălțime și volumul construcției",
+              "value": "",
+              "children": [
+                {
+                  "label": "regimul de înălțime",
+                  "value": ""
+                },
+                {
+                  "label": "volumul construcției",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "aria construită și desfășurată",
+              "value": "",
+              "children": [
+                {
+                  "label": "aria construită",
+                  "value": ""
+                },
+                {
+                  "label": "aria desfășurată",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "principalele destinații ale încăperilor și spațiilor aferente construcției",
+              "value": "",
+              "children": [
+                {
+                  "label": "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "compartimente de incendiu",
+              "value": "",
+              "children": [
+                {
+                  "label": "denumire",
+                  "value": ""
+                },
+                {
+                  "label": "aria construită",
+                  "value": ""
+                },
+                {
+                  "label": "aria desfășurată",
+                  "value": ""
+                },
+                {
+                  "label": "volum",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "numărul maxim de utilizatori",
+              "value": "",
+              "children": [
+                {
+                  "label": "Persoane: număr",
+                  "value": ""
+                },
+                {
+                  "label": "Persoane: prezența permanentă a persoanelor",
+                  "value": ""
+                },
+                {
+                  "label": "Persoane: capacitatea de autoevacuare a acestora",
+                  "value": ""
+                },
+                {
+                  "label": "Animale",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "capacități de depozitare",
+              "value": "",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "2",
+      "title": "Nivelurile riscului de incendiu estimat, stabilit pentru fiecare încăpere/grup de încăperi similare, spațiu, zonă, compartiment, potrivit reglementărilor tehnice",
+      "subpoints": [
+        {
+          "code": "2",
+          "title": "",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "valoarea maximă a densității sarcinii termice",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "proprietățile fizico-chimice ale materialelor și substanțelor utilizate, prelucrate, manipulate sau depozitate, pentru construcții de producție și/sau depozitare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "clase de periculozitate ale materialelor și substanțelor",
+              "value": "",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "3",
+      "title": "Nivelurile criteriilor de performanță privind securitatea la incendiu",
+      "subpoints": [
+        {
+          "code": "3.1",
+          "title": "Rezistența și clasa de reacție la foc a celor mai defavorabile elemente de construcție",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "stâlpi, coloane, pereți portanți",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "pereți interiori nestructurali",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "pereți exteriori nestructurali",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "grinzi, planșee, nervuri, acoperișuri terasă",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "acoperișuri autoportante fără pod (inclusiv contravântuiri), șarpanta acoperișurilor fără pod",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "panouri de învelitoare și suportul continuu al învelitorii combustibile",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "3.2",
+          "title": "Gradul de rezistență la foc / nivelul de stabilitate la incendiu",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "gradul de rezistență la foc / nivelul de stabilitate la incendiu",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "3.3",
+          "title": "Asigurarea limitării propagării incendiilor la vecinătăți",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "Se precizează distanțele de siguranță asigurate conform reglementărilor tehnice sau măsurile alternative conforme cu reglementările tehnice, atunci când aceste distanțe nu pot fi realizate.",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "3.4",
+          "title": "Evacuarea utilizatorilor",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "măsuri pentru asigurarea controlului fumului (de exemplu, instalații de presurizare și alte sisteme de control al fumului)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "tipul scărilor, forma și modul de dispunere a treptelor (interioare, exterioare deschise, cu rampe drepte sau curbe, cu trepte balansate etc.)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "geometria căilor de evacuare (gabarite: lățimi, înălțimi, pante etc.)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "numărul fluxurilor de evacuare",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "3.5",
+          "title": "Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "3.6",
+          "title": "Securitatea forțelor de intervenție",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "amenajări pentru accesul forțelor de intervenție în clădire și incintă, pentru autospeciale și pentru ascensoarele de incendiu",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "caracteristici tehnice și funcționale ale accesurilor carosabile și ale căilor de intervenție ale autospecialelor, proiectate conform reglementărilor tehnice, regulamentului general de urbanism și reglementărilor specifice de aplicare",
+              "value": "",
+              "children": [
+                {
+                  "label": "numărul de accesuri",
+                  "value": ""
+                },
+                {
+                  "label": "dimensiuni/gabarite",
+                  "value": ""
+                },
+                {
+                  "label": "trasee",
+                  "value": ""
+                },
+                {
+                  "label": "realizare și marcare",
+                  "value": ""
+                }
+              ]
+            },
+            {
+              "label": "ascensoare de pompieri",
+              "value": "",
+              "children": [
+                {
+                  "label": "tip, număr și caracteristicile acestora",
+                  "value": ""
+                },
+                {
+                  "label": "amplasare și posibilitățile de acces",
+                  "value": ""
+                },
+                {
+                  "label": "sursa de alimentare cu energie electrică de rezervă",
+                  "value": ""
+                },
+                {
+                  "label": "timpul de siguranță",
+                  "value": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "4",
+      "title": "Instalații cu rol în asigurarea cerinței fundamentale «securitate la incendiu» - în funcție de echipare",
+      "subpoints": [
+        {
+          "code": "4.1",
+          "title": "Hidranți de incendiu interiori",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "tip (apă-apă, aer-aer)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "volumul construcției/compartimentului de incendiu",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "timp teoretic de funcționare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "număr de jeturi pe punct",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "debit de calcul",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "presiune",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "număr de racorduri exterioare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "caracteristici funcționale ale grupului de pompare",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.2",
+          "title": "Hidranți de incendiu exteriori",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "distanțele față de construcție",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "volumul compartimentului de incendiu",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "timp teoretic de funcționare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "debit de calcul",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "presiune",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "caracteristici funcționale ale grupului de pompare",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.3",
+          "title": "Instalații automate de stingere a incendiilor cu sprinklere",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "soluția tehnică de realizare a instalației",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "clasa de pericol de incendiu",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "categoria de depozitare și modul de depozitare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "aria maximă acoperită de un sprinkler",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "densitatea de calcul",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "aria de declanșare simultană",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "presiune",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "sursa de alimentare cu apă a instalației",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "volumul rezervei de apă",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "numărul de racorduri exterioare",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.4",
+          "title": "Instalații de limitare și stingere a incendiilor cu sprinklere deschise",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "zona protejată",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "înălțimea golului",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "aria/lungimea zonei protejate",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "timp teoretic de funcționare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "intensitate de răcire",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "intensitatea de stropire",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.5",
+          "title": "Instalații de stingere a incendiilor cu apă pulverizată",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "densitate minimă de pulverizare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "timp de funcționare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "rezerva de apă",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.6",
+          "title": "Instalații de stingere a incendiilor cu ceață de apă",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "debit specific",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "aria de declanșare simultană",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "intensitate de pulverizare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "intensitate de stingere",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "rezerva de apă",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "timp teoretic de funcționare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "presiune",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "sursa de alimentare cu apă a instalației",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "volumul rezervei de apă",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.7",
+          "title": "Instalații de stingere a incendiilor cu gaze inerte",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "tipul agentului de stingere",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "concentrația de stingere",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "volumul protejat",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.8",
+          "title": "Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "gradul de acoperire",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "condiții privind stabilirea zonei de detectare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "condiții pentru amplasarea e.c.s.",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "alte dispozitive comandate sau supravegheate de e.c.s.",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.9",
+          "title": "Instalație de desfumare / evacuare fum și gaze fierbinți",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "metoda de desfumare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "spațiile desfumate",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "aria spațiului necesar desfumării / suprafața efectivă de desfumare",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "debitul specific pentru introducere aer",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "rezistență la foc tubulatură",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "interacțiune cu alte sisteme de protecție",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.10",
+          "title": "Instalație electrică",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "pentru iluminat de siguranță (tip zone deservite, condiții de alimentare și funcționare)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "dispozitiv de protecție cu curent diferențial rezidual (DDR)",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "dispozitiv de detectare a defectului de arc electric (AFDD)",
+              "value": "",
+              "children": []
+            }
+          ]
+        },
+        {
+          "code": "4.11",
+          "title": "Instalație de protecție împotriva trăsnetului",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "clasa IPT și SPT",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "nivel de protecție",
+              "value": "",
+              "children": []
+            },
+            {
+              "label": "metoda de protecție",
+              "value": "",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "5",
+      "title": "Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu",
+      "subpoints": []
+    }
+  ]
+}
