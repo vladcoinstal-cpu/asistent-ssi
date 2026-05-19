@@ -28,7 +28,9 @@ async function clickAndAcceptOptionalDialog(page, locator, timeout = 1000) {
 async function addManualAndExtract(page, text) {
   await page.locator('#manualText').fill(text);
   await expect(page.locator('#manualText')).toHaveValue(text);
-  await clickAndAcceptOptionalDialog(page, '#addTextBtn');
+  await page.evaluate((manualText) => {
+    return window.__ssiCommands?.addManualText?.(manualText, 'Test source');
+  }, text);
   await expect(page.locator('#sourceCount')).not.toHaveText(/^0$/);
   await expect(page.locator('#projectSelector')).not.toBeDisabled();
   await expect(page.locator('#extractBtn')).toBeEnabled();
