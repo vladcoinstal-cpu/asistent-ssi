@@ -6070,7 +6070,7 @@ function parseDimensionParts(rawValue) {
 
   const regimRaw = regimMatch?.[1]?.trim() || "";
   const regimClean = regimRaw
-    .replace(/\b(?:[îi]n[ăa]l[țt]imea?|inaltimea?)\s+maxim[ăa]?[\s\S]*$/i, "")
+    .replace(/\b(?:[îi]n[ăa]l[țt]imea?|inaltimea?)\s+maxim[ăa]?(?:\s+a\s+cl[ăa]dirii)?[\s\S]*$/i, "")
     .replace(/\baria\s+construit[ăa]?[\s\S]*$/i, "")
     .replace(/\baria\s+desf[ăa][șs]urat[ăa]?[\s\S]*$/i, "")
     .replace(/\bvolum(?:ul)?[\s\S]*$/i, "")
