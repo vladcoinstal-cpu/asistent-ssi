@@ -1020,7 +1020,9 @@ bootstrap().catch((error) => {
   } catch (recoveryError) {
     console.error(recoveryError);
   }
-  window.__ssiTemplateStatus = { normalLoaded: false, preliminaryLoaded: false, normalSections: 0, preliminarySections: 0, ready: false };
+  if (!window.__ssiTemplateStatus?.ready) {
+    window.__ssiTemplateStatus = { normalLoaded: false, preliminaryLoaded: false, normalSections: 0, preliminarySections: 0, ready: false };
+  }
   window.alert("Aplicatia nu a putut incarca complet baza de reguli sau starea salvata. Aplicatia a pornit in mod de siguranta.");
 });
 
