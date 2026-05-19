@@ -2198,6 +2198,10 @@ async function handleExtractData() {
     renderProjectTabs();
     renderWorkspaceTabs();
     activateTab("normalTab");
+    // enforce point-1-only output in PR#7 phase before persisting
+    const finalReports = buildPoint1ReportsFromTemplates();
+    normalReportOutput.value = finalReports.normal;
+    preliminaryReportOutput.value = finalReports.preliminary;
     saveActiveProjectStateFromUI();
     persistWorkspace();
     setUiStatus(`Extragerea a fost realizata din ${state.sources.length} sursa(e).`, targetProjectId);
