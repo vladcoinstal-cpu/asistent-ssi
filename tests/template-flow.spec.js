@@ -22,7 +22,7 @@ test('template flow strict normal+preliminar with reset and no leakage', async (
     return {
       normalHttp: normalRes.status,
       prelimHttp: prelimRes.status,
-      stateStatus: window.__ssiTemplateLoadStatus || null
+      stateStatus: window.__ssiTemplateStatus || null
     };
   });
   expect(templateStatus.normalHttp).toBe(200);

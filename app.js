@@ -913,6 +913,8 @@ const workspaceState = {
 
 const officialActCache = new Map();
 
+window.__ssiTemplateStatus = { normalLoaded: false, preliminaryLoaded: false, normalSections: 0, preliminarySections: 0, ready: false };
+
 function safeClone(value) {
   if (typeof structuredClone === "function") {
     return structuredClone(value);
@@ -1018,6 +1020,7 @@ bootstrap().catch((error) => {
   } catch (recoveryError) {
     console.error(recoveryError);
   }
+  window.__ssiTemplateStatus = { normalLoaded: false, preliminaryLoaded: false, normalSections: 0, preliminarySections: 0, ready: false };
   window.alert("Aplicatia nu a putut incarca complet baza de reguli sau starea salvata. Aplicatia a pornit in mod de siguranta.");
 });
 
@@ -1138,11 +1141,12 @@ async function bootstrap() {
   if (!Array.isArray(state.ssiPreliminaryTemplate?.sections) || !state.ssiPreliminaryTemplate.sections.length) {
     throw new Error("Template SSI preliminar invalid: lipseste sections[].");
   }
-  window.__ssiTemplateLoadStatus = {
+  window.__ssiTemplateStatus = {
     normalLoaded: true,
     preliminaryLoaded: true,
     normalSections: state.ssiNormalTemplate.sections.length,
-    preliminarySections: state.ssiPreliminaryTemplate.sections.length
+    preliminarySections: state.ssiPreliminaryTemplate.sections.length,
+    ready: true
   };
   state.fireResistanceRules = fireResistanceRules;
   loadCustomActs().forEach((act) => ensureCustomActInLocalFullActs(act));
@@ -2246,6 +2250,10 @@ async function handleSelectedFiles(event) {
 }
 
 function createNewProject() {
+  if (!window.__ssiTemplateStatus?.ready) {
+    window.alert("Template-urile SSI nu sunt încărcate. Inițializarea proiectului a fost oprită.");
+    return;
+  }
   saveActiveProjectStateFromUI();
   const suggestedName = `Proiect ${workspaceState.projects.length + 1}`;
   const requestedName = window.prompt("Denumirea noului proiect:", suggestedName);
@@ -3012,6 +3020,10 @@ contextCloseTabBtn?.addEventListener("click", () => {
 });
 
 function resetProjectState() {
+  if (!window.__ssiTemplateStatus?.ready) {
+    window.alert("Template-urile SSI nu sunt încărcate. Reset a fost oprit.");
+    return;
+  }
   const project = getActiveProject();
   if (!project) return;
   const defaultUiState = getDefaultProjectUiState();
