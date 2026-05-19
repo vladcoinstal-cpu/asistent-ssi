@@ -1259,13 +1259,37 @@ function resetReportsFromTemplates() {
 }
 
 
+
+function buildSemanticStructuredData(data, sources = []) {
+  const dimensions = deriveDimensionParts(data, sources);
+  return {
+    dimensions: {
+      regim: dimensions.regim || "",
+      inaltimeMaxima: dimensions.inaltime || "",
+      ariaConstruita: dimensions.ariaConstruita || "",
+      ariaDesfasurata: dimensions.ariaDesfasurata || "",
+      volum: dimensions.volum || ""
+    },
+    users: {
+      raw: String(data?.numar_utilizatori || "").trim(),
+      autoevacuare: String(data?.autoevacuare || "").trim()
+    },
+    storage: {
+      raw: String(data?.capacitati_depozitare || "").trim()
+    },
+    evacuation: {
+      raw: String(data?.cai_evacuare_rezumat || "").trim()
+    }
+  };
+}
+
 function buildPoint1ReportsFromTemplates() {
-  const dim = deriveDimensionParts(state.data, state.sources);
-  const regimInaltime = dim.regim || "";
-  const inaltimeMaxima = dim.inaltime || "";
-  const volumConstructie = dim.volum || "";
-  const ariaConstruita = dim.ariaConstruita || "";
-  const ariaDesfasurata = dim.ariaDesfasurata || "";
+  const semantic = buildSemanticStructuredData(state.data, state.sources);
+  const regimInaltime = semantic.dimensions.regim;
+  const inaltimeMaxima = semantic.dimensions.inaltimeMaxima;
+  const volumConstructie = semantic.dimensions.volum;
+  const ariaConstruita = semantic.dimensions.ariaConstruita;
+  const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
   const functiuni = String(state.data["funcțiuni"] || "").trim();
 
   const valueByLabel = {
@@ -1299,15 +1323,15 @@ function buildPoint1ReportsFromTemplates() {
     "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
     "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
     "volum": volumConstructie || "De completat",
-    "precizari referitoare la numarul maxim de utilizatori": state.data.numar_utilizatori || "",
-    "numărul maxim de utilizatori": state.data.numar_utilizatori || "",
-    "persoane: număr": state.data.numar_utilizatori || "De completat",
-    "persoane: prezența permanentă a persoanelor": state.data.autoevacuare || "De completat",
-    "persoane: capacitatea de autoevacuare a acestora": state.data.autoevacuare || "De completat",
-    "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": state.data.autoevacuare || "",
-    "capacități de depozitare": state.data.capacitati_depozitare || "",
-    "capacitati de depozitare": state.data.capacitati_depozitare || "",
-    "numarul cailor de evacuare si, dupa caz, al refugiilor": state.data.cai_evacuare_rezumat || ""
+    "precizari referitoare la numarul maxim de utilizatori": semantic.users.raw || "",
+    "numărul maxim de utilizatori": semantic.users.raw || "",
+    "persoane: număr": semantic.users.raw || "De completat",
+    "persoane: prezența permanentă a persoanelor": semantic.users.autoevacuare || "De completat",
+    "persoane: capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "De completat",
+    "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "",
+    "capacități de depozitare": semantic.storage.raw || "",
+    "capacitati de depozitare": semantic.storage.raw || "",
+    "numarul cailor de evacuare si, dupa caz, al refugiilor": semantic.evacuation.raw || ""
   };
 
   const normalize = (label) => String(label || "").trim().toLowerCase();
