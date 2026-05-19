@@ -250,8 +250,10 @@ const legislationUrl = "legislation-rules.json";
 const legislationArticlesUrl = "legislation-articles.json";
 const legislationFullActsUrl = "legislation-full-acts.json";
 const legislationOriginalIndexUrl = "legislation-original/index.json";
-const ssiNormalRulesMatrixUrl = "ssi-normal-rules-matrix.json";
+const ssiNormalRulesMatrixUrl = "ssi-v58-v85-rules-matrix.json";
 const ssiPreliminaryStructureUrl = "ssi-preliminar-structure.json";
+const ssiNormalTemplateUrl = "ssi-normal-template-anexa4.json";
+const ssiPreliminaryTemplateUrl = "ssi-preliminar-template-anexa5.json";
 const fireResistanceDeductionRulesUrl = "fire-resistance-deduction-rules.json";
 
 const normalRulesFieldMap = {
@@ -318,6 +320,8 @@ const state = {
   legislationExtractWorkingTexts: {},
   ssiNormalRulesMatrix: null,
   ssiPreliminaryStructure: null,
+  ssiNormalTemplate: null,
+  ssiPreliminaryTemplate: null,
   fireResistanceRules: null,
   applicableActs: [],
   complianceChecks: [],
@@ -1109,6 +1113,8 @@ async function bootstrap() {
     loadOptionalJsonAsset(legislationOriginalIndexUrl),
     loadJsonAsset(ssiNormalRulesMatrixUrl, "ssiNormalRulesMatrix"),
     loadJsonAsset(ssiPreliminaryStructureUrl, "ssiPreliminaryStructure"),
+    loadJsonAsset(ssiNormalTemplateUrl, "ssiNormalTemplate"),
+    loadJsonAsset(ssiPreliminaryTemplateUrl, "ssiPreliminaryTemplate"),
     loadJsonAsset(fireResistanceDeductionRulesUrl, "fireResistanceRules")
   ]);
   state.legislationLibrary = mergeCustomActsIntoLibrary(rulesLibrary);
@@ -1170,6 +1176,30 @@ function ensureWorkspaceReadyAfterLoad() {
   tabPanels.forEach((panel) => {
     panel.classList.toggle("is-active", panel.id === targetTab);
   });
+}
+
+
+const POINT_1_FIELD_KEYS = new Set([
+  "denumire_obiectiv","beneficiar","adresa","contact_beneficiar","profil_activitate","funcțiuni","categoria_importanta",
+  "tip_cladire","tip_parcaj","caracteristici_dimensionale","numar_utilizatori","autoevacuare","capacitati_depozitare","cai_evacuare_rezumat"
+]);
+
+function buildEmptyReportFromTemplate(template, label) {
+  if (!template || !Array.isArray(template.sections)) return `${label}: template indisponibil.`;
+  const lines = [label];
+  template.sections.forEach((section) => {
+    lines.push(`${section.code}. ${section.title}`);
+    (section.subpoints || []).forEach((sp) => {
+      lines.push(`  ${sp.code} ${sp.title}`);
+      (sp.fields || []).forEach((field) => lines.push(`    - ${field.label}: ${field.value || ""}`));
+    });
+  });
+  return lines.join("\n");
+}
+
+function resetReportsFromTemplates() {
+  normalReportOutput.value = buildEmptyReportFromTemplate(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)");
+  preliminaryReportOutput.value = buildEmptyReportFromTemplate(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)");
 }
 
 function getDefaultProjectProfile() {
@@ -1279,8 +1309,8 @@ function createBlankProject(name) {
     complianceChecks: [],
     rulesCoverage: [],
     actCoverageChecks: [],
-    normalReport: "",
-    preliminaryReport: "",
+    normalReport: buildEmptyReportFromTemplate(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)"),
+    preliminaryReport: buildEmptyReportFromTemplate(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)"),
     workspaceMeta: createProjectWorkspaceMeta(projectId, name),
     ...getDefaultProjectUiState()
   };
@@ -1997,9 +2027,10 @@ async function handleExtractData() {
   setExtractionSummary("Se analizeaza sursele incarcate.", targetProjectId);
   try {
     const aggregate = runExtraction(state.sources);
-    const extractedEntries = Object.entries(aggregate).filter(([, value]) => String(value || "").trim());
+    const point1Aggregate = Object.fromEntries(Object.entries(aggregate).filter(([key]) => POINT_1_FIELD_KEYS.has(key)));
+    const extractedEntries = Object.entries(point1Aggregate).filter(([, value]) => String(value || "").trim());
 
-    mergeExtractedData(aggregate);
+    mergeExtractedData(point1Aggregate);
     refreshFieldValues();
 
     try {
@@ -2030,20 +2061,6 @@ async function handleExtractData() {
         warnings.push("baza acte");
       }
 
-      try {
-        discoverAndStoreLegislationFromSources();
-      } catch (error) {
-        console.error(error);
-        warnings.push("acte noi");
-      }
-
-      try {
-        evaluateApplicableActs();
-        evaluateActCoverageForProject();
-      } catch (error) {
-        console.error(error);
-        warnings.push("reactualizare acte");
-      }
 
     try {
       evaluateComplianceChecks();
@@ -2966,8 +2983,7 @@ function resetProjectState() {
   state.rulesCoverage = [];
   state.complianceChecks = [];
   state.actCoverageChecks = [];
-  normalReportOutput.value = "";
-  preliminaryReportOutput.value = "";
+  resetReportsFromTemplates();
   manualText.value = defaultUiState.manualDraft;
   fileInput.value = "";
   renderFields();
