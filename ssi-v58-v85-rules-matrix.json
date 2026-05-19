@@ -147,11 +147,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.1"
+            "subpointCode": "1.1",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.1 - Date de identificare din documentele sursa.",
@@ -202,11 +204,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.2"
+            "subpointCode": "1.2",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.2 - Destinatia din documentele sursa.",
@@ -258,11 +262,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.3"
+            "subpointCode": "1.3",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.3 - Categoria si clasa de importanta din documentele sursa.",
@@ -321,7 +327,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.a"
+            "subpointCode": "1.4.a",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.a - tipul cladirii din documentele sursa.",
@@ -373,11 +381,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.b"
+            "subpointCode": "1.4.b",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.b - tipul parcajului din documentele sursa.",
@@ -430,11 +440,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.c"
+            "subpointCode": "1.4.c",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.c - caracteristici dimensionale din documentele sursa.",
@@ -484,11 +496,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.d"
+            "subpointCode": "1.4.d",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.d - precizari referitoare la numarul maxim de utilizatori (persoane, animale) din documentele sursa.",
@@ -539,11 +553,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.e"
+            "subpointCode": "1.4.e",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.e - prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora din documentele sursa.",
@@ -594,11 +610,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.f"
+            "subpointCode": "1.4.f",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.f - capacitati de depozitare din documentele sursa.",
@@ -649,11 +667,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "1.4.g"
+            "subpointCode": "1.4.g",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 1.4.g - numarul cailor de evacuare si, dupa caz, al refugiilor din documentele sursa.",
@@ -731,7 +751,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "2.A.a"
+            "subpointCode": "2.A.a",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "regula de calcul necesita validare tehnica"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 2.A.a - densitatea sarcinii termice din documentele sursa.",
@@ -791,7 +813,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "2.A.b"
+            "subpointCode": "2.A.b",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 2.A.b - proprietatile fizico-chimice ale materialelor si substantelor utilizate, prelucrate, manipulate sau depozitate, pentru constructii de productie si/sau depozitare din documentele sursa.",
@@ -849,7 +873,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "2.A.c"
+            "subpointCode": "2.A.c",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 2.A.c - clase de periculozitate ale materialelor si substantelor din documentele sursa.",
@@ -908,7 +934,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "2.B"
+            "subpointCode": "2.B",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 2.B - caracteristicile proceselor tehnologice si cantitatile de substante periculoase, potrivit clasificarii din Legea nr. 59/2016 din documentele sursa.",
@@ -983,7 +1011,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "3.1"
+            "subpointCode": "3.1",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 3.1 - Stabilitatea la foc si limitarea propagarii incendiului si efluentilor incendiului in interiorul constructiei/compartimentului de incendiu din documentele sursa.",
@@ -1044,7 +1074,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "3.2"
+            "subpointCode": "3.2",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 3.2 - Limitarea propagarii incendiilor la vecinatati din documentele sursa.",
@@ -1106,7 +1138,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "3.3"
+            "subpointCode": "3.3",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "regula de calcul necesita validare tehnica"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 3.3 - Evacuarea utilizatorilor din documentele sursa.",
@@ -1163,7 +1197,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "3.4"
+            "subpointCode": "3.4",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 3.4 - Securitatea fortelor de interventie din documentele sursa.",
@@ -1212,11 +1248,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "3.5"
+            "subpointCode": "3.5",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 3.5 - Masuri pentru accesul si evacuarea copiilor, persoanelor cu dizabilitati, bolnavilor si ale altor categorii de persoane care nu se pot evacua singure in caz de incendiu din documentele sursa.",
@@ -1280,11 +1318,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.1"
+            "subpointCode": "4.1",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.1 - hidranti interiori din documentele sursa.",
@@ -1339,11 +1379,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.2"
+            "subpointCode": "4.2",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.2 - hidranti exteriori din documentele sursa.",
@@ -1401,7 +1443,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.3"
+            "subpointCode": "4.3",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.3 - sprinklere din documentele sursa.",
@@ -1449,11 +1493,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.4"
+            "subpointCode": "4.4",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.4 - sprinklere deschise / drenchere din documentele sursa.",
@@ -1501,11 +1547,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.5"
+            "subpointCode": "4.5",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.5 - apa pulverizata din documentele sursa.",
@@ -1553,11 +1601,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.6"
+            "subpointCode": "4.6",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.6 - ceata de apa din documentele sursa.",
@@ -1605,11 +1655,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.7"
+            "subpointCode": "4.7",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.7 - gaze inerte din documentele sursa.",
@@ -1665,11 +1717,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.8"
+            "subpointCode": "4.8",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.8 - detectare, semnalizare si alarmare la incendiu din documentele sursa.",
@@ -1729,7 +1783,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.9"
+            "subpointCode": "4.9",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.9 - desfumare / evacuare fum si gaze fierbinti din documentele sursa.",
@@ -1785,11 +1841,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.10"
+            "subpointCode": "4.10",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.10 - instalatie electrica pentru receptoare cu rol de securitate la incendiu din documentele sursa.",
@@ -1845,7 +1903,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "4.11"
+            "subpointCode": "4.11",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 4.11 - protectie impotriva trasnetului din documentele sursa.",
@@ -1897,11 +1957,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "5.A"
+            "subpointCode": "5.A",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 5.A - instructiuni de functionare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu din documentele sursa.",
@@ -1942,11 +2004,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "5.B"
+            "subpointCode": "5.B",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 5.B - reguli necesare de verificare si intretinere in exploatare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu din documentele sursa.",
@@ -1987,11 +2051,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "5.C"
+            "subpointCode": "5.C",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 5.C - recomandari care trebuie avute in vedere la intocmirea documentelor de organizare a apararii impotriva incendiilor aferente constructiei ori amenajarii respective din documentele sursa.",
@@ -2032,11 +2098,13 @@
             "ssi-normal-v58",
             "ssi-preliminar-v85"
           ],
-          "needsHumanReview": true,
+          "needsHumanReview": false,
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "5.D"
+            "subpointCode": "5.D",
+            "automationCategory": "A-automatable",
+            "reviewReason": "automatizabil pe baza campurilor explicite si regulilor clare"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 5.D - stingatoare, alte aparate de stins incendii, utilaje, unelte si mijloace de interventie din documentele sursa.",
@@ -2092,7 +2160,9 @@
           "auditMeta": {
             "auditDate": "2026-05-19",
             "reviewScope": "subpoint",
-            "subpointCode": "6"
+            "subpointCode": "6",
+            "automationCategory": "B-needsHumanReview",
+            "reviewReason": "deducerea depinde de interpretare tehnica / confirmare de specialitate"
           },
           "extractionRules": [
             "Extrage strict datele pentru subpunctul 6 - masuri compensatorii propuse, daca este cazul din documentele sursa.",
