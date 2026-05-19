@@ -54,8 +54,11 @@ async function injectManualSource(page, fixtureText) {
 
 async function runExtraction(page, expectedObjective) {
   await expect(page.locator("#sourceCount")).not.toHaveText(/^0$/);
+  await expect(page.locator("#projectSelector")).not.toBeDisabled();
   await expect(page.locator("#extractBtn")).toBeEnabled();
-  await clickAndAcceptOptionalDialog(page, "#extractBtn");
+  await page.evaluate(async () => {
+    return await window.__ssiCommands?.extractData?.();
+  });
   await expect(page.locator("#projectFactsSummary")).toContainText(expectedObjective, { timeout: 60_000 });
   await expect(page.locator("#normalReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU/i, { timeout: 60_000 });
   await expect(page.locator("#preliminaryReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });

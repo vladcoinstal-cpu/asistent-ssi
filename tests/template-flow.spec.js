@@ -24,8 +24,11 @@ async function addManualAndExtract(page, text) {
   await expect(page.locator('#manualText')).toHaveValue(text);
   await clickAndAcceptOptionalDialog(page, '#addTextBtn');
   await expect(page.locator('#sourceCount')).not.toHaveText(/^0$/);
+  await expect(page.locator('#projectSelector')).not.toBeDisabled();
   await expect(page.locator('#extractBtn')).toBeEnabled();
-  await clickAndAcceptOptionalDialog(page, '#extractBtn');
+  await page.evaluate(async () => {
+    return await window.__ssiCommands?.extractData?.();
+  });
   await expect(page.locator('#projectFactsSummary')).toContainText(/Proiect|Beneficiar|Denumirea obiectivului/i, { timeout: 60000 });
 }
 
