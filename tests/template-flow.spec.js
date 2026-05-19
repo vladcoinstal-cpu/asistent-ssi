@@ -3,14 +3,27 @@ const { test, expect } = require('@playwright/test');
 const MEM_A = `Denumirea obiectivului: Proiect A\nBeneficiar: Beneficiar A\nAdresa: Str. A nr. 1\nDestinatia: comert\nCategoria de importanta: C\nTipul cladirii: civila\nTipul parcajului: parcaj subteran\nRegim de inaltime: P+1; aria construita 500 mp; aria desfasurata 900 mp; volum 3200 mc\nNumar maxim de utilizatori: 120 persoane\nCapacitati de depozitare: rafturi marfuri 20 mc\nCai de evacuare: doua cai.`;
 const MEM_B = `Denumirea obiectivului: Proiect B\nBeneficiar: Beneficiar B\nAdresa: Str. B nr. 2\nDestinatia: birouri\nCategoria de importanta: D\nTipul cladirii: mixta\nTipul parcajului: nu este cazul\nRegim de inaltime: P; aria construita 300 mp; aria desfasurata 300 mp; volum 1200 mc\nNumar maxim de utilizatori: 35 persoane\nCapacitati de depozitare: nu este cazul\nCai de evacuare: o cale.`;
 
-async function newProject(page, name) { page.once('dialog', async d => d.accept(name)); await page.locator('#projectAddBtn').click(); }
+async function newProject(page, name) {
+  const [dialog] = await Promise.all([
+    page.waitForEvent('dialog'),
+    page.locator('#projectAddBtn').click()
+  ]);
+  await dialog.accept(name);
+}
 async function addManualAndExtract(page, text) {
   await page.locator('#manualText').fill(text);
-  page.once('dialog', async d => d.accept());
-  await page.locator('#addTextBtn').click();
+  await expect(page.locator('#manualText')).toHaveValue(text);
+  const [addDialog] = await Promise.all([
+    page.waitForEvent('dialog'),
+    page.locator('#addTextBtn').click()
+  ]);
+  await addDialog.accept();
   await expect(page.locator('#sourceCount')).not.toHaveText(/^0$/);
-  page.once('dialog', async d => d.accept());
-  await page.locator('#extractBtn').click();
+  const [extractDialog] = await Promise.all([
+    page.waitForEvent('dialog'),
+    page.locator('#extractBtn').click()
+  ]);
+  await extractDialog.accept();
   await expect(page.locator('#projectFactsSummary')).toContainText(/Proiect|Beneficiar|Denumirea obiectivului/i, { timeout: 60000 });
 }
 

@@ -28,28 +28,32 @@ function readFixture(fileName) {
 }
 
 async function createProject(page, name) {
-  page.once("dialog", async (dialog) => {
-    await dialog.accept(name);
-  });
-  await page.locator("#projectAddBtn").click();
+  const [dialog] = await Promise.all([
+    page.waitForEvent("dialog"),
+    page.locator("#projectAddBtn").click()
+  ]);
+  await dialog.accept(name);
   await expect(page.locator("#projectSelector")).toContainText(name);
 }
 
 async function injectManualSource(page, fixtureText) {
   await page.locator('[data-tab-target="sourcesTab"]').click();
   await page.locator("#manualText").fill(fixtureText);
-  page.once("dialog", async (dialog) => {
-    await dialog.accept();
-  });
-  await page.locator("#addTextBtn").click();
+  await expect(page.locator("#manualText")).toHaveValue(fixtureText);
+  const [dialog] = await Promise.all([
+    page.waitForEvent("dialog"),
+    page.locator("#addTextBtn").click()
+  ]);
+  await dialog.accept();
   await expect(page.locator("#sourceCount")).not.toHaveText(/^0$/);
 }
 
 async function runExtraction(page, expectedObjective) {
-  page.once("dialog", async (dialog) => {
-    await dialog.accept();
-  });
-  await page.locator("#extractBtn").click();
+  const [dialog] = await Promise.all([
+    page.waitForEvent("dialog"),
+    page.locator("#extractBtn").click()
+  ]);
+  await dialog.accept();
   await expect(page.locator("#projectFactsSummary")).toContainText(expectedObjective, { timeout: 60_000 });
   await expect(page.locator("#normalReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU/i, { timeout: 60_000 });
   await expect(page.locator("#preliminaryReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
