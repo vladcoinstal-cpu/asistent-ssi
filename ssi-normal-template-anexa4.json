@@ -1,0 +1,455 @@
+{
+  "templateMeta": {
+    "templateId": "ssi-normal-anexa4-template",
+    "basis": "OMAI nr. 180/2022 Anexa 4",
+    "readOnly": true,
+    "useAs": "new_project_and_reset_source",
+    "notes": [
+      "Fara date de proiect",
+      "Fara texte extrase",
+      "Fara legislatie detectata",
+      "Fara sectiuni interne automate"
+    ]
+  },
+  "projectData": {},
+  "sections": [
+    {
+      "code": "1",
+      "title": "Caracteristicile constructiei sau amenajarii",
+      "subpoints": [
+        {
+          "code": "1.1",
+          "title": "Date de identificare",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "denumirea obiectivului",
+              "value": ""
+            },
+            {
+              "label": "beneficiar / proprietar",
+              "value": ""
+            },
+            {
+              "label": "adresa",
+              "value": ""
+            },
+            {
+              "label": "date de contact",
+              "value": ""
+            },
+            {
+              "label": "profilul de activitate",
+              "value": ""
+            },
+            {
+              "label": "programul de lucru",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.2",
+          "title": "Destinatia",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "functiuni principale",
+              "value": ""
+            },
+            {
+              "label": "functiuni secundare",
+              "value": ""
+            },
+            {
+              "label": "functiuni conexe",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.3",
+          "title": "Categoria si clasa de importanta",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "categoria de importanta",
+              "value": ""
+            },
+            {
+              "label": "clasa de importanta",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.a",
+          "title": "tipul cladirii",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "tipul cladirii",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.b",
+          "title": "tipul parcajului",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "tipul parcajului",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.c",
+          "title": "caracteristici dimensionale",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "caracteristici dimensionale",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.d",
+          "title": "precizari referitoare la numarul maxim de utilizatori",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "precizari referitoare la numarul maxim de utilizatori",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.e",
+          "title": "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.f",
+          "title": "capacitati de depozitare",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "capacitati de depozitare",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "1.4.g",
+          "title": "numarul cailor de evacuare si, dupa caz, al refugiilor",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "numarul cailor de evacuare si, dupa caz, al refugiilor",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "2",
+      "title": "Identificarea si stabilirea nivelurilor de risc de incendiu",
+      "subpoints": [
+        {
+          "code": "2.A",
+          "title": "Identificarea si stabilirea nivelurilor de risc de incendiu",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "densitatea sarcinii termice",
+              "value": ""
+            },
+            {
+              "label": "proprietatile fizico-chimice ale materialelor si substantelor utilizate, prelucrate, manipulate sau depozitate, pentru constructii de productie si/sau depozitare",
+              "value": ""
+            },
+            {
+              "label": "clase de periculozitate ale materialelor si substantelor",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "2.B",
+          "title": "Caracteristicile proceselor tehnologice si cantitatile de substante periculoase, potrivit clasificarii din Legea nr. 59/2016",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "datele relevante privind procesele tehnologice si substantele periculoase",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "3",
+      "title": "Nivelurile criteriilor de performanta privind securitatea la incendiu",
+      "subpoints": [
+        {
+          "code": "3.1",
+          "title": "Stabilitatea la foc si limitarea propagarii incendiului si efluentilor incendiului in interiorul constructiei/compartimentului de incendiu",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "rezistenta si clasa de reactie la foc a elementelor cele mai defavorabile",
+              "value": ""
+            },
+            {
+              "label": "gradul de rezistenta la foc / nivelul de stabilitate la incendiu",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "3.2",
+          "title": "Limitarea propagarii incendiilor la vecinatati",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "distante de siguranta / masuri alternative",
+              "value": ""
+            },
+            {
+              "label": "masuri constructive pentru limitarea propagarii pe fatade si pe acoperis",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "3.3",
+          "title": "Evacuarea utilizatorilor",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "alcatuirea constructiva a cailor de evacuare",
+              "value": ""
+            },
+            {
+              "label": "tipul scarilor",
+              "value": ""
+            },
+            {
+              "label": "geometria cailor de evacuare",
+              "value": ""
+            },
+            {
+              "label": "timpii/lungimile de evacuare",
+              "value": ""
+            },
+            {
+              "label": "numarul fluxurilor de evacuare",
+              "value": ""
+            },
+            {
+              "label": "dispozitive de siguranta la usi",
+              "value": ""
+            },
+            {
+              "label": "marcarea cailor de evacuare",
+              "value": ""
+            },
+            {
+              "label": "masuri pentru persoane care nu se pot evacua singure",
+              "value": ""
+            }
+          ]
+        },
+        {
+          "code": "3.4",
+          "title": "Securitatea fortelor de interventie",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "amenajari pentru accesul fortelor de interventie",
+              "value": ""
+            },
+            {
+              "label": "caracteristicile tehnice si functionale ale accesurilor si cailor de interventie",
+              "value": ""
+            },
+            {
+              "label": "ascensoarele de pompieri, unde este cazul",
+              "value": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "code": "4",
+      "title": "Echiparea si dotarea cu instalatii cu rol in asigurarea cerintei fundamentale securitate la incendiu",
+      "subpoints": [
+        {
+          "code": "A",
+          "title": "A. instalatie de stingere a incendiilor",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "A",
+          "title": "A.a tip",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "A",
+          "title": "A.b zone, incaperi, spatii, instalatii echipate",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "A",
+          "title": "A.c parametri functionali",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "A",
+          "title": "A.d timp normat de functionare",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "B",
+          "title": "B. instalatie de detectare, semnalizare si alarmare la incendiu (e.c.s.)",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "B",
+          "title": "B.a gradul de acoperire, zonele de detectare si alarmare la incendiu",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "B",
+          "title": "B.b tipul detectoarelor, declansatoarelor manuale, dispozitivelor de alarmare si parametrii functionali specifici",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "B",
+          "title": "B.c conditii pentru amplasarea e.c.s.",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "B",
+          "title": "B.d alte dispozitive comandate/supravegheate de e.c.s.",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "C",
+          "title": "C. instalatie de desfumare/evacuare fum si gaze fierbinti",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "D",
+          "title": "D. instalatie electrica pentru alimentarea receptoarelor cu rol de securitate la incendiu",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "E",
+          "title": "E. instalatie electrica pentru iluminat de siguranta, inclusiv conditiile de alimentare si de functionare a acesteia",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "F",
+          "title": "F. instalatie de protectie impotriva trasnetului",
+          "value": "",
+          "fallback": "nu este cazul"
+        }
+      ]
+    },
+    {
+      "code": "5",
+      "title": "Masuri tehnico-organizatorice privind exploatarea constructiei",
+      "subpoints": [
+        {
+          "code": "A",
+          "title": "A. instructiuni de functionare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "B",
+          "title": "B. reguli necesare de verificare si intretinere in exploatare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "C",
+          "title": "C. recomandari care trebuie avute in vedere la intocmirea documentelor de organizare a apararii impotriva incendiilor aferente constructiei ori amenajarii respective",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "D",
+          "title": "D. stingatoare, alte aparate de stins incendii, utilaje, unelte si mijloace de interventie",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "D",
+          "title": "D.a tipul si caracteristicile de stingere asigurate",
+          "value": "",
+          "fallback": "nu este cazul"
+        },
+        {
+          "code": "D",
+          "title": "D.b numarul si modul de amplasare in functie de suprafata si clasa de incendiu, potrivit reglementarilor tehnice specifice",
+          "value": "",
+          "fallback": "nu este cazul"
+        }
+      ]
+    },
+    {
+      "code": "6",
+      "title": "Masuri compensatorii propuse pentru lucrari de modificare si/sau schimbare a destinatiei constructiilor existente, in raport cu prevederile reglementarilor tehnice care nu pot fi respectate",
+      "subpoints": [
+        {
+          "code": "",
+          "title": "masuri compensatorii propuse, daca este cazul",
+          "value": "",
+          "fallback": "nu este cazul"
+        }
+      ]
+    }
+  ]
+}

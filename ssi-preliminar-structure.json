@@ -24,21 +24,27 @@
             "nr. de telefon",
             "fax",
             "e-mail etc."
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         },
         {
           "code": "1.2",
           "title": "Destinația",
           "details": [
             "funcțiuni principale, secundare și conexe ale construcției/amenajării"
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         },
         {
           "code": "1.3",
           "title": "Categoria de importanță",
           "details": [
             "categoria de importanță"
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         },
         {
           "code": "1.4",
@@ -104,7 +110,9 @@
               "letter": "h)",
               "label": "capacități de depozitare"
             }
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         }
       ]
     },
@@ -141,12 +149,30 @@
           "code": "3.1",
           "title": "Rezistența și clasa de reacție la foc a celor mai defavorabile elemente de construcție",
           "details": [
-            { "letter": "a)", "label": "stâlpi, coloane, pereți portanți" },
-            { "letter": "b)", "label": "pereți interiori nestructurali" },
-            { "letter": "c)", "label": "pereți exteriori nestructurali" },
-            { "letter": "d)", "label": "grinzi, planșee, nervuri, acoperișuri terasă" },
-            { "letter": "e)", "label": "acoperișuri autoportante fără pod (inclusiv contravântuiri), șarpanta acoperișurilor fără pod" },
-            { "letter": "f)", "label": "panouri de învelitoare și suportul continuu al învelitorii combustibile" }
+            {
+              "letter": "a)",
+              "label": "stâlpi, coloane, pereți portanți"
+            },
+            {
+              "letter": "b)",
+              "label": "pereți interiori nestructurali"
+            },
+            {
+              "letter": "c)",
+              "label": "pereți exteriori nestructurali"
+            },
+            {
+              "letter": "d)",
+              "label": "grinzi, planșee, nervuri, acoperișuri terasă"
+            },
+            {
+              "letter": "e)",
+              "label": "acoperișuri autoportante fără pod (inclusiv contravântuiri), șarpanta acoperișurilor fără pod"
+            },
+            {
+              "letter": "f)",
+              "label": "panouri de învelitoare și suportul continuu al învelitorii combustibile"
+            }
           ]
         },
         {
@@ -167,10 +193,22 @@
           "code": "3.4",
           "title": "Evacuarea utilizatorilor",
           "details": [
-            { "letter": "a)", "label": "măsuri pentru asigurarea controlului fumului (de exemplu, instalații de presurizare și alte sisteme de control al fumului)" },
-            { "letter": "b)", "label": "tipul scărilor, forma și modul de dispunere a treptelor (interioare, exterioare deschise, cu rampe drepte sau curbe, cu trepte balansate etc.)" },
-            { "letter": "c)", "label": "geometria căilor de evacuare (gabarite: lățimi, înălțimi, pante etc.)" },
-            { "letter": "d)", "label": "numărul fluxurilor de evacuare" }
+            {
+              "letter": "a)",
+              "label": "măsuri pentru asigurarea controlului fumului (de exemplu, instalații de presurizare și alte sisteme de control al fumului)"
+            },
+            {
+              "letter": "b)",
+              "label": "tipul scărilor, forma și modul de dispunere a treptelor (interioare, exterioare deschise, cu rampe drepte sau curbe, cu trepte balansate etc.)"
+            },
+            {
+              "letter": "c)",
+              "label": "geometria căilor de evacuare (gabarite: lățimi, înălțimi, pante etc.)"
+            },
+            {
+              "letter": "d)",
+              "label": "numărul fluxurilor de evacuare"
+            }
           ]
         },
         {
@@ -219,130 +257,322 @@
           "code": "4.1",
           "title": "Hidranți de incendiu interiori",
           "details": [
-            { "letter": "a)", "label": "tip (apă-apă, aer-aer)" },
-            { "letter": "b)", "label": "volumul construcției/compartimentului de incendiu" },
-            { "letter": "c)", "label": "timp teoretic de funcționare" },
-            { "letter": "d)", "label": "număr de jeturi pe punct" },
-            { "letter": "e)", "label": "debit de calcul" },
-            { "letter": "f)", "label": "presiune" },
-            { "letter": "g)", "label": "număr de racorduri exterioare" },
-            { "letter": "h)", "label": "sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă" },
-            { "letter": "i)", "label": "caracteristici funcționale ale grupului de pompare" }
+            {
+              "letter": "a)",
+              "label": "tip (apă-apă, aer-aer)"
+            },
+            {
+              "letter": "b)",
+              "label": "volumul construcției/compartimentului de incendiu"
+            },
+            {
+              "letter": "c)",
+              "label": "timp teoretic de funcționare"
+            },
+            {
+              "letter": "d)",
+              "label": "număr de jeturi pe punct"
+            },
+            {
+              "letter": "e)",
+              "label": "debit de calcul"
+            },
+            {
+              "letter": "f)",
+              "label": "presiune"
+            },
+            {
+              "letter": "g)",
+              "label": "număr de racorduri exterioare"
+            },
+            {
+              "letter": "h)",
+              "label": "sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă"
+            },
+            {
+              "letter": "i)",
+              "label": "caracteristici funcționale ale grupului de pompare"
+            }
           ]
         },
         {
           "code": "4.2",
           "title": "Hidranți de incendiu exteriori",
           "details": [
-            { "letter": "a)", "label": "distanțele față de construcție" },
-            { "letter": "b)", "label": "volumul compartimentului de incendiu" },
-            { "letter": "c)", "label": "timp teoretic de funcționare" },
-            { "letter": "d)", "label": "debit de calcul" },
-            { "letter": "e)", "label": "presiune" },
-            { "letter": "f)", "label": "sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă" },
-            { "letter": "g)", "label": "caracteristici funcționale ale grupului de pompare" }
+            {
+              "letter": "a)",
+              "label": "distanțele față de construcție"
+            },
+            {
+              "letter": "b)",
+              "label": "volumul compartimentului de incendiu"
+            },
+            {
+              "letter": "c)",
+              "label": "timp teoretic de funcționare"
+            },
+            {
+              "letter": "d)",
+              "label": "debit de calcul"
+            },
+            {
+              "letter": "e)",
+              "label": "presiune"
+            },
+            {
+              "letter": "f)",
+              "label": "sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă"
+            },
+            {
+              "letter": "g)",
+              "label": "caracteristici funcționale ale grupului de pompare"
+            }
           ]
         },
         {
           "code": "4.3",
           "title": "Instalații automate de stingere a incendiilor cu sprinklere",
           "details": [
-            { "letter": "a)", "label": "soluția tehnică de realizare a instalației" },
-            { "letter": "b)", "label": "clasa de pericol de incendiu" },
-            { "letter": "c)", "label": "categoria de depozitare și modul de depozitare" },
-            { "letter": "d)", "label": "aria maximă acoperită de un sprinkler" },
-            { "letter": "e)", "label": "densitatea de calcul" },
-            { "letter": "f)", "label": "aria de declanșare simultană" },
-            { "letter": "g)", "label": "presiune" },
-            { "letter": "h)", "label": "sursa de alimentare cu apă a instalației" },
-            { "letter": "i)", "label": "volumul rezervei de apă" },
-            { "letter": "j)", "label": "numărul de racorduri exterioare" }
+            {
+              "letter": "a)",
+              "label": "soluția tehnică de realizare a instalației"
+            },
+            {
+              "letter": "b)",
+              "label": "clasa de pericol de incendiu"
+            },
+            {
+              "letter": "c)",
+              "label": "categoria de depozitare și modul de depozitare"
+            },
+            {
+              "letter": "d)",
+              "label": "aria maximă acoperită de un sprinkler"
+            },
+            {
+              "letter": "e)",
+              "label": "densitatea de calcul"
+            },
+            {
+              "letter": "f)",
+              "label": "aria de declanșare simultană"
+            },
+            {
+              "letter": "g)",
+              "label": "presiune"
+            },
+            {
+              "letter": "h)",
+              "label": "sursa de alimentare cu apă a instalației"
+            },
+            {
+              "letter": "i)",
+              "label": "volumul rezervei de apă"
+            },
+            {
+              "letter": "j)",
+              "label": "numărul de racorduri exterioare"
+            }
           ]
         },
         {
           "code": "4.4",
           "title": "Instalații de limitare și stingere a incendiilor cu sprinklere deschise",
           "details": [
-            { "letter": "a)", "label": "zona protejată" },
-            { "letter": "b)", "label": "înălțimea golului" },
-            { "letter": "c)", "label": "aria/lungimea zonei protejate" },
-            { "letter": "d)", "label": "timp teoretic de funcționare" },
-            { "letter": "e)", "label": "intensitate de răcire" },
-            { "letter": "f)", "label": "intensitatea de stropire" }
+            {
+              "letter": "a)",
+              "label": "zona protejată"
+            },
+            {
+              "letter": "b)",
+              "label": "înălțimea golului"
+            },
+            {
+              "letter": "c)",
+              "label": "aria/lungimea zonei protejate"
+            },
+            {
+              "letter": "d)",
+              "label": "timp teoretic de funcționare"
+            },
+            {
+              "letter": "e)",
+              "label": "intensitate de răcire"
+            },
+            {
+              "letter": "f)",
+              "label": "intensitatea de stropire"
+            }
           ]
         },
         {
           "code": "4.5",
           "title": "Instalații de stingere a incendiilor cu apă pulverizată",
           "details": [
-            { "letter": "a)", "label": "densitate minimă de pulverizare" },
-            { "letter": "b)", "label": "timp de funcționare" },
-            { "letter": "c)", "label": "rezerva de apă" }
+            {
+              "letter": "a)",
+              "label": "densitate minimă de pulverizare"
+            },
+            {
+              "letter": "b)",
+              "label": "timp de funcționare"
+            },
+            {
+              "letter": "c)",
+              "label": "rezerva de apă"
+            }
           ]
         },
         {
           "code": "4.6",
           "title": "Instalații de stingere a incendiilor cu ceață de apă",
           "details": [
-            { "letter": "a)", "label": "debit specific" },
-            { "letter": "b)", "label": "aria de declanșare simultană" },
-            { "letter": "c)", "label": "intensitate de pulverizare" },
-            { "letter": "d)", "label": "intensitate de stingere" },
-            { "letter": "e)", "label": "rezerva de apă" },
-            { "letter": "f)", "label": "timp teoretic de funcționare" },
-            { "letter": "g)", "label": "presiune" },
-            { "letter": "h)", "label": "sursa de alimentare cu apă a instalației" },
-            { "letter": "i)", "label": "volumul rezervei de apă" }
+            {
+              "letter": "a)",
+              "label": "debit specific"
+            },
+            {
+              "letter": "b)",
+              "label": "aria de declanșare simultană"
+            },
+            {
+              "letter": "c)",
+              "label": "intensitate de pulverizare"
+            },
+            {
+              "letter": "d)",
+              "label": "intensitate de stingere"
+            },
+            {
+              "letter": "e)",
+              "label": "rezerva de apă"
+            },
+            {
+              "letter": "f)",
+              "label": "timp teoretic de funcționare"
+            },
+            {
+              "letter": "g)",
+              "label": "presiune"
+            },
+            {
+              "letter": "h)",
+              "label": "sursa de alimentare cu apă a instalației"
+            },
+            {
+              "letter": "i)",
+              "label": "volumul rezervei de apă"
+            }
           ]
         },
         {
           "code": "4.7",
           "title": "Instalații de stingere a incendiilor cu gaze inerte",
           "details": [
-            { "letter": "a)", "label": "tipul agentului de stingere" },
-            { "letter": "b)", "label": "concentrația de stingere" },
-            { "letter": "c)", "label": "volumul protejat" }
+            {
+              "letter": "a)",
+              "label": "tipul agentului de stingere"
+            },
+            {
+              "letter": "b)",
+              "label": "concentrația de stingere"
+            },
+            {
+              "letter": "c)",
+              "label": "volumul protejat"
+            }
           ]
         },
         {
           "code": "4.8",
           "title": "Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)",
           "details": [
-            { "letter": "a)", "label": "gradul de acoperire" },
-            { "letter": "b)", "label": "condiții privind stabilirea zonei de detectare" },
-            { "letter": "c)", "label": "condiții pentru amplasarea e.c.s." },
-            { "letter": "d)", "label": "alte dispozitive comandate sau supravegheate de e.c.s." }
+            {
+              "letter": "a)",
+              "label": "gradul de acoperire"
+            },
+            {
+              "letter": "b)",
+              "label": "condiții privind stabilirea zonei de detectare"
+            },
+            {
+              "letter": "c)",
+              "label": "condiții pentru amplasarea e.c.s."
+            },
+            {
+              "letter": "d)",
+              "label": "alte dispozitive comandate sau supravegheate de e.c.s."
+            }
           ]
         },
         {
           "code": "4.9",
           "title": "Instalație de desfumare / evacuare fum și gaze fierbinți",
           "details": [
-            { "letter": "a)", "label": "metoda de desfumare" },
-            { "letter": "b)", "label": "spațiile desfumate" },
-            { "letter": "c)", "label": "aria spațiului necesar desfumării / suprafața efectivă de desfumare" },
-            { "letter": "d)", "label": "debitul specific pentru introducere aer" },
-            { "letter": "e)", "label": "rezistență la foc tubulatură" },
-            { "letter": "f)", "label": "interacțiune cu alte sisteme de protecție" }
+            {
+              "letter": "a)",
+              "label": "metoda de desfumare"
+            },
+            {
+              "letter": "b)",
+              "label": "spațiile desfumate"
+            },
+            {
+              "letter": "c)",
+              "label": "aria spațiului necesar desfumării / suprafața efectivă de desfumare"
+            },
+            {
+              "letter": "d)",
+              "label": "debitul specific pentru introducere aer"
+            },
+            {
+              "letter": "e)",
+              "label": "rezistență la foc tubulatură"
+            },
+            {
+              "letter": "f)",
+              "label": "interacțiune cu alte sisteme de protecție"
+            }
           ]
         },
         {
           "code": "4.10",
           "title": "Instalație electrică",
           "details": [
-            { "letter": "a)", "label": "pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică)" },
-            { "letter": "b)", "label": "pentru iluminat de siguranță (tip zone deservite, condiții de alimentare și funcționare)" },
-            { "letter": "c)", "label": "dispozitiv de protecție cu curent diferențial rezidual (DDR)" },
-            { "letter": "d)", "label": "dispozitiv de detectare a defectului de arc electric (AFDD)" }
+            {
+              "letter": "a)",
+              "label": "pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică)"
+            },
+            {
+              "letter": "b)",
+              "label": "pentru iluminat de siguranță (tip zone deservite, condiții de alimentare și funcționare)"
+            },
+            {
+              "letter": "c)",
+              "label": "dispozitiv de protecție cu curent diferențial rezidual (DDR)"
+            },
+            {
+              "letter": "d)",
+              "label": "dispozitiv de detectare a defectului de arc electric (AFDD)"
+            }
           ]
         },
         {
           "code": "4.11",
           "title": "Instalație de protecție împotriva trăsnetului",
           "details": [
-            { "letter": "a)", "label": "clasa IPT și SPT" },
-            { "letter": "b)", "label": "nivel de protecție" },
-            { "letter": "c)", "label": "metoda de protecție" }
+            {
+              "letter": "a)",
+              "label": "clasa IPT și SPT"
+            },
+            {
+              "letter": "b)",
+              "label": "nivel de protecție"
+            },
+            {
+              "letter": "c)",
+              "label": "metoda de protecție"
+            }
           ]
         }
       ]
@@ -352,5 +582,14 @@
       "title": "Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu",
       "subpoints": []
     }
-  ]
+  ],
+  "templateMeta": {
+    "readOnlyTemplateSource": "v85",
+    "templateFiles": [
+      "ssi-normal-template-anexa4.json",
+      "ssi-preliminar-template-anexa5.json"
+    ],
+    "resetUsesTemplate": true,
+    "extractWritesWorkingCopyOnly": true
+  }
 }

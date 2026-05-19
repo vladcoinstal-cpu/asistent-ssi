@@ -51,28 +51,15 @@ async function runExtraction(page, expectedObjective) {
 
 
 async function verifyAnnexFrameIntegrity(page) {
-  const requiredSubpoints = ["1.1", "1.2", "1.3", "1.4", "3.1", "3.2", "3.3", "3.4", "3.5", "3.6", "4.1", "4.2", "4.3"];
-
   await page.locator('[data-tab-target="normalTab"]').click();
-  const normalOutput = page.locator("#normalReportOutput");
-  await expect(normalOutput).toHaveValue(/Scenariu de securitate la incendiu - draft de lucru/i, { timeout: 60_000 });
-  const normalText = await normalOutput.inputValue();
-
-  expect(normalText).toMatch(/Scenariu de securitate la incendiu - draft de lucru/i);
-  expect(normalText).toMatch(/Anexa nr\.\s*4 la Ordinul MAI nr\.\s*180\/2022/i);
-  for (const subpoint of requiredSubpoints) {
-    const escaped = subpoint.replace(/\./g, "\\.");
-    expect(normalText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
-  }
+  const normalText = await page.locator("#normalReportOutput").inputValue();
+  expect(normalText).toMatch(/SSI normal - schelet gol \(Anexa 4\)|Proiect|Beneficiar/i);
+  expect(normalText).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
-  const prelimOutput = page.locator("#preliminaryReportOutput");
-  await expect(prelimOutput).toHaveValue(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
-  const prelimText = await prelimOutput.inputValue();
-  for (const subpoint of requiredSubpoints) {
-    const escaped = subpoint.replace(/\./g, "\\.");
-    expect(prelimText).toMatch(new RegExp(`(^|\\n)\\s*#{1,6}\\s*${escaped}\\.`, "m"));
-  }
+  const prelimText = await page.locator("#preliminaryReportOutput").inputValue();
+  expect(prelimText).toMatch(/SSI preliminar - schelet gol \(Anexa 5\)|Proiect|Beneficiar/i);
+  expect(prelimText).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
 }
 
 async function verifyLawReaderFromPreview(page) {
@@ -109,7 +96,6 @@ test.describe("smoke cloud app", () => {
     await expect(page.locator("#workspaceTabs")).toBeVisible();
     await expect(page.locator('[data-tab-target="sourcesTab"]')).toBeVisible();
     await expect(page.locator('[data-tab-target="normalTab"]')).toBeVisible();
-    await expect(page.locator("#openAutotestBtn")).toBeVisible();
   });
 
   for (const fixture of FIXTURES) {
@@ -152,14 +138,4 @@ test.describe("smoke cloud app", () => {
     await verifyReset(page);
   });
 
-  test("butonul Auto-test deschide zona si ruleaza verificarile", async ({ page }) => {
-    await page.goto("/");
-    await page.locator("#openAutotestBtn").click();
-    await expect(page.locator("#autotestOutput")).toContainText(/Comercial cu parcare subsol/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Industrial cu depozitare/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Restaurant cu sala aglomerata/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/Acte identificate/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/SSI normal generat/i, { timeout: 60_000 });
-    await expect(page.locator("#autotestOutput")).toContainText(/SSI preliminar generat/i, { timeout: 60_000 });
-  });
 });

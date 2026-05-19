@@ -18,7 +18,9 @@
             "date de contact",
             "profilul de activitate",
             "programul de lucru"
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         },
         {
           "code": "1.2",
@@ -27,7 +29,9 @@
             "functiuni principale",
             "functiuni secundare",
             "functiuni conexe"
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         },
         {
           "code": "1.3",
@@ -35,7 +39,9 @@
           "details": [
             "categoria de importanta",
             "clasa de importanta"
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         },
         {
           "code": "1.4",
@@ -48,7 +54,9 @@
             "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora",
             "capacitati de depozitare",
             "numarul cailor de evacuare si, dupa caz, al refugiilor"
-          ]
+          ],
+          "implementationStatus": "active-point-1",
+          "extractionEnabled": true
         }
       ]
     },
@@ -159,5 +167,14 @@
         "masuri compensatorii propuse, daca este cazul"
       ]
     }
-  ]
+  ],
+  "templateMeta": {
+    "readOnlyTemplateSource": "v58",
+    "templateFiles": [
+      "ssi-normal-template-anexa4.json",
+      "ssi-preliminar-template-anexa5.json"
+    ],
+    "resetUsesTemplate": true,
+    "extractWritesWorkingCopyOnly": true
+  }
 }

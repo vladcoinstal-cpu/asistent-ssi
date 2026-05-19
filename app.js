@@ -250,8 +250,10 @@ const legislationUrl = "legislation-rules.json";
 const legislationArticlesUrl = "legislation-articles.json";
 const legislationFullActsUrl = "legislation-full-acts.json";
 const legislationOriginalIndexUrl = "legislation-original/index.json";
-const ssiNormalRulesMatrixUrl = "ssi-normal-rules-matrix.json";
+const ssiNormalRulesMatrixUrl = "ssi-v58-v85-rules-matrix.json";
 const ssiPreliminaryStructureUrl = "ssi-preliminar-structure.json";
+const ssiNormalTemplateUrl = "ssi-normal-template-anexa4.json";
+const ssiPreliminaryTemplateUrl = "ssi-preliminar-template-anexa5.json";
 const fireResistanceDeductionRulesUrl = "fire-resistance-deduction-rules.json";
 
 const normalRulesFieldMap = {
@@ -318,6 +320,8 @@ const state = {
   legislationExtractWorkingTexts: {},
   ssiNormalRulesMatrix: null,
   ssiPreliminaryStructure: null,
+  ssiNormalTemplate: null,
+  ssiPreliminaryTemplate: null,
   fireResistanceRules: null,
   applicableActs: [],
   complianceChecks: [],
@@ -909,6 +913,8 @@ const workspaceState = {
 
 const officialActCache = new Map();
 
+window.__ssiTemplateStatus = { normalLoaded: false, preliminaryLoaded: false, normalSections: 0, preliminarySections: 0, ready: false };
+
 function safeClone(value) {
   if (typeof structuredClone === "function") {
     return structuredClone(value);
@@ -1014,6 +1020,9 @@ bootstrap().catch((error) => {
   } catch (recoveryError) {
     console.error(recoveryError);
   }
+  if (!window.__ssiTemplateStatus?.ready) {
+    window.__ssiTemplateStatus = { normalLoaded: false, preliminaryLoaded: false, normalSections: 0, preliminarySections: 0, ready: false };
+  }
   window.alert("Aplicatia nu a putut incarca complet baza de reguli sau starea salvata. Aplicatia a pornit in mod de siguranta.");
 });
 
@@ -1021,10 +1030,14 @@ async function loadJsonAsset(url, embeddedKey) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`Nu s-a putut incarca ${url}`);
+      throw new Error(`Nu s-a putut incarca ${url} (HTTP ${response.status})`);
     }
     return await response.json();
   } catch (error) {
+    if (embeddedKey === "ssiNormalTemplate" || embeddedKey === "ssiPreliminaryTemplate") {
+      console.error(`Template obligatoriu indisponibil: ${embeddedKey} din ${url}.`, error);
+      throw error;
+    }
     const fallback = window.__SSI_EMBEDDED_DATA?.[embeddedKey];
     if (fallback) {
       return safeClone(fallback);
@@ -1102,25 +1115,42 @@ async function preloadOriginalActArchive(index) {
 }
 
 async function bootstrap() {
-  const [rulesLibrary, articlesLibrary, fullActsLibrary, originalIndex, normalRulesMatrix, preliminaryStructure, fireResistanceRules] = await Promise.all([
+  const [rulesLibrary, articlesLibrary, fullActsLibrary, originalIndex, normalRulesMatrix, preliminaryStructure, normalTemplate, preliminaryTemplate, fireResistanceRules] = await Promise.all([
     loadJsonAsset(legislationUrl, "legislationRules"),
     loadJsonAsset(legislationArticlesUrl, "legislationArticles"),
     loadJsonAsset(legislationFullActsUrl, "legislationFullActs"),
     loadOptionalJsonAsset(legislationOriginalIndexUrl),
     loadJsonAsset(ssiNormalRulesMatrixUrl, "ssiNormalRulesMatrix"),
     loadJsonAsset(ssiPreliminaryStructureUrl, "ssiPreliminaryStructure"),
+    loadJsonAsset(ssiNormalTemplateUrl, "ssiNormalTemplate"),
+    loadJsonAsset(ssiPreliminaryTemplateUrl, "ssiPreliminaryTemplate"),
     loadJsonAsset(fireResistanceDeductionRulesUrl, "fireResistanceRules")
   ]);
   state.legislationLibrary = mergeCustomActsIntoLibrary(rulesLibrary);
   state.legislationArticles = articlesLibrary;
   state.legislationFullActs = fullActsLibrary;
   state.legislationOriginalIndex = originalIndex;
+  state.ssiNormalRulesMatrix = normalRulesMatrix;
+  state.ssiPreliminaryStructure = preliminaryStructure;
+  state.ssiNormalTemplate = normalTemplate;
+  state.ssiPreliminaryTemplate = preliminaryTemplate;
+  if (!Array.isArray(state.ssiNormalTemplate?.sections) || !state.ssiNormalTemplate.sections.length) {
+    throw new Error("Template SSI normal invalid: lipseste sections[].");
+  }
+  if (!Array.isArray(state.ssiPreliminaryTemplate?.sections) || !state.ssiPreliminaryTemplate.sections.length) {
+    throw new Error("Template SSI preliminar invalid: lipseste sections[].");
+  }
+  window.__ssiTemplateStatus = {
+    normalLoaded: true,
+    preliminaryLoaded: true,
+    normalSections: state.ssiNormalTemplate.sections.length,
+    preliminarySections: state.ssiPreliminaryTemplate.sections.length,
+    ready: true
+  };
+  state.fireResistanceRules = fireResistanceRules;
   mergeFullActsCacheIntoState();
   await preloadOriginalActArchive(originalIndex);
   ensureContinuousLocalActs();
-  state.ssiNormalRulesMatrix = normalRulesMatrix;
-  state.ssiPreliminaryStructure = preliminaryStructure;
-  state.fireResistanceRules = fireResistanceRules;
   loadCustomActs().forEach((act) => ensureCustomActInLocalFullActs(act));
   ensureLawReferenceAliases();
   restoreWorkspace();
@@ -1172,6 +1202,107 @@ function ensureWorkspaceReadyAfterLoad() {
   });
 }
 
+
+const POINT_1_FIELD_KEYS = new Set([
+  "denumire_obiectiv","beneficiar","adresa","contact_beneficiar","profil_activitate","funcțiuni","categoria_importanta",
+  "tip_cladire","tip_parcaj","caracteristici_dimensionale","numar_utilizatori","autoevacuare","capacitati_depozitare","cai_evacuare_rezumat"
+]);
+
+function buildEmptyReportFromTemplate(template, label) {
+  if (!template || !Array.isArray(template.sections)) return `${label}: template indisponibil.`;
+
+  const lines = [label];
+
+  const renderFieldTree = (field, depth = 2) => {
+    if (!field || typeof field !== "object") return;
+    const indent = "  ".repeat(depth);
+    const fieldLabel = field.label || field.title || "camp";
+    lines.push(`${indent}- ${fieldLabel}: ${field.value || ""}`);
+    const children = Array.isArray(field.children) ? field.children : [];
+    children.forEach((child) => renderFieldTree(child, depth + 1));
+  };
+
+  const renderSubpointTree = (subpoint, depth = 1) => {
+    if (!subpoint || typeof subpoint !== "object") return;
+    const indent = "  ".repeat(depth);
+    lines.push(`${indent}${subpoint.code || ""} ${subpoint.title || ""}`.trimEnd());
+
+    const fields = Array.isArray(subpoint.fields) ? subpoint.fields : [];
+    fields.forEach((field) => renderFieldTree(field, depth + 1));
+
+    const nestedSubpoints = Array.isArray(subpoint.subpoints) ? subpoint.subpoints : [];
+    nestedSubpoints.forEach((nested) => renderSubpointTree(nested, depth + 1));
+  };
+
+  template.sections.forEach((section) => {
+    lines.push(`${section.code}. ${section.title}`);
+    (section.subpoints || []).forEach((sp) => renderSubpointTree(sp, 1));
+  });
+
+  return lines.join("\n");
+}
+
+function resetReportsFromTemplates() {
+  normalReportOutput.value = buildEmptyReportFromTemplate(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)");
+  preliminaryReportOutput.value = buildEmptyReportFromTemplate(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)");
+}
+
+
+function buildPoint1ReportsFromTemplates() {
+  const valueByLabel = {
+    "denumirea obiectivului": state.data.denumire_obiectiv || "",
+    "denumire": state.data.denumire_obiectiv || "",
+    "beneficiar / proprietar": state.data.beneficiar || "",
+    "proprietar/beneficiar": state.data.beneficiar || "",
+    "adresa": state.data.adresa || "",
+    "date de contact": state.data.contact_beneficiar || "",
+    "nr. de telefon": state.data.contact_beneficiar || "",
+    "fax": state.data.contact_beneficiar || "",
+    "e-mail etc.": state.data.contact_beneficiar || "",
+    "profilul de activitate": state.data.profil_activitate || "",
+    "functiuni principale": state.data["funcțiuni"] || "",
+    "functiuni secundare": state.data["funcțiuni"] || "",
+    "functiuni conexe": state.data["funcțiuni"] || "",
+    "funcțiuni principale, secundare și conexe ale construcției/amenajării": state.data["funcțiuni"] || "",
+    "categoria de importanta": state.data.categoria_importanta || "",
+    "categoria de importanță": state.data.categoria_importanta || "",
+    "clasa de importanta": state.data.categoria_importanta || "",
+    "tipul cladirii": state.data.tip_cladire || "",
+    "tipul clădirii": state.data.tip_cladire || "",
+    "tipul parcajului": state.data.tip_parcaj || "",
+    "tipul parcajului, cu precizarea numărului de autovehicule": state.data.tip_parcaj || "",
+    "caracteristici dimensionale": state.data.caracteristici_dimensionale || "",
+    "regimul de înălțime": state.data.caracteristici_dimensionale || "",
+    "volumul construcției": state.data.caracteristici_dimensionale || "",
+    "aria construită": state.data.caracteristici_dimensionale || "",
+    "aria desfășurată": state.data.caracteristici_dimensionale || "",
+    "precizari referitoare la numarul maxim de utilizatori": state.data.numar_utilizatori || "",
+    "numărul maxim de utilizatori": state.data.numar_utilizatori || "",
+    "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": state.data.autoevacuare || "",
+    "capacități de depozitare": state.data.capacitati_depozitare || "",
+    "capacitati de depozitare": state.data.capacitati_depozitare || "",
+    "numarul cailor de evacuare si, dupa caz, al refugiilor": state.data.cai_evacuare_rezumat || ""
+  };
+
+  const normalize = (label) => String(label || "").trim().toLowerCase();
+
+  const render = (template, label) => {
+    const clone = safeClone(template);
+    clone.sections = (Array.isArray(clone.sections) ? clone.sections : []).filter((sec) => String(sec.code || "") === "1");
+    const applyField = (field) => {
+      const key = normalize(field.label || field.title);
+      if (valueByLabel[key]) field.value = valueByLabel[key];
+      (Array.isArray(field.children) ? field.children : []).forEach(applyField);
+    };
+    (clone.sections || []).forEach((sec) => (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach(applyField)));
+    return buildEmptyReportFromTemplate(clone, label);
+  };
+
+  return {
+    normal: render(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)"),
+    preliminary: render(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)")
+  };
+}
 function getDefaultProjectProfile() {
   return {
     categoryImportance: "",
@@ -1279,8 +1410,8 @@ function createBlankProject(name) {
     complianceChecks: [],
     rulesCoverage: [],
     actCoverageChecks: [],
-    normalReport: "",
-    preliminaryReport: "",
+    normalReport: buildEmptyReportFromTemplate(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)"),
+    preliminaryReport: buildEmptyReportFromTemplate(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)"),
     workspaceMeta: createProjectWorkspaceMeta(projectId, name),
     ...getDefaultProjectUiState()
   };
@@ -1997,9 +2128,10 @@ async function handleExtractData() {
   setExtractionSummary("Se analizeaza sursele incarcate.", targetProjectId);
   try {
     const aggregate = runExtraction(state.sources);
-    const extractedEntries = Object.entries(aggregate).filter(([, value]) => String(value || "").trim());
+    const point1Aggregate = Object.fromEntries(Object.entries(aggregate).filter(([key]) => POINT_1_FIELD_KEYS.has(key)));
+    const extractedEntries = Object.entries(point1Aggregate).filter(([, value]) => String(value || "").trim());
 
-    mergeExtractedData(aggregate);
+    mergeExtractedData(point1Aggregate);
     refreshFieldValues();
 
     try {
@@ -2030,20 +2162,6 @@ async function handleExtractData() {
         warnings.push("baza acte");
       }
 
-      try {
-        discoverAndStoreLegislationFromSources();
-      } catch (error) {
-        console.error(error);
-        warnings.push("acte noi");
-      }
-
-      try {
-        evaluateApplicableActs();
-        evaluateActCoverageForProject();
-      } catch (error) {
-        console.error(error);
-        warnings.push("reactualizare acte");
-      }
 
     try {
       evaluateComplianceChecks();
@@ -2060,7 +2178,9 @@ async function handleExtractData() {
     }
 
     try {
-      generateReportsForActiveProject();
+      const reports = buildPoint1ReportsFromTemplates();
+      normalReportOutput.value = reports.normal;
+      preliminaryReportOutput.value = reports.preliminary;
     } catch (error) {
       console.error(error);
       warnings.push("generare SSI");
@@ -2078,6 +2198,10 @@ async function handleExtractData() {
     renderProjectTabs();
     renderWorkspaceTabs();
     activateTab("normalTab");
+    // enforce point-1-only output in PR#7 phase before persisting
+    const finalReports = buildPoint1ReportsFromTemplates();
+    normalReportOutput.value = finalReports.normal;
+    preliminaryReportOutput.value = finalReports.preliminary;
     saveActiveProjectStateFromUI();
     persistWorkspace();
     setUiStatus(`Extragerea a fost realizata din ${state.sources.length} sursa(e).`, targetProjectId);
@@ -2190,6 +2314,10 @@ async function handleSelectedFiles(event) {
 }
 
 function createNewProject() {
+  if (!window.__ssiTemplateStatus?.ready) {
+    window.alert("Template-urile SSI nu sunt încărcate. Inițializarea proiectului a fost oprită.");
+    return;
+  }
   saveActiveProjectStateFromUI();
   const suggestedName = `Proiect ${workspaceState.projects.length + 1}`;
   const requestedName = window.prompt("Denumirea noului proiect:", suggestedName);
@@ -2956,6 +3084,10 @@ contextCloseTabBtn?.addEventListener("click", () => {
 });
 
 function resetProjectState() {
+  if (!window.__ssiTemplateStatus?.ready) {
+    window.alert("Template-urile SSI nu sunt încărcate. Reset a fost oprit.");
+    return;
+  }
   const project = getActiveProject();
   if (!project) return;
   const defaultUiState = getDefaultProjectUiState();
@@ -2966,8 +3098,7 @@ function resetProjectState() {
   state.rulesCoverage = [];
   state.complianceChecks = [];
   state.actCoverageChecks = [];
-  normalReportOutput.value = "";
-  preliminaryReportOutput.value = "";
+  resetReportsFromTemplates();
   manualText.value = defaultUiState.manualDraft;
   fileInput.value = "";
   renderFields();

@@ -1274,3 +1274,9 @@ button.ghost {
     justify-content: flex-start;
   }
 }
+
+
+/* Keep tab bar above workspace panels so clicks are never intercepted by source panel */
+.app-bar { position: relative; z-index: 200; }
+.app-bottomline, .workspace-tabs, .workspace-tabs-dynamic { position: relative; z-index: 250; }
+.workspace-shell, #workspaceContent, .tab-panel, .panel-upload, .panel-span { position: relative; z-index: 1; }
