@@ -1,42 +1,1499 @@
 {
   "source": {
-    "title": "Matrice reguli SSI v58-v85",
-    "generatedFrom": [
+    "strictInputs": [
       "ssi-normal-v58.html",
       "ssi-preliminar-v85.html"
     ],
-    "generatedAt": "2026-05-19",
-    "notes": [
-      "Fișier derivat din versiunile HTML v58 (normal) și v85 (preliminar).",
-      "Generatorul nu a fost modificat; matricea a fost compusă direct din conținutul celor două fișiere sursă."
+    "generatorChanged": false,
+    "generatedAt": "2026-05-19"
+  },
+  "matrix": {
+    "normal_v58": [
+      {
+        "code": "1",
+        "titleExact": "Caracteristicile construcției sau amenajării",
+        "order": 1,
+        "reportType": "normal",
+        "sourceFragment": "1. Caracteristicile construcției sau amenajării",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_1",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "1.1",
+        "titleExact": "Date de identificare",
+        "order": 2,
+        "reportType": "normal",
+        "sourceFragment": "1.1. Date de identificare A. Date necesare identificării construcției/amenajării a) denumire: lăcaș de cult. b) proprietar/beneficiar: Parohia Ortodoxă Învierea Domnului. c) adresa: municipiul Brașov, str. Mărășești nr. 47, județul Brașov. B. Datele de contact ale beneficiarului a) nr. de telefon: nu sunt detalii. b) fax: nu sunt detalii. c) e-mail: nu sunt detalii. C. Profilul de activitate și, după caz, programul de lucru al obiectivului a) profil de activitate: cult. b) program de lucru: permanent.",
+        "requiredFields": [
+          "Date necesare identificării construcției/amenajării a) denumire",
+          "b) proprietar/beneficiar",
+          "c) adresa",
+          "47, județul Brașov. B. Datele de contact ale beneficiarului a) nr. de telefon",
+          "b) fax",
+          "c) e-mail",
+          "profil de activitate",
+          "b) program de lucru"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_1_1",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "1.2",
+        "titleExact": "Destinația",
+        "order": 3,
+        "reportType": "normal",
+        "sourceFragment": "1.2. Destinația Funcțiuni principale: cult. Funcțiuni secundare: locuință. Funcțiuni conexe: utilități.",
+        "requiredFields": [
+          "Funcțiuni secundare"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_1_2",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "1.3",
+        "titleExact": "Categoria și clasă de importanță",
+        "order": 4,
+        "reportType": "normal",
+        "sourceFragment": "1.3. Categoria și clasă de importanță Categoria de importanță: categoria C - construcție de importanță normală, conform HG nr. 766/1997, Anexa nr. 3, art. 6 și art. 7 . Clasă de importanță: clasă III-a, conform HG nr. 766/1997, Anexa nr. 3, art. 8 , coroborat cu CR 0-2012, Anexa A1 - Clasificarea construcțiilor în clase de importanță-expunere .",
+        "requiredFields": [
+          "766/1997, Anexa nr. 3, art. 6 și art. 7 . Clasă de importanță"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "HG nr. 766/1997",
+          "CR 0-2012"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_1_3",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "1.4",
+        "titleExact": "Particularități specifice construcției sau amenajării",
+        "order": 5,
+        "reportType": "normal",
+        "sourceFragment": "1.4. Particularități specifice construcției sau amenajării a) tipul clădirii: clădire civilă pentru cult, cu încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform P 118-99, pct. 1.2.28 . b) tipul parcajului: nu este cazul. c) caracteristici dimensionale: demisol + parter + supantă + mansardă parțială, D+P+Sp+M; înălțime maximă 20,98 m; volum 2900 m3; aria construită 350,75 m2; aria desfășurată 693,08 m2; suprafața utilă -. d) precizări referitoare la numărul maxim de utilizatori: 150 persoane în total; demisol 120 persoane; parter 130 persoane; supantă 20 persoane; mansardă 2 persoane. e) prezența permanentă a persoanelor, capacitatea de autoevacuare a acestora: persoanele care folosesc clădirea sunt, în mod obișnuit, autoevacuabile. f) capacități de depozitare: nu sunt spații de depozitare mai mari de 36 m2; în spațiile de depozitare de la demisol sunt menționate preponderent materiale metalice. g) numărul căilor de evacuare și, după caz, al refugiilor: două căi de evacuare de la demisol, două căi de evacuare de la parter; de la mansardă și supantă evacuarea se realizează pe o scară către parter; refugii - nu este cazul.",
+        "requiredFields": [
+          "tipul clădirii",
+          "1.2.28 . b) tipul parcajului",
+          "c) caracteristici dimensionale",
+          "precizări referitoare la numărul maxim de utilizatori",
+          "e) prezența permanentă a persoanelor, capacitatea de autoevacuare a acestora",
+          "f) capacități de depozitare",
+          "g) numărul căilor de evacuare și, după caz, al refugiilor"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_1_4",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "2",
+        "titleExact": "Identificarea și stabilirea nivelurilor de risc de incendiu",
+        "order": 6,
+        "reportType": "normal",
+        "sourceFragment": "2. Identificarea și stabilirea nivelurilor de risc de incendiu",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_2",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "2.A",
+        "titleExact": "Identificarea și stabilirea nivelurilor de risc de incendiu",
+        "order": 7,
+        "reportType": "normal",
+        "sourceFragment": "2.A. Identificarea și stabilirea nivelurilor de risc de incendiu Se fac potrivit reglementărilor tehnice specifice, pentru fiecare încăpere/grup de încăperi similare, spațiu, compartiment de incendiu, luându-se în considerare: a) densitatea sarcinii termice: pentru naos parter, q = 63,01 MJ/mp, ceea ce conduce la risc mic de incendiu, conform P 118/1-2025, art. 2.1.2.2 alin. (1) lit. a) și art. 2.1.2.3 alin. (1) . b) proprietățile fizico-chimice ale materialelor și substanțelor utilizate, prelucrate, manipulate sau depozitate, pentru construcții de producție și/sau depozitare: nu este cazul pentru acest obiectiv, nefiind construcție de productie și/sau depozitare. În exploatarea curentă rezultă materiale combustibile uzuale de tip lemn, hârtie/carton și textile, precum și materiale metalice/aparatură; aceste materiale participa la sarcina termică a spațiilor, însă nu rezultă din documentația disponibilă substanțe sau amestecuri periculoase care să necesite o clasificare specifică de tip CLP potrivit Regulamentului (CE) nr. 1272/2008 . c) clase de periculozitate ale materialelor și substanțelor: nu este cazul pentru acest obiectiv, nefiind construcție de producție și/sau depozitare și nefiind identificate substanțe sau amestecuri periculoase care să atragă o clasificare în clase de pericol în sensul Regulamentului (CE) nr. 1272/2008 .",
+        "requiredFields": [
+          "densitatea sarcinii termice",
+          "1272/2008 . c) clase de periculozitate ale materialelor și substanțelor"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/1-2025",
+          "Regulamentului (CE) nr. 1272/2008"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_2_A",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "2.B",
+        "titleExact": "Caracteristicile proceselor tehnologice și cantitățile de substanțe periculoase, potrivit clasificării din Legea nr. 59/2016 privind controlul asupra pericolelor de accident major în care sunt implicate substanțe periculoase, cu completările ulterioare",
+        "order": 8,
+        "reportType": "normal",
+        "sourceFragment": "2.B. Caracteristicile proceselor tehnologice și cantitățile de substanțe periculoase, potrivit clasificării din Legea nr. 59/2016 privind controlul asupra pericolelor de accident major în care sunt implicate substanțe periculoase, cu completările ulterioare Nu este cazul pentru acest obiectiv, neavând substanțe periculoase relevante care să atragă o încadrare potrivit Legii nr. 59/2016.",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "Legea nr. 59/2016"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_2_B",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "3",
+        "titleExact": "Nivelurile criteriilor de performănță privind securitatea la incendiu",
+        "order": 9,
+        "reportType": "normal",
+        "sourceFragment": "3. Nivelurile criteriilor de performănță privind securitatea la incendiu",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_3",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "3.1",
+        "titleExact": "Stabilitatea la foc și limitarea propagării incendiului și efluentilor incendiului în interiorul construcției/compartimentului de incendiu",
+        "order": 10,
+        "reportType": "normal",
+        "sourceFragment": "3.1. Stabilitatea la foc și limitarea propagării incendiului și efluentilor incendiului în interiorul construcției/compartimentului de incendiu a) rezistență și clasă de reacție la foc a elementelor cele mai defavorabile din punctul de vedere al criteriului de performănță stabilitate la foc: elemente portante din beton armat turnat monolit: incombustibile, clasă de reacție la foc A1, respectiv C0 (CA1), conform Ordinului nr. 1822/394/2004 ; pentru stalpi, coloane și pereți portanti, documentația tehnică indică LRF minimum 2 ore, corelat cu cerintele pentru gradul II de rezistență la foc din P 118-99, pct. 2.1.9 . grinzi, planșee și nervuri din beton armat: incombustibile, clasă de reacție la foc A1, respectiv C0 (CA1), conform Ordinului nr. 1822/394/2004 ; pentru aceste elemente, documentația tehnică indică LRF minimum 1 ora, corelat cu cerintele pentru gradul II de rezistență la foc din P 118-99, pct. 2.1.9 . pereți de compartimentare din zidărie: incombustibili, clasă de reacție la foc A1, respectiv C0 (CA1), conform Ordinului nr. 1822/394/2004 ; pentru pereții de zidărie, documentația tehnică indică LRF minimum 30 minute, corelat cu P 118-99, pct. 2.1.9 . suportul continuu al învelitorii din lemn ignifugat: material combustibil ameliorat, încadrat în clasă de reacție la foc B-s3,d1, respectiv C1 (CA2b), conform Ordinului nr. 1822/394/2004 . învelitoarea din țiglă ceramică: incombustibila, clasă de reacție la foc A1, respectiv C0 (CA1), conform Ordinului nr. 1822/394/2004 . b) elemente de construcție de separare a compartimentelor de incendiu sau a ariilor protejate: pereți din zidărie de compartimentare: incombustibili, clasă de reacție la foc A1, respectiv C0 (CA1), conform Ordinului nr. 1822/394/2004 ; pentru pereții de zidărie, documentația tehnică indică LRF minimum 30 minute. planșeu din beton armat: incombustibil, clasă de reacție la foc A1, respectiv C0 (CA1), conform Ordinului nr. 1822/394/2004 ; pentru grinzi, planșee și nervuri din beton, documentația t",
+        "requiredFields": [
+          "2.1.9 . grinzi, planșee și nervuri din beton armat",
+          "2.1.9 . pereți de compartimentare din zidărie",
+          "2.1.9 . suportul continuu al învelitorii din lemn ignifugat",
+          ", conform Ordinului nr. 1822/394/2004 . învelitoarea din țiglă ceramică",
+          "planșeu din beton armat",
+          "elemente portante din beton armat",
+          "5.2.7.2.8 . instalații de ventilare/climatizare",
+          "instalații de încălzire / centrala termică",
+          "7.190 . instalații pentru gaze combustibile",
+          "Măsuri concrete rezultăte din proiect",
+          "instalații cu rol de securitate la incendiu"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99",
+          "I 13-2015",
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_3_1",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "3.2",
+        "titleExact": "Limitarea propagării incendiilor la vecinătăți",
+        "order": 11,
+        "reportType": "normal",
+        "sourceFragment": "3.2. Limitarea propagării incendiilor la vecinătăți a) distante de siguranță asigurate conform reglementărilor tehnice sau măsurile alternative conforme cu reglementarile tehnice, atunci cand aceste distante nu pot fi realizate: cea mai apropiata construcție se afla la peste 20 m. Rezulta că distantele de siguranță la vecinătăți sunt asigurate, conform P 118-99, art. 2.2.2 și tabelul 2.2.2 . b) măsuri constructive pentru limitarea propagării incendiului pe fațade și pe acoperiș, după caz: porțiunea mansardată este separată față de pod prin perete incombustibil, clasă de reacție la foc A1, respectiv C0 (CA1), cu rezistență la foc de 2 ore. Limitarea propagării pe acoperiș se corelează cu învelitoarea din țiglă ceramică, material incombustibil, și cu separarea dintre mansardă și pod. La nivelul clădirii se mențin măsurile constructive de limitare a propagării pe acoperiș și în zona de separare dintre mansardă și pod; dacă apar modificări ale anvelopei, acestea trebuie reverificate în raport cu reglementarea tehnică aplicabilă.",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_3_2",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "3.3",
+        "titleExact": "Evacuarea utilizatorilor",
+        "order": 12,
+        "reportType": "normal",
+        "sourceFragment": "3.3. Evacuarea utilizatorilor A. Pentru căile de evacuare a persoanelor în caz de incendiu se precizeaza: a) alcătuirea constructivă a căilor de evacuare, separarea față de alte funcțiuni prin elemente de separare la foc și fum, protecția golurilor din pereții ce le delimitează: evacuarea persoanelor din naosul de la parter se face direct în exterior prin intrarea principală și prin ușa laterală; evacuarea persoanelor de la demisol se face direct în exterior prin ușa principală și prin ușa laterală. De la mansardă și supantă evacuarea se realizează pe o scară închisă către parter, prin ușa cu un canat. b) tipul scărilor, formă și modul de dispunere a treptelor: evacuarea de la mansardă și supantă se face pe o scara închisă. Scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform P 118-99, art. 2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare: ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux. Geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4 . d) timpii/lungimile de evacuare: nu rezultă calculul explicit al timpilor și al lungimilor de evacuare; acestea se verifică în corelare cu traseele reale, numărul de utilizatori și configurația finală a căilor de evacuare, conform P 118-99, art. 2.6.55-2.6.57 . e) numărul fluxurilor de evacuare: pentru demisol, raportat la 120 utilizatori, rezultă F = N / C = 120 / 70 = 1,71, deci sunt necesare 2 fluxuri; acestea sunt asigurate. Pentru parter, raportat ",
+        "requiredFields": [
+          "Pentru căile de evacuare a persoanelor în caz de incendiu se precizeaza",
+          "b) tipul scărilor, formă și modul de dispunere a treptelor",
+          "2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare",
+          "2.6.14-2.6.18 și art. 3.6.4 . d) timpii/lungimile de evacuare",
+          "2.6.55-2.6.57 . e) numărul fluxurilor de evacuare",
+          "marcarea căilor de evacuare"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99",
+          "I 13-2015",
+          "HG nr. 971/2006"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_3_3",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "3.4",
+        "titleExact": "Securitatea forțelor de intervenție",
+        "order": 13,
+        "reportType": "normal",
+        "sourceFragment": "3.4. Securitatea forțelor de intervenție A. Amenajarile pentru accesul forțelor de intervenție în clădire și incinta, pentru autospeciale și pentru ascensoarele de incendiu. Intervenția forțelor se poate desfășura pe toate laturile/fațadele accesibile ale clădirii, din drumul de acces existent. B. Caracteristicile tehnice și functionale ale accesurilor carosabile și ale căilor de intervenție ale autospecialelor, ale numărului de accesuri și trasee de intervenție, ale realizarii și marcarii lor. Accesul autospecialelor se realizează pe drumuri publice cu două benzi pana la adresă obiectivului. Caile de acces sunt dimensionate pentru trafic greu, peste 30 tone, și au latime care permite trecerea autospecialelor, mai mare de 3,80 m. C. Pentru ascensoarele de pompieri se precizeaza: tipul, numărul și caracteristicile acestora; amplasarea și posibilitatile de acces, sursă de alimentare cu energie electrica de rezervă; timpul de siguranță. Nu este cazul.",
+        "requiredFields": [
+          "C. Pentru ascensoarele de pompieri se precizeaza"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_3_4",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "4",
+        "titleExact": "Echiparea și dotarea cu instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu”",
+        "order": 14,
+        "reportType": "normal",
+        "sourceFragment": "4. Echiparea și dotarea cu instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu” A. Instalație de stingere a incendiilor a) tip: cu apa, gaze/aerosoli, spumă, pulberi: nu se prevad instalații fixe de stingere cu apa, gaze/aerosoli, spumă sau pulberi. Nu este obligatorie dotarea cu hidranți interiori, hidranți exteriori, sprinklere, sprinklere deschise, instalații cu apa pulverizată, ceață de apa sau gaze inerte, conform P 118/2-2013, art. 4.1 lit. i), art. 6.1 alin. (4) lit. i), art. 7.1, art. 7.131, art. 8.1, art. 9.1 și art. 15.1 . b) zone, încăperi, spații, instalații echipate: nu este cazul, nefiind prevăzute instalații fixe de stingere a incendiilor. c) parametri functionali: debite, intensitati de stingere și stropire, cantitati calculate de substanță de stingere, concentratii de stingere proiectate pe durata de timp normata, presiuni, rezerve de substanță de stingere, surse de alimentare: nu este cazul. d) timp normat de funcționare: nu este cazul. B. Instalație de detectare, semnalizare și alarmare la incendiu (e.c.s.) a) gradul de acoperire, zonele de detectare și alarmare la incendiu: prin proiect se propune echiparea construcției cu instalatie de detectare, semnalizare și alarmare la incendiu, cu acoperirea spațiilor clădirii prin zone de detectare și alarmare. Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i) , dar prin proiect se propune dotarea cu IDSAI. b) tipul detectoarelor, declansatoarelor manuale, dispozitivelor de alarmare și parametrii functionali specifici instalațiilor respective: sunt prevăzute centrala adresabilă de semnalizare și alarmare la incendiu, detectoare adresabile, butoane/declansatoare manuale de alarmare și dispozitive optice și acustice de alarmare. c) condiții pentru amplasarea e.c.s.: ECS este amplasat la demisol, în încăpere dedicată, fără traversarea altor conducte/utilități pr",
+        "requiredFields": [
+          "Instalație de stingere a incendiilor a) tip",
+          "8.1, art. 9.1 și art. 15.1 . b) zone, încăperi, spații, instalații echipate",
+          "c) parametri functionali",
+          "d) timp normat de funcționare",
+          "c.s.) a) gradul de acoperire, zonele de detectare și alarmare la incendiu",
+          "c) condiții pentru amplasarea e.c.s.",
+          "d) alte dispozitive comandate/supravegheate de e.c.s."
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013",
+          "P 118/3-2015",
+          "P 118/1-2025",
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_4",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "5",
+        "titleExact": "Măsuri tehnico-organizatorice privind exploatarea construcției",
+        "order": 15,
+        "reportType": "normal",
+        "sourceFragment": "5. Măsuri tehnico-organizatorice privind exploatarea construcției A. Instructiuni de funcționare a instalațiilor cu rol în asigurarea cerinței fundamentale „securitate la incendiu” Se vor elabora și aplica instructiuni de funcționare pentru instalațiile electrice, instalatia de detectare, semnalizare și alarmare la incendiu, iluminatul de siguranță, instalatia de protecție împotriva trăsnetului și centrala termică. B. Reguli necesare de verificare și întreținere în exploatare a instalațiilor cu rol în asigurarea cerinței fundamentale „securitate la incendiu” Se vor asigura verificarea periodică, mentenanta și pastrarea în stare de funcționare a instalațiilor cu rol în asigurarea cerinței fundamentale securitate la incendiu, conform legislatiei și reglementarilor în vigoare. C. Recomandari care trebuie avute în vedere la intocmirea documentelor de organizare a apararii împotriva incendiilor aferente construcției ori amenajării respective Verificarea periodică a instalațiilor utilitare și tehnologice și a dotarilor aferente construcției conform legislatiei și reglementarilor în vigoare; asigurarea în permanenta a căilor de acces interioare și exterioare libere și practicabile, indiferent de anotimp, în vederea facilitarii evacuarii și intervenției în caz de incendiu; intocmirea planului de intervenție și avizarea acestuia de către unitatea teritoriala de pompieri militari; intocmirea și afisarea organizarii apararii împotriva incendiilor pe locurile de munca; instruirea personalului privind cunoasterea și respectarea normelor și reglementarilor de p.s.i.; elaborarea actelor de autoritate referitoare la organizarea activitatii de aparare împotriva incendiilor. D. Stingatoare, alte aparate de stins incendii, utilaje, unelte și mijloace de intervenție a) tipul și caracteristicile de stingere asigurate: stingătoare portative cu pulbere tip P, minimum 6 kg, pentru incendii din clasele A, B și C, stabilite în raport cu riscul de incendiu și materialele combustibile protejat",
+        "requiredFields": [
+          "tipul și caracteristicile de stingere asigurate"
+        ],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [
+          "OMAI nr. 163/2007",
+          "HG nr. 971/2006"
+        ],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_5",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      },
+      {
+        "code": "6",
+        "titleExact": "Măsuri compensatorii propuse pentru lucrari de modificare și/sau schimbare a destinatiei construcțiilor existente, în raport cu prevederile reglementărilor tehnice care nu pot fi respectate",
+        "order": 16,
+        "reportType": "normal",
+        "sourceFragment": "6. Măsuri compensatorii propuse pentru lucrari de modificare și/sau schimbare a destinatiei construcțiilor existente, în raport cu prevederile reglementărilor tehnice care nu pot fi respectate Nu este cazul.",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage date numai din documentele tehnice ale aceluiași obiectiv (memorii, scenariu, planșe text).",
+          "Mapează fiecare valoare pe subpunctul curent după code și titlu exact.",
+          "Păstrează textul brut sursă pentru audit și trasabilitate."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică deduceri doar dacă subpunctul conține praguri/criterii explicite în sursă.",
+          "Dacă apar mai multe valori pentru același indicator, alege valoarea explicită pentru nivelul/aria menționată în subpunct.",
+          "Pentru lipsă valori numerice, marchează needs_manual_review fără completare implicită."
+        ],
+        "normativeActsAndArticles": [],
+        "fallbackWhenMissingData": [
+          "Setează câmpul lipsă la \"nu sunt date\".",
+          "Adaugă indicatorul needs_manual_review=true.",
+          "Nu prelua valori din alt subpunct."
+        ],
+        "forbiddenPatterns": [
+          "Interzis copy-paste de date între subpuncte diferite.",
+          "Interzisă inventarea referințelor legale absente din fragmentul subpunctului.",
+          "Interzisă mutarea conținutului 1.x în 2.x/3.x etc."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_6",
+          "test_exact_title_match",
+          "test_order_is_stable",
+          "test_source_fragment_non_empty",
+          "test_no_cross_subpoint_value_leakage",
+          "test_normative_refs_extracted"
+        ]
+      }
+    ],
+    "preliminar_v85": [
+      {
+        "code": "1.1",
+        "titleExact": "Datele de identificare a) denumire: Lăcaș de cult",
+        "order": 1,
+        "reportType": "preliminar",
+        "sourceFragment": " Scenariu preliminar - Biserica Invierea Domnului SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR 1. Caracteristicile construcției sau amenajării 1.1. Datele de identificare a) denumire: Lăcaș de cult. b) proprietar/beneficiar: Parohia Ortodoxă Română „Învierea Domnului”. c) adresă: municipiul Brașov, str. Mărășești nr. 47, județul Brașov. d) nr. de telefon: Nu sunt detalii. e) fax: Nu sunt detalii. f) e-mail etc.: Nu sunt detalii. 1.2. Destinația a) F. principale: cult. b) F. secundare: locuință. c) F. conexe: utilități. 1.3. Categoria și clasa de importanță a) Categoria de importanță: categoria C (normală) , conform HG nr. 766/1997, Anexa nr. 3, art. 6-7 . b) Clasa de importanță: clasa III-a , conform HG nr. 766/1997, Anexa nr. 3, art. 8 , coroborat cu CR 0-2012, Anexa A1 . 1.4. Particularități specifice a) tipul clădirii: clădire civilă pentru cult cu două încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform P 118-99, pct. 1.2.28 . b) tipul parcajului: nu este cazul. c) Regimul de înălțime: demisol + parter + supantă + mansardă parțială, D+P+Sp+M. Înălțimea maximă a clădirii: 20,98 m. Volumul construcției: 2900 m3. d) Aria construită: 350,75 m2. Aria desfășurată: 693,08 m2. Suprafața utilă: -. e) principalele destinații ale încăperilor și ale spațiilor aferente construcției: Nivel Încăperi / spații și arii Demisol Naos - 114,86 mp; Spațiu depozitare - 31,26 mp; Spațiu depozitare - 31,11 mp; Hol + spațiu vânzare - 27,03 mp; Altar - 22,17 mp; Spațiu depozitare - 17,00 mp; Spațiu depozitare - 16,9",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "HG nr. 766/1997",
+          "CR 0-2012",
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "1.2",
+        "titleExact": "Destinația a) F",
+        "order": 2,
+        "reportType": "preliminar",
+        "sourceFragment": "Ortodoxă Română „Învierea Domnului”. c) adresă: municipiul Brașov, str. Mărășești nr. 47, județul Brașov. d) nr. de telefon: Nu sunt detalii. e) fax: Nu sunt detalii. f) e-mail etc.: Nu sunt detalii. 1.2. Destinația a) F. principale: cult. b) F. secundare: locuință. c) F. conexe: utilități. 1.3. Categoria și clasa de importanță a) Categoria de importanță: categoria C (normală) , conform HG nr. 766/1997, Anexa nr. 3, art. 6-7 . b) Clasa de importanță: clasa III-a , conform HG nr. 766/1997, Anexa nr. 3, art. 8 , coroborat cu CR 0-2012, Anexa A1 . 1.4. Particularități specifice a) tipul clădirii: clădire civilă pentru cult cu două încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform P 118-99, pct. 1.2.28 . b) tipul parcajului: nu este cazul. c) Regimul de înălțime: demisol + parter + supantă + mansardă parțială, D+P+Sp+M. Înălțimea maximă a clădirii: 20,98 m. Volumul construcției: 2900 m3. d) Aria construită: 350,75 m2. Aria desfășurată: 693,08 m2. Suprafața utilă: -. e) principalele destinații ale încăperilor și ale spațiilor aferente construcției: Nivel Încăperi / spații și arii Demisol Naos - 114,86 mp; Spațiu depozitare - 31,26 mp; Spațiu depozitare - 31,11 mp; Hol + spațiu vânzare - 27,03 mp; Altar - 22,17 mp; Spațiu depozitare - 17,00 mp; Spațiu depozitare - 16,95 mp; Birou - 12,56 mp; Acces - 9,63 mp; Grup sanitar - 6,21 mp; Centrală termică - 3,47 mp. Parter Naos - 121,69 mp; Altar - 22,89 mp; Pronaos - 11,35 mp; Spațiu vânzare - 5,88 mp. Supantă Spațiu cor - 27,58 mp; Verandă - 16,45 mp. Mansardă Hol - 18,87 mp; Casa scării - 11,91 mp. f) compa",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "HG nr. 766/1997",
+          "CR 0-2012",
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "1.3",
+        "titleExact": "Categoria și clasa de importanță a) Categoria de importanță: categoria C (normală) , conform HG nr",
+        "order": 3,
+        "reportType": "preliminar",
+        "sourceFragment": "dețul Brașov. d) nr. de telefon: Nu sunt detalii. e) fax: Nu sunt detalii. f) e-mail etc.: Nu sunt detalii. 1.2. Destinația a) F. principale: cult. b) F. secundare: locuință. c) F. conexe: utilități. 1.3. Categoria și clasa de importanță a) Categoria de importanță: categoria C (normală) , conform HG nr. 766/1997, Anexa nr. 3, art. 6-7 . b) Clasa de importanță: clasa III-a , conform HG nr. 766/1997, Anexa nr. 3, art. 8 , coroborat cu CR 0-2012, Anexa A1 . 1.4. Particularități specifice a) tipul clădirii: clădire civilă pentru cult cu două încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform P 118-99, pct. 1.2.28 . b) tipul parcajului: nu este cazul. c) Regimul de înălțime: demisol + parter + supantă + mansardă parțială, D+P+Sp+M. Înălțimea maximă a clădirii: 20,98 m. Volumul construcției: 2900 m3. d) Aria construită: 350,75 m2. Aria desfășurată: 693,08 m2. Suprafața utilă: -. e) principalele destinații ale încăperilor și ale spațiilor aferente construcției: Nivel Încăperi / spații și arii Demisol Naos - 114,86 mp; Spațiu depozitare - 31,26 mp; Spațiu depozitare - 31,11 mp; Hol + spațiu vânzare - 27,03 mp; Altar - 22,17 mp; Spațiu depozitare - 17,00 mp; Spațiu depozitare - 16,95 mp; Birou - 12,56 mp; Acces - 9,63 mp; Grup sanitar - 6,21 mp; Centrală termică - 3,47 mp. Parter Naos - 121,69 mp; Altar - 22,89 mp; Pronaos - 11,35 mp; Spațiu vânzare - 5,88 mp. Supantă Spațiu cor - 27,58 mp; Verandă - 16,45 mp. Mansardă Hol - 18,87 mp; Casa scării - 11,91 mp. f) compartimente de incendiu: clădirea formează un singur compartiment de incendiu, cu aria construi",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "HG nr. 766/1997",
+          "CR 0-2012",
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "1.4",
+        "titleExact": "Particularități specifice a) tipul clădirii: clădire civilă pentru cult cu două încăperi cu aglomerări de persoane, respectiv naosul de la d",
+        "order": 4,
+        "reportType": "preliminar",
+        "sourceFragment": "tanță: categoria C (normală) , conform HG nr. 766/1997, Anexa nr. 3, art. 6-7 . b) Clasa de importanță: clasa III-a , conform HG nr. 766/1997, Anexa nr. 3, art. 8 , coroborat cu CR 0-2012, Anexa A1 . 1.4. Particularități specifice a) tipul clădirii: clădire civilă pentru cult cu două încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform P 118-99, pct. 1.2.28 . b) tipul parcajului: nu este cazul. c) Regimul de înălțime: demisol + parter + supantă + mansardă parțială, D+P+Sp+M. Înălțimea maximă a clădirii: 20,98 m. Volumul construcției: 2900 m3. d) Aria construită: 350,75 m2. Aria desfășurată: 693,08 m2. Suprafața utilă: -. e) principalele destinații ale încăperilor și ale spațiilor aferente construcției: Nivel Încăperi / spații și arii Demisol Naos - 114,86 mp; Spațiu depozitare - 31,26 mp; Spațiu depozitare - 31,11 mp; Hol + spațiu vânzare - 27,03 mp; Altar - 22,17 mp; Spațiu depozitare - 17,00 mp; Spațiu depozitare - 16,95 mp; Birou - 12,56 mp; Acces - 9,63 mp; Grup sanitar - 6,21 mp; Centrală termică - 3,47 mp. Parter Naos - 121,69 mp; Altar - 22,89 mp; Pronaos - 11,35 mp; Spațiu vânzare - 5,88 mp. Supantă Spațiu cor - 27,58 mp; Verandă - 16,45 mp. Mansardă Hol - 18,87 mp; Casa scării - 11,91 mp. f) compartimente de incendiu: clădirea formează un singur compartiment de incendiu, cu aria construită de 350,75 m2. g) număr maxim de utilizatori: Total: 150 persoane. Demisol: 120 persoane. Parter: 130 persoane. Supantă: 20 persoane. Mansardă: 2 persoane. Animale: Nu este cazul. Notă: nu vor avea loc slujbe concomitent la parter și demisol, iar la supantă",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "HG nr. 766/1997",
+          "CR 0-2012",
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "3.1",
+        "titleExact": "Rezistența și clasa de reacție la foc a celor mai defavorabile elemente de construcție a) stâlpi, coloane, pereți portanți: LRF min",
+        "order": 5,
+        "reportType": "preliminar",
+        "sourceFragment": "e cazul pentru acest obiectiv, neavând substanțe periculoase relevante care să atragă o încadrare potrivit Legii nr. 59/2016 . 3. Nivelurile criteriilor de performanță privind securitatea la incendiu 3.1. Rezistența și clasa de reacție la foc a celor mai defavorabile elemente de construcție a) stâlpi, coloane, pereți portanți: LRF min. 2 ore; beton. b) pereți interiori nestructurali: - c) pereți exteriori nestructurali: - d) grinzi, planșee, nervuri, acoperișuri terasă: LRF min. 1 oră; elemente principale din beton. e) acoperișuri autoportante fără pod (inclusiv contravântuiri), șarpanta acoperișuri fără pod: - f) panouri de învelitoare și suportul continuu al învelitorii combustibile: suport continuu din lemn ignifugat, clasa C1. 3.2. Gradul de rezistență la foc / nivelul de stabilitate la incendiu a) Gradul de rezistență la foc: gradul II de rezistență la foc, conform P 118-99, tabelul 2.1.9 . 3.3. Asigurarea limitării propagării incendiilor la vecinătăți a) Distanțe de siguranță: cea mai apropiată construcție se află la peste 20 m. b) Respectarea distanței minime: se respectă. Pentru o construcție cu grad II de rezistență la foc, tabelul 2.2.2. din P 118-99 prevede distanțe minime de 6 m, 8 m și 10 m față de vecinătăți de grad I-II, III, respectiv IV-V; distanța existentă, de peste 20 m, este superioară chiar și valorii maxime de 10 m. c) Măsuri constructive: limitarea propagării pe fațade și acoperiș se realizează prin soluția constructivă existentă. 3.4. Evacuarea utilizatorilor a) măsuri pentru asigurarea controlului fumului: evacuarea fumului în caz de incendiu se realizează prin spațiile vitrate. b) tipul scărilor, forma și modul de dispunere a treptelor: evacuare",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99",
+          "P 118-99 prevede distanțe minime de 6 m"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "3.2",
+        "titleExact": "Gradul de rezistență la foc / nivelul de stabilitate la incendiu a) Gradul de rezistență la foc: gradul II de rezistență la foc, conform P 1",
+        "order": 6,
+        "reportType": "preliminar",
+        "sourceFragment": "portante fără pod (inclusiv contravântuiri), șarpanta acoperișuri fără pod: - f) panouri de învelitoare și suportul continuu al învelitorii combustibile: suport continuu din lemn ignifugat, clasa C1. 3.2. Gradul de rezistență la foc / nivelul de stabilitate la incendiu a) Gradul de rezistență la foc: gradul II de rezistență la foc, conform P 118-99, tabelul 2.1.9 . 3.3. Asigurarea limitării propagării incendiilor la vecinătăți a) Distanțe de siguranță: cea mai apropiată construcție se află la peste 20 m. b) Respectarea distanței minime: se respectă. Pentru o construcție cu grad II de rezistență la foc, tabelul 2.2.2. din P 118-99 prevede distanțe minime de 6 m, 8 m și 10 m față de vecinătăți de grad I-II, III, respectiv IV-V; distanța existentă, de peste 20 m, este superioară chiar și valorii maxime de 10 m. c) Măsuri constructive: limitarea propagării pe fațade și acoperiș se realizează prin soluția constructivă existentă. 3.4. Evacuarea utilizatorilor a) măsuri pentru asigurarea controlului fumului: evacuarea fumului în caz de incendiu se realizează prin spațiile vitrate. b) tipul scărilor, forma și modul de dispunere a treptelor: evacuarea de la mansardă și supantă se face pe o scară închisă; scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform P 118-99, art. 2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare: ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secun",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99",
+          "P 118-99 prevede distanțe minime de 6 m"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "3.3",
+        "titleExact": "Asigurarea limitării propagării incendiilor la vecinătăți a) Distanțe de siguranță: cea mai apropiată construcție se află la peste 20 m",
+        "order": 7,
+        "reportType": "preliminar",
+        "sourceFragment": "u din lemn ignifugat, clasa C1. 3.2. Gradul de rezistență la foc / nivelul de stabilitate la incendiu a) Gradul de rezistență la foc: gradul II de rezistență la foc, conform P 118-99, tabelul 2.1.9 . 3.3. Asigurarea limitării propagării incendiilor la vecinătăți a) Distanțe de siguranță: cea mai apropiată construcție se află la peste 20 m. b) Respectarea distanței minime: se respectă. Pentru o construcție cu grad II de rezistență la foc, tabelul 2.2.2. din P 118-99 prevede distanțe minime de 6 m, 8 m și 10 m față de vecinătăți de grad I-II, III, respectiv IV-V; distanța existentă, de peste 20 m, este superioară chiar și valorii maxime de 10 m. c) Măsuri constructive: limitarea propagării pe fațade și acoperiș se realizează prin soluția constructivă existentă. 3.4. Evacuarea utilizatorilor a) măsuri pentru asigurarea controlului fumului: evacuarea fumului în caz de incendiu se realizează prin spațiile vitrate. b) tipul scărilor, forma și modul de dispunere a treptelor: evacuarea de la mansardă și supantă se face pe o scară închisă; scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform P 118-99, art. 2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare: ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99",
+          "P 118-99 prevede distanțe minime de 6 m"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "2.2",
+        "titleExact": "din P 118-99 prevede distanțe minime de 6 m, 8 m și 10 m față de vecinătăți de grad I-II, III, respectiv IV-V; distanța existentă, de peste",
+        "order": 8,
+        "reportType": "preliminar",
+        "sourceFragment": "vecinătăți a) Distanțe de siguranță: cea mai apropiată construcție se află la peste 20 m. b) Respectarea distanței minime: se respectă. Pentru o construcție cu grad II de rezistență la foc, tabelul 2.2.2. din P 118-99 prevede distanțe minime de 6 m, 8 m și 10 m față de vecinătăți de grad I-II, III, respectiv IV-V; distanța existentă, de peste 20 m, este superioară chiar și valorii maxime de 10 m. c) Măsuri constructive: limitarea propagării pe fațade și acoperiș se realizează prin soluția constructivă existentă. 3.4. Evacuarea utilizatorilor a) măsuri pentru asigurarea controlului fumului: evacuarea fumului în caz de incendiu se realizează prin spațiile vitrate. b) tipul scărilor, forma și modul de dispunere a treptelor: evacuarea de la mansardă și supantă se face pe o scară închisă; scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform P 118-99, art. 2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare: ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux; geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4 . d) numărul fluxurilor de evacuare: pentru demisol, raportat la 120 utilizatori, rezultă F = N / ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99 prevede distanțe minime de 6 m",
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "3.4",
+        "titleExact": "Evacuarea utilizatorilor a) măsuri pentru asigurarea controlului fumului: evacuarea fumului în caz de incendiu se realizează prin spațiile v",
+        "order": 9,
+        "reportType": "preliminar",
+        "sourceFragment": "stanța existentă, de peste 20 m, este superioară chiar și valorii maxime de 10 m. c) Măsuri constructive: limitarea propagării pe fațade și acoperiș se realizează prin soluția constructivă existentă. 3.4. Evacuarea utilizatorilor a) măsuri pentru asigurarea controlului fumului: evacuarea fumului în caz de incendiu se realizează prin spațiile vitrate. b) tipul scărilor, forma și modul de dispunere a treptelor: evacuarea de la mansardă și supantă se face pe o scară închisă; scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform P 118-99, art. 2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare: ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux; geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4 . d) numărul fluxurilor de evacuare: pentru demisol, raportat la 120 utilizatori, rezultă F = N / C = 120 / 70 = 1,71, deci sunt necesare 2 fluxuri; pentru parter, raportat la 150 utilizatori, rezultă F = N / C = 150 / 70 = 2,14, deci sunt necesare 3 fluxuri; pentru mansardă și supantă, raportat la 22 utilizatori, un flux este suficient; verificarea se face conform P 118-99, art. 2.6.55, art. 2.6.56 și art. 3.6.4",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "2.6",
+        "titleExact": "40 și art",
+        "order": 10,
+        "reportType": "preliminar",
+        "sourceFragment": "de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform P 118-99, art. 2.6.40 și art. 3.6.4 . c) geometria căilor de evacuare: ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux; geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4 . d) numărul fluxurilor de evacuare: pentru demisol, raportat la 120 utilizatori, rezultă F = N / C = 120 / 70 = 1,71, deci sunt necesare 2 fluxuri; pentru parter, raportat la 150 utilizatori, rezultă F = N / C = 150 / 70 = 2,14, deci sunt necesare 3 fluxuri; pentru mansardă și supantă, raportat la 22 utilizatori, un flux este suficient; verificarea se face conform P 118-99, art. 2.6.55, art. 2.6.56 și art. 3.6.4 . 3.5. Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu a) măsuri de acces și evacuare asistată: Nu rezultă din datele proiectului categorii de persoane care nu se pot evacua singure. 3.6. Securitatea forțelor de intervenție a) amenajări pentru accesul forțelor de intervenție în clădire și incintă, pentru autospeciale și pentru ascensoarele de incendiu: intervenția se poate desfășura pe toate laturile accesibile ale clădirii. ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "3.5",
+        "titleExact": "Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacu",
+        "order": 11,
+        "reportType": "preliminar",
+        "sourceFragment": "70 = 2,14, deci sunt necesare 3 fluxuri; pentru mansardă și supantă, raportat la 22 utilizatori, un flux este suficient; verificarea se face conform P 118-99, art. 2.6.55, art. 2.6.56 și art. 3.6.4 . 3.5. Măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu a) măsuri de acces și evacuare asistată: Nu rezultă din datele proiectului categorii de persoane care nu se pot evacua singure. 3.6. Securitatea forțelor de intervenție a) amenajări pentru accesul forțelor de intervenție în clădire și incintă, pentru autospeciale și pentru ascensoarele de incendiu: intervenția se poate desfășura pe toate laturile accesibile ale clădirii. b) caracteristici tehnice și funcționale ale accesurilor carosabile și ale căilor de intervenție ale autospecialelor, proiectate conform reglementărilor tehnice, regulamentului general de urbanism și reglementărilor specifice de aplicare: numărul de accesuri: acces principal din str. Mărășești. dimensiuni/gabarite: lățimea căii de acces este mai mare de 3,80 m. trasee: accesul autospecialelor este posibil până în zona obiectivului, pe traseul carosabil existent. realizare și marcare: căile de acces sunt realizate pentru trafic greu. c) ascensoare de pompieri: nu este cazul. 4. Instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu” - în funcție de nivelul de echipare 4.1. Hidranți de incendiu interiori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art. 4.1 lit. i), modificat prin Ordinul nr. 6026/2018 . a) tipul instalației (apă-apă, aer-apă, aer-aer): Nu este cazul. Nu",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118-99",
+          "P 118/2-2013"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "3.6",
+        "titleExact": "Securitatea forțelor de intervenție a) amenajări pentru accesul forțelor de intervenție în clădire și incintă, pentru autospeciale și pentru",
+        "order": 12,
+        "reportType": "preliminar",
+        "sourceFragment": " categorii de persoane care nu se pot evacua singure în caz de incendiu a) măsuri de acces și evacuare asistată: Nu rezultă din datele proiectului categorii de persoane care nu se pot evacua singure. 3.6. Securitatea forțelor de intervenție a) amenajări pentru accesul forțelor de intervenție în clădire și incintă, pentru autospeciale și pentru ascensoarele de incendiu: intervenția se poate desfășura pe toate laturile accesibile ale clădirii. b) caracteristici tehnice și funcționale ale accesurilor carosabile și ale căilor de intervenție ale autospecialelor, proiectate conform reglementărilor tehnice, regulamentului general de urbanism și reglementărilor specifice de aplicare: numărul de accesuri: acces principal din str. Mărășești. dimensiuni/gabarite: lățimea căii de acces este mai mare de 3,80 m. trasee: accesul autospecialelor este posibil până în zona obiectivului, pe traseul carosabil existent. realizare și marcare: căile de acces sunt realizate pentru trafic greu. c) ascensoare de pompieri: nu este cazul. 4. Instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu” - în funcție de nivelul de echipare 4.1. Hidranți de incendiu interiori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art. 4.1 lit. i), modificat prin Ordinul nr. 6026/2018 . a) tipul instalației (apă-apă, aer-apă, aer-aer): Nu este cazul. Nu se prevăd. b) volumul construcției / compartiment de incendiu: 2900 m3 / 1 compartiment de incendiu. c) număr de jeturi în funcțiune simultană: Nu este cazul. d) timp teoretic de funcționare: Nu este cazul. e) număr de jeturi pe punct: Nu este cazul. f) debit de calcul: Nu este cazul. g) presiune: Nu",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.1",
+        "titleExact": "Hidranți de incendiu interiori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art",
+        "order": 13,
+        "reportType": "preliminar",
+        "sourceFragment": "cces sunt realizate pentru trafic greu. c) ascensoare de pompieri: nu este cazul. 4. Instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu” - în funcție de nivelul de echipare 4.1. Hidranți de incendiu interiori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art. 4.1 lit. i), modificat prin Ordinul nr. 6026/2018 . a) tipul instalației (apă-apă, aer-apă, aer-aer): Nu este cazul. Nu se prevăd. b) volumul construcției / compartiment de incendiu: 2900 m3 / 1 compartiment de incendiu. c) număr de jeturi în funcțiune simultană: Nu este cazul. d) timp teoretic de funcționare: Nu este cazul. e) număr de jeturi pe punct: Nu este cazul. f) debit de calcul: Nu este cazul. g) presiune: Nu este cazul. h) număr de racorduri exterioare: Nu este cazul. i) sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă: Nu este cazul. j) caracteristici funcționale ale grupului de pompare: Nu este cazul. 4.2. Hidranți de incendiu exteriori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art. 6.1 alin. (4) lit. i), modificat prin Ordinul nr. 6026/2018 . a) distanțele față de construcție: Nu este cazul. Nu se prevăd. b) vol. compartiment incendiu: 2900 m3. c) timp teoretic de funcționare: Nu este cazul. d) debit de calcul: Nu este cazul. e) presiune: Nu este cazul. f) sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă: Rețeaua publică / hidranți stradali ai localității. g) caracteristici funcționale ale grupului de pompare: Nu este cazul. 4.3. Instalații automate de stingere a incendiilor cu sprinklere ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.2",
+        "titleExact": "Hidranți de incendiu exteriori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art",
+        "order": 14,
+        "reportType": "preliminar",
+        "sourceFragment": "Nu este cazul. i) sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă: Nu este cazul. j) caracteristici funcționale ale grupului de pompare: Nu este cazul. 4.2. Hidranți de incendiu exteriori Nu este obligatorie, pentru obiectiv de cult cu circa 150 utilizatori, conform P 118/2-2013, art. 6.1 alin. (4) lit. i), modificat prin Ordinul nr. 6026/2018 . a) distanțele față de construcție: Nu este cazul. Nu se prevăd. b) vol. compartiment incendiu: 2900 m3. c) timp teoretic de funcționare: Nu este cazul. d) debit de calcul: Nu este cazul. e) presiune: Nu este cazul. f) sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă: Rețeaua publică / hidranți stradali ai localității. g) caracteristici funcționale ale grupului de pompare: Nu este cazul. 4.3. Instalații automate de stingere a incendiilor cu sprinklere Nu este obligatorie, obiectiv fără spații sau condiții care să impună echiparea cu sprinklere, conform P 118/2-2013, art. 7.1 . a) soluția tehnică de realizare a instalației: Nu se prevede. b) clasa de pericol de incendiu: Nu este cazul. c) categoria de depozitare și modul de depozitare: Nu este cazul. d) aria maximă acoperită de un sprinkler: Nu este cazul. e) densitatea de calcul: Nu este cazul. f) aria de declanșare simultană: Nu este cazul. g) presiune: Nu este cazul. h) sursa de alimentare cu apă a instalației: Nu este cazul. i) volumul rezervei de apă: Nu este cazul. j) numărul de racorduri exterioare: Nu este cazul. 4.4. Instalații de limitare și stingere a incendiilor cu sprinklere deschise Nu este obligatorie, obiectiv fără goluri sau zone de protecție locală care să impună sprinkle",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.3",
+        "titleExact": "Instalații automate de stingere a incendiilor cu sprinklere Nu este obligatorie, obiectiv fără spații sau condiții care să impună echiparea",
+        "order": 15,
+        "reportType": "preliminar",
+        "sourceFragment": " cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă: Rețeaua publică / hidranți stradali ai localității. g) caracteristici funcționale ale grupului de pompare: Nu este cazul. 4.3. Instalații automate de stingere a incendiilor cu sprinklere Nu este obligatorie, obiectiv fără spații sau condiții care să impună echiparea cu sprinklere, conform P 118/2-2013, art. 7.1 . a) soluția tehnică de realizare a instalației: Nu se prevede. b) clasa de pericol de incendiu: Nu este cazul. c) categoria de depozitare și modul de depozitare: Nu este cazul. d) aria maximă acoperită de un sprinkler: Nu este cazul. e) densitatea de calcul: Nu este cazul. f) aria de declanșare simultană: Nu este cazul. g) presiune: Nu este cazul. h) sursa de alimentare cu apă a instalației: Nu este cazul. i) volumul rezervei de apă: Nu este cazul. j) numărul de racorduri exterioare: Nu este cazul. 4.4. Instalații de limitare și stingere a incendiilor cu sprinklere deschise Nu este obligatorie, obiectiv fără goluri sau zone de protecție locală care să impună sprinklere deschise, conform P 118/2-2013, art. 7.131 . a) zona protejată: Nu se prevăd. b) înălțimea golului: Nu este cazul. c) aria / lungimea zonei protejate: Nu este cazul. d) timp teoretic de funcționare: Nu este cazul. e) intensitate de răcire: Nu este cazul. f) intensitatea de stropire: Nu este cazul. 4.5. Instalații de stingere cu apă pulverizată Nu este obligatorie, obiectiv fără echipamente sau instalații care să impună stingere cu apă pulverizată, conform P 118/2-2013, art. 8.1 . a) densitate minimă de pulverizare: Nu se prevăd. b) timp de funcționare: Nu este cazul. c) rezerva de apă: Nu este cazul. 4.6. Instalații de sti",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.4",
+        "titleExact": "Instalații de limitare și stingere a incendiilor cu sprinklere deschise Nu este obligatorie, obiectiv fără goluri sau zone de protecție loca",
+        "order": 16,
+        "reportType": "preliminar",
+        "sourceFragment": "ă: Nu este cazul. g) presiune: Nu este cazul. h) sursa de alimentare cu apă a instalației: Nu este cazul. i) volumul rezervei de apă: Nu este cazul. j) numărul de racorduri exterioare: Nu este cazul. 4.4. Instalații de limitare și stingere a incendiilor cu sprinklere deschise Nu este obligatorie, obiectiv fără goluri sau zone de protecție locală care să impună sprinklere deschise, conform P 118/2-2013, art. 7.131 . a) zona protejată: Nu se prevăd. b) înălțimea golului: Nu este cazul. c) aria / lungimea zonei protejate: Nu este cazul. d) timp teoretic de funcționare: Nu este cazul. e) intensitate de răcire: Nu este cazul. f) intensitatea de stropire: Nu este cazul. 4.5. Instalații de stingere cu apă pulverizată Nu este obligatorie, obiectiv fără echipamente sau instalații care să impună stingere cu apă pulverizată, conform P 118/2-2013, art. 8.1 . a) densitate minimă de pulverizare: Nu se prevăd. b) timp de funcționare: Nu este cazul. c) rezerva de apă: Nu este cazul. 4.6. Instalații de stingere cu ceață de apă Nu este obligatorie, obiectiv fără spații sau condiții speciale care să impună stingere cu ceață de apă, conform P 118/2-2013, art. 9.1 . a) debit specific: Nu se prevăd. b) aria de declanșare simultană: Nu este cazul. c) intensitate de pulverizare: Nu este cazul. d) intensitate de stingere: Nu este cazul. e) rezerva de apă: Nu este cazul. f) timp teoretic de funcționare: Nu este cazul. 4.7. Instalații de stingere cu gaze inerte Nu este obligatorie, obiectiv fără încăperi sau echipamente speciale care să impună stingere cu gaze inerte, conform P 118/2-2013, art. 15.1 . a) tipul agentului de stingere: Nu se prevăd. b) concentrația de stingere: Nu este cazul. c) volum",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.5",
+        "titleExact": "Instalații de stingere cu apă pulverizată Nu este obligatorie, obiectiv fără echipamente sau instalații care să impună stingere cu apă pulve",
+        "order": 17,
+        "reportType": "preliminar",
+        "sourceFragment": " Nu este cazul. c) aria / lungimea zonei protejate: Nu este cazul. d) timp teoretic de funcționare: Nu este cazul. e) intensitate de răcire: Nu este cazul. f) intensitatea de stropire: Nu este cazul. 4.5. Instalații de stingere cu apă pulverizată Nu este obligatorie, obiectiv fără echipamente sau instalații care să impună stingere cu apă pulverizată, conform P 118/2-2013, art. 8.1 . a) densitate minimă de pulverizare: Nu se prevăd. b) timp de funcționare: Nu este cazul. c) rezerva de apă: Nu este cazul. 4.6. Instalații de stingere cu ceață de apă Nu este obligatorie, obiectiv fără spații sau condiții speciale care să impună stingere cu ceață de apă, conform P 118/2-2013, art. 9.1 . a) debit specific: Nu se prevăd. b) aria de declanșare simultană: Nu este cazul. c) intensitate de pulverizare: Nu este cazul. d) intensitate de stingere: Nu este cazul. e) rezerva de apă: Nu este cazul. f) timp teoretic de funcționare: Nu este cazul. 4.7. Instalații de stingere cu gaze inerte Nu este obligatorie, obiectiv fără încăperi sau echipamente speciale care să impună stingere cu gaze inerte, conform P 118/2-2013, art. 15.1 . a) tipul agentului de stingere: Nu se prevăd. b) concentrația de stingere: Nu este cazul. c) volumul protejat: Nu este cazul. 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI) Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i), modificat prin Ordinul nr. 6025/2018 , dar prin proiect se propune dotarea cu IDSAI. a) Gradul de acoperire: instalație adresabilă de semnalizare și alarmare la incendiu, cu acoperire pe demisol, ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013",
+          "P 118/3-2015"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.6",
+        "titleExact": "Instalații de stingere cu ceață de apă Nu este obligatorie, obiectiv fără spații sau condiții speciale care să impună stingere cu ceață de a",
+        "order": 18,
+        "reportType": "preliminar",
+        "sourceFragment": "care să impună stingere cu apă pulverizată, conform P 118/2-2013, art. 8.1 . a) densitate minimă de pulverizare: Nu se prevăd. b) timp de funcționare: Nu este cazul. c) rezerva de apă: Nu este cazul. 4.6. Instalații de stingere cu ceață de apă Nu este obligatorie, obiectiv fără spații sau condiții speciale care să impună stingere cu ceață de apă, conform P 118/2-2013, art. 9.1 . a) debit specific: Nu se prevăd. b) aria de declanșare simultană: Nu este cazul. c) intensitate de pulverizare: Nu este cazul. d) intensitate de stingere: Nu este cazul. e) rezerva de apă: Nu este cazul. f) timp teoretic de funcționare: Nu este cazul. 4.7. Instalații de stingere cu gaze inerte Nu este obligatorie, obiectiv fără încăperi sau echipamente speciale care să impună stingere cu gaze inerte, conform P 118/2-2013, art. 15.1 . a) tipul agentului de stingere: Nu se prevăd. b) concentrația de stingere: Nu este cazul. c) volumul protejat: Nu este cazul. 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI) Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i), modificat prin Ordinul nr. 6025/2018 , dar prin proiect se propune dotarea cu IDSAI. a) Gradul de acoperire: instalație adresabilă de semnalizare și alarmare la incendiu, cu acoperire pe demisol, parter, etaj 1 și etaj 2, prin 4 bucle de detecție și comandă. b) Condiții privind stabilirea zonei de detectare: butoane de avertizare incendiu, detectoare adresabile și sirene interioare / exterioare. c) Condiții de amplasare E.C.S.: centrala de semnalizare prevăzută la demisol, în încăperea cu destinația ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013",
+          "P 118/3-2015"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.7",
+        "titleExact": "Instalații de stingere cu gaze inerte Nu este obligatorie, obiectiv fără încăperi sau echipamente speciale care să impună stingere cu gaze i",
+        "order": 19,
+        "reportType": "preliminar",
+        "sourceFragment": "re simultană: Nu este cazul. c) intensitate de pulverizare: Nu este cazul. d) intensitate de stingere: Nu este cazul. e) rezerva de apă: Nu este cazul. f) timp teoretic de funcționare: Nu este cazul. 4.7. Instalații de stingere cu gaze inerte Nu este obligatorie, obiectiv fără încăperi sau echipamente speciale care să impună stingere cu gaze inerte, conform P 118/2-2013, art. 15.1 . a) tipul agentului de stingere: Nu se prevăd. b) concentrația de stingere: Nu este cazul. c) volumul protejat: Nu este cazul. 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI) Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i), modificat prin Ordinul nr. 6025/2018 , dar prin proiect se propune dotarea cu IDSAI. a) Gradul de acoperire: instalație adresabilă de semnalizare și alarmare la incendiu, cu acoperire pe demisol, parter, etaj 1 și etaj 2, prin 4 bucle de detecție și comandă. b) Condiții privind stabilirea zonei de detectare: butoane de avertizare incendiu, detectoare adresabile și sirene interioare / exterioare. c) Condiții de amplasare E.C.S.: centrala de semnalizare prevăzută la demisol, în încăperea cu destinația spațiu vânzare. d) alte dispozitive comandate sau supravegheate de E.C.S.: sirene interioare / exterioare, butoane de avertizare incendiu, detectoare adresabile. 4.9. Instalație de desfumare / evacuare fum și gaze fierbinți Nu este obligatorie dotarea cu instalație de desfumare / evacuare a fumului și a gazelor fierbinți, neavând degajamente protejate, tuneluri de evacuare, circulații comune orizontale deschise spre atrium și alte",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013",
+          "P 118/3-2015"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.8",
+        "titleExact": "Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI) Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane",
+        "order": 20,
+        "reportType": "preliminar",
+        "sourceFragment": "care să impună stingere cu gaze inerte, conform P 118/2-2013, art. 15.1 . a) tipul agentului de stingere: Nu se prevăd. b) concentrația de stingere: Nu este cazul. c) volumul protejat: Nu este cazul. 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI) Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i), modificat prin Ordinul nr. 6025/2018 , dar prin proiect se propune dotarea cu IDSAI. a) Gradul de acoperire: instalație adresabilă de semnalizare și alarmare la incendiu, cu acoperire pe demisol, parter, etaj 1 și etaj 2, prin 4 bucle de detecție și comandă. b) Condiții privind stabilirea zonei de detectare: butoane de avertizare incendiu, detectoare adresabile și sirene interioare / exterioare. c) Condiții de amplasare E.C.S.: centrala de semnalizare prevăzută la demisol, în încăperea cu destinația spațiu vânzare. d) alte dispozitive comandate sau supravegheate de E.C.S.: sirene interioare / exterioare, butoane de avertizare incendiu, detectoare adresabile. 4.9. Instalație de desfumare / evacuare fum și gaze fierbinți Nu este obligatorie dotarea cu instalație de desfumare / evacuare a fumului și a gazelor fierbinți, neavând degajamente protejate, tuneluri de evacuare, circulații comune orizontale deschise spre atrium și alte situații reglementate distinct, conform P 118/1-2025, cap. 8 - Sisteme de control al fumului și al gazelor fierbinți în caz de incendiu . a) metoda de desfumare: Desfumare naturală, prin spațiile vitrate. b) spațiile desfumate: Spațiile afectate de fum, conform deschiderilor existente. c) aria spațiului necesa",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/2-2013",
+          "P 118/3-2015",
+          "P 118/1-2025"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.9",
+        "titleExact": "Instalație de desfumare / evacuare fum și gaze fierbinți Nu este obligatorie dotarea cu instalație de desfumare / evacuare a fumului și a ga",
+        "order": 21,
+        "reportType": "preliminar",
+        "sourceFragment": "a demisol, în încăperea cu destinația spațiu vânzare. d) alte dispozitive comandate sau supravegheate de E.C.S.: sirene interioare / exterioare, butoane de avertizare incendiu, detectoare adresabile. 4.9. Instalație de desfumare / evacuare fum și gaze fierbinți Nu este obligatorie dotarea cu instalație de desfumare / evacuare a fumului și a gazelor fierbinți, neavând degajamente protejate, tuneluri de evacuare, circulații comune orizontale deschise spre atrium și alte situații reglementate distinct, conform P 118/1-2025, cap. 8 - Sisteme de control al fumului și al gazelor fierbinți în caz de incendiu . a) metoda de desfumare: Desfumare naturală, prin spațiile vitrate. b) spațiile desfumate: Spațiile afectate de fum, conform deschiderilor existente. c) aria spațiului necesar desfumării / suprafața efectivă de desfumare: Nu este cazul. Nu se prevăd distinct în această etapă. d) debitul specific pentru introducere aer: Nu este cazul. e) rezistență la foc tubulatură: Nu este cazul. f) interacțiuni cu alte sisteme de protecție: Nu este cazul. 4.10. Instalație electrică Este obligatorie dotarea, conform I7-2011, pct. 7.22.1 și pct. 7.23.9.1 lit. c) și f), cu modificările prin Ordinul nr. 959/2023 . a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică): alimentarea se realizează din sursa de bază prin tablourile electrice și, pentru E.C.S. și circuitele dedicate, prin surse de rezervă locale; sunt avute în vedere și declanșatoarele manuale de alarmă. b) pentru iluminat de siguranță (tip, zone deservite, condiții de alimentare și funcționare): se prevede iluminat de securitate pentru evacuare, împotriva pani",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "P 118/1-2025",
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.10",
+        "titleExact": "Instalație electrică Este obligatorie dotarea, conform I7-2011, pct",
+        "order": 22,
+        "reportType": "preliminar",
+        "sourceFragment": "evăd distinct în această etapă. d) debitul specific pentru introducere aer: Nu este cazul. e) rezistență la foc tubulatură: Nu este cazul. f) interacțiuni cu alte sisteme de protecție: Nu este cazul. 4.10. Instalație electrică Este obligatorie dotarea, conform I7-2011, pct. 7.22.1 și pct. 7.23.9.1 lit. c) și f), cu modificările prin Ordinul nr. 959/2023 . a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică): alimentarea se realizează din sursa de bază prin tablourile electrice și, pentru E.C.S. și circuitele dedicate, prin surse de rezervă locale; sunt avute în vedere și declanșatoarele manuale de alarmă. b) pentru iluminat de siguranță (tip, zone deservite, condiții de alimentare și funcționare): se prevede iluminat de securitate pentru evacuare, împotriva panicii și pentru intervenție; iluminatul de securitate pentru evacuare este prevăzut pe căile de evacuare, la ieșiri, schimbări de direcție și lângă echipamentele de intervenție; iluminatul de securitate împotriva panicii este prevăzut în zonele cu aglomerări de persoane, corelat cu pronaosul și naosul; iluminatul pentru intervenții este prevăzut la centrala termică și la punctele de intervenție; iluminatul de siguranță pentru continuarea lucrului rămâne de verificat și de corelat cu tabloul electric general / spațiul E.C.S.; iluminatul local pentru indicarea pozițiilor unor echipamente și aparate este prevăzut la stingătoare, tablouri electrice, E.C.S. și declanșatoare manuale de alarmă; pentru hidranți interiori nu este cazul. Este obligatorie pentru evacuare, conform I 7-2011, art. 7.23.2 lit. c) pct. 1 și art. 7.23.8.1, cu modificările prin O",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I7-2011",
+          "I 7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "7.22",
+        "titleExact": "1 și pct",
+        "order": 23,
+        "reportType": "preliminar",
+        "sourceFragment": " Nu este cazul. e) rezistență la foc tubulatură: Nu este cazul. f) interacțiuni cu alte sisteme de protecție: Nu este cazul. 4.10. Instalație electrică Este obligatorie dotarea, conform I7-2011, pct. 7.22.1 și pct. 7.23.9.1 lit. c) și f), cu modificările prin Ordinul nr. 959/2023 . a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică): alimentarea se realizează din sursa de bază prin tablourile electrice și, pentru E.C.S. și circuitele dedicate, prin surse de rezervă locale; sunt avute în vedere și declanșatoarele manuale de alarmă. b) pentru iluminat de siguranță (tip, zone deservite, condiții de alimentare și funcționare): se prevede iluminat de securitate pentru evacuare, împotriva panicii și pentru intervenție; iluminatul de securitate pentru evacuare este prevăzut pe căile de evacuare, la ieșiri, schimbări de direcție și lângă echipamentele de intervenție; iluminatul de securitate împotriva panicii este prevăzut în zonele cu aglomerări de persoane, corelat cu pronaosul și naosul; iluminatul pentru intervenții este prevăzut la centrala termică și la punctele de intervenție; iluminatul de siguranță pentru continuarea lucrului rămâne de verificat și de corelat cu tabloul electric general / spațiul E.C.S.; iluminatul local pentru indicarea pozițiilor unor echipamente și aparate este prevăzut la stingătoare, tablouri electrice, E.C.S. și declanșatoare manuale de alarmă; pentru hidranți interiori nu este cazul. Este obligatorie pentru evacuare, conform I 7-2011, art. 7.23.2 lit. c) pct. 1 și art. 7.23.8.1, cu modificările prin Ordinul nr. 959/2023 . c) dispozitiv de protecție cu curent diferențial rezi",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I7-2011",
+          "I 7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "23.9",
+        "titleExact": "1 lit",
+        "order": 24,
+        "reportType": "preliminar",
+        "sourceFragment": ") rezistență la foc tubulatură: Nu este cazul. f) interacțiuni cu alte sisteme de protecție: Nu este cazul. 4.10. Instalație electrică Este obligatorie dotarea, conform I7-2011, pct. 7.22.1 și pct. 7.23.9.1 lit. c) și f), cu modificările prin Ordinul nr. 959/2023 . a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică): alimentarea se realizează din sursa de bază prin tablourile electrice și, pentru E.C.S. și circuitele dedicate, prin surse de rezervă locale; sunt avute în vedere și declanșatoarele manuale de alarmă. b) pentru iluminat de siguranță (tip, zone deservite, condiții de alimentare și funcționare): se prevede iluminat de securitate pentru evacuare, împotriva panicii și pentru intervenție; iluminatul de securitate pentru evacuare este prevăzut pe căile de evacuare, la ieșiri, schimbări de direcție și lângă echipamentele de intervenție; iluminatul de securitate împotriva panicii este prevăzut în zonele cu aglomerări de persoane, corelat cu pronaosul și naosul; iluminatul pentru intervenții este prevăzut la centrala termică și la punctele de intervenție; iluminatul de siguranță pentru continuarea lucrului rămâne de verificat și de corelat cu tabloul electric general / spațiul E.C.S.; iluminatul local pentru indicarea pozițiilor unor echipamente și aparate este prevăzut la stingătoare, tablouri electrice, E.C.S. și declanșatoare manuale de alarmă; pentru hidranți interiori nu este cazul. Este obligatorie pentru evacuare, conform I 7-2011, art. 7.23.2 lit. c) pct. 1 și art. 7.23.8.1, cu modificările prin Ordinul nr. 959/2023 . c) dispozitiv de protecție cu curent diferențial rezidual (DDR): De ve",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I7-2011",
+          "I 7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "7.23",
+        "titleExact": "2 lit",
+        "order": 25,
+        "reportType": "preliminar",
+        "sourceFragment": " aparate este prevăzut la stingătoare, tablouri electrice, E.C.S. și declanșatoare manuale de alarmă; pentru hidranți interiori nu este cazul. Este obligatorie pentru evacuare, conform I 7-2011, art. 7.23.2 lit. c) pct. 1 și art. 7.23.8.1, cu modificările prin Ordinul nr. 959/2023 . c) dispozitiv de protecție cu curent diferențial rezidual (DDR): De verificat și corelat cu documentația electrică finală. d) dispozitiv de detectare a defectului de arc electric (AFDD): Nu e cazul. Nu se prevede. 4.11. Instalație de protecție împotriva trăsnetului Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru întreaga clădire, conform I7-2011, pct. 6.2.1.2, cu modificările prin Ordinul nr. 959/2023 . a) clasa IPT și SPT: instalație de protecție împotriva trăsnetului pentru întreaga clădire. b) nivel de protecție: De verificat și corelat cu documentația de instalații electrice actuală. c) metoda de protecție: instalație de protecție împotriva trăsnetului pentru întreaga clădire, cu elemente de captare și coborâtori racordați la priza de pământ. 5. Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu Prevederea din reglementările tehnice de proiectare care nu poate fi respectată Nu este cazul, deoarece se respectă. ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I 7-2011",
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "23.8",
+        "titleExact": "1, cu modificările prin Ordinul nr",
+        "order": 26,
+        "reportType": "preliminar",
+        "sourceFragment": "toare, tablouri electrice, E.C.S. și declanșatoare manuale de alarmă; pentru hidranți interiori nu este cazul. Este obligatorie pentru evacuare, conform I 7-2011, art. 7.23.2 lit. c) pct. 1 și art. 7.23.8.1, cu modificările prin Ordinul nr. 959/2023 . c) dispozitiv de protecție cu curent diferențial rezidual (DDR): De verificat și corelat cu documentația electrică finală. d) dispozitiv de detectare a defectului de arc electric (AFDD): Nu e cazul. Nu se prevede. 4.11. Instalație de protecție împotriva trăsnetului Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru întreaga clădire, conform I7-2011, pct. 6.2.1.2, cu modificările prin Ordinul nr. 959/2023 . a) clasa IPT și SPT: instalație de protecție împotriva trăsnetului pentru întreaga clădire. b) nivel de protecție: De verificat și corelat cu documentația de instalații electrice actuală. c) metoda de protecție: instalație de protecție împotriva trăsnetului pentru întreaga clădire, cu elemente de captare și coborâtori racordați la priza de pământ. 5. Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu Prevederea din reglementările tehnice de proiectare care nu poate fi respectată Nu este cazul, deoarece se respectă. ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I 7-2011",
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "4.11",
+        "titleExact": "Instalație de protecție împotriva trăsnetului Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru întreaga clădire,",
+        "order": 27,
+        "reportType": "preliminar",
+        "sourceFragment": "de protecție cu curent diferențial rezidual (DDR): De verificat și corelat cu documentația electrică finală. d) dispozitiv de detectare a defectului de arc electric (AFDD): Nu e cazul. Nu se prevede. 4.11. Instalație de protecție împotriva trăsnetului Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru întreaga clădire, conform I7-2011, pct. 6.2.1.2, cu modificările prin Ordinul nr. 959/2023 . a) clasa IPT și SPT: instalație de protecție împotriva trăsnetului pentru întreaga clădire. b) nivel de protecție: De verificat și corelat cu documentația de instalații electrice actuală. c) metoda de protecție: instalație de protecție împotriva trăsnetului pentru întreaga clădire, cu elemente de captare și coborâtori racordați la priza de pământ. 5. Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu Prevederea din reglementările tehnice de proiectare care nu poate fi respectată Nu este cazul, deoarece se respectă. ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      },
+      {
+        "code": "2.1",
+        "titleExact": "2, cu modificările prin Ordinul nr",
+        "order": 28,
+        "reportType": "preliminar",
+        "sourceFragment": ": Nu e cazul. Nu se prevede. 4.11. Instalație de protecție împotriva trăsnetului Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru întreaga clădire, conform I7-2011, pct. 6.2.1.2, cu modificările prin Ordinul nr. 959/2023 . a) clasa IPT și SPT: instalație de protecție împotriva trăsnetului pentru întreaga clădire. b) nivel de protecție: De verificat și corelat cu documentația de instalații electrice actuală. c) metoda de protecție: instalație de protecție împotriva trăsnetului pentru întreaga clădire, cu elemente de captare și coborâtori racordați la priza de pământ. 5. Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu Prevederea din reglementările tehnice de proiectare care nu poate fi respectată Nu este cazul, deoarece se respectă. ",
+        "requiredFields": [],
+        "extractionRulesFromMemorii": [
+          "Extrage doar din memorii/scenariu pentru același cod de subpunct."
+        ],
+        "calculationOrDeductionRules": [
+          "Aplică calcule doar când apar praguri explicite în fragment."
+        ],
+        "normativeActsAndArticles": [
+          "I7-2011"
+        ],
+        "fallbackWhenMissingData": [
+          "\"nu sunt date\" + needs_manual_review=true"
+        ],
+        "forbiddenPatterns": [
+          "Nu amesteca date între subpuncte diferite."
+        ],
+        "proposedAutomatedTests": [
+          "test_exact_code_match",
+          "test_fragment_non_empty",
+          "test_no_cross_subpoint_leakage"
+        ]
+      }
     ]
-  },
-  "documents": {
-    "normal": {
-      "file": "ssi-normal-v58.html",
-      "title": "SCENARIU DE SECURITATE LA INCENDIU"
-    },
-    "preliminar": {
-      "file": "ssi-preliminar-v85.html",
-      "title": "SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR"
-    }
-  },
-  "sections": [
-    {"code": "1.1", "title": "Date de identificare", "presentIn": ["v58", "v85"]},
-    {"code": "1.2", "title": "Destinația", "presentIn": ["v58", "v85"]},
-    {"code": "1.3", "title": "Categoria și clasa de importanță", "presentIn": ["v58", "v85"]},
-    {"code": "1.4", "title": "Particularități specifice construcției/amenajării", "presentIn": ["v58", "v85"]},
-    {"code": "2", "title": "Identificarea și stabilirea nivelurilor de risc de incendiu", "presentIn": ["v58", "v85"]},
-    {"code": "3", "title": "Nivelurile criteriilor de performanță privind securitatea la incendiu", "presentIn": ["v58", "v85"]},
-    {"code": "4", "title": "Echiparea și dotarea cu instalații cu rol în securitatea la incendiu", "presentIn": ["v58", "v85"]},
-    {"code": "5", "title": "Măsuri tehnico-organizatorice privind exploatarea", "presentIn": ["v58", "v85"]},
-    {"code": "6", "title": "Măsuri compensatorii", "presentIn": ["v58", "v85"]}
-  ],
-  "keyAlignment": {
-    "objective": "Lăcaș de cult - Parohia Ortodoxă Învierea Domnului, Brașov",
-    "heightRegime": "D+P+Sp+M",
-    "builtAreaM2": 350.75,
-    "totalAreaM2": 693.08,
-    "maxUsers": 150
   }
 }
