@@ -31,7 +31,7 @@ test('1.4 value checks across 3 memorii + reset/no leakage', async ({ page }) =>
 
     await page.locator('[data-tab-target="normalTab"]').click();
     const normal = await page.locator('#normalReportOutput').inputValue();
-    expect(normal).toMatch(/1\.4\./);
+    expect(normal).toMatch(/1\.4\b/);
     expect(normal).toMatch(/1\.4\.a[\s\S]*:/i);
     expect(normal).toMatch(/1\.4\.b[\s\S]*:/i);
     expect(normal).toMatch(/1\.4\.c[\s\S]*:/i);
@@ -43,8 +43,9 @@ test('1.4 value checks across 3 memorii + reset/no leakage', async ({ page }) =>
 
     await page.locator('[data-tab-target="preliminaryTab"]').click();
     const prelim = await page.locator('#preliminaryReportOutput').inputValue();
-    expect(prelim).toMatch(/1\.4\./);
+    expect(prelim).toMatch(/1\.4\b/);
     expect(prelim).toMatch(/tipul clădirii|tipul parcajului|regimul de înălțime|numărul maxim de utilizatori/i);
+    expect(prelim).toMatch(/volumul construcției|aria construită|aria desfășurată/i);
     expect(prelim).toMatch(/\n2\./);
 
     for (const re of fx.expect) {

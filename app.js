@@ -1260,11 +1260,12 @@ function resetReportsFromTemplates() {
 
 
 function buildPoint1ReportsFromTemplates() {
-  const dims = String(state.data.caracteristici_dimensionale || "");
-  const regimInaltime = dims.match(/regim\s+de\s+inaltime\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
-  const volumConstructie = dims.match(/volum\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
-  const ariaConstruita = dims.match(/arie\s+construit[ăa]\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
-  const ariaDesfasurata = dims.match(/arie\s+desf[ăa]șurat[ăa]\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
+  const dim = deriveDimensionParts(state.data, state.sources);
+  const regimInaltime = dim.regim || "";
+  const inaltimeMaxima = dim.inaltime || "";
+  const volumConstructie = dim.volum || "";
+  const ariaConstruita = dim.ariaConstruita || "";
+  const ariaDesfasurata = dim.ariaDesfasurata || "";
   const functiuni = String(state.data["funcțiuni"] || "").trim();
 
   const valueByLabel = {
@@ -1291,6 +1292,7 @@ function buildPoint1ReportsFromTemplates() {
     "tipul parcajului, cu precizarea numărului de autovehicule": state.data.tip_parcaj || "",
     "caracteristici dimensionale": state.data.caracteristici_dimensionale || "",
     "regimul de înălțime": regimInaltime || "De completat",
+    "înălțimea maximă": inaltimeMaxima || "De completat",
     "volumul construcției": volumConstructie || "De completat",
     "aria construită": ariaConstruita || "De completat",
     "aria desfășurată": ariaDesfasurata || "De completat",
@@ -7321,4 +7323,3 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
