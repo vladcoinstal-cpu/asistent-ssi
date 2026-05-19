@@ -120,7 +120,18 @@ const customExtractors = {
   },
   numar_utilizatori(lines, content) {
     const joined = lines.join(" ");
-    const total = joined.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
+    const pickLineValue = (regex) => {
+      const row = (lines || []).find((line) => regex.test(String(line || "")));
+      if (!row) return "";
+      return String(row)
+        .replace(regex, "")
+        .replace(/\s*(Capacit[aă]ti\s+de\s+depozitare|C[aă]i\s+de\s+evacuare)\s*:.*/i, "")
+        .trim();
+    };
+
+    const total = pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*/i)
+      || pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*/i)
+      || joined.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
       || joined.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
     const demisol = joined.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const parter = joined.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
@@ -1288,13 +1299,16 @@ function buildPoint1ReportsFromTemplates() {
 
   const render = (template, label) => {
     const clone = safeClone(template);
-    clone.sections = (Array.isArray(clone.sections) ? clone.sections : []).filter((sec) => String(sec.code || "") === "1");
+    clone.sections = Array.isArray(clone.sections) ? clone.sections : [];
     const applyField = (field) => {
       const key = normalize(field.label || field.title);
       if (valueByLabel[key]) field.value = valueByLabel[key];
       (Array.isArray(field.children) ? field.children : []).forEach(applyField);
     };
-    (clone.sections || []).forEach((sec) => (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach(applyField)));
+    (clone.sections || []).forEach((sec) => {
+      if (String(sec.code || "") !== "1") return;
+      (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach(applyField));
+    });
     return buildEmptyReportFromTemplate(clone, label);
   };
 
@@ -7287,7 +7301,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 
