@@ -1288,6 +1288,7 @@ function buildPoint1ReportsFromTemplates() {
 
   const render = (template, label) => {
     const clone = safeClone(template);
+    clone.sections = (Array.isArray(clone.sections) ? clone.sections : []).filter((sec) => String(sec.code || "") === "1");
     const applyField = (field) => {
       const key = normalize(field.label || field.title);
       if (valueByLabel[key]) field.value = valueByLabel[key];
