@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "http-server . -p 4173 -c-1",
     "test:e2e": "playwright test",
-    "test:e2e:headed": "playwright test --headed"
+    "test:e2e:headed": "playwright test --headed",
+    "test:integrity": "playwright test tests/ssi-template-integrity.spec.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",

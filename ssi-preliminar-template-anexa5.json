@@ -199,7 +199,7 @@
       "subpoints": [
         {
           "code": "2",
-          "title": "",
+          "title": "Nivelurile riscului de incendiu estimate pentru spatii/zone/compartimente",
           "value": "",
           "fallback": "nu este cazul",
           "fields": [
@@ -798,7 +798,24 @@
     {
       "code": "5",
       "title": "Măsuri compensatorii propuse în condițiile legii pentru construcțiile existente care nu pot îndeplini anumite cerințe din punctul de vedere al securității la incendiu",
-      "subpoints": []
+      "subpoints": [
+        {
+          "code": "5.1",
+          "title": "Masuri compensatorii propuse (placeholder pana la completare pe proiect)",
+          "value": "",
+          "fallback": "nu este cazul",
+          "fields": [
+            {
+              "label": "descriere masura compensatorie",
+              "value": ""
+            },
+            {
+              "label": "cerinta neindeplinita care impune masura",
+              "value": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
