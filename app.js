@@ -2107,8 +2107,8 @@ async function runAutotestSuite() {
   }
 }
 
-function handleAddManualText() {
-  const text = manualText.value.trim();
+function handleAddManualText(optionalText = "", optionalName = "") {
+  const text = String(optionalText || manualText?.value || "").trim();
 
   if (!text) {
     window.alert("Nu exista text de adaugat.");
@@ -2116,12 +2116,14 @@ function handleAddManualText() {
   }
 
   state.sources.push({
-    name: `Text manual ${state.sources.length + 1}`,
+    name: String(optionalName || "").trim() || `Text manual ${state.sources.length + 1}`,
     content: text,
     type: "manual"
   });
 
-  manualText.value = "";
+  if (manualText) {
+    manualText.value = "";
+  }
   markActiveProjectDirty();
   refreshUI();
   saveActiveProjectStateFromUI();
@@ -7305,6 +7307,5 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
