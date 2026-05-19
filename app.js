@@ -1188,14 +1188,35 @@ const POINT_1_FIELD_KEYS = new Set([
 
 function buildEmptyReportFromTemplate(template, label) {
   if (!template || !Array.isArray(template.sections)) return `${label}: template indisponibil.`;
+
   const lines = [label];
+
+  const renderFieldTree = (field, depth = 2) => {
+    if (!field || typeof field !== "object") return;
+    const indent = "  ".repeat(depth);
+    const fieldLabel = field.label || field.title || "camp";
+    lines.push(`${indent}- ${fieldLabel}: ${field.value || ""}`);
+    const children = Array.isArray(field.children) ? field.children : [];
+    children.forEach((child) => renderFieldTree(child, depth + 1));
+  };
+
+  const renderSubpointTree = (subpoint, depth = 1) => {
+    if (!subpoint || typeof subpoint !== "object") return;
+    const indent = "  ".repeat(depth);
+    lines.push(`${indent}${subpoint.code || ""} ${subpoint.title || ""}`.trimEnd());
+
+    const fields = Array.isArray(subpoint.fields) ? subpoint.fields : [];
+    fields.forEach((field) => renderFieldTree(field, depth + 1));
+
+    const nestedSubpoints = Array.isArray(subpoint.subpoints) ? subpoint.subpoints : [];
+    nestedSubpoints.forEach((nested) => renderSubpointTree(nested, depth + 1));
+  };
+
   template.sections.forEach((section) => {
     lines.push(`${section.code}. ${section.title}`);
-    (section.subpoints || []).forEach((sp) => {
-      lines.push(`  ${sp.code} ${sp.title}`);
-      (sp.fields || []).forEach((field) => lines.push(`    - ${field.label}: ${field.value || ""}`));
-    });
+    (section.subpoints || []).forEach((sp) => renderSubpointTree(sp, 1));
   });
+
   return lines.join("\n");
 }
 
