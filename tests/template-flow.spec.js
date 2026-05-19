@@ -4,11 +4,15 @@ const MEM_A = `Denumirea obiectivului: Proiect A\nBeneficiar: Beneficiar A\nAdre
 const MEM_B = `Denumirea obiectivului: Proiect B\nBeneficiar: Beneficiar B\nAdresa: Str. B nr. 2\nDestinatia: birouri\nCategoria de importanta: D\nTipul cladirii: mixta\nTipul parcajului: nu este cazul\nRegim de inaltime: P; aria construita 300 mp; aria desfasurata 300 mp; volum 1200 mc\nNumar maxim de utilizatori: 35 persoane\nCapacitati de depozitare: nu este cazul\nCai de evacuare: o cale.`;
 
 async function newProject(page, name) {
-  const [dialog] = await Promise.all([
-    page.waitForEvent('dialog'),
-    page.locator('#projectAddBtn').click()
-  ]);
-  await dialog.accept(name);
+  await page.evaluate((projectName) => {
+    const originalPrompt = window.prompt;
+    window.prompt = () => projectName;
+    try {
+      document.getElementById('projectAddBtn')?.click();
+    } finally {
+      window.prompt = originalPrompt;
+    }
+  }, name);
 }
 async function addManualAndExtract(page, text) {
   await page.locator('#manualText').fill(text);

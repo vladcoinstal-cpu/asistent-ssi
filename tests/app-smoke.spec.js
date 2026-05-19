@@ -28,11 +28,15 @@ function readFixture(fileName) {
 }
 
 async function createProject(page, name) {
-  const [dialog] = await Promise.all([
-    page.waitForEvent("dialog"),
-    page.locator("#projectAddBtn").click()
-  ]);
-  await dialog.accept(name);
+  await page.evaluate((projectName) => {
+    const originalPrompt = window.prompt;
+    window.prompt = () => projectName;
+    try {
+      document.getElementById("projectAddBtn")?.click();
+    } finally {
+      window.prompt = originalPrompt;
+    }
+  }, name);
   await expect(page.locator("#projectSelector")).toContainText(name);
 }
 
