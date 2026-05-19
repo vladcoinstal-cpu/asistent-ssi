@@ -29,14 +29,9 @@ function readFixture(fileName) {
 
 async function createProject(page, name) {
   await page.evaluate((projectName) => {
-    const originalPrompt = window.prompt;
-    window.prompt = () => projectName;
-    try {
-      document.getElementById("projectAddBtn")?.click();
-    } finally {
-      window.prompt = originalPrompt;
-    }
+    window.__ssiCommands?.newProject?.(projectName);
   }, name);
+  await expect(page.locator("#projectSelector")).not.toBeDisabled();
   await expect(page.locator("#projectSelector")).toContainText(name);
 }
 
@@ -58,6 +53,8 @@ async function injectManualSource(page, fixtureText) {
 }
 
 async function runExtraction(page, expectedObjective) {
+  await expect(page.locator("#sourceCount")).not.toHaveText(/^0$/);
+  await expect(page.locator("#extractBtn")).toBeEnabled();
   await clickAndAcceptOptionalDialog(page, "#extractBtn");
   await expect(page.locator("#projectFactsSummary")).toContainText(expectedObjective, { timeout: 60_000 });
   await expect(page.locator("#normalReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU/i, { timeout: 60_000 });

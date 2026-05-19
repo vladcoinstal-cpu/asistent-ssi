@@ -5,14 +5,9 @@ const MEM_B = `Denumirea obiectivului: Proiect B\nBeneficiar: Beneficiar B\nAdre
 
 async function newProject(page, name) {
   await page.evaluate((projectName) => {
-    const originalPrompt = window.prompt;
-    window.prompt = () => projectName;
-    try {
-      document.getElementById('projectAddBtn')?.click();
-    } finally {
-      window.prompt = originalPrompt;
-    }
+    window.__ssiCommands?.newProject?.(projectName);
   }, name);
+  await expect(page.locator('#projectSelector')).toContainText(name);
 }
 
 async function clickAndAcceptOptionalDialog(page, locator, timeout = 1000) {
@@ -29,6 +24,7 @@ async function addManualAndExtract(page, text) {
   await expect(page.locator('#manualText')).toHaveValue(text);
   await clickAndAcceptOptionalDialog(page, '#addTextBtn');
   await expect(page.locator('#sourceCount')).not.toHaveText(/^0$/);
+  await expect(page.locator('#extractBtn')).toBeEnabled();
   await clickAndAcceptOptionalDialog(page, '#extractBtn');
   await expect(page.locator('#projectFactsSummary')).toContainText(/Proiect|Beneficiar|Denumirea obiectivului/i, { timeout: 60000 });
 }

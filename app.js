@@ -2327,18 +2327,21 @@ async function handleSelectedFiles(event) {
   }
 }
 
-function createNewProject() {
+function createNewProject(optionalName = "") {
   if (!window.__ssiTemplateStatus?.ready) {
     window.alert("Template-urile SSI nu sunt încărcate. Inițializarea proiectului a fost oprită.");
     return;
   }
   saveActiveProjectStateFromUI();
   const suggestedName = `Proiect ${workspaceState.projects.length + 1}`;
-  const requestedName = window.prompt("Denumirea noului proiect:", suggestedName);
-  if (requestedName === null) {
-    return;
+  let cleanName = String(optionalName || "").trim();
+  if (!cleanName) {
+    const requestedName = window.prompt("Denumirea noului proiect:", suggestedName);
+    if (requestedName === null) {
+      return;
+    }
+    cleanName = requestedName.trim() || suggestedName;
   }
-  const cleanName = requestedName.trim() || suggestedName;
   const newProject = createBlankProject(cleanName);
   workspaceState.projects.push(newProject);
   workspaceState.activeProjectId = newProject.id;
@@ -7301,7 +7304,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 
