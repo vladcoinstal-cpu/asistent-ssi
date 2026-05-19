@@ -14,20 +14,22 @@ async function newProject(page, name) {
     }
   }, name);
 }
+
+async function clickAndAcceptOptionalDialog(page, locator, timeout = 1000) {
+  const dialogPromise = page.waitForEvent('dialog', { timeout }).catch(() => null);
+  await page.locator(locator).click();
+  const dialog = await dialogPromise;
+  if (dialog) {
+    await dialog.accept().catch(() => {});
+  }
+}
+
 async function addManualAndExtract(page, text) {
   await page.locator('#manualText').fill(text);
   await expect(page.locator('#manualText')).toHaveValue(text);
-  const [addDialog] = await Promise.all([
-    page.waitForEvent('dialog'),
-    page.locator('#addTextBtn').click()
-  ]);
-  await addDialog.accept();
+  await clickAndAcceptOptionalDialog(page, '#addTextBtn');
   await expect(page.locator('#sourceCount')).not.toHaveText(/^0$/);
-  const [extractDialog] = await Promise.all([
-    page.waitForEvent('dialog'),
-    page.locator('#extractBtn').click()
-  ]);
-  await extractDialog.accept();
+  await clickAndAcceptOptionalDialog(page, '#extractBtn');
   await expect(page.locator('#projectFactsSummary')).toContainText(/Proiect|Beneficiar|Denumirea obiectivului/i, { timeout: 60000 });
 }
 

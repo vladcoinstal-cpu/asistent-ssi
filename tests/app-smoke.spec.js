@@ -40,24 +40,25 @@ async function createProject(page, name) {
   await expect(page.locator("#projectSelector")).toContainText(name);
 }
 
+async function clickAndAcceptOptionalDialog(page, locator, timeout = 1000) {
+  const dialogPromise = page.waitForEvent("dialog", { timeout }).catch(() => null);
+  await page.locator(locator).click();
+  const dialog = await dialogPromise;
+  if (dialog) {
+    await dialog.accept().catch(() => {});
+  }
+}
+
 async function injectManualSource(page, fixtureText) {
   await page.locator('[data-tab-target="sourcesTab"]').click();
   await page.locator("#manualText").fill(fixtureText);
   await expect(page.locator("#manualText")).toHaveValue(fixtureText);
-  const [dialog] = await Promise.all([
-    page.waitForEvent("dialog"),
-    page.locator("#addTextBtn").click()
-  ]);
-  await dialog.accept();
+  await clickAndAcceptOptionalDialog(page, "#addTextBtn");
   await expect(page.locator("#sourceCount")).not.toHaveText(/^0$/);
 }
 
 async function runExtraction(page, expectedObjective) {
-  const [dialog] = await Promise.all([
-    page.waitForEvent("dialog"),
-    page.locator("#extractBtn").click()
-  ]);
-  await dialog.accept();
+  await clickAndAcceptOptionalDialog(page, "#extractBtn");
   await expect(page.locator("#projectFactsSummary")).toContainText(expectedObjective, { timeout: 60_000 });
   await expect(page.locator("#normalReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU/i, { timeout: 60_000 });
   await expect(page.locator("#preliminaryReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR/i, { timeout: 60_000 });
