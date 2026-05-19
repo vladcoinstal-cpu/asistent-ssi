@@ -2330,7 +2330,7 @@ async function handleSelectedFiles(event) {
 function createNewProject(optionalName = "") {
   if (!window.__ssiTemplateStatus?.ready) {
     window.alert("Template-urile SSI nu sunt încărcate. Inițializarea proiectului a fost oprită.");
-    return;
+    return null;
   }
   saveActiveProjectStateFromUI();
   const suggestedName = `Proiect ${workspaceState.projects.length + 1}`;
@@ -2338,7 +2338,7 @@ function createNewProject(optionalName = "") {
   if (!cleanName) {
     const requestedName = window.prompt("Denumirea noului proiect:", suggestedName);
     if (requestedName === null) {
-      return;
+      return null;
     }
     cleanName = requestedName.trim() || suggestedName;
   }
@@ -2349,6 +2349,7 @@ function createNewProject(optionalName = "") {
   loadProjectIntoUI(newProject.id);
   activateTab("sourcesTab");
   persistWorkspace();
+  return newProject.id;
 }
 
 window.__ssiCommands = {
@@ -7304,7 +7305,6 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
 
 

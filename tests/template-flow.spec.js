@@ -4,9 +4,15 @@ const MEM_A = `Denumirea obiectivului: Proiect A\nBeneficiar: Beneficiar A\nAdre
 const MEM_B = `Denumirea obiectivului: Proiect B\nBeneficiar: Beneficiar B\nAdresa: Str. B nr. 2\nDestinatia: birouri\nCategoria de importanta: D\nTipul cladirii: mixta\nTipul parcajului: nu este cazul\nRegim de inaltime: P; aria construita 300 mp; aria desfasurata 300 mp; volum 1200 mc\nNumar maxim de utilizatori: 35 persoane\nCapacitati de depozitare: nu este cazul\nCai de evacuare: o cale.`;
 
 async function newProject(page, name) {
-  await page.evaluate((projectName) => {
-    window.__ssiCommands?.newProject?.(projectName);
+  await expect.poll(async () => {
+    return await page.evaluate(() => Boolean(window.__ssiTemplateStatus?.ready));
+  }, { timeout: 15000 }).toBeTruthy();
+
+  const newProjectId = await page.evaluate((projectName) => {
+    return window.__ssiCommands?.newProject?.(projectName) || null;
   }, name);
+  expect(newProjectId).toBeTruthy();
+  await expect.poll(async () => page.locator('#projectSelector').inputValue(), { timeout: 10000 }).toBe(String(newProjectId));
   await expect(page.locator('#projectSelector')).toContainText(name);
 }
 

@@ -28,10 +28,16 @@ function readFixture(fileName) {
 }
 
 async function createProject(page, name) {
-  await page.evaluate((projectName) => {
-    window.__ssiCommands?.newProject?.(projectName);
+  await expect.poll(async () => {
+    return await page.evaluate(() => Boolean(window.__ssiTemplateStatus?.ready));
+  }, { timeout: 15000 }).toBeTruthy();
+
+  const newProjectId = await page.evaluate((projectName) => {
+    return window.__ssiCommands?.newProject?.(projectName) || null;
   }, name);
+  expect(newProjectId).toBeTruthy();
   await expect(page.locator("#projectSelector")).not.toBeDisabled();
+  await expect.poll(async () => page.locator("#projectSelector").inputValue(), { timeout: 10000 }).toBe(String(newProjectId));
   await expect(page.locator("#projectSelector")).toContainText(name);
 }
 
