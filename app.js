@@ -1106,7 +1106,7 @@ async function preloadOriginalActArchive(index) {
 }
 
 async function bootstrap() {
-  const [rulesLibrary, articlesLibrary, fullActsLibrary, originalIndex, normalRulesMatrix, preliminaryStructure, fireResistanceRules] = await Promise.all([
+  const [rulesLibrary, articlesLibrary, fullActsLibrary, originalIndex, normalRulesMatrix, preliminaryStructure, normalTemplate, preliminaryTemplate, fireResistanceRules] = await Promise.all([
     loadJsonAsset(legislationUrl, "legislationRules"),
     loadJsonAsset(legislationArticlesUrl, "legislationArticles"),
     loadJsonAsset(legislationFullActsUrl, "legislationFullActs"),
@@ -1126,6 +1126,8 @@ async function bootstrap() {
   ensureContinuousLocalActs();
   state.ssiNormalRulesMatrix = normalRulesMatrix;
   state.ssiPreliminaryStructure = preliminaryStructure;
+  state.ssiNormalTemplate = normalTemplate;
+  state.ssiPreliminaryTemplate = preliminaryTemplate;
   state.fireResistanceRules = fireResistanceRules;
   loadCustomActs().forEach((act) => ensureCustomActInLocalFullActs(act));
   ensureLawReferenceAliases();
