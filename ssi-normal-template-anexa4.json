@@ -312,85 +312,85 @@
       "title": "Echiparea si dotarea cu instalatii cu rol in asigurarea cerintei fundamentale securitate la incendiu",
       "subpoints": [
         {
-          "code": "A",
+          "code": "4.A",
           "title": "A. instalatie de stingere a incendiilor",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "A",
+          "code": "4.A.a",
           "title": "A.a tip",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "A",
+          "code": "4.A.b",
           "title": "A.b zone, incaperi, spatii, instalatii echipate",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "A",
+          "code": "4.A.c",
           "title": "A.c parametri functionali",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "A",
+          "code": "4.A.d",
           "title": "A.d timp normat de functionare",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "B",
+          "code": "4.B",
           "title": "B. instalatie de detectare, semnalizare si alarmare la incendiu (e.c.s.)",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "B",
+          "code": "4.B.a",
           "title": "B.a gradul de acoperire, zonele de detectare si alarmare la incendiu",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "B",
+          "code": "4.B.b",
           "title": "B.b tipul detectoarelor, declansatoarelor manuale, dispozitivelor de alarmare si parametrii functionali specifici",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "B",
+          "code": "4.B.c",
           "title": "B.c conditii pentru amplasarea e.c.s.",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "B",
+          "code": "4.B.d",
           "title": "B.d alte dispozitive comandate/supravegheate de e.c.s.",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "C",
+          "code": "4.C",
           "title": "C. instalatie de desfumare/evacuare fum si gaze fierbinti",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "D",
+          "code": "4.D",
           "title": "D. instalatie electrica pentru alimentarea receptoarelor cu rol de securitate la incendiu",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "E",
+          "code": "4.E",
           "title": "E. instalatie electrica pentru iluminat de siguranta, inclusiv conditiile de alimentare si de functionare a acesteia",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "F",
+          "code": "4.F",
           "title": "F. instalatie de protectie impotriva trasnetului",
           "value": "",
           "fallback": "nu este cazul"
@@ -402,37 +402,37 @@
       "title": "Masuri tehnico-organizatorice privind exploatarea constructiei",
       "subpoints": [
         {
-          "code": "A",
+          "code": "5.A",
           "title": "A. instructiuni de functionare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "B",
+          "code": "5.B",
           "title": "B. reguli necesare de verificare si intretinere in exploatare a instalatiilor cu rol in asigurarea cerintei fundamentale securitate la incendiu",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "C",
+          "code": "5.C",
           "title": "C. recomandari care trebuie avute in vedere la intocmirea documentelor de organizare a apararii impotriva incendiilor aferente constructiei ori amenajarii respective",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "D",
+          "code": "5.D",
           "title": "D. stingatoare, alte aparate de stins incendii, utilaje, unelte si mijloace de interventie",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "D",
+          "code": "5.D.a",
           "title": "D.a tipul si caracteristicile de stingere asigurate",
           "value": "",
           "fallback": "nu este cazul"
         },
         {
-          "code": "D",
+          "code": "5.D.b",
           "title": "D.b numarul si modul de amplasare in functie de suprafata si clasa de incendiu, potrivit reglementarilor tehnice specifice",
           "value": "",
           "fallback": "nu este cazul"
@@ -444,7 +444,7 @@
       "title": "Masuri compensatorii propuse pentru lucrari de modificare si/sau schimbare a destinatiei constructiilor existente, in raport cu prevederile reglementarilor tehnice care nu pot fi respectate",
       "subpoints": [
         {
-          "code": "",
+          "code": "6",
           "title": "masuri compensatorii propuse, daca este cazul",
           "value": "",
           "fallback": "nu este cazul"
