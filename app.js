@@ -3336,13 +3336,13 @@ function buildProjectFactsSummaryEntries() {
       : "");
   const dimensions = deriveDimensionParts(state.data, state.sources);
   const surfaceParts = [
-    dimensions.areaBuilt ? `arie construita: ${dimensions.areaBuilt}` : "",
-    dimensions.areaTotal ? `arie desfasurata: ${dimensions.areaTotal}` : "",
-    dimensions.volume ? `volum: ${dimensions.volume}` : ""
+    dimensions.ariaConstruita ? `arie construita: ${dimensions.ariaConstruita}` : "",
+    dimensions.ariaDesfasurata ? `arie desfasurata: ${dimensions.ariaDesfasurata}` : "",
+    dimensions.volum ? `volum: ${dimensions.volum}` : ""
   ].filter(Boolean).join("; ");
   const heightParts = [
-    dimensions.regime ? `regim: ${dimensions.regime}` : "",
-    dimensions.height ? `inaltime: ${dimensions.height}` : ""
+    dimensions.regim ? `regim: ${dimensions.regim}` : "",
+    dimensions.inaltime ? `inaltime: ${dimensions.inaltime}` : ""
   ].filter(Boolean).join("; ");
   const parkingValue = state.projectProfile.isUndergroundParking || /parc/i.test(String(state.data.tip_parcaj || ""))
     ? formatDisplayValue(state.data.tip_parcaj || "Da")
@@ -6082,7 +6082,7 @@ function deriveDimensionParts(data, sources = []) {
     /(regimul\s+de\s+[îi]n[ăa]l[țt]ime[\s\S]{0,260}aria\s+desf[ăa][șs]urat[ăa][\s\S]{0,80})/i,
     /((?:D|S|P|M|Sp)[^.\n]{0,200}20,98\s*m[^.\n]{0,200}693,08\s*m2)/i
   ]);
-  const fromSources = parseDimensionParts(joinedSources || sourceText);
+  const fromSources = parseDimensionParts(sourceText || joinedSources);
   return mergeDimensionParts(fromData, fromSources);
 }
 
