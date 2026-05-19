@@ -105,11 +105,11 @@ const customExtractors = {
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
-    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|aria\s+construit|aria\s+desf|volumul?\s+constructiei)\b|$)/i)?.[1]?.trim();
     const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const volum = joined.match(/volumul\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaC = joined.match(/aria\s+construită\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaD = joined.match(/aria\s+desfășurată\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const ariaC = joined.match(/aria\s+construit[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const ariaD = joined.match(/aria\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
