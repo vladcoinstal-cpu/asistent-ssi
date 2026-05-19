@@ -48,6 +48,22 @@ test('1.4 value checks across 3 memorii + reset/no leakage', async ({ page }) =>
     expect(prelim).toMatch(/volumul construcției|aria construită|aria desfășurată/i);
     expect(prelim).toMatch(/\n2\./);
 
+    const regimLine = (prelim.match(/regimul de înălțime[^\n]*/i) || [''])[0];
+    expect(regimLine).not.toMatch(/aria\s+construit|înălțimea\s+maximă/i);
+
+    const ariaConstruitaLine = (prelim.match(/aria construită[^\n]*/i) || [''])[0];
+    expect(ariaConstruitaLine).not.toMatch(/:\s*1\s*(?:$|\n)/i);
+
+    const volumLine = (prelim.match(/volumul construcției[^\n]*/i) || [''])[0];
+    expect(volumLine).not.toMatch(/:\s*8\s*(?:$|\n)/i);
+
+    expect(prelim).toMatch(/aria desfășurată[^\n]*m(?:2|²)/i);
+
+    const storageLine = (prelim.match(/capacități de depozitare[^\n]*/i) || [''])[0];
+    if (!/depozit/i.test(storageLine)) {
+      expect(storageLine).not.toMatch(/bucătărie|gaze/i);
+    }
+
     for (const re of fx.expect) {
       expect((normal + '\n' + prelim)).toMatch(re);
     }

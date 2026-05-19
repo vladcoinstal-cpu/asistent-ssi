@@ -1298,7 +1298,6 @@ function buildPoint1ReportsFromTemplates() {
     "aria desfășurată": ariaDesfasurata || "De completat",
     "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
     "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
-    "denumire": "compartiment unic",
     "volum": volumConstructie || "De completat",
     "precizari referitoare la numarul maxim de utilizatori": state.data.numar_utilizatori || "",
     "numărul maxim de utilizatori": state.data.numar_utilizatori || "",
@@ -1316,14 +1315,19 @@ function buildPoint1ReportsFromTemplates() {
   const render = (template, label) => {
     const clone = safeClone(template);
     clone.sections = Array.isArray(clone.sections) ? clone.sections : [];
-    const applyField = (field) => {
+    const applyField = (field, contextPath = []) => {
       const key = normalize(field.label || field.title);
-      if (valueByLabel[key]) field.value = valueByLabel[key];
-      (Array.isArray(field.children) ? field.children : []).forEach(applyField);
+      const pathText = contextPath.join(' > ').toLowerCase();
+      if (key === "denumire" && pathText.includes("compartimente de incendiu")) {
+        field.value = "compartiment unic";
+      } else if (valueByLabel[key]) {
+        field.value = valueByLabel[key];
+      }
+      (Array.isArray(field.children) ? field.children : []).forEach((child) => applyField(child, [...contextPath, String(field.label || field.title || "")]));
     };
     (clone.sections || []).forEach((sec) => {
       if (String(sec.code || "") !== "1") return;
-      (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach(applyField));
+      (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach((field) => applyField(field, [String(sp.title || sp.code || "")])));
     });
     return buildEmptyReportFromTemplate(clone, label);
   };
@@ -6036,9 +6040,9 @@ function parseDimensionParts(rawValue) {
     normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
     normalizedRaw.match(/((?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))+)/i);
   const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
-  const volumeMatch = normalizedRaw.match(/volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:3|³))/i);
-  const builtMatch = normalizedRaw.match(/aria\s+construit[ăa][^:;]*[: ]\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const totalMatch = normalizedRaw.match(/aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
+  const volumeMatch = normalizedRaw.match(/volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:3|³))/i);
+  const builtMatch = normalizedRaw.match(/aria\s+construit[ăa][^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:2|²))/i);
+  const totalMatch = normalizedRaw.match(/aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:2|²))/i);
 
   return {
     regim: regimMatch?.[1]?.trim() || "",
