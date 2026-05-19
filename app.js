@@ -6044,8 +6044,17 @@ function parseDimensionParts(rawValue) {
   const builtMatch = normalizedRaw.match(/aria\s+construit[ăa][^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:2|²))/i);
   const totalMatch = normalizedRaw.match(/aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:2|²))/i);
 
+  const regimRaw = regimMatch?.[1]?.trim() || "";
+  const regimClean = regimRaw
+    .replace(/\b[îi]n[ăa]l[țt]imea?\s+maxim[ăa][\s\S]*$/i, "")
+    .replace(/\baria\s+construit[ăa][\s\S]*$/i, "")
+    .replace(/\baria\s+desf[ăa][șs]urat[ăa][\s\S]*$/i, "")
+    .replace(/\bvolum(?:ul)?[\s\S]*$/i, "")
+    .replace(/[;,]\s*$/g, "")
+    .trim();
+
   return {
-    regim: regimMatch?.[1]?.trim() || "",
+    regim: regimClean,
     inaltime: heightMatch?.[1]?.trim() || "",
     volum: volumeMatch?.[1]?.trim() || "",
     ariaConstruita: builtMatch?.[1]?.trim() || "",
