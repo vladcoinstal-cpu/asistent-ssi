@@ -38,11 +38,17 @@ async function createProject(page, name) {
 async function injectManualSource(page, fixtureText) {
   await page.locator('[data-tab-target="sourcesTab"]').click();
   await page.locator("#manualText").fill(fixtureText);
+  page.once("dialog", async (dialog) => {
+    await dialog.accept();
+  });
   await page.locator("#addTextBtn").click();
   await expect(page.locator("#sourceCount")).not.toHaveText(/^0$/);
 }
 
 async function runExtraction(page, expectedObjective) {
+  page.once("dialog", async (dialog) => {
+    await dialog.accept();
+  });
   await page.locator("#extractBtn").click();
   await expect(page.locator("#projectFactsSummary")).toContainText(expectedObjective, { timeout: 60_000 });
   await expect(page.locator("#normalReportPreview")).toContainText(/SCENARIU DE SECURITATE LA INCENDIU/i, { timeout: 60_000 });
@@ -54,12 +60,19 @@ async function verifyAnnexFrameIntegrity(page) {
   await page.locator('[data-tab-target="normalTab"]').click();
   const normalText = await page.locator("#normalReportOutput").inputValue();
   expect(normalText).toMatch(/SSI normal - schelet gol \(Anexa 4\)|Proiect|Beneficiar/i);
-  expect(normalText).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
+  expect(normalText).toMatch(/\n2\./i);
+  expect(normalText).toMatch(/\n3\./i);
+  expect(normalText).toMatch(/\n4\./i);
+  expect(normalText).toMatch(/\n5\./i);
+  expect(normalText).toMatch(/\n6\./i);
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
   const prelimText = await page.locator("#preliminaryReportOutput").inputValue();
   expect(prelimText).toMatch(/SSI preliminar - schelet gol \(Anexa 5\)|Proiect|Beneficiar/i);
-  expect(prelimText).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
+  expect(prelimText).toMatch(/\n2\./i);
+  expect(prelimText).toMatch(/\n3\./i);
+  expect(prelimText).toMatch(/\n4\./i);
+  expect(prelimText).toMatch(/\n5\./i);
 }
 
 async function verifyLawReaderFromPreview(page) {

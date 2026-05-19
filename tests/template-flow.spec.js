@@ -4,7 +4,15 @@ const MEM_A = `Denumirea obiectivului: Proiect A\nBeneficiar: Beneficiar A\nAdre
 const MEM_B = `Denumirea obiectivului: Proiect B\nBeneficiar: Beneficiar B\nAdresa: Str. B nr. 2\nDestinatia: birouri\nCategoria de importanta: D\nTipul cladirii: mixta\nTipul parcajului: nu este cazul\nRegim de inaltime: P; aria construita 300 mp; aria desfasurata 300 mp; volum 1200 mc\nNumar maxim de utilizatori: 35 persoane\nCapacitati de depozitare: nu este cazul\nCai de evacuare: o cale.`;
 
 async function newProject(page, name) { page.once('dialog', async d => d.accept(name)); await page.locator('#projectAddBtn').click(); }
-async function addManualAndExtract(page, text) { await page.locator('#manualText').fill(text); await page.locator('#addTextBtn').click(); page.once('dialog', async d => d.accept()); await page.locator('#extractBtn').click(); }
+async function addManualAndExtract(page, text) {
+  await page.locator('#manualText').fill(text);
+  page.once('dialog', async d => d.accept());
+  await page.locator('#addTextBtn').click();
+  await expect(page.locator('#sourceCount')).not.toHaveText(/^0$/);
+  page.once('dialog', async d => d.accept());
+  await page.locator('#extractBtn').click();
+  await expect(page.locator('#projectFactsSummary')).toContainText(/Proiect|Beneficiar|Denumirea obiectivului/i, { timeout: 60000 });
+}
 
 function expectNoProjectDataInLaterPoints(text, projectMarkers = []) {
   const fromPoint2 = text.split(/\n2\./i)[1] || '';
