@@ -1,4 +1,45 @@
 {
+  "reportType": "ssi-v58-v85-rules-matrix",
+  "needsHumanReview": true,
+  "auditMeta": {
+    "lastAudit": "2026-05-19",
+    "scope": [
+      "ssi-normal-v58.html",
+      "ssi-preliminar-v85.html"
+    ],
+    "needsHumanReview": false
+  },
+  "3.5": {
+    "title": "Cross-version consistency checks",
+    "description": "Checks that v58 and v85-specific rules are both satisfied where overlap exists."
+  },
+  "fallback": {
+    "enabled": true,
+    "mode": "conservative",
+    "onMissingData": "mark_for_review"
+  },
+  "forbiddenPatterns": [
+    "TODO",
+    "TBD",
+    "N/A without explanation"
+  ],
+  "tests": [
+    {
+      "id": "T-REQ-FIELDS",
+      "description": "Validates requiredFields presence in incoming report payload."
+    },
+    {
+      "id": "T-FORBIDDEN-PATTERNS",
+      "description": "Rejects payloads containing forbidden marker patterns."
+    }
+  ],
+  "requiredFields": [
+    "projectName",
+    "beneficiary",
+    "address",
+    "documentDate",
+    "scenarioVersion"
+  ],
   "source": {
     "title": "Matrice de reguli - SSI normal",
     "basis": "Anexa nr. 4 la normele metodologice aprobate prin OMAI nr. 180/2022",
@@ -1306,13 +1347,5 @@
       ],
       "needsHumanReview": false
     }
-  ],
-  "auditMeta": {
-    "lastAudit": "2026-05-19",
-    "scope": [
-      "ssi-normal-v58.html",
-      "ssi-preliminar-v85.html"
-    ],
-    "needsHumanReview": false
-  }
+  ]
 }
