@@ -1247,6 +1247,61 @@ function resetReportsFromTemplates() {
   preliminaryReportOutput.value = buildEmptyReportFromTemplate(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)");
 }
 
+
+function buildPoint1ReportsFromTemplates() {
+  const valueByLabel = {
+    "denumirea obiectivului": state.data.denumire_obiectiv || "",
+    "denumire": state.data.denumire_obiectiv || "",
+    "beneficiar / proprietar": state.data.beneficiar || "",
+    "proprietar/beneficiar": state.data.beneficiar || "",
+    "adresa": state.data.adresa || "",
+    "date de contact": state.data.contact_beneficiar || "",
+    "nr. de telefon": state.data.contact_beneficiar || "",
+    "fax": state.data.contact_beneficiar || "",
+    "e-mail etc.": state.data.contact_beneficiar || "",
+    "profilul de activitate": state.data.profil_activitate || "",
+    "functiuni principale": state.data["funcțiuni"] || "",
+    "functiuni secundare": state.data["funcțiuni"] || "",
+    "functiuni conexe": state.data["funcțiuni"] || "",
+    "funcțiuni principale, secundare și conexe ale construcției/amenajării": state.data["funcțiuni"] || "",
+    "categoria de importanta": state.data.categoria_importanta || "",
+    "categoria de importanță": state.data.categoria_importanta || "",
+    "clasa de importanta": state.data.categoria_importanta || "",
+    "tipul cladirii": state.data.tip_cladire || "",
+    "tipul clădirii": state.data.tip_cladire || "",
+    "tipul parcajului": state.data.tip_parcaj || "",
+    "tipul parcajului, cu precizarea numărului de autovehicule": state.data.tip_parcaj || "",
+    "caracteristici dimensionale": state.data.caracteristici_dimensionale || "",
+    "regimul de înălțime": state.data.caracteristici_dimensionale || "",
+    "volumul construcției": state.data.caracteristici_dimensionale || "",
+    "aria construită": state.data.caracteristici_dimensionale || "",
+    "aria desfășurată": state.data.caracteristici_dimensionale || "",
+    "precizari referitoare la numarul maxim de utilizatori": state.data.numar_utilizatori || "",
+    "numărul maxim de utilizatori": state.data.numar_utilizatori || "",
+    "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": state.data.autoevacuare || "",
+    "capacități de depozitare": state.data.capacitati_depozitare || "",
+    "capacitati de depozitare": state.data.capacitati_depozitare || "",
+    "numarul cailor de evacuare si, dupa caz, al refugiilor": state.data.cai_evacuare_rezumat || ""
+  };
+
+  const normalize = (label) => String(label || "").trim().toLowerCase();
+
+  const render = (template, label) => {
+    const clone = safeClone(template);
+    const applyField = (field) => {
+      const key = normalize(field.label || field.title);
+      if (valueByLabel[key]) field.value = valueByLabel[key];
+      (Array.isArray(field.children) ? field.children : []).forEach(applyField);
+    };
+    (clone.sections || []).forEach((sec) => (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach(applyField)));
+    return buildEmptyReportFromTemplate(clone, label);
+  };
+
+  return {
+    normal: render(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)"),
+    preliminary: render(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)")
+  };
+}
 function getDefaultProjectProfile() {
   return {
     categoryImportance: "",
@@ -2122,7 +2177,9 @@ async function handleExtractData() {
     }
 
     try {
-      generateReportsForActiveProject();
+      const reports = buildPoint1ReportsFromTemplates();
+      normalReportOutput.value = reports.normal;
+      preliminaryReportOutput.value = reports.preliminary;
     } catch (error) {
       console.error(error);
       warnings.push("generare SSI");
