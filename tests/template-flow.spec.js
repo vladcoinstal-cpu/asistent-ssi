@@ -6,9 +6,16 @@ const MEM_B = `Denumirea obiectivului: Proiect B\nBeneficiar: Beneficiar B\nAdre
 async function newProject(page, name) { page.once('dialog', async d => d.accept(name)); await page.locator('#projectAddBtn').click(); }
 async function addManualAndExtract(page, text) { await page.locator('#manualText').fill(text); await page.locator('#addTextBtn').click(); page.once('dialog', async d => d.accept()); await page.locator('#extractBtn').click(); }
 
-function expectPoint1Only(text) {
+function expectPoint1PopulatedWithSkeletonVisible(text, projectMarkers = []) {
   expect(text).toMatch(/Proiect|Beneficiar|Destinat|Categoria|tipul cladirii|parcaj|utilizatori|depozitare/i);
-  expect(text).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
+  expect(text).toMatch(/\n2\.|\n3\.|\n4\.|\n5\.|\n6\./);
+
+  const fromPoint2 = text.split(/\n2\./i)[1] || '';
+  expect(fromPoint2.length).toBeGreaterThan(0);
+
+  for (const marker of projectMarkers) {
+    expect(fromPoint2).not.toMatch(new RegExp(marker, 'i'));
+  }
 }
 
 test('template flow strict normal+preliminar with reset and no leakage', async ({ page }) => {
@@ -55,13 +62,13 @@ test('template flow strict normal+preliminar with reset and no leakage', async (
 
   await page.locator('[data-tab-target="normalTab"]').click();
   const normalA = await normal.inputValue();
-  expectPoint1Only(normalA);
+  expectPoint1PopulatedWithSkeletonVisible(normalA, ['Proiect A', 'Beneficiar A', 'Str\. A nr\. 1', '120 persoane', 'rafturi marfuri']);
   expect(normalA).toMatch(/Proiect A|Beneficiar A/);
-  expect(normalA).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
+  expect(normalA).toMatch(/\n2\./);
 
   await page.locator('[data-tab-target="preliminaryTab"]').click();
   const prelimA = await prelim.inputValue();
-  expectPoint1Only(prelimA);
+  expectPoint1PopulatedWithSkeletonVisible(prelimA, ['Proiect A', 'Beneficiar A', 'Str\. A nr\. 1', '120 persoane', 'rafturi marfuri']);
   expect(prelimA).toMatch(/Proiect A|Beneficiar A/);
 
   // separation users vs storage
@@ -90,5 +97,5 @@ test('template flow strict normal+preliminar with reset and no leakage', async (
   const prelimB = await prelim.inputValue();
   expect(prelimB).toMatch(/Proiect B|Beneficiar B/);
   expect(prelimB).not.toMatch(/Proiect A|Beneficiar A/);
-  expect(prelimB).not.toMatch(/2\.A\.a|3\.1|4\.1|5\.A|6\./i);
+  expectPoint1PopulatedWithSkeletonVisible(prelimB, ['Proiect B', 'Beneficiar B', 'Str\. B nr\. 2', '35 persoane']);
 });
