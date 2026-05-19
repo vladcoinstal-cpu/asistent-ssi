@@ -6060,7 +6060,7 @@ function parseDimensionParts(rawValue) {
     .replace(/([0-9])m([23²³])/gi, "$1 m$2")
     .replace(/([0-9])m\b/gi, "$1 m");
   const regimMatch =
-    normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;.\n]+)/i) ||
+    normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([\s\S]*?)(?=\b(?:[îi]n[ăa]l[țt]ime(?:a)?|inaltimea?|aria\s+construit|aria\s+desf|volum(?:ul)?)\b|$)/i) ||
     normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
     normalizedRaw.match(/((?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))+)/i);
   const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
