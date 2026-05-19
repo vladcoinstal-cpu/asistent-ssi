@@ -27,10 +27,12 @@ test('template flow strict normal+preliminar with reset and no leakage', async (
   });
   expect(templateStatus.normalHttp).toBe(200);
   expect(templateStatus.prelimHttp).toBe(200);
-  expect(templateStatus.stateStatus?.normalLoaded).toBeTruthy();
-  expect(templateStatus.stateStatus?.preliminaryLoaded).toBeTruthy();
-  expect(templateStatus.stateStatus?.normalSections).toBeGreaterThan(0);
-  expect(templateStatus.stateStatus?.preliminarySections).toBeGreaterThan(0);
+  await expect.poll(async () => {
+    return await page.evaluate(() => window.__ssiTemplateStatus || null);
+  }, { timeout: 15000 }).toMatchObject({ normalLoaded: true, preliminaryLoaded: true, ready: true });
+  const statusAfter = await page.evaluate(() => window.__ssiTemplateStatus);
+  expect(statusAfter?.normalSections).toBeGreaterThan(0);
+  expect(statusAfter?.preliminarySections).toBeGreaterThan(0);
 
   await newProject(page, 'Template Flow');
 

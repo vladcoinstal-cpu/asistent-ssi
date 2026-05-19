@@ -1130,9 +1130,6 @@ async function bootstrap() {
   state.legislationArticles = articlesLibrary;
   state.legislationFullActs = fullActsLibrary;
   state.legislationOriginalIndex = originalIndex;
-  mergeFullActsCacheIntoState();
-  await preloadOriginalActArchive(originalIndex);
-  ensureContinuousLocalActs();
   state.ssiNormalRulesMatrix = normalRulesMatrix;
   state.ssiPreliminaryStructure = preliminaryStructure;
   state.ssiNormalTemplate = normalTemplate;
@@ -1151,6 +1148,9 @@ async function bootstrap() {
     ready: true
   };
   state.fireResistanceRules = fireResistanceRules;
+  mergeFullActsCacheIntoState();
+  await preloadOriginalActArchive(originalIndex);
+  ensureContinuousLocalActs();
   loadCustomActs().forEach((act) => ensureCustomActInLocalFullActs(act));
   ensureLawReferenceAliases();
   restoreWorkspace();
