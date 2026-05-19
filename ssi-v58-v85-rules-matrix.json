@@ -1,0 +1,42 @@
+{
+  "source": {
+    "title": "Matrice reguli SSI v58-v85",
+    "generatedFrom": [
+      "ssi-normal-v58.html",
+      "ssi-preliminar-v85.html"
+    ],
+    "generatedAt": "2026-05-19",
+    "notes": [
+      "Fișier derivat din versiunile HTML v58 (normal) și v85 (preliminar).",
+      "Generatorul nu a fost modificat; matricea a fost compusă direct din conținutul celor două fișiere sursă."
+    ]
+  },
+  "documents": {
+    "normal": {
+      "file": "ssi-normal-v58.html",
+      "title": "SCENARIU DE SECURITATE LA INCENDIU"
+    },
+    "preliminar": {
+      "file": "ssi-preliminar-v85.html",
+      "title": "SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR"
+    }
+  },
+  "sections": [
+    {"code": "1.1", "title": "Date de identificare", "presentIn": ["v58", "v85"]},
+    {"code": "1.2", "title": "Destinația", "presentIn": ["v58", "v85"]},
+    {"code": "1.3", "title": "Categoria și clasa de importanță", "presentIn": ["v58", "v85"]},
+    {"code": "1.4", "title": "Particularități specifice construcției/amenajării", "presentIn": ["v58", "v85"]},
+    {"code": "2", "title": "Identificarea și stabilirea nivelurilor de risc de incendiu", "presentIn": ["v58", "v85"]},
+    {"code": "3", "title": "Nivelurile criteriilor de performanță privind securitatea la incendiu", "presentIn": ["v58", "v85"]},
+    {"code": "4", "title": "Echiparea și dotarea cu instalații cu rol în securitatea la incendiu", "presentIn": ["v58", "v85"]},
+    {"code": "5", "title": "Măsuri tehnico-organizatorice privind exploatarea", "presentIn": ["v58", "v85"]},
+    {"code": "6", "title": "Măsuri compensatorii", "presentIn": ["v58", "v85"]}
+  ],
+  "keyAlignment": {
+    "objective": "Lăcaș de cult - Parohia Ortodoxă Învierea Domnului, Brașov",
+    "heightRegime": "D+P+Sp+M",
+    "builtAreaM2": 350.75,
+    "totalAreaM2": 693.08,
+    "maxUsers": 150
+  }
+}
