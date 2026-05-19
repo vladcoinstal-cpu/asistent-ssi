@@ -1260,6 +1260,13 @@ function resetReportsFromTemplates() {
 
 
 function buildPoint1ReportsFromTemplates() {
+  const dims = String(state.data.caracteristici_dimensionale || "");
+  const regimInaltime = dims.match(/regim\s+de\s+inaltime\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
+  const volumConstructie = dims.match(/volum\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
+  const ariaConstruita = dims.match(/arie\s+construit[ăa]\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
+  const ariaDesfasurata = dims.match(/arie\s+desf[ăa]șurat[ăa]\s*:\s*([^;\n]+)/i)?.[1]?.trim() || "";
+  const functiuni = String(state.data["funcțiuni"] || "").trim();
+
   const valueByLabel = {
     "denumirea obiectivului": state.data.denumire_obiectiv || "",
     "denumire": state.data.denumire_obiectiv || "",
@@ -1283,12 +1290,19 @@ function buildPoint1ReportsFromTemplates() {
     "tipul parcajului": state.data.tip_parcaj || "",
     "tipul parcajului, cu precizarea numărului de autovehicule": state.data.tip_parcaj || "",
     "caracteristici dimensionale": state.data.caracteristici_dimensionale || "",
-    "regimul de înălțime": state.data.caracteristici_dimensionale || "",
-    "volumul construcției": state.data.caracteristici_dimensionale || "",
-    "aria construită": state.data.caracteristici_dimensionale || "",
-    "aria desfășurată": state.data.caracteristici_dimensionale || "",
+    "regimul de înălțime": regimInaltime || "De completat",
+    "volumul construcției": volumConstructie || "De completat",
+    "aria construită": ariaConstruita || "De completat",
+    "aria desfășurată": ariaDesfasurata || "De completat",
+    "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
+    "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
+    "denumire": "compartiment unic",
+    "volum": volumConstructie || "De completat",
     "precizari referitoare la numarul maxim de utilizatori": state.data.numar_utilizatori || "",
     "numărul maxim de utilizatori": state.data.numar_utilizatori || "",
+    "persoane: număr": state.data.numar_utilizatori || "De completat",
+    "persoane: prezența permanentă a persoanelor": state.data.autoevacuare || "De completat",
+    "persoane: capacitatea de autoevacuare a acestora": state.data.autoevacuare || "De completat",
     "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": state.data.autoevacuare || "",
     "capacități de depozitare": state.data.capacitati_depozitare || "",
     "capacitati de depozitare": state.data.capacitati_depozitare || "",
@@ -7307,5 +7321,4 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
 
