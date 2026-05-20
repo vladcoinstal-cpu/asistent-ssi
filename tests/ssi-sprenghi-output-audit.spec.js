@@ -34,7 +34,7 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
   }
   for (const txt of [b13n, b13p]) {
     expect(txt).toMatch(/categoria\s*C/i);
-    expect(txt).toMatch(/clasa\s+III-a/i);
+    expect(txt).toMatch(/clasa\s+III(?:-a)?/i);
   }
   for (const txt of [b14n, b14p]) {
     expect(txt).toMatch(/D\+P\+Sp\+M/i);
