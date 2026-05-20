@@ -42,8 +42,13 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
     expect(txt).toMatch(/350,75\s*m(?:2|²)/i);
     expect(txt).toMatch(/693,08\s*m(?:2|²)/i);
     expect(txt).toMatch(/2900\s*m(?:3|³)/i);
-    expect(txt).toMatch(/depozitare[^.\n]*36\s*m(?:2|²)|materiale\s+metalice/i);
-    expect(txt).toMatch(/150\s+persoane|demisol:\s*120|parter:\s*130|supant[ăa]:\s*20|mansard[ăa]:\s*2/i);
     expect(txt).not.toMatch(/capacit[ăa]ți[^\n]*(bucătărie|gaze|linie caldă)/i);
   }
+  const combined14 = `${b14n}\n${b14p}`;
+  expect(combined14).toMatch(/depozitare[^.\n]*36\s*m(?:2|²)|materiale\s+metalice/i);
+  expect(combined14).toMatch(/150\s+persoane/i);
+  expect(combined14).toMatch(/demisol:\s*120/i);
+  expect(combined14).toMatch(/parter:\s*130/i);
+  expect(combined14).toMatch(/supant[ăa]:\s*20/i);
+  expect(combined14).toMatch(/mansard[ăa]:\s*2/i);
 });
