@@ -169,11 +169,14 @@
       .replace(/^(?:beneficiar|proprietar|investitor)\s*[:\-]\s*/i, "")
       .replace(/\b(adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*/i, "")
       .trim();
+    const addressFromData = cleanAddress(normalize(data.adresa));
+    const addressFromSource = cleanAddress(first(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^\n]{8,220})/i));
+    const resolvedAddress = (addressFromSource.length > addressFromData.length ? addressFromSource : addressFromData) || addressFromData || addressFromSource;
     return {
       identification: {
         denumireObiectiv: cleanName(normalize(data.denumire_obiectiv) || first(/denumirea\s+(?:obiectivului|investi[țt]iei)\s*[:\-]\s*([^\n]{4,180})/i)),
         beneficiar: cleanBeneficiary(normalize(data.beneficiar) || first(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^\n]{4,220})/i)),
-        adresa: cleanAddress(normalize(data.adresa) || first(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^\n]{8,220})/i))
+        adresa: resolvedAddress
       },
       destination: {
         raw: normalize(data['funcțiuni'] || data.functiuni),
