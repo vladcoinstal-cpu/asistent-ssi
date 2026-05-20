@@ -1337,6 +1337,7 @@ function buildPoint1ReportsFromTemplates() {
     "beneficiar / proprietar": semantic.identification?.beneficiar || "",
     "proprietar/beneficiar": semantic.identification?.beneficiar || "",
     "adresa": semantic.identification?.adresa || "",
+    "adresă": semantic.identification?.adresa || "",
     "date de contact": state.data.contact_beneficiar || "",
     "nr. de telefon": state.data.contact_beneficiar || "",
     "fax": state.data.contact_beneficiar || "",
@@ -6012,6 +6013,7 @@ function cleanBeneficiaryText(value) {
 function cleanAddressText(value) {
   let text = sanitizeDisplayText(value);
   text = text.replace(/^(?:adresa|adresa obiectivului)\s*[:\-]\s*/i, "");
+  text = text.replace(/\b(?:date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "");
   text = text.replace(/\s*,\s*/g, ", ");
   text = text.replace(/\s{2,}/g, " ").trim();
   return text.trim();

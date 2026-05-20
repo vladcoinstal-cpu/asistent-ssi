@@ -168,6 +168,7 @@
     const cleanAddress = (value) => sanitizeDisplayText(String(value || ""))
       .replace(/^(?:beneficiar|proprietar|investitor)\s*[:\-]\s*/i, "")
       .replace(/\b(adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*/i, "")
+      .replace(/\b(?:date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "")
       .trim();
     const addressFromData = cleanAddress(normalize(data.adresa));
     const addressFromSource = cleanAddress(first(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^\n]{8,220})/i));
