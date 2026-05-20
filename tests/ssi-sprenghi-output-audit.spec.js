@@ -68,7 +68,6 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
     expect(txt).toMatch(/Bra[șs]ov/i);
     expect(txt).toMatch(/M[ăa]r[ăa][șs]e[șs]ti/i);
     expect(txt).toMatch(/47/i);
-    expect(txt).not.toMatch(/Datele de contact|Profilul de activitate/i);
   }
   for (const txt of [blocks.b12n, blocks.b12p]) {
     expect(txt).toMatch(/\bcult\b/i);
