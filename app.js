@@ -105,17 +105,17 @@ const customExtractors = {
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
-    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|aria\s+construit|aria\s+desf|volumul?\s+constructiei)\b|$)/i)?.[1]?.trim();
+    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei)\b|$)/i)?.[1]?.trim();
     const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
     const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaC = joined.match(/aria\s+construit[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaD = joined.match(/aria\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
     if (volum) parts.push(`volum: ${volum}`);
-    if (ariaC) parts.push(`arie construită: ${ariaC}`);
-    if (ariaD) parts.push(`arie desfășurată: ${ariaD}`);
+    if (ariaC) parts.push(`aria construită: ${ariaC}`);
+    if (ariaD) parts.push(`aria desfășurată: ${ariaD}`);
     return parts.join("; ");
   },
   numar_utilizatori(lines, content) {
@@ -6064,7 +6064,7 @@ function parseDimensionParts(rawValue) {
     const labelMatch = text.match(labelRegex);
     if (!labelMatch) return "";
     const tail = text.slice(labelMatch.index + labelMatch[0].length, labelMatch.index + labelMatch[0].length + 120);
-    const measurementMatch = tail.match(new RegExp(`([0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?|[0-9]+(?:,[0-9]+)?)\\s*${unitPattern}\\b`, "i"));
+    const measurementMatch = tail.match(new RegExp(`([0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?|[0-9]+(?:,[0-9]+)?)\\s*${unitPattern}(?=\\s|$|[,;.)])`, "i"));
     if (!measurementMatch) return "";
     const candidate = measurementMatch[0].replace(/\s+/g, " ").trim();
     const digitsOnly = candidate.replace(/[^0-9]/g, "");

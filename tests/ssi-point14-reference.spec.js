@@ -5,6 +5,11 @@ const path = require('path');
 function stripTags(html) {
   return html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
 }
+function expectWithContext(value, regex, label, context) {
+  if (!regex.test(value)) {
+    throw new Error(`${label} mismatch.\n--- NORMAL 1.4 ---\n${context.normal14}\n--- PRELIM 1.4 ---\n${context.prelim14}`);
+  }
+}
 
 function collectReference14Values(file) {
   const html = fs.readFileSync(path.join(__dirname, '..', file), 'utf8');
@@ -43,6 +48,9 @@ test('1.4 values match v58/v85 semantic references for Sprenghi', async ({ page 
   const referencePrelim = collectReference14Values('ssi-preliminar-v85.html');
   const out = await runExtract(page, 'memoriu-sprenghi-reference.txt');
   const both = `${out.normal}\n${out.prelim}`;
+  const normal14 = ((out.normal.match(/1\.4\.[\s\S]*?(?:\n2\.|$)/i) || [])[0] || '').trim();
+  const prelim14 = ((out.prelim.match(/1\.4[\s\S]*?(?:\n2\.|$)/i) || [])[0] || '').trim();
+  const ctx = { normal14, prelim14 };
 
   expect(referenceNormal.regim && referencePrelim.regim).toBeTruthy();
   expect(referenceNormal.inaltime && referencePrelim.inaltime).toBeTruthy();
@@ -50,11 +58,11 @@ test('1.4 values match v58/v85 semantic references for Sprenghi', async ({ page 
   expect(referenceNormal.ariaDesfasurata && referencePrelim.ariaDesfasurata).toBeTruthy();
   expect(referenceNormal.volum && referencePrelim.volum).toBeTruthy();
 
-  expect(both).toMatch(/regim[^\n]*D\+P\+Sp\+M/i);
-  expect(both).toMatch(/[îi]n[ăa]l[țt]ime[^\n]*20,98\s*m/i);
-  expect(both).toMatch(/aria\s+construit[ăa][^\n]*350,75\s*m(?:2|²)/i);
-  expect(both).toMatch(/aria\s+desf[ăa][șs]urat[ăa][^\n]*693,08\s*m(?:2|²)/i);
-  expect(both).toMatch(/volum[^\n]*2900\s*m(?:3|³)/i);
-  expect(both).toMatch(/capacit[ăa]ți?\s+de\s+depozitare[^\n]*36\s*m(?:2|²)/i);
+  expectWithContext(both, /regim[^\n]*D\+P\+Sp\+M/i, 'regim', ctx);
+  expectWithContext(both, /[îi]n[ăa]l[țt]ime[^\n]*20,98\s*m/i, 'inaltime', ctx);
+  expectWithContext(both, /aria\s+construit[ăa][^\n]*350,75\s*m(?:2|²)/i, 'aria construita', ctx);
+  expectWithContext(both, /aria\s+desf[ăa][șs]urat[ăa][^\n]*693,08\s*m(?:2|²)/i, 'aria desfasurata', ctx);
+  expectWithContext(both, /volum[^\n]*2900\s*m(?:3|³)/i, 'volum', ctx);
+  expectWithContext(both, /capacit[ăa]ți?\s+de\s+depozitare[^\n]*36\s*m(?:2|²)/i, 'depozitare', ctx);
   expect(both).not.toMatch(/capacit[ăa]ți?\s+de\s+depozitare[^\n]*(bucătărie|gaze|proces)/i);
 });
