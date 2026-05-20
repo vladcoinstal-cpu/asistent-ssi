@@ -21,3 +21,17 @@ These rules are BLOCKING for all tasks in this repository.
    - inaltime with `m`,
    - arii with `m²`/`m2`/`mp` normalized,
    - volum with `m³`/`m3`/`mc` normalized.
+
+## Semantic Self-Audit Before Rendering
+
+For every SSI extraction task, Codex must validate the deterministic semantic parser model before rendering the SSI text.
+
+Required pipeline:
+source text -> semantic model -> semantic audit -> renderer -> reference comparison -> browser tests -> GitHub Actions.
+
+Rules:
+- Never let renderer repair semantic extraction errors.
+- Never render raw mixed text as a final SSI field.
+- Each semantic field must have expected, actual, and audit status: ok, missing, truncated, contaminated, wrong-source, wrong-unit, wrong-value.
+- If semantic audit fails, fix extraction first. Do not continue to renderer/browser comparison.
+- Do not move to another subpoint while the current subpoint fails semantic audit.

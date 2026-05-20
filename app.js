@@ -1261,7 +1261,17 @@ function resetReportsFromTemplates() {
 
 
 function buildSemanticStructuredData(data, sources = []) {
-  const dimensions = deriveDimensionParts(data, sources);
+  const semanticEngine = window.SSISemantic;
+  const semantic14 = semanticEngine?.buildSemantic14Model
+    ? semanticEngine.buildSemantic14Model({ data, sources })
+    : { dimensions: deriveDimensionParts(data, sources), users: { raw: String(data?.numar_utilizatori || "").trim() }, storage: { raw: String(data?.capacitati_depozitare || "").trim() } };
+  const dimensions = {
+    regim: semantic14.dimensions?.regim || "",
+    inaltime: semantic14.dimensions?.inaltimeMaxima || "",
+    ariaConstruita: semantic14.dimensions?.ariaConstruita || "",
+    ariaDesfasurata: semantic14.dimensions?.ariaDesfasurata || "",
+    volum: semantic14.dimensions?.volum || ""
+  };
   const dimensionsText = [
     dimensions.regim ? `regim de înălțime: ${dimensions.regim}` : "",
     dimensions.inaltime ? `înălțime maximă: ${dimensions.inaltime}` : "",
@@ -1279,11 +1289,11 @@ function buildSemanticStructuredData(data, sources = []) {
       text: dimensionsText
     },
     users: {
-      raw: String(data?.numar_utilizatori || "").trim(),
+      raw: String(semantic14.users?.raw || "").trim(),
       autoevacuare: String(data?.autoevacuare || "").trim()
     },
     storage: {
-      raw: String(data?.capacitati_depozitare || "").trim()
+      raw: String(semantic14.storage?.raw || "").trim()
     },
     evacuation: {
       raw: String(data?.cai_evacuare_rezumat || "").trim()
