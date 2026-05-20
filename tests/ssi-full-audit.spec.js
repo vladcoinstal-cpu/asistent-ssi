@@ -122,8 +122,8 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
       expected: `Subpoint ${t.subpointCode} present in output`,
       actual: block ? 'present' : 'missing',
       cause: block ? 'rendered' : 'template/render omission',
-      missingRule: block ? '-' : 'subpoint-render-presence',
-      recommendedFix: block ? '-' : 'Ensure template subpoint exists in output renderer.',
+      missingRule: block ? '-' : (subpointStatus === 'known-gap' ? 'global-render-coverage' : 'subpoint-render-presence'),
+      recommendedFix: block ? '-' : (subpointStatus === 'known-gap' ? 'Extend renderer beyond point 1 and keep global audit checks.' : 'Ensure template subpoint exists in output renderer.'),
       evidence: block.slice(0, 220)
     });
 
