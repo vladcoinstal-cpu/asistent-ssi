@@ -4384,7 +4384,11 @@ function runFallbackExtraction(sources) {
   pick("cai_evacuare_rezumat", egress.join("; "));
 
   if (normalized.includes("depozit")) {
-    pick("capacitati_depozitare", firstMatch(/(depozit[^.\n]{0,180})/i) || "spații de depozitare menționate în documentație");
+    const storageCandidate =
+      firstMatch(/((?:capacita[țt][iăa]?[țt]i?\s+de\s+depozitare|spa[țt]ii?\s+de\s+depozitare)[^.\n]{0,220})/i)
+      || firstMatch(/(depozitare[^.\n]{0,220}(?:m(?:2|²)|materiale|produse|marf[ăa]))/i)
+      || "spații de depozitare menționate în documentație";
+    pick("capacitati_depozitare", cleanExtract(storageCandidate).replace(/\b(?:nr\.?\s*\d+\s*,\s*jude[țt]ul\s+[^,.;]+)\b/i, "").trim());
   }
 
   if (normalized.includes("autoevacu")) {
