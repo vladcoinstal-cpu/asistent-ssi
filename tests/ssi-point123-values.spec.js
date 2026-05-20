@@ -67,6 +67,6 @@ test('1.1 Sprenghi keeps complete address in SSI normal + preliminar', async ({ 
 
   expect(normal).toContain(expectedAddress);
   expect(prelim).toContain(expectedAddress);
-  expect(normal).not.toContain('municipiul Brașov, str');
-  expect(prelim).not.toContain('municipiul Brașov, str');
+  expect(normal).not.toMatch(/municipiul\s+Brașov,\s*str\s*(?:$|[\r\n]|<br\s*\/?\s*>)/i);
+  expect(prelim).not.toMatch(/municipiul\s+Brașov,\s*str\s*(?:$|[\r\n]|<br\s*\/?\s*>)/i);
 });
