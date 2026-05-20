@@ -167,6 +167,7 @@
       .trim();
     const cleanAddress = (value) => sanitizeDisplayText(String(value || ""))
       .replace(/^(?:beneficiar|proprietar|investitor)\s*[:\-]\s*/i, "")
+      .replace(/\b(adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*/i, "")
       .trim();
     return {
       identification: {

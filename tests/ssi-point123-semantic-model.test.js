@@ -20,3 +20,20 @@ test('semantic 1.1-1.3 model has identification/destination/category from Spreng
   assert.equal(audit.ok, true, JSON.stringify({ model, audit }, null, 2));
   assert.ok(model.destination.tags.includes('cult'));
 });
+
+test('semantic 1.1 address keeps full street and number tokens (str. + nr.)', () => {
+  const model = buildSemantic123Model({
+    data: {
+      denumire_obiectiv: 'Obiectiv test',
+      beneficiar: 'Beneficiar test',
+      adresa: 'Adresa: municipiul Brașov, str. Mărășești nr. 47, județul Brașov',
+      'funcțiuni': 'cult',
+      categoria_importanta: 'C'
+    },
+    sources: []
+  });
+
+  assert.equal(model.identification.adresa, 'municipiul Brașov, str. Mărășești nr. 47, județul Brașov');
+  assert.match(model.identification.adresa, /str\./i);
+  assert.match(model.identification.adresa, /nr\.?\s*47/i);
+});

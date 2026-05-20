@@ -51,3 +51,22 @@ test('1.1-1.3 semantic integration + anti-contamination + reset/no-leakage', asy
     await expect(page.locator('#sourceCount')).toHaveText('0');
   }
 });
+
+test('1.1 Sprenghi keeps complete address in SSI normal + preliminar', async ({ page }) => {
+  await page.goto('/');
+  await expect.poll(async () => page.evaluate(() => Boolean(window.__ssiTemplateStatus?.ready)), { timeout: 15000 }).toBeTruthy();
+  await page.evaluate(() => window.__ssiCommands?.newProject?.('P123 Sprenghi Address'));
+
+  const text = fs.readFileSync(path.join(__dirname, '..', 'test-fixtures', 'memoriu-sprenghi-1.1-1.4-curat.txt'), 'utf8');
+  await page.evaluate((t) => window.__ssiCommands?.addManualText?.(t, 'src-123-sprenghi'), text);
+  await page.evaluate(async () => window.__ssiCommands?.extractData?.());
+
+  const normal = await page.locator('#normalReportOutput').inputValue();
+  const prelim = await page.locator('#preliminaryReportOutput').inputValue();
+  const expectedAddress = 'municipiul Brașov, str. Mărășești nr. 47, județul Brașov';
+
+  expect(normal).toContain(expectedAddress);
+  expect(prelim).toContain(expectedAddress);
+  expect(normal).not.toContain('municipiul Brașov, str');
+  expect(prelim).not.toContain('municipiul Brașov, str');
+});

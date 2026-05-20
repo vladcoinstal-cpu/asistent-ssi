@@ -4345,7 +4345,7 @@ function runFallbackExtraction(sources) {
     || firstMatch(/(biserica[^,\n]{3,160}|lacas\s+de\s+cult[^,\n]{3,160})/i);
   pick("denumire_obiectiv", denumire);
   pick("beneficiar", cleanBeneficiaryText(firstMatch(/(Parohia[^.\n]{3,220})/i)));
-  pick("adresa", cleanAddressText(firstMatch(/((?:str\.|strada|bd\.|bulevardul|municipiul|orasul|județul|judetul)[^.\n]{8,220})/i)));
+  pick("adresa", cleanAddressText(firstMatch(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)));
 
   const categoria = firstMatch(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([A-Da-d][^.\n;]{0,80})/i)
     || firstMatch(/categoria\s+de\s+importanta\s*[:\-]?\s*([A-Da-d][^.\n;]{0,80})/i)
