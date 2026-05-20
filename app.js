@@ -1265,6 +1265,7 @@ function buildSemanticStructuredData(data, sources = []) {
   const semantic14 = semanticEngine?.buildSemantic14Model
     ? semanticEngine.buildSemantic14Model({ data, sources })
     : { dimensions: deriveDimensionParts(data, sources), users: { raw: String(data?.numar_utilizatori || "").trim() }, storage: { raw: String(data?.capacitati_depozitare || "").trim() } };
+  const functionTags = Array.isArray(semantic14.functions?.tags) ? semantic14.functions.tags : [];
   const dimensions = {
     regim: semantic14.dimensions?.regim || "",
     inaltime: semantic14.dimensions?.inaltimeMaxima || "",
@@ -1297,6 +1298,9 @@ function buildSemanticStructuredData(data, sources = []) {
     },
     evacuation: {
       raw: String(data?.cai_evacuare_rezumat || "").trim()
+    },
+    functions: {
+      tags: functionTags
     }
   };
 }
@@ -1308,7 +1312,8 @@ function buildPoint1ReportsFromTemplates() {
   const volumConstructie = semantic.dimensions.volum;
   const ariaConstruita = semantic.dimensions.ariaConstruita;
   const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
-  const functiuni = String(state.data["funcțiuni"] || "").trim();
+  const semanticFunctions = (semantic.functions?.tags || []).join(", ");
+  const functiuni = semanticFunctions || String(state.data["funcțiuni"] || "").trim();
 
   const valueByLabel = {
     "denumirea obiectivului": state.data.denumire_obiectiv || "",

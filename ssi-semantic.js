@@ -89,6 +89,16 @@
 
   function buildSemantic14Model({ data = {}, sources = [] }) {
     const dimensions = deriveDimensionParts(data, sources);
+    const combinedText = `${String(data['funcțiuni'] || data.functiuni || '')}\n${normalizeSourceText(sources)}`.toLowerCase();
+    const functionTags = [];
+    const push = (tag, re) => { if (re.test(combinedText)) functionTags.push(tag); };
+    push('sală aglomerată', /sala|sală|aglomerat/);
+    push('restaurant / alimentație publică', /restaurant|alimentatie|alimentație|bucatarie|bucătărie/);
+    push('parcaj', /parcaj|subsol|locuri\s+auto/);
+    push('depozitare', /depozit|depozitare/);
+    push('industrial', /industrial|productie|producție/);
+    push('birouri', /birou|birouri/);
+    push('cult', /cult|biseric|lacas|lăcaș/);
     return {
       dimensions: {
         regim: dimensions.regim || '',
@@ -99,6 +109,8 @@
       },
       users: { raw: String(data.numar_utilizatori || '').trim() },
       storage: { raw: String(data.capacitati_depozitare || '').trim() }
+      ,
+      functions: { tags: [...new Set(functionTags)] }
     };
   }
 

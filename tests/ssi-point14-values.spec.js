@@ -68,7 +68,11 @@ test('1.4 semantic value checks across 3 memorii + reset/no leakage', async ({ p
       expect(storageLine).not.toMatch(/bucătărie|gaze/i);
     }
 
-    for (const re of fx.expect) expect(both).toMatch(re);
+    for (const re of fx.expect) {
+      if (!re.test(both)) {
+        throw new Error(`Fixture ${fx.file} missing ${re}\n\nNORMAL:\n${normal}\n\nPRELIMINAR:\n${prelim}`);
+      }
+    }
 
     if (previousProjectMarker) {
       expect(normal).not.toMatch(previousProjectMarker);
