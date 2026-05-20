@@ -1262,13 +1262,21 @@ function resetReportsFromTemplates() {
 
 function buildSemanticStructuredData(data, sources = []) {
   const dimensions = deriveDimensionParts(data, sources);
+  const dimensionsText = [
+    dimensions.regim ? `regim de înălțime: ${dimensions.regim}` : "",
+    dimensions.inaltime ? `înălțime maximă: ${dimensions.inaltime}` : "",
+    dimensions.volum ? `volum: ${dimensions.volum}` : "",
+    dimensions.ariaConstruita ? `aria construită: ${dimensions.ariaConstruita}` : "",
+    dimensions.ariaDesfasurata ? `aria desfășurată: ${dimensions.ariaDesfasurata}` : ""
+  ].filter(Boolean).join("; ");
   return {
     dimensions: {
       regim: dimensions.regim || "",
       inaltimeMaxima: dimensions.inaltime || "",
       ariaConstruita: dimensions.ariaConstruita || "",
       ariaDesfasurata: dimensions.ariaDesfasurata || "",
-      volum: dimensions.volum || ""
+      volum: dimensions.volum || "",
+      text: dimensionsText
     },
     users: {
       raw: String(data?.numar_utilizatori || "").trim(),
@@ -1314,7 +1322,7 @@ function buildPoint1ReportsFromTemplates() {
     "tipul clădirii": state.data.tip_cladire || "",
     "tipul parcajului": state.data.tip_parcaj || "",
     "tipul parcajului, cu precizarea numărului de autovehicule": state.data.tip_parcaj || "",
-    "caracteristici dimensionale": state.data.caracteristici_dimensionale || "",
+    "caracteristici dimensionale": semantic.dimensions.text || "De completat",
     "regimul de înălțime": regimInaltime || "De completat",
     "înălțimea maximă": inaltimeMaxima || "De completat",
     "volumul construcției": volumConstructie || "De completat",
