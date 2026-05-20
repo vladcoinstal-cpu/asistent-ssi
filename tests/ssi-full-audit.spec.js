@@ -3,167 +3,210 @@ const fs = require('fs');
 const path = require('path');
 
 const CASES = [
-  { name: 'Sprenghi', file: 'memoriu-sprenghi-1.1-1.4-curat.txt', refs: { hasReference: true } },
-  { name: 'Comercial Parcaj', file: 'memoriu-arhitectura-comercial-parcare-subsol.txt', refs: { hasReference: false } },
-  { name: 'Industrial Depozitare', file: 'memoriu-arhitectura-industrial-depozitare.txt', refs: { hasReference: false } },
-  { name: 'Restaurant Sala', file: 'memoriu-arhitectura-restaurant-sala-aglomerata.txt', refs: { hasReference: false } }
+  { name: 'Sprenghi', file: 'memoriu-sprenghi-1.1-1.4-curat.txt', kind: 'reference' },
+  { name: 'Comercial Parcaj', file: 'memoriu-arhitectura-comercial-parcare-subsol.txt', kind: 'fixture' },
+  { name: 'Industrial Depozitare', file: 'memoriu-arhitectura-industrial-depozitare.txt', kind: 'fixture' },
+  { name: 'Restaurant Sala', file: 'memoriu-arhitectura-restaurant-sala-aglomerata.txt', kind: 'fixture' },
+  { name: 'Empty Skeleton', file: null, kind: 'empty' }
 ];
 
 const normalTemplate = require('../ssi-normal-template-anexa4.json');
 const prelimTemplate = require('../ssi-preliminar-template-anexa5.json');
 
-function flattenTemplate(template, annexName) {
+function flattenTemplate(template) {
   const rows = [];
-  const walkSubpoints = (subpoints = [], sectionCode = '', sectionTitle = '') => {
+  const walk = (subpoints = [], sectionCode = '', sectionTitle = '') => {
     for (const sp of subpoints) {
-      const code = String(sp.code || '').trim();
-      const title = String(sp.title || '').trim();
-      const fields = Array.isArray(sp.fields) ? sp.fields : [];
-      rows.push({ annex: annexName, sectionCode, sectionTitle, subpointCode: code, subpointTitle: title, fields });
-      walkSubpoints(sp.subpoints || [], sectionCode, sectionTitle);
+      rows.push({
+        sectionCode: String(sectionCode || ''),
+        sectionTitle: String(sectionTitle || ''),
+        subpointCode: String(sp.code || '').trim(),
+        subpointTitle: String(sp.title || '').trim(),
+        fields: Array.isArray(sp.fields) ? sp.fields : []
+      });
+      walk(sp.subpoints || [], sectionCode, sectionTitle);
     }
   };
-  for (const sec of template.sections || []) {
-    walkSubpoints(sec.subpoints || [], String(sec.code || '').trim(), String(sec.title || '').trim());
-  }
+  for (const sec of template.sections || []) walk(sec.subpoints || [], sec.code, sec.title);
   return rows;
 }
 
-function normalizeSpaces(v) {
+function normalize(v) {
   return String(v || '').replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ').replace(/\s+\n/g, '\n').trim();
 }
 
-function findSubpointBlock(text, subpointCode) {
-  const escaped = subpointCode.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function blockForCode(text, code) {
+  const escaped = code.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   const re = new RegExp(`(?:^|\\n)\\s*${escaped}\\b[\\s\\S]*?(?=(?:\\n\\s*\\d+(?:\\.\\d+)*\\b)|$)`, 'i');
-  return (normalizeSpaces(text).match(re) || [''])[0].trim();
+  return (normalize(text).match(re) || [''])[0].trim();
 }
 
-function lineForField(block, fieldLabel) {
-  const key = String(fieldLabel || '').toLowerCase().trim();
-  if (!key) return '';
+function findFieldLine(block, label) {
+  const key = String(label || '').toLowerCase().trim();
   const lines = String(block || '').split('\n').map((x) => x.trim()).filter(Boolean);
-  const found = lines.find((ln) => ln.toLowerCase().includes(key));
-  return found || '';
+  return lines.find((ln) => ln.toLowerCase().includes(key)) || '';
 }
 
-function statusForField({ line, fixtureName, subpointCode, fieldLabel }) {
-  if (!line) return 'field-line-not-detected';
-  const lower = line.toLowerCase();
-  if (/de completat|\s-\s*$|:\s*$/.test(lower)) return 'de-completat-or-empty';
-  if (subpointCode === '1.1' && /adres/.test(fieldLabel.toLowerCase())) {
-    if (/mărășești\s*nr\.?\s*47/i.test(line) && /jude[țt]ul\s+bra[șs]ov/i.test(line)) return 'ok';
-    if (/municipiul\s+bra[șs]ov,\s*str\s*$/i.test(line)) return 'truncated';
-  }
-  if (subpointCode.startsWith('1.4') && /capacități|capacitati/i.test(fieldLabel)) {
-    if (/bucătărie|linie caldă|gaze naturale/i.test(line)) return 'contaminated';
-  }
-  if (/beneficiar|proprietar/i.test(fieldLabel.toLowerCase()) && /str\.|municipiul|jude[țt]ul/i.test(line)) return 'contaminated';
-  if (/adres/i.test(fieldLabel.toLowerCase()) && /profilul de activitate|date de contact beneficiar/i.test(line)) return 'contaminated';
-  if (fixtureName === 'Sprenghi' && /^1\.(2|3|4)/.test(subpointCode)) {
-    if (subpointCode === '1.2' && !/cult/i.test(lineForFieldCache.get(`${fixtureName}|${subpointCode}|funcțiuni principale, secundare și conexe ale construcției\/amenajării`) || line)) return 'wrong-value';
-  }
-  return 'ok';
+function hasSourceDataForField(rawText, fieldLabel) {
+  const label = String(fieldLabel || '').toLowerCase();
+  const src = normalize(rawText).toLowerCase();
+  if (/denumire/.test(label)) return /(denumirea\s+obiectivului|lăcaș|obiectiv)/i.test(src);
+  if (/beneficiar|proprietar/.test(label)) return /(beneficiar|proprietar|parohia)/i.test(src);
+  if (/adres/.test(label)) return /(adresa|str\.|strada|municipiul|județul|judetul)/i.test(src);
+  if (/funcțiuni|functiuni|destina/.test(label)) return /(funcțiuni|funcţiuni|destinația|destinatia|cult|restaurant|depozitare|industrial|parcaj)/i.test(src);
+  if (/categoria|clasa de importan/.test(label)) return /(categoria\s+de\s+importan|clasa\s+de\s+importan)/i.test(src);
+  if (/regimul|înălțimea|volumul|aria/.test(label)) return /(regim|inaltime|înălțime|volum|aria)/i.test(src);
+  if (/numărul maxim|utilizatori|persoane/.test(label)) return /(utilizatori|persoane)/i.test(src);
+  if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
+  if (/căilor de evacuare|cailor de evacuare/.test(label)) return /(evacuare|căi|cai)/i.test(src);
+  return false;
 }
 
-const lineForFieldCache = new Map();
+function analyzeField({ fixture, annex, subpointCode, fieldLabel, fieldLine, block, rawSource }) {
+  const line = String(fieldLine || '');
+  const low = line.toLowerCase();
+  const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel);
 
-function collectCaseAudit({ fixtureName, normalOut, prelimOut, templates }) {
-  const rows = [];
-  const addRows = (annex, outputText, templateRows) => {
-    for (const tp of templateRows) {
-      const block = findSubpointBlock(outputText, tp.subpointCode);
-      const blockExists = Boolean(block);
-      rows.push({
-        fixtureName,
-        annex,
-        subpointCode: tp.subpointCode,
-        subpointTitle: tp.subpointTitle,
-        check: 'subpoint_exists',
-        expected: `Subpoint ${tp.subpointCode} present`,
-        actual: blockExists ? 'present' : 'missing',
-        status: blockExists ? 'ok' : 'missing',
-        evidence: block.slice(0, 240)
-      });
-      for (const field of tp.fields) {
-        const label = String(field.label || field.title || '').trim();
-        if (!label) continue;
-        const line = lineForField(block, label);
-        lineForFieldCache.set(`${fixtureName}|${tp.subpointCode}|${label.toLowerCase()}`, line);
-        const st = statusForField({ line, fixtureName, subpointCode: tp.subpointCode, fieldLabel: label });
-        rows.push({
-          fixtureName,
-          annex,
-          subpointCode: tp.subpointCode,
-          subpointTitle: tp.subpointTitle,
-          check: 'field_value',
-          field: label,
-          expected: `${label} line present and valid`,
-          actual: line || '(missing)',
-          status: st,
-          evidence: block.slice(0, 260)
-        });
-      }
+  if (!block) return { status: 'missing', cause: 'subpoint block absent', missingRule: 'render-template-population', recommendedFix: 'Ensure section/subpoint rendering for this annex.' };
+  if (!line) return { status: 'missing', cause: 'field line absent in subpoint block', missingRule: 'field-mapping-line', recommendedFix: 'Map template field label to semantic/source value.' };
+
+  if (/de completat/.test(low)) {
+    if (expectedSourceData && fixture.kind !== 'empty') return { status: 'unexpected-de-completat', cause: 'source has data but output kept placeholder', missingRule: 'data-availability-override', recommendedFix: 'Populate from semantic/extracted value when source data exists.' };
+    return { status: 'ok', cause: 'placeholder allowed (no source data)', missingRule: '-', recommendedFix: '-' };
+  }
+
+  if (/^[-–—: ]*$/.test(line.replace(/[\s\u00a0]/g, ''))) {
+    return { status: expectedSourceData ? 'unexpected-empty' : 'ok', cause: expectedSourceData ? 'empty despite source data' : 'empty allowed', missingRule: expectedSourceData ? 'non-empty-when-source-exists' : '-', recommendedFix: expectedSourceData ? 'Populate value from semantic/source.' : '-' };
+  }
+
+  if (/beneficiar|proprietar/i.test(fieldLabel) && /(str\.|municipiul|jude[țt]ul)/i.test(line)) {
+    return { status: 'contaminated', cause: 'beneficiary line includes address tokens', missingRule: 'beneficiary-address-separation', recommendedFix: 'Sanitize beneficiary against address phrases.' };
+  }
+
+  if (/adres/i.test(fieldLabel)) {
+    if (/profilul de activitate|date de contact beneficiar/i.test(line)) {
+      return { status: 'contaminated', cause: 'address line includes data from other subfields', missingRule: 'address-field-isolation', recommendedFix: 'Strip trailing sections from address text.' };
     }
-  };
+    if (/municipiul\s+bra[șs]ov,\s*str\s*$/i.test(line)) {
+      return { status: 'truncated', cause: 'address truncated at street token', missingRule: 'full-address-preservation', recommendedFix: 'Preserve complete str./nr./județ values.' };
+    }
+    if (fixture.name === 'Sprenghi' && !/m[ăa]r[ăa][șs]e[șs]ti\s*nr\.?\s*47,\s*jude[țt]ul\s+bra[șs]ov/i.test(line)) {
+      return { status: 'wrong-value', cause: 'does not match Sprenghi reference address', missingRule: 'reference-v58-v85-address', recommendedFix: 'Use semantic reference-compatible address for Sprenghi.' };
+    }
+  }
 
-  addRows('Anexa 4 / SSI normal', normalOut, templates.normal);
-  addRows('Anexa 5 / SSI preliminar', prelimOut, templates.prelim);
+  if (/regimul de înălțime|volumul construcției|aria construită|aria desfășurată|înălțimea maximă/i.test(fieldLabel)) {
+    if (/\d/.test(line) && !/(m²|m³|\bm\b|m2|m3|mp|mc)/i.test(line)) {
+      return { status: 'wrong-unit', cause: 'dimension value without expected unit marker', missingRule: 'dimension-unit-normalization', recommendedFix: 'Normalize to m / m² / m³ units.' };
+    }
+  }
 
+  if (/capacități de depozitare|capacitati de depozitare/i.test(fieldLabel) && /bucătărie|gaze naturale|linie caldă/i.test(line)) {
+    return { status: 'wrong-source', cause: 'storage line includes kitchen/gas process text', missingRule: 'storage-context-filtering', recommendedFix: 'Restrict storage extraction to storage context sentences only.' };
+  }
+
+  return { status: 'ok', cause: 'passed rule checks', missingRule: '-', recommendedFix: '-' };
+}
+
+function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) {
+  const rows = [];
+  for (const t of templateRows) {
+    const block = blockForCode(outputText, t.subpointCode);
+    rows.push({
+      fixture: fixture.name,
+      annex: annexName,
+      subpoint: t.subpointCode,
+      field: '-',
+      check: 'subpoint_exists',
+      status: block ? 'ok' : 'missing',
+      expected: `Subpoint ${t.subpointCode} present in output`,
+      actual: block ? 'present' : 'missing',
+      cause: block ? 'rendered' : 'template/render omission',
+      missingRule: block ? '-' : 'subpoint-render-presence',
+      recommendedFix: block ? '-' : 'Ensure template subpoint exists in output renderer.',
+      evidence: block.slice(0, 220)
+    });
+
+    for (const f of t.fields) {
+      const label = String(f.label || f.title || '').trim();
+      if (!label) continue;
+      const fieldLine = findFieldLine(block, label);
+      const res = analyzeField({ fixture, annex: annexName, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource });
+      rows.push({
+        fixture: fixture.name,
+        annex: annexName,
+        subpoint: t.subpointCode,
+        field: label,
+        check: 'field_rule',
+        status: res.status,
+        expected: `${label}: valid value / valid De completat according to source`,
+        actual: fieldLine || '(missing)',
+        cause: res.cause,
+        missingRule: res.missingRule,
+        recommendedFix: res.recommendedFix,
+        evidence: block.slice(0, 260)
+      });
+    }
+  }
   return rows;
 }
 
-function renderReport(rows) {
-  const now = new Date().toISOString();
-  const byStatus = rows.reduce((acc, r) => { acc[r.status] = (acc[r.status] || 0) + 1; return acc; }, {});
-  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value']);
-  const critical = rows.filter((r) => criticalStatuses.has(r.status));
+function reportMarkdown(rows) {
+  const generated = new Date().toISOString();
+  const statuses = ['ok', 'missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat', 'de-completat-or-empty'];
+  const counts = Object.fromEntries(statuses.map((s) => [s, rows.filter((r) => r.status === s).length]));
+  const criticalSet = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
+  const critical = rows.filter((r) => criticalSet.has(r.status));
 
-  const matrixLines = [];
-  matrixLines.push('| Fixture | Annexa | Subpoint | Check | Field | Status | Expected | Actual |');
-  matrixLines.push('|---|---|---|---|---|---|---|---|');
-  for (const r of rows) {
-    matrixLines.push(`| ${r.fixtureName} | ${r.annex} | ${r.subpointCode} ${r.subpointTitle || ''} | ${r.check} | ${r.field || '-'} | ${r.status} | ${String(r.expected || '').replace(/\|/g, '/')} | ${String(r.actual || '').replace(/\|/g, '/')} |`);
-  }
+  const matrix = [
+    '| Fixture | Annexa | Subpoint | Field | Check | Status | Cause | Missing semantic rule | Recommended fix |',
+    '|---|---|---|---|---|---|---|---|---|',
+    ...rows.map((r) => `| ${r.fixture} | ${r.annex} | ${r.subpoint} | ${String(r.field).replace(/\|/g, '/')} | ${r.check} | ${r.status} | ${String(r.cause).replace(/\|/g, '/')} | ${String(r.missingRule).replace(/\|/g, '/')} | ${String(r.recommendedFix).replace(/\|/g, '/')} |`)
+  ].join('\n');
 
-  const criticalLines = critical.map((r, idx) => `${idx + 1}. [${r.fixtureName}] ${r.annex} ${r.subpointCode} ${r.field || '-'} => ${r.status}\n   expected: ${r.expected}\n   actual: ${r.actual}\n   evidence: ${r.evidence || ''}`);
+  const criticalList = critical.length
+    ? critical.map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} / ${r.field}\n   - status: ${r.status}\n   - cause: ${r.cause}\n   - missing rule: ${r.missingRule}\n   - recommended fix: ${r.recommendedFix}\n   - actual: ${r.actual}`).join('\n\n')
+    : 'No critical issues.';
 
-  return `# SSI Full Audit Report (Global Anexa 4 + Anexa 5)\n\nGenerated: ${now}\n\n## Scope\n- Fixtures: ${CASES.map((c) => c.name).join(', ')}\n- Outputs: SSI normal (Anexa 4) + SSI preliminar (Anexa 5)\n- Checks: presence, ordering-by-subpoint scan, field presence, value/de-completat contamination heuristics, reset/no-leakage\n\n## Status summary\n${Object.entries(byStatus).map(([k, v]) => `- ${k}: ${v}`).join('\n')}\n\n## Critical issues\n${criticalLines.join('\n\n') || 'No critical issues found.'}\n\n## Full subpoint matrix\n${matrixLines.join('\n')}\n`;
+  return `# SSI Full Audit Report (Global – Anexa 4 + Anexa 5)\n\nGenerated: ${generated}\n\n## Coverage\n- All subpoints from templates: ` +
+    `${flattenTemplate(normalTemplate).length} (normal) + ${flattenTemplate(prelimTemplate).length} (preliminar)\n- Fixtures: ${CASES.map((c) => c.name).join(', ')}\n- Includes: Sprenghi reference checks, 3 memorii, empty skeleton, reset/no-leakage\n\n## Status summary\n${statuses.map((s) => `- ${s}: ${counts[s]}`).join('\n')}\n\n## Critical issues\n${criticalList}\n\n## Full matrix (all subpoints/fields)\n${matrix}\n`;
 }
 
-test('full SSI global audit (all subpoints from Anexa 4/5) collects all differences and fails only at end', async ({ page }) => {
-  const templateRows = {
-    normal: flattenTemplate(normalTemplate, 'Anexa 4'),
-    prelim: flattenTemplate(prelimTemplate, 'Anexa 5')
-  };
+test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differences collected, fail at end', async ({ page }) => {
+  const normalRows = flattenTemplate(normalTemplate);
+  const prelimRows = flattenTemplate(prelimTemplate);
+  const rows = [];
 
-  const allRows = [];
   await page.goto('/');
   await expect.poll(async () => page.evaluate(() => Boolean(window.__ssiTemplateStatus?.ready)), { timeout: 20000 }).toBeTruthy();
 
-  for (const c of CASES) {
-    await page.evaluate((n) => window.__ssiCommands?.newProject?.(`AUDIT-GLOBAL-${n}`), c.name);
-    const src = fs.readFileSync(path.join(__dirname, '..', 'test-fixtures', c.file), 'utf8');
-    await page.evaluate((t) => window.__ssiCommands?.addManualText?.(t, 'audit-src'), src);
-    await page.evaluate(async () => window.__ssiCommands?.extractData?.());
+  for (const fixture of CASES) {
+    await page.evaluate((name) => window.__ssiCommands?.newProject?.(`AUDIT-GLOBAL-${name}`), fixture.name);
+    let src = '';
+    if (fixture.file) {
+      src = fs.readFileSync(path.join(__dirname, '..', 'test-fixtures', fixture.file), 'utf8');
+      await page.evaluate((t) => window.__ssiCommands?.addManualText?.(t, 'audit-src'), src);
+      await page.evaluate(async () => window.__ssiCommands?.extractData?.());
+    }
 
     const normal = await page.locator('#normalReportOutput').inputValue();
     const prelim = await page.locator('#preliminaryReportOutput').inputValue();
 
-    allRows.push(...collectCaseAudit({ fixtureName: c.name, normalOut: normal, prelimOut: prelim, templates: templateRows }));
+    rows.push(...buildRows({ fixture, annexName: 'Anexa 4 / SSI normal', outputText: normal, templateRows: normalRows, rawSource: src }));
+    rows.push(...buildRows({ fixture, annexName: 'Anexa 5 / SSI preliminar', outputText: prelim, templateRows: prelimRows, rawSource: src }));
 
     await page.locator('[data-tab-target="sourcesTab"]').click();
     await page.locator('#resetBtn').click();
     await expect(page.locator('#sourceCount')).toHaveText('0');
   }
 
-  const report = renderReport(allRows);
-  fs.writeFileSync(path.join(__dirname, '..', 'audit-full-ssi-output.md'), report);
+  const md = reportMarkdown(rows);
+  fs.writeFileSync(path.join(__dirname, '..', 'audit-full-ssi-output.md'), md);
 
-  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value']);
-  const critical = allRows.filter((r) => criticalStatuses.has(r.status));
+  const criticalSet = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
+  const critical = rows.filter((r) => criticalSet.has(r.status));
   if (critical.length) {
-    const details = critical.slice(0, 30).map((r, i) => `${i + 1}. [${r.fixtureName}] ${r.annex} ${r.subpointCode} ${r.field || '-'} => ${r.status} | actual: ${r.actual}`).join('\n');
-    throw new Error(`SSI full global audit found ${critical.length} critical issue(s).\n${details}`);
+    const compact = critical.slice(0, 40).map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} ${r.field} => ${r.status}`).join('\n');
+    throw new Error(`Global SSI audit found ${critical.length} critical issues.\n${compact}`);
   }
 });
