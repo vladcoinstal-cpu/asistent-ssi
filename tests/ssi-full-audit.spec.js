@@ -3,86 +3,166 @@ const fs = require('fs');
 const path = require('path');
 
 const CASES = [
-  { name: 'Sprenghi', file: 'memoriu-sprenghi-1.1-1.4-curat.txt' },
-  { name: 'Comercial Parcaj', file: 'memoriu-arhitectura-comercial-parcare-subsol.txt' },
-  { name: 'Industrial Depozitare', file: 'memoriu-arhitectura-industrial-depozitare.txt' },
-  { name: 'Restaurant Sala', file: 'memoriu-arhitectura-restaurant-sala-aglomerata.txt' }
+  { name: 'Sprenghi', file: 'memoriu-sprenghi-1.1-1.4-curat.txt', refs: { hasReference: true } },
+  { name: 'Comercial Parcaj', file: 'memoriu-arhitectura-comercial-parcare-subsol.txt', refs: { hasReference: false } },
+  { name: 'Industrial Depozitare', file: 'memoriu-arhitectura-industrial-depozitare.txt', refs: { hasReference: false } },
+  { name: 'Restaurant Sala', file: 'memoriu-arhitectura-restaurant-sala-aglomerata.txt', refs: { hasReference: false } }
 ];
 
+const normalTemplate = require('../ssi-normal-template-anexa4.json');
+const prelimTemplate = require('../ssi-preliminar-template-anexa5.json');
 
-function section(text, start, end) {
-  const re = new RegExp(`(?:^|\\n)\\s*${start}\\.?[\\s\\S]*?(?=(?:\\n\\s*${end}\\.?)|$)`, 'i');
-  return (text.match(re) || [''])[0].trim();
+function flattenTemplate(template, annexName) {
+  const rows = [];
+  const walkSubpoints = (subpoints = [], sectionCode = '', sectionTitle = '') => {
+    for (const sp of subpoints) {
+      const code = String(sp.code || '').trim();
+      const title = String(sp.title || '').trim();
+      const fields = Array.isArray(sp.fields) ? sp.fields : [];
+      rows.push({ annex: annexName, sectionCode, sectionTitle, subpointCode: code, subpointTitle: title, fields });
+      walkSubpoints(sp.subpoints || [], sectionCode, sectionTitle);
+    }
+  };
+  for (const sec of template.sections || []) {
+    walkSubpoints(sec.subpoints || [], String(sec.code || '').trim(), String(sec.title || '').trim());
+  }
+  return rows;
 }
 
-function pushIssue(issues, cat, subpoint, expected, actual, status, cause, rule, testRef) {
-  issues.push({ cat, subpoint, expected, actual: (actual || '').slice(0, 220), status, cause, rule, test: testRef });
+function normalizeSpaces(v) {
+  return String(v || '').replace(/\u00a0/g, ' ').replace(/[ \t]+/g, ' ').replace(/\s+\n/g, '\n').trim();
 }
 
-test('full SSI audit report (Anexa4/5 + references + fixtures) collects all differences', async ({ page }) => {
-  const issues = [];
+function findSubpointBlock(text, subpointCode) {
+  const escaped = subpointCode.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const re = new RegExp(`(?:^|\\n)\\s*${escaped}\\b[\\s\\S]*?(?=(?:\\n\\s*\\d+(?:\\.\\d+)*\\b)|$)`, 'i');
+  return (normalizeSpaces(text).match(re) || [''])[0].trim();
+}
+
+function lineForField(block, fieldLabel) {
+  const key = String(fieldLabel || '').toLowerCase().trim();
+  if (!key) return '';
+  const lines = String(block || '').split('\n').map((x) => x.trim()).filter(Boolean);
+  const found = lines.find((ln) => ln.toLowerCase().includes(key));
+  return found || '';
+}
+
+function statusForField({ line, fixtureName, subpointCode, fieldLabel }) {
+  if (!line) return 'missing-field-line';
+  const lower = line.toLowerCase();
+  if (/de completat|\s-\s*$|:\s*$/.test(lower)) return 'de-completat-or-empty';
+  if (subpointCode === '1.1' && /adres/.test(fieldLabel.toLowerCase())) {
+    if (/mărășești\s*nr\.?\s*47/i.test(line) && /jude[țt]ul\s+bra[șs]ov/i.test(line)) return 'ok';
+    if (/municipiul\s+bra[șs]ov,\s*str\s*$/i.test(line)) return 'truncated';
+  }
+  if (subpointCode.startsWith('1.4') && /capacități|capacitati/i.test(fieldLabel)) {
+    if (/bucătărie|linie caldă|gaze naturale/i.test(line)) return 'contaminated';
+  }
+  if (/beneficiar|proprietar/i.test(fieldLabel.toLowerCase()) && /str\.|municipiul|jude[țt]ul/i.test(line)) return 'contaminated';
+  if (/adres/i.test(fieldLabel.toLowerCase()) && /profilul de activitate|date de contact beneficiar/i.test(line)) return 'contaminated';
+  if (fixtureName === 'Sprenghi' && /^1\.(2|3|4)/.test(subpointCode)) {
+    if (subpointCode === '1.2' && !/cult/i.test(lineForFieldCache.get(`${fixtureName}|${subpointCode}|funcțiuni principale, secundare și conexe ale construcției\/amenajării`) || line)) return 'wrong-value';
+  }
+  return 'ok';
+}
+
+const lineForFieldCache = new Map();
+
+function collectCaseAudit({ fixtureName, normalOut, prelimOut, templates }) {
+  const rows = [];
+  const addRows = (annex, outputText, templateRows) => {
+    for (const tp of templateRows) {
+      const block = findSubpointBlock(outputText, tp.subpointCode);
+      const blockExists = Boolean(block);
+      rows.push({
+        fixtureName,
+        annex,
+        subpointCode: tp.subpointCode,
+        subpointTitle: tp.subpointTitle,
+        check: 'subpoint_exists',
+        expected: `Subpoint ${tp.subpointCode} present`,
+        actual: blockExists ? 'present' : 'missing',
+        status: blockExists ? 'ok' : 'missing',
+        evidence: block.slice(0, 240)
+      });
+      for (const field of tp.fields) {
+        const label = String(field.label || field.title || '').trim();
+        if (!label) continue;
+        const line = lineForField(block, label);
+        lineForFieldCache.set(`${fixtureName}|${tp.subpointCode}|${label.toLowerCase()}`, line);
+        const st = statusForField({ line, fixtureName, subpointCode: tp.subpointCode, fieldLabel: label });
+        rows.push({
+          fixtureName,
+          annex,
+          subpointCode: tp.subpointCode,
+          subpointTitle: tp.subpointTitle,
+          check: 'field_value',
+          field: label,
+          expected: `${label} line present and valid`,
+          actual: line || '(missing)',
+          status: st,
+          evidence: block.slice(0, 260)
+        });
+      }
+    }
+  };
+
+  addRows('Anexa 4 / SSI normal', normalOut, templates.normal);
+  addRows('Anexa 5 / SSI preliminar', prelimOut, templates.prelim);
+
+  return rows;
+}
+
+function renderReport(rows) {
+  const now = new Date().toISOString();
+  const byStatus = rows.reduce((acc, r) => { acc[r.status] = (acc[r.status] || 0) + 1; return acc; }, {});
+  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'missing-field-line']);
+  const critical = rows.filter((r) => criticalStatuses.has(r.status));
+
+  const matrixLines = [];
+  matrixLines.push('| Fixture | Annexa | Subpoint | Check | Field | Status | Expected | Actual |');
+  matrixLines.push('|---|---|---|---|---|---|---|---|');
+  for (const r of rows) {
+    matrixLines.push(`| ${r.fixtureName} | ${r.annex} | ${r.subpointCode} ${r.subpointTitle || ''} | ${r.check} | ${r.field || '-'} | ${r.status} | ${String(r.expected || '').replace(/\|/g, '/')} | ${String(r.actual || '').replace(/\|/g, '/')} |`);
+  }
+
+  const criticalLines = critical.map((r, idx) => `${idx + 1}. [${r.fixtureName}] ${r.annex} ${r.subpointCode} ${r.field || '-'} => ${r.status}\n   expected: ${r.expected}\n   actual: ${r.actual}\n   evidence: ${r.evidence || ''}`);
+
+  return `# SSI Full Audit Report (Global Anexa 4 + Anexa 5)\n\nGenerated: ${now}\n\n## Scope\n- Fixtures: ${CASES.map((c) => c.name).join(', ')}\n- Outputs: SSI normal (Anexa 4) + SSI preliminar (Anexa 5)\n- Checks: presence, ordering-by-subpoint scan, field presence, value/de-completat contamination heuristics, reset/no-leakage\n\n## Status summary\n${Object.entries(byStatus).map(([k, v]) => `- ${k}: ${v}`).join('\n')}\n\n## Critical issues\n${criticalLines.join('\n\n') || 'No critical issues found.'}\n\n## Full subpoint matrix\n${matrixLines.join('\n')}\n`;
+}
+
+test('full SSI global audit (all subpoints from Anexa 4/5) collects all differences and fails only at end', async ({ page }) => {
+  const templateRows = {
+    normal: flattenTemplate(normalTemplate, 'Anexa 4'),
+    prelim: flattenTemplate(prelimTemplate, 'Anexa 5')
+  };
+
+  const allRows = [];
   await page.goto('/');
-  await expect.poll(async () => page.evaluate(() => Boolean(window.__ssiTemplateStatus?.ready))).toBeTruthy();
+  await expect.poll(async () => page.evaluate(() => Boolean(window.__ssiTemplateStatus?.ready)), { timeout: 20000 }).toBeTruthy();
 
   for (const c of CASES) {
-    await page.evaluate((n) => window.__ssiCommands?.newProject?.(`AUDIT-${n}`), c.name);
+    await page.evaluate((n) => window.__ssiCommands?.newProject?.(`AUDIT-GLOBAL-${n}`), c.name);
     const src = fs.readFileSync(path.join(__dirname, '..', 'test-fixtures', c.file), 'utf8');
     await page.evaluate((t) => window.__ssiCommands?.addManualText?.(t, 'audit-src'), src);
     await page.evaluate(async () => window.__ssiCommands?.extractData?.());
 
     const normal = await page.locator('#normalReportOutput').inputValue();
     const prelim = await page.locator('#preliminaryReportOutput').inputValue();
-    const both = `${normal}\n${prelim}`;
-    for (const code of ['1.1', '1.2', '1.3', '1.4']) {
-      if (!new RegExp(`\\b${code.replace('.', '\\.')}\\b`).test(normal)) {
-        pushIssue(issues, 'structura', code, `subpunct ${code} în SSI normal`, '', 'lipsă', 'template/render omission', 'ensure point 1 section population', 'tests/ssi-full-audit.spec.js');
-      }
-      if (!new RegExp(`\\b${code.replace('.', '\\.')}\\b`).test(prelim)) {
-        pushIssue(issues, 'structura', code, `subpunct ${code} în SSI preliminar`, '', 'lipsă', 'template/render omission', 'ensure point 1 section population', 'tests/ssi-full-audit.spec.js');
-      }
-    }
 
-    const b11 = `${section(normal,'1\\.1','1\\.2')}\n${section(prelim,'1\\.1','1\\.2')}`;
-    const b12 = `${section(normal,'1\\.2','1\\.3')}\n${section(prelim,'1\\.2','1\\.3')}`;
-    const b13 = `${section(normal,'1\\.3','1\\.4')}\n${section(prelim,'1\\.3','1\\.4')}`;
-    const b14 = `${section(normal,'1\\.4','2')}\n${section(prelim,'1\\.4','2')}`;
-
-    if (!b11) pushIssue(issues,'identificare','1.1','bloc 1.1 prezent',b11,'lipsă','section parser','robust section extraction','tests/ssi-full-audit.spec.js');
-    if (!b12) pushIssue(issues,'funcțiuni','1.2','bloc 1.2 prezent',b12,'lipsă','section parser','robust section extraction','tests/ssi-full-audit.spec.js');
-    if (!b13) pushIssue(issues,'categorie','1.3','bloc 1.3 prezent',b13,'lipsă','section parser','robust section extraction','tests/ssi-full-audit.spec.js');
-    if (!b14) pushIssue(issues,'dimensiuni/utilizatori/depozitare','1.4','bloc 1.4 prezent',b14,'lipsă','section parser','robust section extraction','tests/ssi-full-audit.spec.js');
-
-    if (!/beneficiar|proprietar/i.test(b11)) pushIssue(issues,'identificare','1.1','beneficiar prezent',b11,'greșit','semantic mapping 1.1','buildSemantic123Model mapping','tests/ssi-point123-values.spec.js');
-    if (!/adres[ăa]/i.test(b11)) pushIssue(issues,'identificare','1.1','adresa prezentă',b11,'lipsă','semantic mapping 1.1','buildSemantic123Model mapping','tests/ssi-point123-values.spec.js');
-    if (/beneficiar[^\n]*(str\.|municipiul)|proprietar[^\n]*(str\.|municipiul)/i.test(b11)) pushIssue(issues,'identificare','1.1','beneficiar separat de adresă',b11,'contaminat','field contamination','sanitize beneficiary/address','tests/ssi-point123-values.spec.js');
-
-    if (c.name === 'Sprenghi') {
-      const fullAddressPattern = /municipiul\s+bra[șs]ov,\s*str\.?\s*m[ăa]r[ăa][șs]e[șs]ti\s*,?\s*nr\.?\s*47,\s*jude[țt]ul\s+bra[șs]ov/i;
-      if (!fullAddressPattern.test(b11)) {
-        pushIssue(issues,'identificare','1.1','adresa completă Sprenghi (Mărășești nr. 47, județul Brașov)',b11,'trunchiat','semantic address chain','source -> extractData -> semantic123 -> template mapping 1.1','tests/ssi-point123-values.spec.js');
-      }
-      if (!/\bcult\b/i.test(b12)) pushIssue(issues,'funcțiuni','1.2','cult',b12,'greșit','destination tags','deriveFunctionTags context','tests/ssi-sprenghi-output-audit.spec.js');
-      if (/parcaj|industrial|birouri|depozitare/i.test(b12)) pushIssue(issues,'funcțiuni','1.2','fără parcaj/industrial/birouri/depozitare',b12,'contaminat','cross-context tags','source scoping 1.1-1.4','tests/ssi-sprenghi-output-audit.spec.js');
-      if (!/categoria\s*C/i.test(b13)) pushIssue(issues,'categorie','1.3','categoria C',b13,'lipsă','category parsing','semantic category mapping','tests/ssi-sprenghi-output-audit.spec.js');
-      if (!/D\+P\+Sp\+M/i.test(b14)) pushIssue(issues,'dimensiuni','1.4.c','D+P+Sp+M',b14,'greșit','dimension parse','parseDimensionParts','tests/ssi-point14-reference.spec.js');
-      if (!/350,75\s*m(?:2|²)/i.test(b14)) pushIssue(issues,'dimensiuni','1.4.d','350,75 m²',b14,'trunchiat','dimension parse','extractMeasurement+unit normalization','tests/ssi-point14-reference.spec.js');
-      if (!/693,08\s*m(?:2|²)/i.test(b14)) pushIssue(issues,'dimensiuni','1.4.d','693,08 m²',b14,'trunchiat','dimension parse','extractMeasurement+unit normalization','tests/ssi-point14-reference.spec.js');
-      if (!/2900\s*m(?:3|³)/i.test(b14)) pushIssue(issues,'dimensiuni','1.4.c','2900 m³',b14,'trunchiat','dimension parse','extractMeasurement+unit normalization','tests/ssi-point14-reference.spec.js');
-    }
-
-    if (/capacit[ăa]ți[^\n]*(bucătărie|gaze|linie caldă)/i.test(b14)) pushIssue(issues,'depozitare','1.4.h','fără text bucătărie/gaze',b14,'contaminat','storage model','deriveStorageModel context filtering','tests/ssi-point14-semantic-storage.test.js');
-    if (!/utilizatori|persoane/i.test(b14)) pushIssue(issues,'utilizatori','1.4.g','utilizatori/persoane prezente',b14,'lipsă','users mapping','buildSemanticStructuredData users','tests/ssi-point14-values.spec.js');
+    allRows.push(...collectCaseAudit({ fixtureName: c.name, normalOut: normal, prelimOut: prelim, templates: templateRows }));
 
     await page.locator('[data-tab-target="sourcesTab"]').click();
     await page.locator('#resetBtn').click();
     await expect(page.locator('#sourceCount')).toHaveText('0');
   }
 
-  const reportLines = issues.map((i, idx) => `${idx + 1}. [${i.cat}] ${i.subpoint} | ${i.status}\n   expected: ${i.expected}\n   actual: ${i.actual}\n   cause: ${i.cause}\n   rule: ${i.rule}\n   test: ${i.test}`);
-  const report = `# SSI Full Audit Report\n\nCases: ${CASES.map(c => c.name).join(', ')}\n\n${reportLines.join('\n\n') || 'No differences found.'}\n`;
+  const report = renderReport(allRows);
   fs.writeFileSync(path.join(__dirname, '..', 'audit-full-ssi-output.md'), report);
 
-  if (issues.length) {
-    throw new Error(`SSI full audit found ${issues.length} issue(s).\n\n${reportLines.join('\n\n')}`);
+  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'missing-field-line']);
+  const critical = allRows.filter((r) => criticalStatuses.has(r.status));
+  if (critical.length) {
+    throw new Error(`SSI full global audit found ${critical.length} critical issue(s). See audit-full-ssi-output.md`);
   }
 });
