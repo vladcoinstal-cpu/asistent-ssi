@@ -6059,31 +6059,60 @@ function parseDimensionParts(rawValue) {
     .replace(/([0-9])\s*m\s*([23²³])/gi, "$1 m$2")
     .replace(/([0-9])m([23²³])/gi, "$1 m$2")
     .replace(/([0-9])m\b/gi, "$1 m");
-  const regimMatch =
-    normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([\s\S]*?)(?=\b(?:[îi]n[ăa]l[țt]ime(?:a)?|inaltimea?|aria\s+construit|aria\s+desf|volum(?:ul)?)\b|$)/i) ||
-    normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
-    normalizedRaw.match(/((?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))+)/i);
-  const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
-  const volumeMatch = normalizedRaw.match(/volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:3|³))/i);
-  const builtMatch = normalizedRaw.match(/aria\s+construit[ăa][^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const totalMatch = normalizedRaw.match(/aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*([0-9]{1,3}(?:[ .][0-9]{3})*(?:[.,][0-9]+)?\s*m(?:2|²))/i);
 
-  const regimRaw = regimMatch?.[1]?.trim() || "";
-  const regimClean = regimRaw
-    .replace(/\b(?:[îi]n[ăa]l[țt]imea?|inaltimea?)\s+maxim[ăa]?(?:\s+a\s+cl[ăa]dirii)?[\s\S]*$/i, "")
-    .replace(/\baria\s+construit[ăa]?[\s\S]*$/i, "")
-    .replace(/\baria\s+desf[ăa][șs]urat[ăa]?[\s\S]*$/i, "")
-    .replace(/\bvolum(?:ul)?[\s\S]*$/i, "")
-    .replace(/[;,:]\s*$/g, "")
-    .replace(/\s{2,}/g, " ")
-    .trim();
+  const extractMeasurement = (text, labelRegex, unitPattern) => {
+    const labelMatch = text.match(labelRegex);
+    if (!labelMatch) return "";
+    const tail = text.slice(labelMatch.index + labelMatch[0].length, labelMatch.index + labelMatch[0].length + 120);
+    const measurementMatch = tail.match(new RegExp(`([0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?|[0-9]+(?:,[0-9]+)?)\\s*${unitPattern}\\b`, "i"));
+    if (!measurementMatch) return "";
+    const candidate = measurementMatch[0].replace(/\s+/g, " ").trim();
+    const digitsOnly = candidate.replace(/[^0-9]/g, "");
+    if (digitsOnly.length < 3) return "";
+    return candidate;
+  };
+  const normalizeRegime = (value) => {
+    const compact = value
+      .replace(/[()]/g, " ")
+      .replace(/(?:regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime|[îi]n[ăa]l[țt]ime)/gi, " ")
+      .replace(/\b(?:si|și)\b/gi, "+")
+      .replace(/\s*\+\s*/g, "+")
+      .replace(/[,;/]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const tokens = compact.match(/\b(?:D|S|P|Sp|M|E(?:taj)?\s*\d+|E\d+|[0-9]+\s*E|demisol|subsol|parter|supant[ăa]?|mansard[ăa]?|etaj\s*[0-9]+)\b/gi) || [];
+    const mapped = tokens.map((token) => {
+      const t = token.toLowerCase().replace(/\s+/g, "");
+      if (t === "demisol" || t === "d") return "D";
+      if (t === "subsol" || t === "s") return "S";
+      if (t === "parter" || t === "p") return "P";
+      if (t.startsWith("supant") || t === "sp") return "Sp";
+      if (t.startsWith("mansard") || t === "m") return "M";
+      const etajMatch = t.match(/(?:etaj|e)(\d+)/);
+      if (etajMatch) return `${etajMatch[1]}E`;
+      const numberedE = t.match(/(\d+)e/);
+      if (numberedE) return `${numberedE[1]}E`;
+      return "";
+    }).filter(Boolean);
+    return mapped.join("+");
+  };
+  const regimRaw =
+    normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;\n]+)/i)?.[1] ||
+    normalizedRaw.match(/\b((?:D|S|P|M|Sp|[0-9]+\s*E)(?:\s*\+\s*(?:D|S|P|M|Sp|[0-9]+\s*E))+)\b/i)?.[1] ||
+    normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+)(?:\s*\+\s*(?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+))+)/i)?.[1] ||
+    "";
+  const regimMatch = normalizeRegime(regimRaw);
+  const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
+  const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "m(?:3|³)") || "";
+  const builtMatch = extractMeasurement(normalizedRaw, /aria\s+construit[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
+  const totalMatch = extractMeasurement(normalizedRaw, /aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
 
   return {
-    regim: regimClean,
+    regim: regimMatch || "",
     inaltime: heightMatch?.[1]?.trim() || "",
-    volum: volumeMatch?.[1]?.trim() || "",
-    ariaConstruita: builtMatch?.[1]?.trim() || "",
-    ariaDesfasurata: totalMatch?.[1]?.trim() || "",
+    volum: volumeMatch,
+    ariaConstruita: builtMatch,
+    ariaDesfasurata: totalMatch,
     raw: normalizedRaw
   };
 }
