@@ -105,17 +105,17 @@ const customExtractors = {
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
-    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei)\b|$)/i)?.[1]?.trim();
     const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const volum = joined.match(/volumul\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaC = joined.match(/aria\s+construită\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaD = joined.match(/aria\s+desfășurată\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
     if (volum) parts.push(`volum: ${volum}`);
-    if (ariaC) parts.push(`arie construită: ${ariaC}`);
-    if (ariaD) parts.push(`arie desfășurată: ${ariaD}`);
+    if (ariaC) parts.push(`aria construită: ${ariaC}`);
+    if (ariaD) parts.push(`aria desfășurată: ${ariaD}`);
     return parts.join("; ");
   },
   numar_utilizatori(lines, content) {
@@ -1259,7 +1259,62 @@ function resetReportsFromTemplates() {
 }
 
 
+
+function buildSemanticStructuredData(data, sources = []) {
+  const semanticEngine = window.SSISemantic;
+  const semantic14 = semanticEngine?.buildSemantic14Model
+    ? semanticEngine.buildSemantic14Model({ data, sources })
+    : { dimensions: deriveDimensionParts(data, sources), users: { raw: String(data?.numar_utilizatori || "").trim() }, storage: { raw: String(data?.capacitati_depozitare || "").trim() } };
+  const functionTags = Array.isArray(semantic14.functions?.tags) ? semantic14.functions.tags : [];
+  const dimensions = {
+    regim: semantic14.dimensions?.regim || "",
+    inaltime: semantic14.dimensions?.inaltimeMaxima || "",
+    ariaConstruita: semantic14.dimensions?.ariaConstruita || "",
+    ariaDesfasurata: semantic14.dimensions?.ariaDesfasurata || "",
+    volum: semantic14.dimensions?.volum || ""
+  };
+  const dimensionsText = [
+    dimensions.regim ? `regim de înălțime: ${dimensions.regim}` : "",
+    dimensions.inaltime ? `înălțime maximă: ${dimensions.inaltime}` : "",
+    dimensions.volum ? `volum: ${dimensions.volum}` : "",
+    dimensions.ariaConstruita ? `aria construită: ${dimensions.ariaConstruita}` : "",
+    dimensions.ariaDesfasurata ? `aria desfășurată: ${dimensions.ariaDesfasurata}` : ""
+  ].filter(Boolean).join("; ");
+  return {
+    dimensions: {
+      regim: dimensions.regim || "",
+      inaltimeMaxima: dimensions.inaltime || "",
+      ariaConstruita: dimensions.ariaConstruita || "",
+      ariaDesfasurata: dimensions.ariaDesfasurata || "",
+      volum: dimensions.volum || "",
+      text: dimensionsText
+    },
+    users: {
+      raw: String(semantic14.users?.raw || "").trim(),
+      autoevacuare: String(data?.autoevacuare || "").trim()
+    },
+    storage: {
+      raw: String(semantic14.storage?.raw || "").trim()
+    },
+    evacuation: {
+      raw: String(data?.cai_evacuare_rezumat || "").trim()
+    },
+    functions: {
+      tags: functionTags
+    }
+  };
+}
+
 function buildPoint1ReportsFromTemplates() {
+  const semantic = buildSemanticStructuredData(state.data, state.sources);
+  const regimInaltime = semantic.dimensions.regim;
+  const inaltimeMaxima = semantic.dimensions.inaltimeMaxima;
+  const volumConstructie = semantic.dimensions.volum;
+  const ariaConstruita = semantic.dimensions.ariaConstruita;
+  const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
+  const semanticFunctions = (semantic.functions?.tags || []).join(", ");
+  const functiuni = semanticFunctions || String(state.data["funcțiuni"] || "").trim();
+
   const valueByLabel = {
     "denumirea obiectivului": state.data.denumire_obiectiv || "",
     "denumire": state.data.denumire_obiectiv || "",
@@ -1282,17 +1337,24 @@ function buildPoint1ReportsFromTemplates() {
     "tipul clădirii": state.data.tip_cladire || "",
     "tipul parcajului": state.data.tip_parcaj || "",
     "tipul parcajului, cu precizarea numărului de autovehicule": state.data.tip_parcaj || "",
-    "caracteristici dimensionale": state.data.caracteristici_dimensionale || "",
-    "regimul de înălțime": state.data.caracteristici_dimensionale || "",
-    "volumul construcției": state.data.caracteristici_dimensionale || "",
-    "aria construită": state.data.caracteristici_dimensionale || "",
-    "aria desfășurată": state.data.caracteristici_dimensionale || "",
-    "precizari referitoare la numarul maxim de utilizatori": state.data.numar_utilizatori || "",
-    "numărul maxim de utilizatori": state.data.numar_utilizatori || "",
-    "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": state.data.autoevacuare || "",
-    "capacități de depozitare": state.data.capacitati_depozitare || "",
-    "capacitati de depozitare": state.data.capacitati_depozitare || "",
-    "numarul cailor de evacuare si, dupa caz, al refugiilor": state.data.cai_evacuare_rezumat || ""
+    "caracteristici dimensionale": semantic.dimensions.text || "De completat",
+    "regimul de înălțime": regimInaltime || "De completat",
+    "înălțimea maximă": inaltimeMaxima || "De completat",
+    "volumul construcției": volumConstructie || "De completat",
+    "aria construită": ariaConstruita || "De completat",
+    "aria desfășurată": ariaDesfasurata || "De completat",
+    "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
+    "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
+    "volum": volumConstructie || "De completat",
+    "precizari referitoare la numarul maxim de utilizatori": semantic.users.raw || "",
+    "numărul maxim de utilizatori": semantic.users.raw || "",
+    "persoane: număr": semantic.users.raw || "De completat",
+    "persoane: prezența permanentă a persoanelor": semantic.users.autoevacuare || "De completat",
+    "persoane: capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "De completat",
+    "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "",
+    "capacități de depozitare": semantic.storage.raw || "",
+    "capacitati de depozitare": semantic.storage.raw || "",
+    "numarul cailor de evacuare si, dupa caz, al refugiilor": semantic.evacuation.raw || ""
   };
 
   const normalize = (label) => String(label || "").trim().toLowerCase();
@@ -1300,14 +1362,19 @@ function buildPoint1ReportsFromTemplates() {
   const render = (template, label) => {
     const clone = safeClone(template);
     clone.sections = Array.isArray(clone.sections) ? clone.sections : [];
-    const applyField = (field) => {
+    const applyField = (field, contextPath = []) => {
       const key = normalize(field.label || field.title);
-      if (valueByLabel[key]) field.value = valueByLabel[key];
-      (Array.isArray(field.children) ? field.children : []).forEach(applyField);
+      const pathText = contextPath.join(' > ').toLowerCase();
+      if (key === "denumire" && pathText.includes("compartimente de incendiu")) {
+        field.value = "compartiment unic";
+      } else if (valueByLabel[key]) {
+        field.value = valueByLabel[key];
+      }
+      (Array.isArray(field.children) ? field.children : []).forEach((child) => applyField(child, [...contextPath, String(field.label || field.title || "")]));
     };
     (clone.sections || []).forEach((sec) => {
       if (String(sec.code || "") !== "1") return;
-      (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach(applyField));
+      (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach((field) => applyField(field, [String(sp.title || sp.code || "")])));
     });
     return buildEmptyReportFromTemplate(clone, label);
   };
@@ -2375,6 +2442,16 @@ window.__ssiCommands = {
   handleFileSelection: handleSelectedFiles,
   addManualText: handleAddManualText,
   extractData: handleExtractData,
+  getSemantic14: () => {
+    const semantic = buildSemanticStructuredData(state.data, state.sources);
+    return {
+      dimensions: semantic.dimensions,
+      users: semantic.users,
+      storage: semantic.storage,
+      evacuation: semantic.evacuation,
+      rawDimensionField: state.data.caracteristici_dimensionale || ""
+    };
+  },
   resetProject: resetProjectState,
   openRules: () => {
     const project = getActiveProject();
@@ -3316,13 +3393,13 @@ function buildProjectFactsSummaryEntries() {
       : "");
   const dimensions = deriveDimensionParts(state.data, state.sources);
   const surfaceParts = [
-    dimensions.areaBuilt ? `arie construita: ${dimensions.areaBuilt}` : "",
-    dimensions.areaTotal ? `arie desfasurata: ${dimensions.areaTotal}` : "",
-    dimensions.volume ? `volum: ${dimensions.volume}` : ""
+    dimensions.ariaConstruita ? `arie construita: ${dimensions.ariaConstruita}` : "",
+    dimensions.ariaDesfasurata ? `arie desfasurata: ${dimensions.ariaDesfasurata}` : "",
+    dimensions.volum ? `volum: ${dimensions.volum}` : ""
   ].filter(Boolean).join("; ");
   const heightParts = [
-    dimensions.regime ? `regim: ${dimensions.regime}` : "",
-    dimensions.height ? `inaltime: ${dimensions.height}` : ""
+    dimensions.regim ? `regim: ${dimensions.regim}` : "",
+    dimensions.inaltime ? `inaltime: ${dimensions.inaltime}` : ""
   ].filter(Boolean).join("; ");
   const parkingValue = state.projectProfile.isUndergroundParking || /parc/i.test(String(state.data.tip_parcaj || ""))
     ? formatDisplayValue(state.data.tip_parcaj || "Da")
@@ -6015,32 +6092,88 @@ function parseDimensionParts(rawValue) {
     .replace(/([0-9])\s*m\s*([23²³])/gi, "$1 m$2")
     .replace(/([0-9])m([23²³])/gi, "$1 m$2")
     .replace(/([0-9])m\b/gi, "$1 m");
-  const regimMatch =
-    normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;.\n]+)/i) ||
-    normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj)[^;.\n]*?(?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))*)/i) ||
-    normalizedRaw.match(/((?:D|S|P|M|Sp)(?:\s*\+\s*(?:D|S|P|M|Sp))+)/i);
+
+  const extractMeasurement = (text, labelRegex, unitPattern) => {
+    const labelMatch = text.match(labelRegex);
+    if (!labelMatch) return "";
+    const tail = text.slice(labelMatch.index + labelMatch[0].length, labelMatch.index + labelMatch[0].length + 120);
+    const measurementMatch = tail.match(new RegExp(`([0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?|[0-9]+(?:,[0-9]+)?)\\s*${unitPattern}(?=\\s|$|[,;.)])`, "i"));
+    if (!measurementMatch) return "";
+    const candidate = measurementMatch[0].replace(/\s+/g, " ").trim();
+    const digitsOnly = candidate.replace(/[^0-9]/g, "");
+    if (digitsOnly.length < 3) return "";
+    return candidate
+      .replace(/\bmp\b/i, "m²")
+      .replace(/\bm2\b/i, "m²")
+      .replace(/\bmc\b/i, "m³")
+      .replace(/\bm3\b/i, "m³");
+  };
+  const normalizeRegime = (value) => {
+    const compact = value
+      .replace(/[()]/g, " ")
+      .replace(/(?:regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime|[îi]n[ăa]l[țt]ime)/gi, " ")
+      .replace(/\b(?:si|și)\b/gi, "+")
+      .replace(/\s*\+\s*/g, "+")
+      .replace(/[,;/]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim();
+    const tokens = compact.match(/\b(?:D|S|P|Sp|M|E(?:taj)?\s*\d+|E\d+|[0-9]+\s*E|demisol|subsol|parter|supant[ăa]?|mansard[ăa]?|etaj\s*[0-9]+)\b/gi) || [];
+    const mapped = tokens.map((token) => {
+      const t = token.toLowerCase().replace(/\s+/g, "");
+      if (t === "demisol" || t === "d") return "D";
+      if (t === "subsol" || t === "s") return "S";
+      if (t === "parter" || t === "p") return "P";
+      if (t.startsWith("supant") || t === "sp") return "Sp";
+      if (t.startsWith("mansard") || t === "m") return "M";
+      const etajMatch = t.match(/(?:etaj|e)(\d+)/);
+      if (etajMatch) return `${etajMatch[1]}E`;
+      const numberedE = t.match(/(\d+)e/);
+      if (numberedE) return `${numberedE[1]}E`;
+      return "";
+    }).filter(Boolean);
+    return mapped.join("+");
+  };
+  const regimRaw =
+    normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;\n]+)/i)?.[1] ||
+    normalizedRaw.match(/\b((?:D|S|P|M|Sp|[0-9]+\s*E)(?:\s*\+\s*(?:D|S|P|M|Sp|[0-9]+\s*E))+)\b/i)?.[1] ||
+    normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+)(?:\s*\+\s*(?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+))+)/i)?.[1] ||
+    "";
+  const regimMatch = normalizeRegime(regimRaw);
   const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
-  const volumeMatch = normalizedRaw.match(/volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:3|³))/i);
-  const builtMatch = normalizedRaw.match(/aria\s+construit[ăa][^:;]*[: ]\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const totalMatch = normalizedRaw.match(/aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
+  const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "(?:m(?:3|³)|mc)") || "";
+  const builtMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
+  const totalMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
 
   return {
-    regim: regimMatch?.[1]?.trim() || "",
+    regim: regimMatch || "",
     inaltime: heightMatch?.[1]?.trim() || "",
-    volum: volumeMatch?.[1]?.trim() || "",
-    ariaConstruita: builtMatch?.[1]?.trim() || "",
-    ariaDesfasurata: totalMatch?.[1]?.trim() || "",
+    volum: volumeMatch,
+    ariaConstruita: builtMatch,
+    ariaDesfasurata: totalMatch,
     raw: normalizedRaw
   };
 }
 
 function mergeDimensionParts(primary = {}, fallback = {}) {
+  const validRegime = (value) => /^(?:D|S|P|Sp|M|[0-9]+E)(?:\+(?:D|S|P|Sp|M|[0-9]+E))*$/i.test(String(value || "").trim());
+  const validMetric = (value, unitRegex) => new RegExp(`^[0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?\\s*(?:${unitRegex})$`, "i").test(String(value || "").trim());
+  const pick = (a, b, checker = null) => {
+    const va = String(a || "").trim();
+    const vb = String(b || "").trim();
+    if (checker) {
+      const aOk = checker(va);
+      const bOk = checker(vb);
+      if (aOk) return va;
+      if (bOk) return vb;
+    }
+    return va || vb;
+  };
   return {
-    regim: primary.regim || fallback.regim || "",
-    inaltime: primary.inaltime || fallback.inaltime || "",
-    volum: primary.volum || fallback.volum || "",
-    ariaConstruita: primary.ariaConstruita || fallback.ariaConstruita || "",
-    ariaDesfasurata: primary.ariaDesfasurata || fallback.ariaDesfasurata || "",
+    regim: pick(primary.regim, fallback.regim, validRegime),
+    inaltime: pick(primary.inaltime, fallback.inaltime, (v) => validMetric(v, "m")),
+    volum: pick(primary.volum, fallback.volum, (v) => validMetric(v, "m(?:3|³)")),
+    ariaConstruita: pick(primary.ariaConstruita, fallback.ariaConstruita, (v) => validMetric(v, "m(?:2|²)")),
+    ariaDesfasurata: pick(primary.ariaDesfasurata, fallback.ariaDesfasurata, (v) => validMetric(v, "m(?:2|²)")),
     raw: primary.raw || fallback.raw || ""
   };
 }
@@ -6052,7 +6185,7 @@ function deriveDimensionParts(data, sources = []) {
     /(regimul\s+de\s+[îi]n[ăa]l[țt]ime[\s\S]{0,260}aria\s+desf[ăa][șs]urat[ăa][\s\S]{0,80})/i,
     /((?:D|S|P|M|Sp)[^.\n]{0,200}20,98\s*m[^.\n]{0,200}693,08\s*m2)/i
   ]);
-  const fromSources = parseDimensionParts(joinedSources || sourceText);
+  const fromSources = parseDimensionParts(sourceText || joinedSources);
   return mergeDimensionParts(fromData, fromSources);
 }
 
@@ -7307,5 +7440,3 @@ function markdownToHtml(markdownText, mode = "html") {
   closeList();
   return html.join("\n");
 }
-
-
