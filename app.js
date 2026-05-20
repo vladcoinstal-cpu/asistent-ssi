@@ -6069,7 +6069,11 @@ function parseDimensionParts(rawValue) {
     const candidate = measurementMatch[0].replace(/\s+/g, " ").trim();
     const digitsOnly = candidate.replace(/[^0-9]/g, "");
     if (digitsOnly.length < 3) return "";
-    return candidate;
+    return candidate
+      .replace(/\bmp\b/i, "m²")
+      .replace(/\bm2\b/i, "m²")
+      .replace(/\bmc\b/i, "m³")
+      .replace(/\bm3\b/i, "m³");
   };
   const normalizeRegime = (value) => {
     const compact = value
@@ -6103,9 +6107,9 @@ function parseDimensionParts(rawValue) {
     "";
   const regimMatch = normalizeRegime(regimRaw);
   const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
-  const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "m(?:3|³)") || "";
-  const builtMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
-  const totalMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
+  const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "(?:m(?:3|³)|mc)") || "";
+  const builtMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
+  const totalMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
 
   return {
     regim: regimMatch || "",
