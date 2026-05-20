@@ -894,6 +894,8 @@ function ensureLawReferenceAliases() {
 }
 
 const WORKSPACE_STORAGE_KEY = "ssi_workspace_projects_v2";
+const SSI_SEMANTIC_VERSION = "2026-05-20-point14";
+window.__SSI_SEMANTIC_VERSION = SSI_SEMANTIC_VERSION;
 const AUTO_SAVE_INTERVAL_MS = 15 * 60 * 1000;
 const WORKSPACE_TAB_LABELS = {
   sourcesTab: "Proiect",
@@ -1458,6 +1460,7 @@ function normalizeProject(rawProject, fallbackIndex = 0) {
     selectedFilesPreview: typeof project.selectedFilesPreview === "string" ? project.selectedFilesPreview : defaultUiState.selectedFilesPreview,
     uiStatus: typeof project.uiStatus === "string" ? project.uiStatus : defaultUiState.uiStatus,
     extractionSummary: typeof project.extractionSummary === "string" ? project.extractionSummary : defaultUiState.extractionSummary,
+    semanticVersion: typeof project.semanticVersion === "string" ? project.semanticVersion : "",
     workspaceMeta: project.workspaceMeta && typeof project.workspaceMeta === "object"
       ? {
           folderKey: String(project.workspaceMeta.folderKey || createProjectWorkspaceMeta(normalizedId, normalizedName).folderKey),
@@ -1493,6 +1496,7 @@ function createBlankProject(name) {
     actCoverageChecks: [],
     normalReport: buildEmptyReportFromTemplate(state.ssiNormalTemplate, "SSI normal - schelet gol (Anexa 4)"),
     preliminaryReport: buildEmptyReportFromTemplate(state.ssiPreliminaryTemplate, "SSI preliminar - schelet gol (Anexa 5)"),
+    semanticVersion: SSI_SEMANTIC_VERSION,
     workspaceMeta: createProjectWorkspaceMeta(projectId, name),
     ...getDefaultProjectUiState()
   };
@@ -2514,8 +2518,16 @@ function loadProjectIntoUI(projectId) {
   state.complianceChecks = safeClone(project.complianceChecks);
   state.rulesCoverage = safeClone(project.rulesCoverage);
   state.actCoverageChecks = safeClone(project.actCoverageChecks || []);
-  normalReportOutput.value = project.normalReport || "";
-  preliminaryReportOutput.value = project.preliminaryReport || "";
+  const semanticNeedsRefresh = project.semanticVersion !== SSI_SEMANTIC_VERSION;
+  normalReportOutput.value = semanticNeedsRefresh ? "" : (project.normalReport || "");
+  preliminaryReportOutput.value = semanticNeedsRefresh ? "" : (project.preliminaryReport || "");
+  if (semanticNeedsRefresh) {
+    resetReportsFromTemplates();
+    project.normalReport = normalReportOutput.value;
+    project.preliminaryReport = preliminaryReportOutput.value;
+    project.extractionSummary = `Motor semantic actualizat (${SSI_SEMANTIC_VERSION}). Pentru proiectele vechi: Reset + Extrage din nou.`;
+    project.semanticVersion = SSI_SEMANTIC_VERSION;
+  }
   manualText.value = project.manualDraft || "";
   renderFields();
   renderProfile();
