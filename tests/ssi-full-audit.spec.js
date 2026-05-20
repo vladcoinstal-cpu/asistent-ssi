@@ -163,6 +163,7 @@ test('full SSI global audit (all subpoints from Anexa 4/5) collects all differen
   const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'missing-field-line']);
   const critical = allRows.filter((r) => criticalStatuses.has(r.status));
   if (critical.length) {
-    throw new Error(`SSI full global audit found ${critical.length} critical issue(s). See audit-full-ssi-output.md`);
+    const details = critical.slice(0, 30).map((r, i) => `${i + 1}. [${r.fixtureName}] ${r.annex} ${r.subpointCode} ${r.field || '-'} => ${r.status} | actual: ${r.actual}`).join('\n');
+    throw new Error(`SSI full global audit found ${critical.length} critical issue(s).\n${details}`);
   }
 });
