@@ -5,7 +5,7 @@ const path = require('path');
 const FIXTURES = [
   { file: 'memoriu-arhitectura-comercial-parcare-subsol.txt', project: 'P14 A', expect: [/parcaj/i, /utilizatori/i] },
   { file: 'memoriu-arhitectura-industrial-depozitare.txt', project: 'P14 B', expect: [/depozit/i, /utilizatori/i] },
-  { file: 'memoriu-arhitectura-restaurant-sala-aglomerata.txt', project: 'P14 C', expect: [/sala/i, /utilizatori/i] }
+  { file: 'memoriu-arhitectura-restaurant-sala-aglomerata.txt', project: 'P14 C', expect: [/sal[aă]/i, /utilizatori/i] }
 ];
 
 async function newProject(page, name) {
@@ -72,6 +72,18 @@ test('1.4 semantic value checks across 3 memorii + reset/no leakage', async ({ p
       if (!re.test(both)) {
         throw new Error(`Fixture ${fx.file} missing ${re}\n\nNORMAL:\n${normal}\n\nPRELIMINAR:\n${prelim}`);
       }
+    }
+
+    if (fx.file.includes('restaurant-sala-aglomerata')) {
+      expect(both).toMatch(/sal[ăa]\s+aglomerat[ăa]|restaurant/i);
+      expect(storageLine).not.toMatch(/bucătărie|bucatarie|gaze|linie\s+cald[ăa]/i);
+    }
+    if (fx.file.includes('industrial-depozitare')) {
+      expect(storageLine).toMatch(/depozit|depozitare/i);
+    }
+    if (fx.file.includes('comercial-parcare-subsol')) {
+      expect(both).toMatch(/tipul\s+parcajului|parcaj/i);
+      expect(both).toMatch(/principalele\s+destinații|funcțiuni/i);
     }
 
     if (previousProjectMarker) {

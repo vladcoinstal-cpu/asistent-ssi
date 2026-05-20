@@ -99,6 +99,22 @@
     push('industrial', /industrial|productie|producție/);
     push('birouri', /birou|birouri/);
     push('cult', /cult|biseric|lacas|lăcaș/);
+    function deriveStorageModel(text) {
+      const normalized = String(text || '').toLowerCase();
+      const hasStorageContext = /depozit|depozitare|magazie|spa[țt]iu\s+de\s+depozitare/.test(normalized);
+      const hasProcessOnly = /buc[ăa]t[ăa]rie|gaze\s+naturale|linie\s+cald[ăa]|preparare/.test(normalized);
+      if (!hasStorageContext && hasProcessOnly) return { raw: '', status: 'not-storage-context' };
+      const sentences = String(text || '').split(/(?<=[.?!])\s+/).filter(Boolean);
+      const hits = sentences.filter((s) => /depozit|depozitare|magazie|spa[țt]iu\s+de\s+depozitare/i.test(s));
+      const cleaned = hits
+        .filter((s) => !/buc[ăa]t[ăa]rie|gaze\s+naturale|linie\s+cald[ăa]|preparare/i.test(s))
+        .join(' ')
+        .trim();
+      return { raw: cleaned, status: cleaned ? 'ok' : 'ok-or-empty' };
+    }
+    const storageRawInput = `${String(data.capacitati_depozitare || '')}\n${normalizeSourceText(sources)}`;
+    const storageModel = deriveStorageModel(storageRawInput);
+
     return {
       dimensions: {
         regim: dimensions.regim || '',
@@ -108,7 +124,7 @@
         volum: dimensions.volum || ''
       },
       users: { raw: String(data.numar_utilizatori || '').trim() },
-      storage: { raw: String(data.capacitati_depozitare || '').trim() }
+      storage: { raw: storageModel.raw || '', status: storageModel.status }
       ,
       functions: { tags: [...new Set(functionTags)] }
     };
