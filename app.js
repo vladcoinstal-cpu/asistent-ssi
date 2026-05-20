@@ -81,7 +81,8 @@ const customExtractors = {
   },
     adresa(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/((?:str\.|strada|bd\.|bulevardul|municipiul|orasul|județul|judetul)[^.\n]{8,220})/i);
+      const match = joined.match(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)
+        || joined.match(/((?:municipiul|orașul|orasul)\s+[^\n,]+,\s*str\.?\s*[^\n]{6,220})/i);
       return match ? cleanAddressText(match[1]) : "";
     },
     categoria_importanta(lines, content) {

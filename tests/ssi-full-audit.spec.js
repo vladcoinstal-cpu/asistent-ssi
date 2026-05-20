@@ -75,6 +75,10 @@ test('full SSI audit report (Anexa4/5 + references + fixtures) collects all diff
     if (/beneficiar[^\n]*(str\.|municipiul)|proprietar[^\n]*(str\.|municipiul)/i.test(b11)) pushIssue(issues,'identificare','1.1','beneficiar separat de adresă',b11,'contaminat','field contamination','sanitize beneficiary/address','tests/ssi-point123-values.spec.js');
 
     if (c.name === 'Sprenghi') {
+      const fullAddressPattern = /municipiul\s+bra[șs]ov,\s*str\.?\s*m[ăa]r[ăa][șs]e[șs]ti\s*,?\s*nr\.?\s*47,\s*jude[țt]ul\s+bra[șs]ov/i;
+      if (!fullAddressPattern.test(b11)) {
+        pushIssue(issues,'identificare','1.1','adresa completă Sprenghi (Mărășești nr. 47, județul Brașov)',b11,'trunchiat','semantic address chain','source -> extractData -> semantic123 -> template mapping 1.1','tests/ssi-point123-values.spec.js');
+      }
       if (!/\bcult\b/i.test(b12)) pushIssue(issues,'funcțiuni','1.2','cult',b12,'greșit','destination tags','deriveFunctionTags context','tests/ssi-sprenghi-output-audit.spec.js');
       if (/parcaj|industrial|birouri|depozitare/i.test(b12)) pushIssue(issues,'funcțiuni','1.2','fără parcaj/industrial/birouri/depozitare',b12,'contaminat','cross-context tags','source scoping 1.1-1.4','tests/ssi-sprenghi-output-audit.spec.js');
       if (!/categoria\s*C/i.test(b13)) pushIssue(issues,'categorie','1.3','categoria C',b13,'lipsă','category parsing','semantic category mapping','tests/ssi-sprenghi-output-audit.spec.js');
