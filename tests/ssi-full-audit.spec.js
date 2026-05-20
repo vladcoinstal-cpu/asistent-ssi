@@ -68,7 +68,10 @@ function analyzeField({ fixture, annex, subpointCode, fieldLabel, fieldLine, blo
   const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel);
 
   if (!block) return { status: 'missing', cause: 'subpoint block absent', missingRule: 'render-template-population', recommendedFix: 'Ensure section/subpoint rendering for this annex.' };
-  if (!line) return { status: 'missing', cause: 'field line absent in subpoint block', missingRule: 'field-mapping-line', recommendedFix: 'Map template field label to semantic/source value.' };
+  if (!line) {
+    if (!/^1(\.|$)/.test(String(subpointCode || ''))) return { status: 'field-line-not-detected', cause: 'field line absent outside current point-1 renderer scope', missingRule: 'global-render-coverage', recommendedFix: 'Extend renderer coverage for this subpoint and keep global audit assertions.' };
+    return { status: 'missing', cause: 'field line absent in subpoint block', missingRule: 'field-mapping-line', recommendedFix: 'Map template field label to semantic/source value.' };
+  }
 
   if (/de completat/.test(low)) {
     if (expectedSourceData && fixture.kind !== 'empty') return { status: 'unexpected-de-completat', cause: 'source has data but output kept placeholder', missingRule: 'data-availability-override', recommendedFix: 'Populate from semantic/extracted value when source data exists.' };
