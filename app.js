@@ -1262,6 +1262,9 @@ function resetReportsFromTemplates() {
 
 function buildSemanticStructuredData(data, sources = []) {
   const semanticEngine = window.SSISemantic;
+  const semantic123 = semanticEngine?.buildSemantic123Model
+    ? semanticEngine.buildSemantic123Model({ data, sources })
+    : null;
   const semantic14 = semanticEngine?.buildSemantic14Model
     ? semanticEngine.buildSemantic14Model({ data, sources })
     : { dimensions: deriveDimensionParts(data, sources), users: { raw: String(data?.numar_utilizatori || "").trim() }, storage: { raw: String(data?.capacitati_depozitare || "").trim() } };
@@ -1281,6 +1284,18 @@ function buildSemanticStructuredData(data, sources = []) {
     dimensions.ariaDesfasurata ? `aria desfășurată: ${dimensions.ariaDesfasurata}` : ""
   ].filter(Boolean).join("; ");
   return {
+    identification: {
+      denumireObiectiv: semantic123?.identification?.denumireObiectiv || String(data?.denumire_obiectiv || "").trim(),
+      beneficiar: semantic123?.identification?.beneficiar || String(data?.beneficiar || "").trim(),
+      adresa: semantic123?.identification?.adresa || String(data?.adresa || "").trim()
+    },
+    destination: {
+      raw: semantic123?.destination?.raw || String(data?.["funcțiuni"] || "").trim(),
+      tags: semantic123?.destination?.tags || []
+    },
+    category: {
+      raw: semantic123?.category?.raw || String(data?.categoria_importanta || "").trim()
+    },
     dimensions: {
       regim: dimensions.regim || "",
       inaltimeMaxima: dimensions.inaltime || "",
@@ -1312,27 +1327,27 @@ function buildPoint1ReportsFromTemplates() {
   const volumConstructie = semantic.dimensions.volum;
   const ariaConstruita = semantic.dimensions.ariaConstruita;
   const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
-  const semanticFunctions = (semantic.functions?.tags || []).join(", ");
-  const functiuni = semanticFunctions || String(state.data["funcțiuni"] || "").trim();
+  const semanticFunctions = (semantic.destination?.tags || []).join(", ");
+  const functiuni = semanticFunctions || semantic.destination?.raw || String(state.data["funcțiuni"] || "").trim();
 
   const valueByLabel = {
-    "denumirea obiectivului": state.data.denumire_obiectiv || "",
-    "denumire": state.data.denumire_obiectiv || "",
-    "beneficiar / proprietar": state.data.beneficiar || "",
-    "proprietar/beneficiar": state.data.beneficiar || "",
-    "adresa": state.data.adresa || "",
+    "denumirea obiectivului": semantic.identification?.denumireObiectiv || "",
+    "denumire": semantic.identification?.denumireObiectiv || "",
+    "beneficiar / proprietar": semantic.identification?.beneficiar || "",
+    "proprietar/beneficiar": semantic.identification?.beneficiar || "",
+    "adresa": semantic.identification?.adresa || "",
     "date de contact": state.data.contact_beneficiar || "",
     "nr. de telefon": state.data.contact_beneficiar || "",
     "fax": state.data.contact_beneficiar || "",
     "e-mail etc.": state.data.contact_beneficiar || "",
     "profilul de activitate": state.data.profil_activitate || "",
-    "functiuni principale": state.data["funcțiuni"] || "",
-    "functiuni secundare": state.data["funcțiuni"] || "",
-    "functiuni conexe": state.data["funcțiuni"] || "",
-    "funcțiuni principale, secundare și conexe ale construcției/amenajării": state.data["funcțiuni"] || "",
-    "categoria de importanta": state.data.categoria_importanta || "",
-    "categoria de importanță": state.data.categoria_importanta || "",
-    "clasa de importanta": state.data.categoria_importanta || "",
+    "functiuni principale": functiuni || "",
+    "functiuni secundare": functiuni || "",
+    "functiuni conexe": functiuni || "",
+    "funcțiuni principale, secundare și conexe ale construcției/amenajării": functiuni || "",
+    "categoria de importanta": semantic.category?.raw || "",
+    "categoria de importanță": semantic.category?.raw || "",
+    "clasa de importanta": semantic.category?.raw || "",
     "tipul cladirii": state.data.tip_cladire || "",
     "tipul clădirii": state.data.tip_cladire || "",
     "tipul parcajului": state.data.tip_parcaj || "",
