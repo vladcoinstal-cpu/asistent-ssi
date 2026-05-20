@@ -2419,6 +2419,16 @@ window.__ssiCommands = {
   handleFileSelection: handleSelectedFiles,
   addManualText: handleAddManualText,
   extractData: handleExtractData,
+  getSemantic14: () => {
+    const semantic = buildSemanticStructuredData(state.data, state.sources);
+    return {
+      dimensions: semantic.dimensions,
+      users: semantic.users,
+      storage: semantic.storage,
+      evacuation: semantic.evacuation,
+      rawDimensionField: state.data.caracteristici_dimensionale || ""
+    };
+  },
   resetProject: resetProjectState,
   openRules: () => {
     const project = getActiveProject();
@@ -6122,12 +6132,25 @@ function parseDimensionParts(rawValue) {
 }
 
 function mergeDimensionParts(primary = {}, fallback = {}) {
+  const validRegime = (value) => /^(?:D|S|P|Sp|M|[0-9]+E)(?:\+(?:D|S|P|Sp|M|[0-9]+E))*$/i.test(String(value || "").trim());
+  const validMetric = (value, unitRegex) => new RegExp(`^[0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?\\s*(?:${unitRegex})$`, "i").test(String(value || "").trim());
+  const pick = (a, b, checker = null) => {
+    const va = String(a || "").trim();
+    const vb = String(b || "").trim();
+    if (checker) {
+      const aOk = checker(va);
+      const bOk = checker(vb);
+      if (aOk) return va;
+      if (bOk) return vb;
+    }
+    return va || vb;
+  };
   return {
-    regim: primary.regim || fallback.regim || "",
-    inaltime: primary.inaltime || fallback.inaltime || "",
-    volum: primary.volum || fallback.volum || "",
-    ariaConstruita: primary.ariaConstruita || fallback.ariaConstruita || "",
-    ariaDesfasurata: primary.ariaDesfasurata || fallback.ariaDesfasurata || "",
+    regim: pick(primary.regim, fallback.regim, validRegime),
+    inaltime: pick(primary.inaltime, fallback.inaltime, (v) => validMetric(v, "m")),
+    volum: pick(primary.volum, fallback.volum, (v) => validMetric(v, "m(?:3|³)")),
+    ariaConstruita: pick(primary.ariaConstruita, fallback.ariaConstruita, (v) => validMetric(v, "m(?:2|²)")),
+    ariaDesfasurata: pick(primary.ariaDesfasurata, fallback.ariaDesfasurata, (v) => validMetric(v, "m(?:2|²)")),
     raw: primary.raw || fallback.raw || ""
   };
 }

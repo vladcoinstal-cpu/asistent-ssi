@@ -7,7 +7,7 @@ function stripTags(html) {
 }
 function expectWithContext(value, regex, label, context) {
   if (!regex.test(value)) {
-    throw new Error(`${label} mismatch.\n--- NORMAL 1.4 ---\n${context.normal14}\n--- PRELIM 1.4 ---\n${context.prelim14}`);
+    throw new Error(`${label} mismatch.\n--- NORMAL 1.4 ---\n${context.normal14}\n--- PRELIM 1.4 ---\n${context.prelim14}\n--- SEMANTIC 1.4 ---\n${context.semantic}`);
   }
 }
 
@@ -39,7 +39,8 @@ async function runExtract(page, fixtureName) {
 
   return {
     normal: await page.locator('#normalReportOutput').inputValue(),
-    prelim: await page.locator('#preliminaryReportOutput').inputValue()
+    prelim: await page.locator('#preliminaryReportOutput').inputValue(),
+    semantic14: await page.evaluate(() => window.__ssiCommands?.getSemantic14?.())
   };
 }
 
@@ -50,7 +51,7 @@ test('1.4 values match v58/v85 semantic references for Sprenghi', async ({ page 
   const both = `${out.normal}\n${out.prelim}`;
   const normal14 = ((out.normal.match(/1\.4\.[\s\S]*?(?:\n2\.|$)/i) || [])[0] || '').trim();
   const prelim14 = ((out.prelim.match(/1\.4[\s\S]*?(?:\n2\.|$)/i) || [])[0] || '').trim();
-  const ctx = { normal14, prelim14 };
+  const ctx = { normal14, prelim14, semantic: JSON.stringify(out.semantic14, null, 2) };
 
   expect(referenceNormal.regim && referencePrelim.regim).toBeTruthy();
   expect(referenceNormal.inaltime && referencePrelim.inaltime).toBeTruthy();
