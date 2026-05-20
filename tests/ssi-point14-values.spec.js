@@ -52,11 +52,11 @@ test('1.4 semantic value checks across 3 memorii + reset/no leakage', async ({ p
       expect(regimValue).not.toMatch(/aria\s+construit|aria\s+desf|înălțimea\s+maximă/i);
     }
 
-    const ariaConstruitaLine = (both.match(/aria\s+construit[ăa][^\n]*/i) || [''])[0];
+    const ariaConstruitaLine = (both.match(/aria\s+construit[ăa][^\n]*:\s*[0-9][^\n]*/i) || [''])[0];
     expect(ariaConstruitaLine).not.toMatch(/:\s*1\s*(?:$|\n)/i);
     expect(hasNonTruncatedMetric(ariaConstruitaLine, 'm(?:2|²)')).toBeTruthy();
 
-    const ariaDesfasurataLine = (both.match(/aria\s+desf[ăa][șs]urat[ăa][^\n]*/i) || [''])[0];
+    const ariaDesfasurataLine = (both.match(/aria\s+desf[ăa][șs]urat[ăa][^\n]*:\s*[0-9][^\n]*/i) || [''])[0];
     expect(hasNonTruncatedMetric(ariaDesfasurataLine, 'm(?:2|²)')).toBeTruthy();
 
     const volumLine = (both.match(/volum(?:ul)?[^\n]*/i) || [''])[0];
