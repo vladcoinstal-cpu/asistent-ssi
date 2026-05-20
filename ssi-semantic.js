@@ -156,7 +156,8 @@
     const text = `${String(data.denumire_obiectiv || '')}\n${String(data.beneficiar || '')}\n${String(data.adresa || '')}\n${String(data['funcțiuni'] || data.functiuni || '')}\n${String(data.categoria_importanta || '')}\n${sourceText}`;
     const normalize = (v) => sanitizeDisplayText(v);
     const first = (re) => normalize(text.match(re)?.[1] || '');
-    const functionTags = buildSemantic14Model({ data, sources }).functions.tags;
+    const functionTagsRaw = buildSemantic14Model({ data, sources }).functions.tags;
+    const functionTags = functionTagsRaw.filter((tag) => !/depozitare/i.test(tag));
     const cleanName = (value) => sanitizeDisplayText(String(value || ""))
       .replace(/\b(?:beneficiar|proprietar|investitor|adresa)\b\s*[:\-].*$/i, "")
       .trim();
@@ -169,8 +170,8 @@
       .trim();
     return {
       identification: {
-        denumireObiectiv: cleanName(normalize(data.denumire_obiectiv) || first(/denumirea\s+(?:obiectivului|investi[țt]iei)\s*[:\-]\s*([^\n.]{4,180})/i)),
-        beneficiar: cleanBeneficiary(normalize(data.beneficiar) || first(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^\n.]{4,220})/i)),
+        denumireObiectiv: cleanName(normalize(data.denumire_obiectiv) || first(/denumirea\s+(?:obiectivului|investi[țt]iei)\s*[:\-]\s*([^\n]{4,180})/i)),
+        beneficiar: cleanBeneficiary(normalize(data.beneficiar) || first(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^\n]{4,220})/i)),
         adresa: cleanAddress(normalize(data.adresa) || first(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^\n]{8,220})/i))
       },
       destination: {
