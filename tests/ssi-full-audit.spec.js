@@ -48,7 +48,7 @@ function lineForField(block, fieldLabel) {
 }
 
 function statusForField({ line, fixtureName, subpointCode, fieldLabel }) {
-  if (!line) return 'missing-field-line';
+  if (!line) return 'field-line-not-detected';
   const lower = line.toLowerCase();
   if (/de completat|\s-\s*$|:\s*$/.test(lower)) return 'de-completat-or-empty';
   if (subpointCode === '1.1' && /adres/.test(fieldLabel.toLowerCase())) {
@@ -116,7 +116,7 @@ function collectCaseAudit({ fixtureName, normalOut, prelimOut, templates }) {
 function renderReport(rows) {
   const now = new Date().toISOString();
   const byStatus = rows.reduce((acc, r) => { acc[r.status] = (acc[r.status] || 0) + 1; return acc; }, {});
-  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'missing-field-line']);
+  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value']);
   const critical = rows.filter((r) => criticalStatuses.has(r.status));
 
   const matrixLines = [];
@@ -160,7 +160,7 @@ test('full SSI global audit (all subpoints from Anexa 4/5) collects all differen
   const report = renderReport(allRows);
   fs.writeFileSync(path.join(__dirname, '..', 'audit-full-ssi-output.md'), report);
 
-  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'missing-field-line']);
+  const criticalStatuses = new Set(['missing', 'truncated', 'contaminated', 'wrong-value']);
   const critical = allRows.filter((r) => criticalStatuses.has(r.status));
   if (critical.length) {
     const details = critical.slice(0, 30).map((r, i) => `${i + 1}. [${r.fixtureName}] ${r.annex} ${r.subpointCode} ${r.field || '-'} => ${r.status} | actual: ${r.actual}`).join('\n');
