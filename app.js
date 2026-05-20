@@ -6104,8 +6104,8 @@ function parseDimensionParts(rawValue) {
   const regimMatch = normalizeRegime(regimRaw);
   const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
   const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "m(?:3|³)") || "";
-  const builtMatch = extractMeasurement(normalizedRaw, /aria\s+construit[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
-  const totalMatch = extractMeasurement(normalizedRaw, /aria\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
+  const builtMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
+  const totalMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "m(?:2|²)") || "";
 
   return {
     regim: regimMatch || "",

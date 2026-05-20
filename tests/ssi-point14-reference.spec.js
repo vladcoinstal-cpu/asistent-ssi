@@ -41,7 +41,7 @@ async function runExtract(page, fixtureName) {
 test('1.4 values match v58/v85 semantic references for Sprenghi', async ({ page }) => {
   const referenceNormal = collectReference14Values('ssi-normal-v58.html');
   const referencePrelim = collectReference14Values('ssi-preliminar-v85.html');
-  const out = await runExtract(page, 'memoriu-arhitectura-comercial-parcare-subsol.txt');
+  const out = await runExtract(page, 'memoriu-sprenghi-reference.txt');
   const both = `${out.normal}\n${out.prelim}`;
 
   expect(referenceNormal.regim && referencePrelim.regim).toBeTruthy();
