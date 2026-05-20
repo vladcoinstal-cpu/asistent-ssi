@@ -68,3 +68,10 @@ Acest folder contine un prototip local, fara instalare, pentru pregatirea unui d
 - trasabilitate pe paragraf si sursa;
 - verificari de praguri automate pe functiuni si instalatii;
 - matrice de reguli pe destinatii speciale: spitale, scoli, parcaje, cladiri inalte, depozite.
+
+## Troubleshooting test execution in restricted environments
+
+- Testele semantice (`npm run test:semantic`) ruleaza fara browser si sunt recomandate pentru validari rapide in medii fara acces la CDN extern.
+- Testele Playwright (`npm run test:e2e`, inclusiv `tests/ssi-full-audit.spec.js`) necesita binarele de browser instalate local.
+- Daca instalarea Playwright esueaza cu mesaj de tip `Domain forbidden` la descarcare, cauza este de regula o restrictie de retea pe domeniul CDN Playwright, nu o eroare functionala a codului.
+- In acest caz, rulati aceleasi comenzi intr-un mediu CI/local cu acces la `cdn.playwright.dev` sau cu browsere Playwright deja preinstalate.
