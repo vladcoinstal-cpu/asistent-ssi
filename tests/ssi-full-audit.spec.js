@@ -60,10 +60,25 @@ function labelCandidates(label){
   return [...out];
 }
 
+
+function normToken(v){
+  return String(v||'').toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g,'')
+    .replace(/[^a-z0-9]+/g,' ')
+    .replace(/\s+/g,' ')
+    .trim();
+}
+
 function findFieldLine(block, label) {
   const keys = labelCandidates(label);
+  const normKeys = keys.map(normToken).filter(Boolean);
   const lines = String(block || '').split('\n').map((x) => x.trim()).filter(Boolean);
-  return lines.find((ln) => { const low=ln.toLowerCase(); return keys.some((k)=>low.includes(k)); }) || '';
+  return lines.find((ln) => {
+    const low = ln.toLowerCase();
+    if (keys.some((k)=>low.includes(k))) return true;
+    const nln = normToken(ln);
+    return normKeys.some((nk)=> nk && (nln.includes(nk) || nk.split(' ').every(part=>nln.includes(part))));
+  }) || '';
 }
 
 function hasSourceDataForField(rawText, fieldLabel) {
