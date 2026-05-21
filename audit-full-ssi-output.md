@@ -1,6 +1,6 @@
 # Raport audit SSI complet (Anexa 4 + Anexa 5)
 
-Generat: 2026-05-21T13:20:34.343Z
+Generat: 2026-05-21T16:55:00.000Z
 
 Total subpuncte: 60
 Total câmpuri: 137
@@ -175,7 +175,7 @@ Total câmpuri: 137
 
 
 ## Comparativ numeric
-- field-line-not-detected: 138 → 96
-- coverage-gap-subpoint: 23 → 0
+- field-line-not-detected: 138 → 97
+- coverage-gap-subpoint: 23 → 19
 - reguli v58/v85 implementate în Extrage/model semantic (lot curent): 8
 - subpuncte rămase neimplementate: 20
