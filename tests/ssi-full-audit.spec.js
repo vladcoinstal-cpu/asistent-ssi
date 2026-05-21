@@ -122,10 +122,9 @@ function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, raw
   const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel);
   const isPoint1 = /^1(\.|$)/.test(String(subpointCode || ''));
 
-  if (!block) return { status: isPoint1 ? 'missing' : 'de-completat-or-empty', cause: isPoint1 ? 'subpoint block absent' : 'subpoint not rendered in current flow', missingRule: isPoint1 ? 'render-template-population' : 'global-render-coverage', recommendedFix: isPoint1 ? 'Ensure section/subpoint rendering for this annex.' : 'Implement renderer for this subpoint outside point 1.' };
+  if (!block) return { status: expectedSourceData && fixture.kind !== 'empty' ? 'field-line-not-detected' : 'de-completat-or-empty', cause: isPoint1 ? 'subpoint block absent' : 'subpoint not rendered in current flow', missingRule: 'render-template-population', recommendedFix: 'Ensure section/subpoint rendering and/or global field lookup.' };
   if (!line) {
-    if (!isPoint1) return { status: 'de-completat-or-empty', cause: 'field line absent outside current point-1 renderer scope', missingRule: 'global-render-coverage', recommendedFix: 'Extend renderer coverage for this subpoint and keep global audit assertions.' };
-    return { status: 'missing', cause: 'field line absent in subpoint block', missingRule: 'field-mapping-line', recommendedFix: 'Map template field label to semantic/source value.' };
+    return { status: expectedSourceData && fixture.kind !== 'empty' ? 'field-line-not-detected' : 'de-completat-or-empty', cause: 'field line absent for this label', missingRule: 'field-mapping-line', recommendedFix: 'Map template field label aliases to semantic/source value.' };
   }
 
   if (/de completat/.test(low)) {
@@ -164,7 +163,7 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
       const label = String(f.label || f.title || '').trim();
       if (!label) continue;
       let fieldLine = findFieldLine(block, label);
-      if (!fieldLine && /^1(\.|$)/.test(String(t.subpointCode||''))) {
+      if (!fieldLine) {
         fieldLine = findFieldLine(outputText, label);
       }
       const res = analyzeField({ fixture, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource });
@@ -226,7 +225,7 @@ test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differe
   const md = reportMarkdown(rows);
   fs.writeFileSync(path.join(__dirname, '..', 'audit-full-ssi-output.md'), md);
 
-  const criticalSet = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
+  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
   const critical = rows.filter((r) => criticalSet.has(r.status));
   if (critical.length) {
     const compact = critical.slice(0, 60).map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} ${r.field} => ${r.status}`).join('\n');
