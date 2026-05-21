@@ -6335,7 +6335,9 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     { label: "aria desfășurată", value: dim.ariaDesfasurata }
   ], "word");
   const categoryClassText = `categoria ${val("categoria_importanta")}, conform ${renderInline(makeLawRef("hg766_anexa3_art_6_7", "HG nr. 766/1997, Anexa nr. 3, art. 6-7"), "word")}; clasa ${val("clasa_importanta")}, conform ${renderInline(makeLawRef("hg766_anexa3_art_8_cr0_anexa_a1", "HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1"), "word")}.`;
-  const buildingTypeJustified = `clădire civilă pentru cult, cu două încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform ${renderInline(makeLawRef("p11899_pct_1_2_28", "P 118-99, pct. 1.2.28"), "word")}.`;
+  const buildingTypeJustified = (buildingType && buildingType !== "De completat.")
+    ? escapeHtml(buildingType)
+    : "Clădire civilă conform documentației disponibile; încadrarea exactă se confirmă după specialitatea arhitectură.";
   const riskEvaluationBlock = buildRiskEvaluationBlock(data)
     .split("\n")
     .map((line) => renderInline(line, "word"))
