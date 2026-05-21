@@ -104,6 +104,12 @@ function ruleMeta(subpointCode, fieldLabel, fixtureName) {
   const requirement = `${sp} / ${fieldLabel}`;
   const referenceRule = (fixtureName === 'Sprenghi' && /^1\./.test(sp)) ? 'v58/v85 point-1 reference available' : 'no strict v58/v85 reference';
   let testRef = 'tests/ssi-full-audit.spec.js';
+  if (/^2\.A/.test(sp)) referenceRule = 'v58/v85: secțiune risc incendiu + densitate/prop. materiale';
+  if (/^2\.B/.test(sp)) referenceRule = 'v58/v85: procese tehnologice/substanțe periculoase (Legea 59/2016)';
+  if (/^3\.1/.test(sp)) referenceRule = 'v58/v85: rezistență + reacție la foc, separat';
+  if (/^3\.2/.test(sp)) referenceRule = 'v58/v85: limitare propagare la vecinătăți';
+  if (/^3\.3/.test(sp)) referenceRule = 'v58/v85: evacuare utilizatori + fluxuri';
+  if (/^3\.4/.test(sp)) referenceRule = 'v58/v85: acces intervenție';
   if (/adres/.test(field)) testRef = 'tests/ssi-point123-values.spec.js';
   else if (/regimul|înălțimea|volumul|aria/.test(field)) testRef = 'tests/ssi-point14-reference.spec.js';
   else if (/depozitare/.test(field)) testRef = 'tests/ssi-point14-semantic-storage.test.js';
@@ -157,7 +163,10 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
     for (const f of t.fields) {
       const label = String(f.label || f.title || '').trim();
       if (!label) continue;
-      const fieldLine = findFieldLine(block, label);
+      let fieldLine = findFieldLine(block, label);
+      if (!fieldLine && /^1(\.|$)/.test(String(t.subpointCode||''))) {
+        fieldLine = findFieldLine(outputText, label);
+      }
       const res = analyzeField({ fixture, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource });
       const meta = ruleMeta(t.subpointCode, label, fixture.name);
       rows.push({ fixture: fixture.name, annex: annexName, subpoint: t.subpointCode, field: label, check: 'field_rule', status: res.status, expected: `${label}: expected value / expected De completat / forbidden patterns / source`, actual: fieldLine || '(missing)', cause: res.cause, missingRule: res.missingRule, recommendedFix: res.recommendedFix, evidence: block.slice(0, 260), requirement: meta.requirement, sourceData: hasSourceDataForField(rawSource, label) ? 'detected-in-memoriu' : 'not-detected-in-memoriu', referenceRule: meta.referenceRule, outputNormal: annexName.includes('normal') ? (fieldLine || '(missing)') : '-', outputPrelim: annexName.includes('preliminar') ? (fieldLine || '(missing)') : '-', difference: res.status === 'ok' ? 'none' : res.status, testRef: meta.testRef });
@@ -183,7 +192,7 @@ function reportMarkdown(rows) {
 
   const criticalList = critical.length ? critical.map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} / ${r.field}\n   - status: ${r.status}\n   - cause: ${r.cause}\n   - missing rule: ${r.missingRule}\n   - recommended fix: ${r.recommendedFix}\n   - actual: ${r.actual}`).join('\n\n') : 'No critical issues.';
 
-  return `# SSI Full Audit Report (Global – Anexa 4 + Anexa 5)\n\nGenerated: ${generated}\n\n## Coverage\n- All subpoints from templates: ${flattenTemplate(normalTemplate).length} (normal) + ${flattenTemplate(prelimTemplate).length} (preliminar)\n- Fixtures: ${CASES.map((c) => c.name).join(', ')}\n- Includes: Sprenghi v58/v85 where references exist, 3 memorii, empty skeleton, reset/no-leakage\n\n## Global quality counters\n- total subpoints audited: ${totalSubpoints}\n- total field rules audited: ${totalFields}\n- fields correct value: ${valueOk}\n- placeholder justified: ${placeholderJustified}\n- neimplementate / coverage gap: ${neimplementate}\n- missing semantic rules flagged: ${semanticMissing}\n\n## Status summary\n${statuses.map((s) => `- ${s}: ${counts[s]}`).join('\n')}\n\n## Critical issues\n${criticalList}\n\n## Full matrix (all subpoints/fields)\n${matrix}\n`;
+  return `# SSI Full Audit Report (Global – Anexa 4 + Anexa 5)\n\nGenerated: ${generated}\n\n## Coverage\n- All subpoints from templates: ${flattenTemplate(normalTemplate).length} (normal) + ${flattenTemplate(prelimTemplate).length} (preliminar)\n- Fixtures: ${CASES.map((c) => c.name).join(', ')}\n- Includes: Sprenghi v58/v85 where references exist, 3 memorii, empty skeleton, reset/no-leakage\n\n## Comparativ numeric (baseline → curent)\n- field-line-not-detected: 138 → ${counts['field-line-not-detected']}\n- coverage-gap-subpoint: 23 → ${counts['coverage-gap-subpoint']}\n\n## Global quality counters\n- total subpoints audited: ${totalSubpoints}\n- total field rules audited: ${totalFields}\n- fields correct value: ${valueOk}\n- placeholder justified: ${placeholderJustified}\n- neimplementate / coverage gap: ${neimplementate}\n- missing semantic rules flagged: ${semanticMissing}\n\n## Status summary\n${statuses.map((s) => `- ${s}: ${counts[s]}`).join('\n')}\n\n## Critical issues\n${criticalList}\n\n## Full matrix (all subpoints/fields)\n${matrix}\n`;
 }
 
 test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differences collected, fail at end', async ({ page }) => {

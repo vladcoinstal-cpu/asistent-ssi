@@ -24,6 +24,10 @@ These rules are BLOCKING for all tasks in this repository.
    - reset/new-project/no-leakage,
    - anti-contamination between fields.
 9. For point 1.4 specifically, preserve complete units and values:
+
+10. PR reporting validation is mandatory before claiming PR created/updated.
+   - Verify via GitHub API/search that a REAL PR exists (numbered pull request), not compare view.
+   - Report must include: PR link, PR number, branch, head commit SHA, and Actions run URL for that commit.
    - regim (`D+P+Sp+M` etc.),
    - inaltime with `m`,
    - arii with `m²`/`m2`/`mp` normalized,
