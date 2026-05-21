@@ -172,3 +172,10 @@ Total câmpuri: 137
 ## Probleme explicite
 - `coverage-gap-subpoint` și `field-line-not-detected` sunt tratate ca probleme reale de acoperire, nu succes.
 - Pentru subpunctele 2–6 este necesară implementarea semantică în Extrage, apoi validare globală pe toate fixture-urile.
+
+
+## Comparativ numeric
+- field-line-not-detected: 138 → 96
+- coverage-gap-subpoint: 23 → 0
+- reguli v58/v85 implementate în Extrage/model semantic (lot curent): 8
+- subpuncte rămase neimplementate: 20
