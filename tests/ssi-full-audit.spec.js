@@ -41,10 +41,29 @@ function blockForCode(text, code) {
   return (normalize(text).match(re) || [''])[0].trim();
 }
 
+
+const FIELD_ALIASES = [
+  [/beneficiar\s*\/\s*proprietar/i, ['proprietar/beneficiar','beneficiar / proprietar']],
+  [/proprietar\s*\/\s*beneficiar/i, ['beneficiar / proprietar','proprietar/beneficiar']],
+  [/adresa|adresă/i, ['adresa','adresă']],
+  [/func[țt]iuni\s+principale/i, ['functiuni principale','funcțiuni principale']],
+  [/func[țt]iuni\s+secundare/i, ['functiuni secundare','funcțiuni secundare']],
+  [/func[țt]iuni\s+conexe/i, ['functiuni conexe','funcțiuni conexe']],
+  [/categoria\s+de\s+importan/i, ['categoria de importanta','categoria de importanță']],
+  [/clasa\s+de\s+importan/i, ['clasa de importanta','clasa de importanță']]
+];
+
+function labelCandidates(label){
+  const base=String(label||'').toLowerCase().trim();
+  const out=new Set([base]);
+  for(const [re,alts] of FIELD_ALIASES){ if(re.test(base)) alts.forEach(a=>out.add(String(a).toLowerCase())); }
+  return [...out];
+}
+
 function findFieldLine(block, label) {
-  const key = String(label || '').toLowerCase().trim();
+  const keys = labelCandidates(label);
   const lines = String(block || '').split('\n').map((x) => x.trim()).filter(Boolean);
-  return lines.find((ln) => ln.toLowerCase().includes(key)) || '';
+  return lines.find((ln) => { const low=ln.toLowerCase(); return keys.some((k)=>low.includes(k)); }) || '';
 }
 
 function hasSourceDataForField(rawText, fieldLabel) {

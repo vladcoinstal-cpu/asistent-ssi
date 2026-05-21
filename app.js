@@ -2278,9 +2278,8 @@ async function handleExtractData() {
     }
 
     try {
-      const reports = buildPoint1ReportsFromTemplates();
-      normalReportOutput.value = reports.normal;
-      preliminaryReportOutput.value = reports.preliminary;
+      normalReportOutput.value = buildScenarioMarkdown(state.data, state.sources, state.applicableActs, state.complianceChecks);
+      preliminaryReportOutput.value = buildPreliminaryScenarioMarkdown(state.data, state.sources, state.applicableActs, state.projectProfile, state.complianceChecks);
     } catch (error) {
       console.error(error);
       warnings.push("generare SSI");
@@ -2298,10 +2297,9 @@ async function handleExtractData() {
     renderProjectTabs();
     renderWorkspaceTabs();
     activateTab("normalTab");
-    // enforce point-1-only output in PR#7 phase before persisting
-    const finalReports = buildPoint1ReportsFromTemplates();
-    normalReportOutput.value = finalReports.normal;
-    preliminaryReportOutput.value = finalReports.preliminary;
+    // persist full SSI outputs (all annex subpoints), not only point 1
+    normalReportOutput.value = buildScenarioMarkdown(state.data, state.sources, state.applicableActs, state.complianceChecks);
+    preliminaryReportOutput.value = buildPreliminaryScenarioMarkdown(state.data, state.sources, state.applicableActs, state.projectProfile, state.complianceChecks);
     saveActiveProjectStateFromUI();
     persistWorkspace();
     setUiStatus(`Extragerea a fost realizata din ${state.sources.length} sursa(e).`, targetProjectId);
