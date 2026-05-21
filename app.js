@@ -5474,6 +5474,18 @@ function buildNormalRiskSection(data) {
   return lines.join("\n");
 }
 
+
+function splitFunctionsText(value) {
+  const raw = String(value || '').trim();
+  if (!raw) return { principal: 'De completat.', secundare: 'De completat.', conexe: 'De completat.' };
+  const bits = raw.split(/;|
+|\./).map((x) => x.trim()).filter(Boolean);
+  return {
+    principal: bits[0] || raw,
+    secundare: bits[1] || bits[0] || raw,
+    conexe: bits.slice(2).join('; ') || bits[1] || bits[0] || raw
+  };
+}
 function buildNormalSpecialCharacteristicsBlock(data) {
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
   const lines = [];
@@ -5485,13 +5497,13 @@ function buildNormalSpecialCharacteristicsBlock(data) {
   const egress = String(data.cai_evacuare_rezumat || "").trim();
 
   lines.push("### 1.4. Particularitati specifice constructiei/amenajarii");
-  lines.push(`- a) tipul cladirii: ${typeText || "De completat."}`);
-  lines.push(`- b) tipul parcajului: ${val("tip_parcaj", "Nu este cazul.")}`);
-  lines.push(`- c) caracteristici dimensionale: ${dimensions || "De completat."}`);
-  lines.push(`- d) precizari referitoare la numarul maxim de utilizatori: ${users || "De completat."}`);
-  lines.push(`- e) prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora: ${autoev || "De completat."}`);
-  lines.push(`- f) capacitati de depozitare: ${storage || "De completat."}`);
-  lines.push(`- g) numarul cailor de evacuare si, dupa caz, al refugiilor: ${egress || "De completat."}`);
+  lines.push(`- 1.4.a tipul cladirii: ${typeText || "De completat."}`);
+  lines.push(`- 1.4.b tipul parcajului: ${val("tip_parcaj", "Nu este cazul.")}`);
+  lines.push(`- 1.4.c caracteristici dimensionale: ${dimensions || "De completat."}`);
+  lines.push(`- 1.4.d precizari referitoare la numarul maxim de utilizatori: ${users || "De completat."}`);
+  lines.push(`- 1.4.e prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora: ${autoev || "De completat."}`);
+  lines.push(`- 1.4.f capacitati de depozitare: ${storage || "De completat."}`);
+  lines.push(`- 1.4.g numarul cailor de evacuare si, dupa caz, al refugiilor: ${egress || "De completat."}`);
 
   return lines.join("\n");
 }
@@ -5513,14 +5525,18 @@ function buildNormalIdentificationBlock(data) {
 
   lines.push("## 1. Caracteristicile constructiei sau amenajarii");
   lines.push("### 1.1. Datele de identificare");
-  lines.push(`- Denumirea constructiei/amenajarii: ${val("denumire_obiectiv")}`);
-  lines.push(`- Proprietar / beneficiar: ${val("beneficiar")}`);
-  lines.push(`- Adresa: ${val("adresa")}`);
-  lines.push(`- Date de contact beneficiar: ${val("contact_beneficiar", "[[RED]]De completat din documentația beneficiarului.[[/RED]]")}`);
-  lines.push(`- Profil de activitate / program de lucru: ${val("profil_activitate")}`);
+  lines.push(`- denumirea obiectivului: ${val("denumire_obiectiv")}`);
+  lines.push(`- beneficiar / proprietar: ${val("beneficiar")}`);
+  lines.push(`- adresa: ${val("adresa")}`);
+  lines.push(`- date de contact: ${val("contact_beneficiar", "[[RED]]De completat din documentația beneficiarului.[[/RED]]")}`);
+  lines.push(`- profilul de activitate: ${val("profil_activitate")}`);
+  lines.push(`- programul de lucru: ${val("program_lucru", val("profil_activitate"))}`);
   lines.push("");
+  const fns = splitFunctionsText(val("funcțiuni"));
   lines.push("### 1.2. Destinatia");
-  lines.push(`- Functiuni principale, secundare și conexe: ${val("funcțiuni")}`);
+  lines.push(`- functiuni principale: ${fns.principal}`);
+  lines.push(`- functiuni secundare: ${fns.secundare}`);
+  lines.push(`- functiuni conexe: ${fns.conexe}`);
   lines.push("");
   lines.push("### 1.3. Categoria și clasă de importanta");
   lines.push(`- Categoria de importanta: ${categoryLine}`);
@@ -6610,7 +6626,7 @@ ${rulesCoverage}
 ### 1.1. Datele de identificare
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
-| 1.1. Datele de identificare | a) denumire: ${val("denumire_obiectiv")}<br>b) proprietar/beneficiar: ${val("beneficiar")}<br>c) adresă: ${val("adresa")}<br>d) nr. de telefon: ${val("telefon", "Nu sunt detalii")}<br>e) fax: ${val("fax", "Nu sunt detalii")}<br>f) e-mail etc.: ${contact !== "-" ? contact : "Nu sunt detalii"} |
+| 1.1. Datele de identificare | denumire: ${val("denumire_obiectiv")}<br>proprietar/beneficiar: ${val("beneficiar")}<br>adresă: ${val("adresa")}<br>nr. de telefon: ${val("telefon", "Nu sunt detalii")}<br>fax: ${val("fax", "Nu sunt detalii")}<br>e-mail etc.: ${contact !== "-" ? contact : "Nu sunt detalii"} |
 
 ### 1.2. Destinația
 | Denumirea punctului / subpunctului | Conținut |
