@@ -6450,7 +6450,7 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     <tr class="subpoint-row"><td>3.2. Gradul de rezistență la foc / nivelul de stabilitate la incendiu</td><td><span class="label">a) gradul de rezistență la foc / nivelul de stabilitate la incendiu:</span> gradul II de rezistență la foc, conform ${renderInline(makeLawRef("p11899_tabel_2_1_9", "P 118-99, tabelul 2.1.9"), "word")}.</td></tr>
     <tr class="subpoint-row"><td>3.3. Asigurarea limitării propagării incendiilor la vecinătăți</td><td>${prelimSpread.a} ${prelimSpread.b} ${prelimSpread.c}</td></tr>
     <tr class="subpoint-row"><td>3.4. Evacuarea utilizatorilor</td><td><span class="label">a) măsuri pentru asigurarea controlului fumului:</span> ${prelimEvac.a}</td></tr>
-    <tr class="detail-row"><td></td><td><span class="label">b) tipul scărilor, forma și modul de dispunere a treptelor:</span> ${prelimEvac.b}</td></tr>
+    <tr class="detail-row"><td></td><td><span class="label">b) tipul scărilor, forma și modul de dispunere a treptelor:</span> ${prelimEvac.b || prelimEvac.c}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) geometria căilor de evacuare:</span> ${prelimEvac.c}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) numărul fluxurilor de evacuare:</span> ${prelimEvac.d}</td></tr>
     <tr class="subpoint-row"><td>3.5. Măsuri pentru accesul și evacuarea persoanelor care nu se pot evacua singure</td><td>${renderInline(vulnerable, "word")}</td></tr>
@@ -6585,7 +6585,9 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
     .map((item) => `${item.label}: ${item.value}`)
     .join("; ");
   const categoryClassText = `categoria ${val("categoria_importanta", "De completat.")}, conform [[LAWREF:hg766_anexa3_art_6_7]]HG nr. 766/1997, Anexa nr. 3, art. 6-7[[/LAWREF]]; clasa ${val("clasa_importanta", "De completat.")}, conform [[LAWREF:hg766_anexa3_art_8_cr0_anexa_a1]]HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1[[/LAWREF]].`;
-  const buildingTypeJustified = `clădire civilă pentru cult, cu două încăperi cu aglomerări de persoane, respectiv naosul de la demisol și naosul de la parter, având fiecare peste 50 persoane simultan și o arie mai mică de 4 mp/persoană, conform [[LAWREF:p11899_pct_1_2_28]]P 118-99, pct. 1.2.28[[/LAWREF]].`;
+  const buildingTypeJustified = buildingType && buildingType !== "De completat."
+    ? buildingType
+    : "Clădire civilă conform documentației disponibile; încadrarea exactă se confirmă după specialitatea arhitectură.";
   const utilitati = [
     `1. Alimentarea cu energie electrică: ${electric}`,
     `2. Alimentarea cu gaze: ${val("alimentare_gaze", "De completat.")}`,
@@ -6665,7 +6667,7 @@ ${roomInventoryTable}
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
 | a) măsuri pentru asigurarea controlului fumului | ${smoke} |
-| b) tipul scărilor, forma și modul de dispunere a treptelor | ${val("scari_interioare", "De completat.")} |
+| b) tipul scărilor, forma și modul de dispunere a treptelor | ${val("scari_interioare", evacuation || "Se utilizează căile de evacuare prevăzute în documentația disponibilă.")} |
 | c) geometria căilor de evacuare | ${evacuation} |
 | d) numărul fluxurilor de evacuare | ${evacuation} |
 
