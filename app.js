@@ -5478,8 +5478,7 @@ function buildNormalRiskSection(data) {
 function splitFunctionsText(value) {
   const raw = String(value || '').trim();
   if (!raw) return { principal: 'De completat.', secundare: 'De completat.', conexe: 'De completat.' };
-  const bits = raw.split(/;|
-|\./).map((x) => x.trim()).filter(Boolean);
+  const bits = raw.split(/;|\n|\./).map((x) => x.trim()).filter(Boolean);
   return {
     principal: bits[0] || raw,
     secundare: bits[1] || bits[0] || raw,
