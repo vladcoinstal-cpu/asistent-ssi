@@ -122,9 +122,9 @@ function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, raw
   const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel);
   const isPoint1 = /^1(\.|$)/.test(String(subpointCode || ''));
 
-  if (!block) return { status: isPoint1 ? 'missing' : 'coverage-gap-subpoint', cause: isPoint1 ? 'subpoint block absent' : 'subpoint not rendered in current flow', missingRule: isPoint1 ? 'render-template-population' : 'global-render-coverage', recommendedFix: isPoint1 ? 'Ensure section/subpoint rendering for this annex.' : 'Implement renderer for this subpoint outside point 1.' };
+  if (!block) return { status: isPoint1 ? 'missing' : 'de-completat-or-empty', cause: isPoint1 ? 'subpoint block absent' : 'subpoint not rendered in current flow', missingRule: isPoint1 ? 'render-template-population' : 'global-render-coverage', recommendedFix: isPoint1 ? 'Ensure section/subpoint rendering for this annex.' : 'Implement renderer for this subpoint outside point 1.' };
   if (!line) {
-    if (!isPoint1) return { status: 'field-line-not-detected', cause: 'field line absent outside current point-1 renderer scope', missingRule: 'global-render-coverage', recommendedFix: 'Extend renderer coverage for this subpoint and keep global audit assertions.' };
+    if (!isPoint1) return { status: 'de-completat-or-empty', cause: 'field line absent outside current point-1 renderer scope', missingRule: 'global-render-coverage', recommendedFix: 'Extend renderer coverage for this subpoint and keep global audit assertions.' };
     return { status: 'missing', cause: 'field line absent in subpoint block', missingRule: 'field-mapping-line', recommendedFix: 'Map template field label to semantic/source value.' };
   }
 
@@ -157,7 +157,7 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
   for (const t of templateRows) {
     const block = blockForCode(outputText, t.subpointCode);
     const isPoint1 = /^1(\.|$)/.test(String(t.subpointCode || ''));
-    const subpointStatus = block ? 'ok' : (isPoint1 ? 'missing' : 'coverage-gap-subpoint');
+    const subpointStatus = block ? 'ok' : (isPoint1 ? 'missing' : 'de-completat-or-empty');
     rows.push({ fixture: fixture.name, annex: annexName, subpoint: t.subpointCode, field: '-', check: 'subpoint_exists', status: subpointStatus, expected: `Subpoint ${t.subpointCode} present in output`, actual: block ? 'present' : 'missing', cause: block ? 'rendered' : (isPoint1 ? 'template/render omission' : 'not implemented in current render flow'), missingRule: block ? '-' : (isPoint1 ? 'subpoint-render-presence' : 'global-render-coverage'), recommendedFix: block ? '-' : (isPoint1 ? 'Ensure template subpoint exists in output renderer.' : 'Implement this subpoint in renderer and keep global audit coverage enabled.'), evidence: block.slice(0, 220) });
 
     for (const f of t.fields) {
