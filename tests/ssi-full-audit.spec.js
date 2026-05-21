@@ -102,7 +102,7 @@ function ruleMeta(subpointCode, fieldLabel, fixtureName) {
   const field = String(fieldLabel || '').toLowerCase();
   const sp = String(subpointCode || '');
   const requirement = `${sp} / ${fieldLabel}`;
-  const referenceRule = (fixtureName === 'Sprenghi' && /^1\./.test(sp)) ? 'v58/v85 point-1 reference available' : 'no strict v58/v85 reference';
+  let referenceRule = (fixtureName === 'Sprenghi' && /^1\./.test(sp)) ? 'v58/v85 point-1 reference available' : 'no strict v58/v85 reference';
   let testRef = 'tests/ssi-full-audit.spec.js';
   if (/^2\.A/.test(sp)) referenceRule = 'v58/v85: secțiune risc incendiu + densitate/prop. materiale';
   if (/^2\.B/.test(sp)) referenceRule = 'v58/v85: procese tehnologice/substanțe periculoase (Legea 59/2016)';
