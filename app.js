@@ -1405,7 +1405,7 @@ function buildPoint1ReportsFromTemplates() {
     "funcțiuni principale, secundare și conexe ale construcției/amenajării": functiuni || "",
     "categoria de importanta": semantic.category?.raw || "",
     "categoria de importanță": semantic.category?.raw || "",
-    "clasa de importanta": semantic.category?.raw || "",
+    "clasa de importanta": semantic.category?.classRaw || semantic.category?.raw || "",
     "tipul cladirii": state.data.tip_cladire || "",
     "tipul clădirii": state.data.tip_cladire || "",
     "tipul parcajului": state.data.tip_parcaj || "",
