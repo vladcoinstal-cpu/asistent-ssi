@@ -1,20 +1,26 @@
-# Raport audit SSI complet (Anexa 4 + Anexa 5)
+# SSI Full Audit Report (Global – Anexa 4 + Anexa 5)
 
-> Update CI verificat: run https://github.com/vladcoinstal-cpu/asistent-ssi/actions/runs/26275548839 (commit 631656f)
-> - field-line-not-detected=0
-> - coverage-gap-subpoint=0
-> - wrong-value=0
-> - contaminated=0
-> - unexpected-de-completat=0
->
-> Notă: matricea de mai jos este baseline-ul istoric din repo și trebuie înlocuită de exportul complet generat în CI la următorul update artifact.
+Generated: 2026-05-22T08:34:19Z
 
-Generat: 2026-05-21T16:55:00.000Z
+## Run metadata
+- Head commit: `4b6f1e44ecae2c13394ddcec5bc0248ea9b3396f`
+- Actions run: https://github.com/vladcoinstal-cpu/asistent-ssi/actions/runs/26277349542
+- Source of counters: Playwright global audit summary line (`[SSI-AUDIT-SUMMARY]`) from CI run logs.
 
-Total subpuncte: 60
-Total câmpuri: 137
+## Comparativ numeric (baseline → curent)
+- field-line-not-detected: 138 → 0
+- coverage-gap-subpoint: 23 → 0
+- wrong-value: (baseline neindexat) → 0
+- contaminated: (baseline neindexat) → 0
+- unexpected-de-completat: (baseline neindexat) → 0
 
-## Matrice completă subpuncte/câmpuri (baseline de implementare)
+## Status
+- OK: counters critici globali sunt 0 în run-ul curent.
+- De completat justificat: rămâne evaluat în matricea completă a run-ului (vezi artefact/log run).
+- Probleme rămase: neconfirmate de counter-ele critice din run-ul curent.
+
+## Note
+- Matricea de mai jos este baseline istoric; se păstrează pentru trasabilitate până la publicarea automată a matricei complete din CI în repo/artefact.
 
 | Anexă | Subpunct | Cerință subpunct | Câmp | Regula v58/v85 | Status curent | Regula semantică lipsă | Fix propus | Test aferent |
 |---|---|---|---|---|---|---|---|---|
