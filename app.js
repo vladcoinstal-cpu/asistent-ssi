@@ -10,6 +10,7 @@
   { key: "program_lucru", label: "Program de lucru", hint: "Anexa 4, pct. 1.1.C" },
   { key: "funcțiuni", label: "Functiuni principale / secundare / conexe", hint: "Anexa 4, pct. 1.2" },
   { key: "categoria_importanta", label: "Categoria de importanta", hint: "Anexa 4, pct. 1.3" },
+  { key: "clasa_importanta", label: "Clasa de importanta", hint: "Anexa 4, pct. 1.3" },
   { key: "tip_cladire", label: "Tip cladire", hint: "Anexa 4, pct. 1.4.a" },
   { key: "tip_parcaj", label: "Tip parcaj / numar autovehicule", hint: "Anexa 4, pct. 1.4.b" },
   { key: "caracteristici_dimensionale", label: "Arii / volume / regim de inaltime", hint: "Anexa 4, pct. 1.4.c" },
