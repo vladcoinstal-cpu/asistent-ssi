@@ -110,6 +110,25 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
     if (/volumul rezervei de apa/.test(labelNorm)) return /(volumul\s+rezervei\s+de\s+apa).{0,40}(m3|m³|mc)/i.test(srcNorm);
     if (/numarul de racorduri exterioare/.test(labelNorm)) return /(numarul\s+de\s+racorduri\s+exterioare|racorduri\s+exterioare)/i.test(srcNorm);
   }
+
+  if (/^4\.4/.test(sp)) {
+    if (/inaltimea golului/.test(labelNorm)) return /(inaltimea\s+golului).{0,60}(m|metri)/i.test(srcNorm);
+    if (/aria\/lungimea zonei protejate/.test(labelNorm)) return /(aria\/lungimea\s+zonei\s+protejate).{0,60}(m2|m²|m)/i.test(srcNorm);
+    return false;
+  }
+  if (/^4\.6/.test(sp)) {
+    if (/aria de declansare simultana/.test(labelNorm)) return /(aria\s+de\s+declansare\s+simultana).{0,60}(m2|m²)/i.test(srcNorm);
+    if (/volumul rezervei de apa/.test(labelNorm)) return /(volumul\s+rezervei\s+de\s+apa).{0,60}(m3|m³|mc)/i.test(srcNorm);
+    return false;
+  }
+  if (/^4\.7/.test(sp)) {
+    if (/volumul protejat/.test(labelNorm)) return /(volumul\s+protejat).{0,60}(m3|m³|mc)/i.test(srcNorm);
+    return false;
+  }
+  if (/^4\.9/.test(sp)) {
+    if (/aria spatiului necesar desfumarii/.test(labelNorm)) return /(aria\s+spatiului\s+necesar\s+desfumarii|suprafata\s+efectiva\s+de\s+desfumare).{0,80}(m2|m²)/i.test(srcNorm);
+    return false;
+  }
   // Pentru subpuncte din afara punctului 1, consideram "date existente" doar la semnale explicite puternice.
   // Altfel, campul gol/De completat ramane justificat pana la implementarea loturilor respective.
   if (/^4\.1/.test(sp)) return /(hidranti?\s+interior|hidranti?\s+exterior|rezerv[aei]\s+de\s+apa|sursa\s+de\s+alimentare).{0,140}(\d|m3|m³|mc|l\/s)/i.test(srcNorm);
@@ -130,7 +149,10 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   }
   if (/numărul maxim|utilizatori|persoane/.test(label)) return isPoint1 ? /(utilizatori|persoane)/i.test(src) : /(\d+\s*(persoane|utilizatori))/i.test(srcNorm);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
-  if (/căilor de evacuare|cailor de evacuare/.test(label)) return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
+  if (/căilor de evacuare|cailor de evacuare/.test(label)) {
+    if (/marcarea/.test(labelNorm)) return /(marcare|semnalizare|iluminat\s+de\s+siguranta|indicatoare)/i.test(srcNorm);
+    return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
+  }
   return false;
 }
 
