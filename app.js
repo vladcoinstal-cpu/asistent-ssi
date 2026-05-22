@@ -114,13 +114,19 @@ const customExtractors = {
     },
     categoria_importanta(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n]{3,180})/i)
+      const match = joined.match(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([\s\S]{3,220}?)(?=\bclasa\s+de\s+importan(?:ț|t)ă\b|$)/i)
         || joined.match(/categoria\s+([A-D])\s*\(([^)]+)\)/i);
       if (!match) return "";
       if (match[1] && match[2]) {
         return `categoria ${String(match[1]).toUpperCase()} (${match[2].trim()})`;
       }
       return cleanExtract(match[1] || match[0]);
+    },
+    clasa_importanta(lines, content) {
+      const joined = lines.join(" ");
+      const match = joined.match(/clasa\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n]{2,120})/i)
+        || joined.match(/clasa\s+([IVX]+(?:-a)?)/i);
+      return match ? cleanExtract(match[1] || match[0]) : "";
     },
   funcțiuni(lines, content) {
     const joined = lines.join(" ");
