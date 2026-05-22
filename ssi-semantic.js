@@ -89,7 +89,14 @@
 
   function buildSemantic14Model({ data = {}, sources = [] }) {
     const dimensions = deriveDimensionParts(data, sources);
-    const combinedText = `${String(data['funcțiuni'] || data.functiuni || '')}\n${normalizeSourceText(sources)}`.toLowerCase();
+    const sourceText = normalizeSourceText(sources);
+    const explicitFunctions = String(data['funcțiuni'] || data.functiuni || '');
+    const explicitBuildingType = String(data.tip_cladire || '');
+    const sourceFunctionsLine = sourceText.match(/func[țt]iuni\s+principale(?:,\s*secundare\s+si\s+conexe)?\s*[:\-]\s*([^\n.]{2,180})/i)?.[1] || '';
+    const sourceBuildingLine = sourceText.match(/tipul?\s+cl[ăa]dirii\s*[:\-]\s*([^\n.]{2,220})/i)?.[1] || '';
+    const sourceAgglomeratedLine = sourceText.match(/sal[ăa]\s+aglomerat[ăa][^\n.]*/i)?.[0] || '';
+    const sourceIntro = sourceText.slice(0, 1800);
+    const combinedText = `${explicitFunctions}\n${explicitBuildingType}\n${sourceFunctionsLine}\n${sourceBuildingLine}\n${sourceAgglomeratedLine}\n${sourceIntro}`.toLowerCase();
     const functionTags = [];
     const push = (tag, re) => { if (re.test(combinedText)) functionTags.push(tag); };
     push('sală aglomerată', /sala|sală|aglomerat/);
