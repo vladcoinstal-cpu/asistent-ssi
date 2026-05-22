@@ -81,11 +81,15 @@ function findFieldLine(block, label) {
   }) || '';
 }
 
-function hasSourceDataForField(rawText, fieldLabel) {
+function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   const label = String(fieldLabel || '').toLowerCase();
   const labelNorm = normToken(fieldLabel);
   const src = normalize(rawText).toLowerCase();
   const srcNorm = normToken(rawText);
+  const sp = String(subpointCode || "");
+  const isPoint1 = /^1(\.|$)/.test(sp);
+  // Pentru subpuncte din afara punctului 1, consideram "date existente" doar la semnale explicite puternice.
+  // Altfel, campul gol/De completat ramane justificat pana la implementarea loturilor respective.
   if (/denumire/.test(label)) return /(denumirea\s+obiectivului|lăcaș|obiectiv)/i.test(src);
   if (/beneficiar|proprietar/.test(label)) return /(beneficiar|proprietar|parohia)/i.test(src);
   if (/adres/.test(label)) return /(adresa|str\.|strada|municipiul|județul|judetul)/i.test(src);
@@ -95,10 +99,13 @@ function hasSourceDataForField(rawText, fieldLabel) {
   if (/caracteristici dimensionale/.test(labelNorm)) return /(d\+p|p\+\d|s\+p|\d+[\.,]?\d*\s*(m2|m3|mp|mc|m²|m³|m)\b|aria\s+constr|aria\s+desfas|volum\w*\s+constr|inaltime\w*\s+max)/i.test(srcNorm);
   if (/capacitati de depozitare/.test(labelNorm)) return /((depozit|depozitare|spatiu de depozit|stocare).{0,80}(\d+[\.,]?\d*\s*(m2|m²|mp)|ton|kg|mc|m3|m³)|\b36\s*(m2|m²|mp)\b)/i.test(srcNorm);
   if (/densitatea sarcinii termice/.test(labelNorm)) return /(densitatea sarcinii termice|sarcina termica).{0,80}(\d+[\.,]?\d*\s*(mj\/m2|mj\/m²|mj\s*m2|mj\s*m²))/i.test(srcNorm);
-  if (/regimul|înălțimea|volumul|aria/.test(label)) return /(regim|inaltime|înălțime|volum|aria)/i.test(src);
-  if (/numărul maxim|utilizatori|persoane/.test(label)) return /(utilizatori|persoane)/i.test(src);
+  if (/regimul|înălțimea|volumul|aria/.test(label)) {
+    if (!isPoint1) return /(\d+[\.,]?\d*\s*(m|m2|m3|m²|m³|mp|mc))/i.test(srcNorm);
+    return /(regim|inaltime|înălțime|volum|aria)/i.test(src);
+  }
+  if (/numărul maxim|utilizatori|persoane/.test(label)) return isPoint1 ? /(utilizatori|persoane)/i.test(src) : /(\d+\s*(persoane|utilizatori))/i.test(srcNorm);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
-  if (/căilor de evacuare|cailor de evacuare/.test(label)) return /(evacuare|căi|cai)/i.test(src);
+  if (/căilor de evacuare|cailor de evacuare/.test(label)) return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
   return false;
 }
 
@@ -177,7 +184,7 @@ function findBestFieldLine(block, label) {
 function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource, outsideLine = '' }) {
   const line = String(fieldLine || '');
   const low = line.toLowerCase();
-  const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel);
+  const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel, subpointCode);
   const isPoint1 = /^1(\.|$)/.test(String(subpointCode || ''));
 
   if (!block) return { status: expectedSourceData && fixture.kind !== 'empty' ? 'field-line-not-detected' : 'de-completat-or-empty', cause: isPoint1 ? 'subpoint block absent' : 'subpoint not rendered in current flow', missingRule: 'render-template-population', recommendedFix: 'Ensure section/subpoint rendering and/or global field lookup.' };
@@ -236,7 +243,7 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
       }
       const res = analyzeField({ fixture, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource, outsideLine });
       const meta = ruleMeta(t.subpointCode, label, fixture.name);
-      rows.push({ fixture: fixture.name, annex: annexName, subpoint: t.subpointCode, field: label, check: 'field_rule', status: res.status, expected: `${label}: expected value / expected De completat / forbidden patterns / source`, actual: fieldLine || '(missing)', cause: res.cause, missingRule: res.missingRule, recommendedFix: res.recommendedFix, evidence: block.slice(0, 260), requirement: meta.requirement, sourceData: hasSourceDataForField(rawSource, label) ? 'detected-in-memoriu' : 'not-detected-in-memoriu', referenceRule: meta.referenceRule, outputNormal: annexName.includes('normal') ? (fieldLine || '(missing)') : '-', outputPrelim: annexName.includes('preliminar') ? (fieldLine || '(missing)') : '-', difference: res.status === 'ok' ? 'none' : res.status, testRef: meta.testRef });
+      rows.push({ fixture: fixture.name, annex: annexName, subpoint: t.subpointCode, field: label, check: 'field_rule', status: res.status, expected: `${label}: expected value / expected De completat / forbidden patterns / source`, actual: fieldLine || '(missing)', cause: res.cause, missingRule: res.missingRule, recommendedFix: res.recommendedFix, evidence: block.slice(0, 260), requirement: meta.requirement, sourceData: hasSourceDataForField(rawSource, label, t.subpointCode) ? 'detected-in-memoriu' : 'not-detected-in-memoriu', referenceRule: meta.referenceRule, outputNormal: annexName.includes('normal') ? (fieldLine || '(missing)') : '-', outputPrelim: annexName.includes('preliminar') ? (fieldLine || '(missing)') : '-', difference: res.status === 'ok' ? 'none' : res.status, testRef: meta.testRef });
     }
   }
   return rows;
