@@ -51,6 +51,7 @@ const patterns = {
   program_lucru: [/(?:programul\s+de\s+lucru|orarul\s+de\s+funcționare|orarul\s+de\s+functionare)\s*[:\-]\s*(.+)/i],
   funcțiuni: [/(?:destinatia|funcțiuni(?:\s+principale|\s+secundare|\s+conexe)?)\s*[:\-]\s*(.+)/i],
   categoria_importanta: [/(?:categoria\s+de\s+importanta)\s*[:\-]\s*(.+)/i],
+  clasa_importanta: [/(?:clas[ăa]\s+de\s+importanta|clas[ăa]\s+de\s+importanță)\s*[:\-]\s*(.+)/i],
   tip_cladire: [/(?:tipul\s+cladirii|cladire\s+(?:civilă|de\s+productie|depozitare|mixta))\s*[:\-]?\s*(.+)/i],
   tip_parcaj: [/(?:tipul\s+parcajului|parcaj)\s*[:\-]\s*(.+)/i],
   caracteristici_dimensionale: [/(?:regimul\s+de\s+inaltime|aria\s+construită|aria\s+desfășurată|volumul)\s*[:\-]\s*(.+)/i],
@@ -1268,7 +1269,7 @@ function ensureWorkspaceReadyAfterLoad() {
 
 
 const POINT_1_FIELD_KEYS = new Set([
-  "denumire_obiectiv","beneficiar","adresa","contact_beneficiar","profil_activitate","funcțiuni","categoria_importanta",
+  "denumire_obiectiv","beneficiar","adresa","contact_beneficiar","profil_activitate","funcțiuni","categoria_importanta","clasa_importanta",
   "tip_cladire","tip_parcaj","caracteristici_dimensionale","numar_utilizatori","autoevacuare","capacitati_depozitare","cai_evacuare_rezumat"
 ]);
 
