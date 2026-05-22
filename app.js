@@ -1409,6 +1409,7 @@ function buildPoint1ReportsFromTemplates() {
     "categoria de importanta": semantic.category?.raw || "",
     "categoria de importanță": semantic.category?.raw || "",
     "clasa de importanta": classValue,
+    "clasa de importanță": classValue,
     "tipul cladirii": state.data.tip_cladire || "",
     "tipul clădirii": state.data.tip_cladire || "",
     "tipul parcajului": state.data.tip_parcaj || "",
