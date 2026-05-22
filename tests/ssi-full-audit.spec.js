@@ -92,7 +92,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   if (/^3\.3/.test(sp)) {
     if (/alcatuirea constructiva/.test(labelNorm)) return /(alcatuire|constructiv[aă]|material|rezistenta\s+la\s+foc).{0,120}(evacuare|cale)/i.test(srcNorm);
     if (/geometria cailor de evacuare/.test(labelNorm)) return /(latime|inaltime|gabarit|lungime|flux|panta).{0,120}(evacuare|cale|usa)/i.test(srcNorm);
-    if (/marcarea cailor de evacuare/.test(labelNorm)) return /((marcare|semnalizare|indicatoare).{0,80}(evacuare|cale)|iluminat\s+de\s+siguranta\s+pentru\s+evacuare)/i.test(srcNorm);
+    if (/marcarea cailor de evacuare/.test(labelNorm)) return /(marcarea\s+cailor\s+de\s+evacuare|indicatoare\s+de\s+evacuare|semnalizare\s+de\s+evacuare|iluminat\s+de\s+siguranta\s+pentru\s+evacuare)/i.test(srcNorm);
     if (/masuri pentru persoane care nu se pot evacua singure/.test(labelNorm)) return /(nu\s+se\s+pot\s+evacua\s+singure|dizabil|mobilitate\s+redusa|asistata)/i.test(srcNorm);
   }
   if (/^3\.4/.test(sp) && /geometria cailor de evacuare/.test(labelNorm)) {
@@ -150,7 +150,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   if (/numărul maxim|utilizatori|persoane/.test(label)) return isPoint1 ? /(utilizatori|persoane)/i.test(src) : /(\d+\s*(persoane|utilizatori))/i.test(srcNorm);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
   if (/căilor de evacuare|cailor de evacuare/.test(label)) {
-    if (/marcarea/.test(labelNorm)) return /((indicatoare\s+de\s+evacuare|semnalizare\s+de\s+evacuare).{0,40}(evacuare|cale)|iluminat\s+de\s+siguranta\s+pentru\s+evacuare)/i.test(srcNorm);
+    if (/marcarea/.test(labelNorm)) return /(marcarea\s+cailor\s+de\s+evacuare|indicatoare\s+de\s+evacuare|semnalizare\s+de\s+evacuare|iluminat\s+de\s+siguranta\s+pentru\s+evacuare)/i.test(srcNorm);
     if (/marcarea/.test(labelNorm)) return false;
     if (/marcarea/.test(labelNorm)) return false;
     return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
