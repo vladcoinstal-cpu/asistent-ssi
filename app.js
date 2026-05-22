@@ -6342,6 +6342,7 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
   const val = (key, fallback = "") => previewValue(data[key], fallback);
   const contact = val("contact_beneficiar", "Nu sunt detalii.");
   const functions = val("funcțiuni");
+  const functionParts = splitFunctionsText(functions);
   const beneficiar = cleanBeneficiaryText(val("beneficiar", "Parohia Ortodoxă Română „Învierea Domnului”"));
   const adresa = deriveAddress(data, sources);
   const dim = deriveDimensionParts(data, sources);
@@ -6435,7 +6436,7 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     </tr>
     <tr class="subpoint-row">
       <td>1.2. Destinația</td>
-      <td>${renderInline(functions, "word")}</td>
+      <td><span class="label">funcțiuni principale:</span> ${escapeHtml(functionParts.principal)}<br><span class="label">funcțiuni secundare:</span> ${escapeHtml(functionParts.secundare)}<br><span class="label">funcțiuni conexe:</span> ${escapeHtml(functionParts.conexe)}</td>
     </tr>
     <tr class="subpoint-row">
       <td>1.3. Categoria și clasa de importanță</td>
@@ -6601,6 +6602,7 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
     dim.ariaDesfasurata ? `aria desfășurată: ${dim.ariaDesfasurata}` : ""
   ].filter(Boolean).join("; ");
   const functions = val("funcțiuni");
+  const functionParts = splitFunctionsText(functions);
   const users = val("autoevacuare", "De completat.");
   const storage = val("capacitati_depozitare", "De completat.");
   const spread = val("limitare_vecinatati", "De completat.");
@@ -6654,7 +6656,9 @@ ${rulesCoverage}
 ### 1.2. Destinația
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
-| funcțiuni principale, secundare și conexe ale construcției/amenajării | ${functions} |
+| funcțiuni principale | ${functionParts.principal} |
+| funcțiuni secundare | ${functionParts.secundare} |
+| funcțiuni conexe | ${functionParts.conexe} |
 
 ### 1.3. Categoria de importanță
 | Denumirea punctului / subpunctului | Conținut |
