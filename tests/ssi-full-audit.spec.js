@@ -99,7 +99,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
     return /(latime|inaltime|gabarit|lungime|flux|panta).{0,120}(evacuare|cale|usa)/i.test(srcNorm);
   }
   if (/^4\.3/.test(sp)) {
-    if (/solutia tehnica/.test(labelNorm)) return /(sprinkler)/i.test(srcNorm);
+    if (/solutia tehnica/.test(labelNorm)) return /(solutia\s+tehnica\s+de\s+realizare\s+a\s+instalatiei|schema\s+instalatiei\s+sprinklere)/i.test(srcNorm);
     if (/clasa de pericol de incendiu/.test(labelNorm)) return /(clasa\s+de\s+pericol|oh1|oh2|oh3|hh|lh)/i.test(srcNorm);
     if (/categoria de depozitare/.test(labelNorm)) return /(categoria\s+de\s+depozitare|modul\s+de\s+depozitare|depozitare\s+materiale)/i.test(srcNorm);
     if (/aria maxima acoperita/.test(labelNorm)) return /(aria\s+maxima\s+acoperita).{0,60}(m2|m²)/i.test(srcNorm);
@@ -150,7 +150,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   if (/numărul maxim|utilizatori|persoane/.test(label)) return isPoint1 ? /(utilizatori|persoane)/i.test(src) : /(\d+\s*(persoane|utilizatori))/i.test(srcNorm);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
   if (/căilor de evacuare|cailor de evacuare/.test(label)) {
-    if (/marcarea/.test(labelNorm)) return /(marcare|semnalizare|iluminat\s+de\s+siguranta|indicatoare)/i.test(srcNorm);
+    if (/marcarea/.test(labelNorm)) return /(marcarea\s+cailor\s+de\s+evacuare|indicatoare\s+de\s+evacuare|semnalizare\s+evacuare)/i.test(srcNorm);
     return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
   }
   return false;
