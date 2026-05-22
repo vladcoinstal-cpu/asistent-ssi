@@ -86,6 +86,8 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   const labelNorm = normToken(fieldLabel);
   const src = normalize(rawText).toLowerCase();
   const srcNorm = normToken(rawText);
+  const sp = String(subpointCode || "");
+  const isPoint1 = /^1(\.|$)/.test(sp);
   // Reguli specifice pe camp/subpunct pentru a evita false-positives de tip "date existente".
   if (/^3\.3/.test(sp)) {
     if (/alcatuirea constructiva/.test(labelNorm)) return /(alcatuire|constructiv[aă]|material|rezistenta\s+la\s+foc).{0,120}(evacuare|cale)/i.test(srcNorm);
@@ -108,8 +110,6 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
     if (/volumul rezervei de apa/.test(labelNorm)) return /(volumul\s+rezervei\s+de\s+apa).{0,40}(m3|m³|mc)/i.test(srcNorm);
     if (/numarul de racorduri exterioare/.test(labelNorm)) return /(numarul\s+de\s+racorduri\s+exterioare|racorduri\s+exterioare)/i.test(srcNorm);
   }
-  const sp = String(subpointCode || "");
-  const isPoint1 = /^1(\.|$)/.test(sp);
   // Pentru subpuncte din afara punctului 1, consideram "date existente" doar la semnale explicite puternice.
   // Altfel, campul gol/De completat ramane justificat pana la implementarea loturilor respective.
   if (/^4\.1/.test(sp)) return /(hidranti?\s+interior|hidranti?\s+exterior|rezerv[aei]\s+de\s+apa|sursa\s+de\s+alimentare).{0,140}(\d|m3|m³|mc|l\/s)/i.test(srcNorm);
