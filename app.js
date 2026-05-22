@@ -1409,7 +1409,6 @@ function buildPoint1ReportsFromTemplates() {
       (Array.isArray(field.children) ? field.children : []).forEach((child) => applyField(child, [...contextPath, String(field.label || field.title || "")]));
     };
     (clone.sections || []).forEach((sec) => {
-      if (String(sec.code || "") !== "1") return;
       (sec.subpoints || []).forEach((sp) => (sp.fields || []).forEach((field) => applyField(field, [String(sp.title || sp.code || "")])));
     });
     return buildEmptyReportFromTemplate(clone, label);
