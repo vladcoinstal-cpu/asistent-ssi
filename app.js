@@ -5689,7 +5689,11 @@ function buildNormalPerformănceCriteriaBlock(data, complianceChecks = []) {
   lines.push(`- La vecinatati: ${val("limitare_vecinatati", "De completat cu distantele de siguranta și măsurile de limitare a propagării.")}.`);
   lines.push("");
   lines.push("### 3.3. Evacuarea utilizatorilor");
-  lines.push(`- Alcatuirea și dimensionarea cailor de evacuare, controlul fumului, fluxuri/lungimi/timpi de evacuare: ${val("evacuare")}.${buildObs("3.3")}`);
+  const evacText = val("evacuare", "De completat.");
+  const markText = val("iluminat_siguranta", "De completat.");
+  lines.push(`- Alcatuirea constructiva a cailor de evacuare: ${evacText}.${buildObs("3.3")}`);
+  lines.push(`- Geometria cailor de evacuare: ${evacText}`);
+  lines.push(`- Marcarea cailor de evacuare: ${markText}`);
   lines.push(`- Măsuri pentru persoane care nu se pot evacua singure: ${val("evacuare_persoane_vulnerabile", "Nu rezultă categorii ce necesita evacuare asistata, pe baza datelor disponibile.")}.${buildObs("3.5")}`);
   lines.push("");
   lines.push("### 3.4. Securitatea fortelor de interventie");

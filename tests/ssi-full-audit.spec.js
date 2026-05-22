@@ -99,7 +99,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
     return /(latime|inaltime|gabarit|lungime|flux|panta).{0,120}(evacuare|cale|usa)/i.test(srcNorm);
   }
   if (/^4\.3/.test(sp)) {
-    if (/solutia tehnica/.test(labelNorm)) return /(sprinkler|instalati[ae]\s+automata\s+de\s+stingere)/i.test(srcNorm);
+    if (/solutia tehnica/.test(labelNorm)) return /(sprinkler)/i.test(srcNorm);
     if (/clasa de pericol de incendiu/.test(labelNorm)) return /(clasa\s+de\s+pericol|oh1|oh2|oh3|hh|lh)/i.test(srcNorm);
     if (/categoria de depozitare/.test(labelNorm)) return /(categoria\s+de\s+depozitare|modul\s+de\s+depozitare|depozitare\s+materiale)/i.test(srcNorm);
     if (/aria maxima acoperita/.test(labelNorm)) return /(aria\s+maxima\s+acoperita).{0,60}(m2|m²)/i.test(srcNorm);
