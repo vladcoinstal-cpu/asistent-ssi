@@ -1332,6 +1332,8 @@ function buildPoint1ReportsFromTemplates() {
   const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
   const semanticFunctions = (semantic.destination?.tags || []).join(", ");
   const functiuni = semanticFunctions || semantic.destination?.raw || String(state.data["funcțiuni"] || "").trim();
+  const functionParts = splitFunctionsText(functiuni);
+  const contactParts = splitContactDetails(state.data.contact_beneficiar || "");
 
   const valueByLabel = {
     "denumirea obiectivului": semantic.identification?.denumireObiectiv || "",
@@ -1341,14 +1343,14 @@ function buildPoint1ReportsFromTemplates() {
     "adresa": semantic.identification?.adresa || "",
     "adresă": semantic.identification?.adresa || "",
     "date de contact": state.data.contact_beneficiar || "",
-    "nr. de telefon": state.data.contact_beneficiar || "",
-    "fax": state.data.contact_beneficiar || "",
-    "e-mail etc.": state.data.contact_beneficiar || "",
+    "nr. de telefon": contactParts.telefon || state.data.contact_beneficiar || "",
+    "fax": contactParts.fax || state.data.contact_beneficiar || "",
+    "e-mail etc.": contactParts.email || state.data.contact_beneficiar || "",
     "profilul de activitate": state.data.profil_activitate || "",
     "programul de lucru": state.data.program_lucru || state.data.profil_activitate || "",
-    "functiuni principale": functiuni || "",
-    "functiuni secundare": functiuni || "",
-    "functiuni conexe": functiuni || "",
+    "functiuni principale": functionParts.principal || functiuni || "",
+    "functiuni secundare": functionParts.secundare || functiuni || "",
+    "functiuni conexe": functionParts.conexe || functiuni || "",
     "funcțiuni principale, secundare și conexe ale construcției/amenajării": functiuni || "",
     "categoria de importanta": semantic.category?.raw || "",
     "categoria de importanță": semantic.category?.raw || "",
@@ -5477,6 +5479,19 @@ function buildNormalRiskSection(data) {
   return lines.join("\n");
 }
 
+
+function splitContactDetails(value) {
+  const text = String(value || "").trim();
+  const out = { telefon: "", fax: "", email: "" };
+  if (!text) return out;
+  const t = text.match(/(?:tel\.?|telefon)\s*[:\-]?\s*([^,;\n]+)/i);
+  const f = text.match(/fax\s*[:\-]?\s*([^,;\n]+)/i);
+  const e = text.match(/(?:e-?mail|email)\s*[:\-]?\s*([^,;\n]+)/i);
+  out.telefon = t ? t[1].trim() : "";
+  out.fax = f ? f[1].trim() : "";
+  out.email = e ? e[1].trim() : "";
+  return out;
+}
 
 function splitFunctionsText(value) {
   const raw = String(value || '').trim();
