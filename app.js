@@ -5690,7 +5690,7 @@ function buildNormalPerformănceCriteriaBlock(data, complianceChecks = []) {
   lines.push("");
   lines.push("### 3.3. Evacuarea utilizatorilor");
   const evacText = val("evacuare", "De completat.");
-  const markText = val("iluminat_siguranta", "De completat.");
+  const markText = val("iluminat_siguranta", "marcarea căilor de evacuare se asigură prin indicatoare și semnalizare de securitate la exploatare, conform HG nr. 971/2006");
   lines.push(`- Alcatuirea constructiva a cailor de evacuare: ${evacText}.${buildObs("3.3")}`);
   lines.push(`- Geometria cailor de evacuare: ${evacText}`);
   lines.push(`- Marcarea cailor de evacuare: ${markText}`);
