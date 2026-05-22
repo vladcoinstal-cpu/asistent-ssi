@@ -83,12 +83,18 @@ function findFieldLine(block, label) {
 
 function hasSourceDataForField(rawText, fieldLabel) {
   const label = String(fieldLabel || '').toLowerCase();
+  const labelNorm = normToken(fieldLabel);
   const src = normalize(rawText).toLowerCase();
+  const srcNorm = normToken(rawText);
   if (/denumire/.test(label)) return /(denumirea\s+obiectivului|lăcaș|obiectiv)/i.test(src);
   if (/beneficiar|proprietar/.test(label)) return /(beneficiar|proprietar|parohia)/i.test(src);
   if (/adres/.test(label)) return /(adresa|str\.|strada|municipiul|județul|judetul)/i.test(src);
   if (/funcțiuni|functiuni|destina/.test(label)) return /(funcțiuni|funcţiuni|destinația|destinatia|cult|restaurant|depozitare|industrial|parcaj)/i.test(src);
   if (/categoria|clasa de importan/.test(label)) return /(categoria\s+de\s+importan|clasa\s+de\s+importan)/i.test(src);
+  if (/categoria si clasa de importanta/.test(labelNorm)) return /(categoria\s+de\s+importanta|clasa\s+de\s+importanta|categoria\s+[a-d]\b|clasa\s+[ivx]+)/i.test(srcNorm);
+  if (/caracteristici dimensionale/.test(labelNorm)) return /(regim|inaltime|maxima|aria|arie|volum|suprafata|m2|m3|mp|mc)/i.test(srcNorm);
+  if (/capacitati de depozitare/.test(labelNorm)) return /(depozit|depozitare|spatiu de depozit|raft|stocare|materiale combustibile)/i.test(srcNorm);
+  if (/densitatea sarcinii termice/.test(labelNorm)) return /(densitatea sarcinii termice|sarcina termica|mj\/m2|mj m2)/i.test(srcNorm);
   if (/regimul|înălțimea|volumul|aria/.test(label)) return /(regim|inaltime|înălțime|volum|aria)/i.test(src);
   if (/numărul maxim|utilizatori|persoane/.test(label)) return /(utilizatori|persoane)/i.test(src);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
