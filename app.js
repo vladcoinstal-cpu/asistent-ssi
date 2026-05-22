@@ -5511,12 +5511,25 @@ function splitFunctionsText(value) {
 }
 function buildNormalSpecialCharacteristicsBlock(data) {
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
+  const pickText = (...keys) => {
+    for (const k of keys) {
+      const v = String(data[k] || "").trim();
+      if (v) return v;
+    }
+    return "";
+  };
   const lines = [];
   const typeText = String(data.tip_cladire || "").trim();
-  const dimensions = String(data.caracteristici_dimensionale || "").trim();
-  const users = String(data.numar_utilizatori || "").trim();
+  const regim = pickText("regim_inaltime", "regim", "regim_inaltime_val");
+  const inaltime = pickText("inaltime_maxima", "inaltime", "inaltime_maxima_cladire");
+  const ariaConstruita = pickText("aria_construita", "aria_construita_mp");
+  const ariaDesfasurata = pickText("aria_desfasurata", "aria_desfasurata_mp");
+  const volum = pickText("volum", "volum_constructie");
+  const dimFromPieces = [regim, inaltime, ariaConstruita, ariaDesfasurata, volum].filter(Boolean).join("; ");
+  const dimensions = pickText("caracteristici_dimensionale", "caracteristici_dimensionale_14c") || dimFromPieces;
+  const users = pickText("numar_utilizatori", "numar_maxim_utilizatori", "utilizatori");
   const autoev = String(data.autoevacuare || "").trim();
-  const storage = String(data.capacitati_depozitare || "").trim();
+  const storage = pickText("capacitati_depozitare", "capacitate_depozitare", "depozitare", "storage_raw");
   const egress = String(data.cai_evacuare_rezumat || "").trim();
 
   lines.push("### 1.4. Particularitati specifice constructiei/amenajarii");
@@ -5534,14 +5547,16 @@ function buildNormalSpecialCharacteristicsBlock(data) {
 function buildNormalIdentificationBlock(data) {
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
   const lines = [];
-  const categoriaText = String(data.categoria_importanta || "").trim();
+  const categoriaText = String(data.categoria_importanta || data.category_raw || "").trim();
   const categoryMatch = categoriaText.match(/categoria\s+([A-Z])/i);
   const classMatch = categoriaText.match(/clasa\s+([IVX\-a-zăîâ0-9]+)/i);
-  const categoryLine = categoryMatch ? `categoria ${categoryMatch[1].toUpperCase()}` : val("categoria_importanta");
+  const categoryLine = categoryMatch ? `categoria ${categoryMatch[1].toUpperCase()}` : val("categoria_importanta", val("category_raw"));
   let classLine = "[[RED]]De completat.[[/RED]]";
 
   if (classMatch) {
     classLine = `clasă ${classMatch[1]}`;
+  } else if (String(data.clasa_importanta || "").trim()) {
+    classLine = `clasă ${String(data.clasa_importanta).trim()}`;
   } else if (categoriaText.toLowerCase().includes("categoria c")) {
     classLine = "clasă III-a, de verificat/corelat cu documentația de arhitectură și rezistenta.";
   }
