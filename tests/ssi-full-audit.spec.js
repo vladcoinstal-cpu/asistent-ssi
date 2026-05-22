@@ -151,6 +151,8 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
   if (/căilor de evacuare|cailor de evacuare/.test(label)) {
     if (/marcarea/.test(labelNorm)) return /(indicatoare\s+de\s+evacuare|semnalizare\s+evacuare|iluminat\s+de\s+siguranta\s+pentru\s+evacuare)/i.test(srcNorm);
+    if (/marcarea/.test(labelNorm)) return false;
+    if (/marcarea/.test(labelNorm)) return false;
     return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
   }
   return false;
