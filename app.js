@@ -81,6 +81,21 @@ const patterns = {
 };
 
 const customExtractors = {
+  _splitSentences(text) {
+    return String(text || "").replace(/\s+/g, " ").split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
+  },
+  _hasEvacContext(sentence) {
+    const s = String(sentence || "").toLowerCase();
+    return /(evacuar|cale|ie[sș]ir|refug|flux|u[sș]i\s+de\s+evacuare|scar[ăa]\s+(?:de\s+evacuare|inchis[ăa]))/.test(s);
+  },
+  _hasStorageContext(sentence) {
+    const s = String(sentence || "").toLowerCase();
+    return /(depozit|depozitare|spa[țt]ii?\s+de\s+depozitare|stocar|magaz)/.test(s);
+  },
+  _hasProcessContext(sentence) {
+    const s = String(sentence || "").toLowerCase();
+    return /(proces|substan[țt]|clp|tehnologic|periculoas)/.test(s);
+  },
   beneficiar(lines, content) {
     const joined = lines.join(" ");
     const match = joined.match(/(Parohia[^.\n]{3,200})/i)
@@ -89,9 +104,13 @@ const customExtractors = {
   },
     adresa(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)
+      const stopAtNextLabel = (value) => String(value || "")
+        .replace(/\s+(?:adresa|adres[ăa]|func[țt]iuni|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\s*:.*/i, "")
+        .trim();
+      const match = joined.match(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^.\n]{8,220})/i)
+        || joined.match(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)
         || joined.match(/((?:municipiul|orașul|orasul)\s+[^\n,]+,\s*str\.?\s*[^\n]{6,220})/i);
-      return match ? cleanAddressText(match[1]) : "";
+      return match ? cleanAddressText(stopAtNextLabel(match[1])) : "";
     },
     categoria_importanta(lines, content) {
       const joined = lines.join(" ");
@@ -114,11 +133,11 @@ const customExtractors = {
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
-    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei)\b|$)/i)?.[1]?.trim();
-    const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei|num[aă]r(?:ul)?\s+maxim)\b|$)/i)?.[1]?.trim();
+    const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim();
+    const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m3|m³|mc))/i)?.[1]?.trim();
+    const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim();
+    const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim();
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
@@ -142,13 +161,17 @@ const customExtractors = {
       || pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*/i)
       || joined.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
       || joined.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const cleanTotal = String(total || "")
+      .replace(/\b[a-z]\)\s*$/i, "")
+      .replace(/(?:^|[\s:])(?:[a-z]\)|\d+\.[a-z])(?:\s|$)/ig, " ")
+      .trim();
     const demisol = joined.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const parter = joined.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const supantă = joined.match(/supant[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const mansardă = joined.match(/mansard[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const note = joined.match(/nota\s*:\s*([^\.]+\.)/i)?.[1]?.trim();
     const parts = [];
-    if (total) parts.push(`total: ${total}`);
+    if (cleanTotal) parts.push(`total: ${cleanTotal}`);
     if (demisol) parts.push(`demisol: ${demisol}`);
     if (parter) parts.push(`parter: ${parter}`);
     if (supantă) parts.push(`supantă: ${supantă}`);
@@ -169,16 +192,24 @@ const customExtractors = {
   },
   capacitati_depozitare(lines, content) {
     const joined = lines.join(" ");
-    const first = joined.match(/nu\s+sunt\s+spatii\s+de\s+depozitare[^.]*\./i)?.[0];
-    const second = joined.match(/in\s+spatiile\s+de\s+depozitare[^.]*\./i)?.[0];
-    return [first, second].filter(Boolean).map(cleanExtract).join(" ");
+    const sentences = customExtractors._splitSentences(joined);
+    const kept = sentences.filter((s) => {
+      if (!customExtractors._hasStorageContext(s)) return false;
+      if (customExtractors._hasEvacContext(s) || customExtractors._hasProcessContext(s)) return false;
+      return true;
+    });
+    const withNegationFirst = kept.sort((a, b) => (/nu\s+(?:sunt|este\s+cazul)/i.test(b) ? 1 : 0) - (/nu\s+(?:sunt|este\s+cazul)/i.test(a) ? 1 : 0));
+    return withNegationFirst.map(cleanExtract).join(" ");
   },
   cai_evacuare_rezumat(lines, content) {
     const joined = lines.join(" ");
-    const demisol = joined.match(/de\s+la\s+demisol[^.]*\./i)?.[0];
-    const parter = joined.match(/de\s+la\s+parter[^.]*\./i)?.[0];
-    const mansardă = joined.match(/de\s+la\s+mansard[ăa][^.]*\./i)?.[0];
-    return [demisol, parter, mansardă].filter(Boolean).map(cleanExtract).join(" ");
+    const sentences = customExtractors._splitSentences(joined);
+    const filtered = sentences.filter((s) => {
+      if (!customExtractors._hasEvacContext(s)) return false;
+      if (customExtractors._hasStorageContext(s) || customExtractors._hasProcessContext(s)) return false;
+      return /demisol|parter|mansard|supant|refug|c[ăa]i?\s+de\s+evacuare/i.test(s);
+    });
+    return filtered.map(cleanExtract).join(" ");
   },
   risc_incendiu(lines, content) {
     const joined = lines.join(" ");
@@ -191,8 +222,11 @@ const customExtractors = {
   },
   procese_substante(lines, content) {
     const joined = lines.join(" ");
-    const match = joined.match(/caracteristici\s+ale\s+proceselor[^:]*:\s*([^.\n]+)/i) || joined.match(/nu\s+este\s+cazul/i);
-    return match ? cleanExtract(match[1] || match[0]) : "";
+    const sentences = customExtractors._splitSentences(joined);
+    const filtered = sentences.filter((s) => customExtractors._hasProcessContext(s) && !customExtractors._hasStorageContext(s) && !customExtractors._hasEvacContext(s));
+    if (filtered.length) return filtered.map(cleanExtract).join(" ");
+    const match = joined.match(/nu\s+este\s+cazul/i);
+    return match ? cleanExtract(match[0]) : "";
   },
   stabilitate_foc(lines, content) {
     const joined = lines.join(" ");
