@@ -154,6 +154,20 @@ function isLabelOnlyLine(line, fieldLabel) {
   return true;
 }
 
+
+function findBestFieldLine(block, label) {
+  const lines = String(block || '').split('\n').map((x) => x.trim()).filter(Boolean);
+  const keys = labelCandidates(label);
+  let first = '';
+  for (const ln of lines) {
+    const low = ln.toLowerCase();
+    if (!keys.some((k) => low.includes(k))) continue;
+    if (!first) first = ln;
+    if (!isLabelOnlyLine(ln, label)) return ln;
+  }
+  return first;
+}
+
 function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource }) {
   const line = String(fieldLine || '');
   const low = line.toLowerCase();
@@ -204,9 +218,9 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
     for (const f of t.fields) {
       const label = String(f.label || f.title || '').trim();
       if (!label) continue;
-      let fieldLine = findFieldLine(block, label);
+      let fieldLine = findBestFieldLine(block, label);
       if (!fieldLine) {
-        fieldLine = findFieldLine(outputText, label);
+        fieldLine = findBestFieldLine(outputText, label) || findFieldLine(outputText, label);
       }
       const res = analyzeField({ fixture, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource });
       const meta = ruleMeta(t.subpointCode, label, fixture.name);
