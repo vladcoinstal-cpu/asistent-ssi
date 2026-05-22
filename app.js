@@ -124,7 +124,7 @@ const customExtractors = {
     },
     clasa_importanta(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/clasa\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n]{2,120})/i)
+      const match = joined.match(/clas[ăa]\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n]{2,120})/i)
         || joined.match(/clasa\s+([IVX]+(?:-a)?)/i);
       return match ? cleanExtract(match[1] || match[0]) : "";
     },

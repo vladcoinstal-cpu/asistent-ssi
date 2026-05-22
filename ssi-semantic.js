@@ -192,7 +192,7 @@
       },
       category: {
         raw: normalize(data.categoria_importanta) || first(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i),
-        classRaw: normalize(data.clasa_importanta) || first(/clasa\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i)
+        classRaw: normalize(data.clasa_importanta) || first(/clas[ăa]\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i)
       }
     };
   }
