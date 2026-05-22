@@ -86,17 +86,34 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   const labelNorm = normToken(fieldLabel);
   const src = normalize(rawText).toLowerCase();
   const srcNorm = normToken(rawText);
+  // Reguli specifice pe camp/subpunct pentru a evita false-positives de tip "date existente".
+  if (/^3\.3/.test(sp)) {
+    if (/alcatuirea constructiva/.test(labelNorm)) return /(alcatuire|constructiv[aă]|material|rezistenta\s+la\s+foc).{0,120}(evacuare|cale)/i.test(srcNorm);
+    if (/geometria cailor de evacuare/.test(labelNorm)) return /(latime|inaltime|gabarit|lungime|flux|panta).{0,120}(evacuare|cale|usa)/i.test(srcNorm);
+    if (/marcarea cailor de evacuare/.test(labelNorm)) return /(marcare|semnalizare|iluminat\s+de\s+siguranta|indicatoare).{0,120}(evacuare|cale)/i.test(srcNorm);
+    if (/masuri pentru persoane care nu se pot evacua singure/.test(labelNorm)) return /(nu\s+se\s+pot\s+evacua\s+singure|dizabil|mobilitate\s+redusa|asistata)/i.test(srcNorm);
+  }
+  if (/^3\.4/.test(sp) && /geometria cailor de evacuare/.test(labelNorm)) {
+    return /(latime|inaltime|gabarit|lungime|flux|panta).{0,120}(evacuare|cale|usa)/i.test(srcNorm);
+  }
+  if (/^4\.3/.test(sp)) {
+    if (/solutia tehnica/.test(labelNorm)) return /(sprinkler|instalati[ae]\s+automata\s+de\s+stingere)/i.test(srcNorm);
+    if (/clasa de pericol de incendiu/.test(labelNorm)) return /(clasa\s+de\s+pericol|oh1|oh2|oh3|hh|lh)/i.test(srcNorm);
+    if (/categoria de depozitare/.test(labelNorm)) return /(categoria\s+de\s+depozitare|modul\s+de\s+depozitare|depozitare\s+materiale)/i.test(srcNorm);
+    if (/aria maxima acoperita/.test(labelNorm)) return /(aria\s+maxima\s+acoperita).{0,60}(m2|m²)/i.test(srcNorm);
+    if (/densitatea de calcul/.test(labelNorm)) return /(densitatea\s+de\s+calcul).{0,60}(mm\/min|l\/min|l\/s)/i.test(srcNorm);
+    if (/aria de declansare simultana/.test(labelNorm)) return /(aria\s+de\s+declansare\s+simultana).{0,60}(m2|m²)/i.test(srcNorm);
+    if (/presiune/.test(labelNorm)) return /(presiune).{0,40}(bar|kpa|mpa)/i.test(srcNorm);
+    if (/sursa de alimentare cu apa/.test(labelNorm)) return /(sursa\s+de\s+alimentare\s+cu\s+apa|rezerv[aă]\s+de\s+apa|gospodarie\s+de\s+apa)/i.test(srcNorm);
+    if (/volumul rezervei de apa/.test(labelNorm)) return /(volumul\s+rezervei\s+de\s+apa).{0,40}(m3|m³|mc)/i.test(srcNorm);
+    if (/numarul de racorduri exterioare/.test(labelNorm)) return /(numarul\s+de\s+racorduri\s+exterioare|racorduri\s+exterioare)/i.test(srcNorm);
+  }
   const sp = String(subpointCode || "");
   const isPoint1 = /^1(\.|$)/.test(sp);
   // Pentru subpuncte din afara punctului 1, consideram "date existente" doar la semnale explicite puternice.
   // Altfel, campul gol/De completat ramane justificat pana la implementarea loturilor respective.
   if (/^4\.1/.test(sp)) return /(hidranti?\s+interior|hidranti?\s+exterior|rezerv[aei]\s+de\s+apa|sursa\s+de\s+alimentare).{0,140}(\d|m3|m³|mc|l\/s)/i.test(srcNorm);
   if (/^4\.2/.test(sp)) return /(hidranti?\s+interior|coloan[ae]\s+uscate?|rezerv[aei]\s+de\s+apa|sursa\s+de\s+alimentare).{0,140}(\d|m3|m³|mc|l\/s)/i.test(srcNorm);
-  if (/^4\.3/.test(sp)) return /(sprinkler|depozitare|aria\s+maxim|declansare\s+simultan|rezerv[aei]\s+de\s+apa).{0,140}(\d|m2|m²|m3|m³|mc|l\/s)/i.test(srcNorm);
-  if (/^4\.4/.test(sp)) return /(drencer|inaltimea\s+golului|aria\/lungimea\s+zonei).{0,140}(\d|m2|m²|m)/i.test(srcNorm);
-  if (/^4\.6/.test(sp)) return /(ceata\s+de\s+apa|aria\s+de\s+declansare|rezerv[aei]\s+de\s+apa).{0,140}(\d|m2|m²|m3|m³|mc)/i.test(srcNorm);
-  if (/^4\.7/.test(sp)) return /(gaz|inert|volum\s+protejat).{0,140}(\d|m3|m³|mc)/i.test(srcNorm);
-  if (/^4\.9/.test(sp)) return /(desfumare|suprafata\s+efectiva|aria\s+spatiului).{0,140}(\d|m2|m²)/i.test(srcNorm);
   if (/denumire/.test(label)) return /(denumirea\s+obiectivului|lăcaș|obiectiv)/i.test(src);
   if (/beneficiar|proprietar/.test(label)) return /(beneficiar|proprietar|parohia)/i.test(src);
   if (/adres/.test(label)) return /(adresa|str\.|strada|municipiul|județul|judetul)/i.test(src);
