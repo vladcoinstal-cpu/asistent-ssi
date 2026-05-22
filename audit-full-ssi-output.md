@@ -1,5 +1,14 @@
 # Raport audit SSI complet (Anexa 4 + Anexa 5)
 
+> Update CI verificat: run https://github.com/vladcoinstal-cpu/asistent-ssi/actions/runs/26275548839 (commit 631656f)
+> - field-line-not-detected=0
+> - coverage-gap-subpoint=0
+> - wrong-value=0
+> - contaminated=0
+> - unexpected-de-completat=0
+>
+> Notă: matricea de mai jos este baseline-ul istoric din repo și trebuie înlocuită de exportul complet generat în CI la următorul update artifact.
+
 Generat: 2026-05-21T16:55:00.000Z
 
 Total subpuncte: 60
