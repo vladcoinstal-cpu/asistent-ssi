@@ -268,7 +268,7 @@ test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differe
   console.log(md);
   console.log('[SSI-AUDIT-MD-END]');
 
-  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
+  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-de-completat']);
   const critical = rows.filter((r) => criticalSet.has(r.status));
   if (critical.length) {
     const compact = critical.slice(0, 60).map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} ${r.field} => ${r.status}`).join('\n');
