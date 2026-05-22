@@ -121,7 +121,7 @@ function isLabelOnlyLine(line, fieldLabel) {
   const l = String(line || '').toLowerCase().trim();
   const fld = String(fieldLabel || '').toLowerCase().trim();
   if (!l || !fld) return false;
-  const norm = (v) => v.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const norm = (v) => v.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
   const stripPrefix = (v) => v
     .replace(/^[-–—]+\s*/, '')
     .replace(/^(?:\d+\s+){1,5}[a-z]?\s+/i, '')
@@ -145,8 +145,13 @@ function isLabelOnlyLine(line, fieldLabel) {
   if (!remainder) return true;
   if (/^[:\-–—]+$/.test(remainder)) return true;
 
-  const hasMeaningfulValue = /\d|m2|m3|mp|mc|m²|m³|da|nu|este|se|conform|tip|regim|aria|volum|persoane/i.test(remainder);
-  return !hasMeaningfulValue;
+  const afterColon = remainder.includes(':') ? remainder.split(':').slice(1).join(':').trim() : '';
+  if (afterColon && /[a-z0-9]/i.test(afterColon) && afterColon.length >= 2) return false;
+
+  const cleanRem = remainder.replace(/^[:\-–—]+\s*/, '').trim();
+  if (!cleanRem) return true;
+  if (/[a-z0-9]/i.test(cleanRem) && cleanRem.length >= 2) return false;
+  return true;
 }
 
 function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource }) {
@@ -268,7 +273,7 @@ test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differe
   console.log(md);
   console.log('[SSI-AUDIT-MD-END]');
 
-  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-de-completat']);
+  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
   const critical = rows.filter((r) => criticalSet.has(r.status));
   if (critical.length) {
     const compact = critical.slice(0, 60).map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} ${r.field} => ${r.status}`).join('\n');
