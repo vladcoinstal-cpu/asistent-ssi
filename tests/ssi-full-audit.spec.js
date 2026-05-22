@@ -224,6 +224,9 @@ test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differe
 
   const md = reportMarkdown(rows);
   fs.writeFileSync(path.join(__dirname, '..', 'audit-full-ssi-output.md'), md);
+  const counts = ['field-line-not-detected','coverage-gap-subpoint','wrong-value','contaminated','unexpected-de-completat']
+    .map((k)=>`${k}=${rows.filter((r)=>r.status===k).length}`).join(' | ');
+  console.log(`[SSI-AUDIT-SUMMARY] ${counts}`);
 
   const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
   const critical = rows.filter((r) => criticalSet.has(r.status));

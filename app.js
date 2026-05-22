@@ -6642,12 +6642,6 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
 
   return normalizeRomanianDiacritics(`# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR
 
-${buildAuthorizationQualificationText(profile, data, "preliminary")}
-
-${buildComplianceChecksMarkdown(complianceChecks)}
-
-${rulesCoverage}
-
 ## 1. Caracteristicile construcției sau amenajării
 
 ### 1.1. Datele de identificare
@@ -6674,7 +6668,7 @@ ${rulesCoverage}
 | b) tipul parcajului, cu precizarea numărului de autovehicule | ${parkingType} |
 | c) regimul de înălțime și volumul construcției | ${dimensions || "De completat."} |
 | d) aria construită și desfășurată | ${areas || "De completat."} |
-| e) principalele destinații ale încăperilor și spațiilor aferente construcției |  |
+| e) principalele destinații ale încăperilor și spațiilor aferente construcției | ${functions} |
 
 ${roomInventoryTable}
 
