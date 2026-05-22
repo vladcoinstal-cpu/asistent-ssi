@@ -107,7 +107,7 @@ const customExtractors = {
       const stopAtNextLabel = (value) => String(value || "")
         .replace(/\s+(?:adresa|adres[ăa]|func[țt]iuni|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\s*:.*/i, "")
         .trim();
-      const match = joined.match(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^.\n]{8,220})/i)
+      const match = joined.match(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^\n]{8,260})/i)
         || joined.match(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)
         || joined.match(/((?:municipiul|orașul|orasul)\s+[^\n,]+,\s*str\.?\s*[^\n]{6,220})/i);
       return match ? cleanAddressText(stopAtNextLabel(match[1])) : "";
@@ -123,13 +123,17 @@ const customExtractors = {
       return cleanExtract(match[1] || match[0]);
     },
   funcțiuni(lines, content) {
-    const source = content.toLowerCase();
-    const found = [];
-    if (source.includes("cult")) found.push("cult");
-    if (source.includes("locuint")) found.push("locuință");
-    if (source.includes("birou")) found.push("birouri");
-    if (source.includes("utilit")) found.push("utilități");
-    return found.length ? Array.from(new Set(found)).join(", ") : "";
+    const joined = lines.join(" ");
+    const explicit = joined.match(/func[țt]iuni\s+principale,\s*secundare\s+si\s+conexe\s*:\s*([^.\n]{2,180})/i)
+      || joined.match(/func[țt]iuni\s+principale\s*:\s*([^.\n]{2,180})/i);
+    if (!explicit) return "";
+    const cleaned = cleanExtract(explicit[1] || '').toLowerCase();
+    const tags = [];
+    if (/cult/.test(cleaned)) tags.push('cult');
+    if (/locuint/.test(cleaned)) tags.push('locuință');
+    if (/birou/.test(cleaned)) tags.push('birouri');
+    if (/utilit/.test(cleaned)) tags.push('utilități');
+    return Array.from(new Set(tags)).join(", ");
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
