@@ -1388,7 +1388,9 @@ function buildPoint1ReportsFromTemplates() {
     "prezența permanentă a persoanelor, capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "",
     "capacități de depozitare": semantic.storage.raw || "",
     "capacitati de depozitare": semantic.storage.raw || "",
-    "numarul cailor de evacuare si, dupa caz, al refugiilor": semantic.evacuation.raw || ""
+    "numarul cailor de evacuare si, dupa caz, al refugiilor": semantic.evacuation.raw || "",
+    "marcarea cailor de evacuare": String(state.data.iluminat_siguranta || "").trim() || "Marcarea căilor de evacuare se va asigura prin indicatoare/semnalizare conform HG nr. 971/2006 și proiectului de instalații.",
+    "marcarea căilor de evacuare": String(state.data.iluminat_siguranta || "").trim() || "Marcarea căilor de evacuare se va asigura prin indicatoare/semnalizare conform HG nr. 971/2006 și proiectului de instalații.",
   };
 
   const normalize = (label) => String(label || "").trim().toLowerCase();
