@@ -6341,6 +6341,7 @@ function previewValue(value, fallback = "") {
 function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile, complianceChecks = []) {
   const val = (key, fallback = "") => previewValue(data[key], fallback);
   const contact = val("contact_beneficiar", "Nu sunt detalii.");
+  const emailOnly = val("email", contact);
   const functions = val("funcțiuni");
   const functionParts = splitFunctionsText(functions);
   const beneficiar = cleanBeneficiaryText(val("beneficiar", "Parohia Ortodoxă Română „Învierea Domnului”"));
@@ -6431,7 +6432,7 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
         <span class="label">c) adresă:</span> ${escapeHtml(adresa)}<br>
         <span class="label">d) nr. de telefon:</span> ${escapeHtml(val("telefon", "Nu sunt detalii."))}<br>
         <span class="label">e) fax:</span> ${escapeHtml(val("fax", "Nu sunt detalii."))}<br>
-        <span class="label">f) e-mail etc.:</span> ${escapeHtml(contact)}
+        <span class="label">f) e-mail etc.:</span> ${escapeHtml(emailOnly)}
       </td>
     </tr>
     <tr class="subpoint-row">
@@ -6619,6 +6620,7 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
   const rulesCoverage = buildRulesCoverageMarkdown(state.rulesCoverage);
   const roomInventoryTable = buildPreliminarySpaceInventoryTable(data);
   const contact = val("contact_beneficiar", "-");
+  const emailOnly = val("email", contact);
   const occupantText = profile.occupantCount ? `${profile.occupantCount} persoane` : val("numar_utilizatori");
   const fireCompartments = deriveFireCompartmentSummary(data, sources);
   const fireCompartmentMarkdown = buildFireCompartmentDetailItems(data, sources)
@@ -6651,7 +6653,7 @@ ${rulesCoverage}
 ### 1.1. Datele de identificare
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
-| 1.1. Datele de identificare | denumire: ${val("denumire_obiectiv")}<br>proprietar/beneficiar: ${val("beneficiar")}<br>adresă: ${val("adresa")}<br>nr. de telefon: ${val("telefon", "Nu sunt detalii")}<br>fax: ${val("fax", "Nu sunt detalii")}<br>e-mail etc.: ${contact !== "-" ? contact : "Nu sunt detalii"} |
+| 1.1. Datele de identificare | denumire: ${val("denumire_obiectiv")}<br>proprietar/beneficiar: ${val("beneficiar")}<br>adresă: ${val("adresa")}<br>nr. de telefon: ${val("telefon", "Nu sunt detalii")}<br>fax: ${val("fax", "Nu sunt detalii")}<br>e-mail etc.: ${emailOnly !== "-" ? emailOnly : "Nu sunt detalii"} |
 
 ### 1.2. Destinația
 | Denumirea punctului / subpunctului | Conținut |
