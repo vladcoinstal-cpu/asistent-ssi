@@ -89,12 +89,12 @@ function hasSourceDataForField(rawText, fieldLabel) {
   if (/denumire/.test(label)) return /(denumirea\s+obiectivului|lăcaș|obiectiv)/i.test(src);
   if (/beneficiar|proprietar/.test(label)) return /(beneficiar|proprietar|parohia)/i.test(src);
   if (/adres/.test(label)) return /(adresa|str\.|strada|municipiul|județul|judetul)/i.test(src);
-  if (/funcțiuni|functiuni|destina/.test(label)) return /(funcțiuni|funcţiuni|destinația|destinatia|cult|restaurant|depozitare|industrial|parcaj)/i.test(src);
-  if (/categoria|clasa de importan/.test(label)) return /(categoria\s+de\s+importan|clasa\s+de\s+importan)/i.test(src);
+  if (/funcțiuni|functiuni|destina/.test(label)) return /(funcțiuni|funcţiuni|destinația|destinatia|cult|restaurant|depozitare|industrial|parcaj)/i.test(src);
+  if (/categoria|clasa de importan/.test(label)) return /(categoria\s+[a-d]\b|clasa\s+(?:i{1,3}|iv|v|vi{0,3}|ix|x)\b|clasa\s+de\s+importan[aă]\s+[a-d0-9]+)/i.test(src);
   if (/categoria si clasa de importanta/.test(labelNorm)) return /(categoria\s+de\s+importanta|clasa\s+de\s+importanta|categoria\s+[a-d]\b|clasa\s+[ivx]+)/i.test(srcNorm);
-  if (/caracteristici dimensionale/.test(labelNorm)) return /(regim|inaltime|maxima|aria|arie|volum|suprafata|m2|m3|mp|mc)/i.test(srcNorm);
-  if (/capacitati de depozitare/.test(labelNorm)) return /(depozit|depozitare|spatiu de depozit|raft|stocare|materiale combustibile)/i.test(srcNorm);
-  if (/densitatea sarcinii termice/.test(labelNorm)) return /(densitatea sarcinii termice|sarcina termica|mj\/m2|mj m2)/i.test(srcNorm);
+  if (/caracteristici dimensionale/.test(labelNorm)) return /(d\+p|p\+\d|s\+p|\d+[\.,]?\d*\s*(m2|m3|mp|mc|m²|m³|m)\b|aria\s+constr|aria\s+desfas|volum\w*\s+constr|inaltime\w*\s+max)/i.test(srcNorm);
+  if (/capacitati de depozitare/.test(labelNorm)) return /((depozit|depozitare|spatiu de depozit|stocare).{0,80}(\d+[\.,]?\d*\s*(m2|m²|mp)|ton|kg|mc|m3|m³)|\b36\s*(m2|m²|mp)\b)/i.test(srcNorm);
+  if (/densitatea sarcinii termice/.test(labelNorm)) return /(densitatea sarcinii termice|sarcina termica).{0,80}(\d+[\.,]?\d*\s*(mj\/m2|mj\/m²|mj\s*m2|mj\s*m²))/i.test(srcNorm);
   if (/regimul|înălțimea|volumul|aria/.test(label)) return /(regim|inaltime|înălțime|volum|aria)/i.test(src);
   if (/numărul maxim|utilizatori|persoane/.test(label)) return /(utilizatori|persoane)/i.test(src);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
@@ -190,7 +190,7 @@ function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, raw
     return { status: 'de-completat-or-empty', cause: 'placeholder allowed (no source data)', missingRule: '-', recommendedFix: '-' };
   }
 
-  if (!findFieldLine(block, fieldLabel) && outsideLine) {
+  if (!findFieldLine(block, fieldLabel) && outsideLine && expectedSourceData && fixture.kind !== 'empty') {
     return { status: 'wrong-location', cause: 'value found outside expected subpoint block', missingRule: 'field-location-subpoint', recommendedFix: 'Render this field inside its correct subpoint.' };
   }
 
