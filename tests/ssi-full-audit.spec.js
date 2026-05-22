@@ -122,12 +122,31 @@ function isLabelOnlyLine(line, fieldLabel) {
   const fld = String(fieldLabel || '').toLowerCase().trim();
   if (!l || !fld) return false;
   const norm = (v) => v.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
-  const nl = norm(l).replace(/^[\-–—]+\s*/, '').replace(/[:]+\s*$/, '');
-  const nf = norm(fld);
+  const stripPrefix = (v) => v
+    .replace(/^[-–—]+\s*/, '')
+    .replace(/^(?:\d+\s+){1,5}[a-z]?\s+/i, '')
+    .replace(/^\d+(?:\.\d+)*(?:\.[a-z])?\s+/i, '')
+    .replace(/^\d+\.[a-z]\s+/i, '')
+    .replace(/^[ivxlcdm]+\.\s+/i, '')
+    .replace(/^\d+\s+/i, '')
+    .replace(/[:]+\s*$/, '')
+    .trim();
+
+  const nl = stripPrefix(norm(l));
+  const nf = stripPrefix(norm(fld));
   if (!nl || !nf) return false;
+
   if (nl === nf) return true;
   if (nl === `${nf} de completat`) return true;
-  return nl.startsWith(`${nf} `) && !/\d|[a-z]{3,}/.test(nl.slice(nf.length).trim());
+  if (nl === `${nf} de completat.`) return true;
+  if (nl === `${nf} -`) return true;
+
+  const remainder = nl.startsWith(`${nf} `) ? nl.slice(nf.length).trim() : '';
+  if (!remainder) return true;
+  if (/^[:\-–—]+$/.test(remainder)) return true;
+
+  const hasMeaningfulValue = /\d|m2|m3|mp|mc|m²|m³|da|nu|este|se|conform|tip|regim|aria|volum|persoane/i.test(remainder);
+  return !hasMeaningfulValue;
 }
 
 function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource }) {
