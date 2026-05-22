@@ -32,8 +32,10 @@ function isLabelOnlyLine(line, fieldLabel) {
   const afterColon = remainder.includes(':') ? remainder.split(':').slice(1).join(':').trim() : '';
   if (afterColon && /[a-z0-9]/i.test(afterColon) && afterColon.length >= 2) return false;
 
-  const hasMeaningfulValue = /\d|m2|m3|mp|mc|m²|m³|\bda\b|\bnu\b|\beste\b|\bse\b|\bconform\b|\btip\b|\bregim\b|\baria\b|\bvolum\b|\bpersoane\b/i.test(remainder);
-  return !hasMeaningfulValue;
+  const cleanRem = remainder.replace(/^[:\-–—]+\s*/, '').trim();
+  if (!cleanRem) return true;
+  if (/[a-z0-9]/i.test(cleanRem) && cleanRem.length >= 2) return false;
+  return true;
 }
 
 test('label-only with numeric subpoint prefix is treated as empty', () => {
