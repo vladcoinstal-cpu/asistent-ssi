@@ -151,5 +151,54 @@
     return { ok: checks.every((c) => c.status === 'ok'), checks };
   }
 
-  return { parseDimensionParts, deriveDimensionParts, buildSemantic14Model, auditSemantic14Model };
+  function buildSemantic123Model({ data = {}, sources = [] }) {
+    const sourceText = normalizeSourceText(sources);
+    const text = `${String(data.denumire_obiectiv || '')}\n${String(data.beneficiar || '')}\n${String(data.adresa || '')}\n${String(data['funcțiuni'] || data.functiuni || '')}\n${String(data.categoria_importanta || '')}\n${sourceText}`;
+    const normalize = (v) => sanitizeDisplayText(v);
+    const first = (re) => normalize(text.match(re)?.[1] || '');
+    const functionTagsRaw = buildSemantic14Model({ data, sources }).functions.tags;
+    const functionTags = functionTagsRaw.filter((tag) => !/depozitare/i.test(tag));
+    const cleanName = (value) => sanitizeDisplayText(String(value || ""))
+      .replace(/\b(?:beneficiar|proprietar|investitor|adresa)\b\s*[:\-].*$/i, "")
+      .trim();
+    const cleanBeneficiary = (value) => sanitizeDisplayText(String(value || ""))
+      .replace(/\bcu\s+sediul\s+in\b.*$/i, "")
+      .replace(/\b(adresa|str\.|strada|municipiul|orasul|jude[țt]ul)\b.*$/i, "")
+      .trim();
+    const cleanAddress = (value) => sanitizeDisplayText(String(value || ""))
+      .replace(/^(?:beneficiar|proprietar|investitor)\s*[:\-]\s*/i, "")
+      .replace(/\b(adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*/i, "")
+      .replace(/\b(?:date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "")
+      .trim();
+    const addressFromData = cleanAddress(normalize(data.adresa));
+    const addressFromSource = cleanAddress(first(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([^\n]{8,220})/i));
+    const resolvedAddress = (addressFromSource.length > addressFromData.length ? addressFromSource : addressFromData) || addressFromData || addressFromSource;
+    return {
+      identification: {
+        denumireObiectiv: cleanName(normalize(data.denumire_obiectiv) || first(/denumirea\s+(?:obiectivului|investi[țt]iei)\s*[:\-]\s*([^\n]{4,180})/i)),
+        beneficiar: cleanBeneficiary(normalize(data.beneficiar) || first(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^\n]{4,220})/i)),
+        adresa: resolvedAddress
+      },
+      destination: {
+        raw: normalize(data['funcțiuni'] || data.functiuni),
+        tags: functionTags
+      },
+      category: {
+        raw: normalize(data.categoria_importanta) || first(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i)
+      }
+    };
+  }
+
+  function auditSemantic123Model(model) {
+    const checks = [];
+    const add = (field, value) => checks.push({ field, actual: value || '', status: value ? 'ok' : 'missing' });
+    add('denumireObiectiv', model.identification?.denumireObiectiv);
+    add('beneficiar', model.identification?.beneficiar);
+    add('adresa', model.identification?.adresa);
+    add('destination', model.destination?.raw || (model.destination?.tags || []).join(', '));
+    add('category', model.category?.raw);
+    return { ok: checks.every((c) => c.status === 'ok'), checks };
+  }
+
+  return { parseDimensionParts, deriveDimensionParts, buildSemantic14Model, auditSemantic14Model, buildSemantic123Model, auditSemantic123Model };
 });

@@ -5,10 +5,11 @@
   "description": "Aplicatie locala pentru generare SSI si reader legislativ.",
   "scripts": {
     "dev": "http-server . -p 4173 -c-1",
-    "test:e2e": "playwright test",
+    "test:e2e": "playwright test --reporter=line,github",
     "test:e2e:headed": "playwright test --headed",
     "test:integrity": "playwright test tests/ssi-template-integrity.spec.js",
-    "test:semantic": "node --test tests/ssi-point14-semantic-model.test.js tests/ssi-point14-semantic-functions.test.js tests/ssi-point14-semantic-storage.test.js"
+    "test:semantic": "node --test tests/ssi-point14-semantic-model.test.js tests/ssi-point14-semantic-functions.test.js tests/ssi-point14-semantic-storage.test.js tests/ssi-point123-semantic-model.test.js",
+    "test:audit:global": "bash scripts/run-global-audit.sh"
   },
   "devDependencies": {
     "@playwright/test": "^1.54.2",
