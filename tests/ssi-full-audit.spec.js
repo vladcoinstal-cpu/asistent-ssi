@@ -116,6 +116,20 @@ function ruleMeta(subpointCode, fieldLabel, fixtureName) {
   return { requirement, referenceRule, testRef };
 }
 
+
+function isLabelOnlyLine(line, fieldLabel) {
+  const l = String(line || '').toLowerCase().trim();
+  const fld = String(fieldLabel || '').toLowerCase().trim();
+  if (!l || !fld) return false;
+  const norm = (v) => v.normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const nl = norm(l).replace(/^[\-–—]+\s*/, '').replace(/[:]+\s*$/, '');
+  const nf = norm(fld);
+  if (!nl || !nf) return false;
+  if (nl === nf) return true;
+  if (nl === `${nf} de completat`) return true;
+  return nl.startsWith(`${nf} `) && !/\d|[a-z]{3,}/.test(nl.slice(nf.length).trim());
+}
+
 function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource }) {
   const line = String(fieldLine || '');
   const low = line.toLowerCase();
@@ -134,6 +148,10 @@ function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, raw
 
   if (/^[-–—: ]*$/.test(line.replace(/[\s\u00a0]/g, ''))) {
     return { status: expectedSourceData ? 'unexpected-empty' : 'de-completat-or-empty', cause: expectedSourceData ? 'empty despite source data' : 'empty allowed', missingRule: expectedSourceData ? 'non-empty-when-source-exists' : '-', recommendedFix: expectedSourceData ? 'Populate value from semantic/source.' : '-' };
+  }
+
+  if (isLabelOnlyLine(line, fieldLabel)) {
+    return { status: expectedSourceData && fixture.kind !== 'empty' ? 'unexpected-empty' : 'de-completat-or-empty', cause: 'line contains heading/label without effective value', missingRule: 'value-required-not-heading-only', recommendedFix: 'Populate concrete value after field label.' };
   }
 
   if (/beneficiar|proprietar/i.test(fieldLabel) && /(str\.|municipiul|jude[țt]ul)/i.test(line)) return { status: 'contaminated', cause: 'beneficiary line includes address tokens', missingRule: 'beneficiary-address-separation', recommendedFix: 'Sanitize beneficiary against address phrases.' };
