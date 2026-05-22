@@ -90,6 +90,13 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   const isPoint1 = /^1(\.|$)/.test(sp);
   // Pentru subpuncte din afara punctului 1, consideram "date existente" doar la semnale explicite puternice.
   // Altfel, campul gol/De completat ramane justificat pana la implementarea loturilor respective.
+  if (/^4\.1/.test(sp)) return /(hidranti?\s+interior|hidranti?\s+exterior|rezerv[aei]\s+de\s+apa|sursa\s+de\s+alimentare).{0,140}(\d|m3|m³|mc|l\/s)/i.test(srcNorm);
+  if (/^4\.2/.test(sp)) return /(hidranti?\s+interior|coloan[ae]\s+uscate?|rezerv[aei]\s+de\s+apa|sursa\s+de\s+alimentare).{0,140}(\d|m3|m³|mc|l\/s)/i.test(srcNorm);
+  if (/^4\.3/.test(sp)) return /(sprinkler|depozitare|aria\s+maxim|declansare\s+simultan|rezerv[aei]\s+de\s+apa).{0,140}(\d|m2|m²|m3|m³|mc|l\/s)/i.test(srcNorm);
+  if (/^4\.4/.test(sp)) return /(drencer|inaltimea\s+golului|aria\/lungimea\s+zonei).{0,140}(\d|m2|m²|m)/i.test(srcNorm);
+  if (/^4\.6/.test(sp)) return /(ceata\s+de\s+apa|aria\s+de\s+declansare|rezerv[aei]\s+de\s+apa).{0,140}(\d|m2|m²|m3|m³|mc)/i.test(srcNorm);
+  if (/^4\.7/.test(sp)) return /(gaz|inert|volum\s+protejat).{0,140}(\d|m3|m³|mc)/i.test(srcNorm);
+  if (/^4\.9/.test(sp)) return /(desfumare|suprafata\s+efectiva|aria\s+spatiului).{0,140}(\d|m2|m²)/i.test(srcNorm);
   if (/denumire/.test(label)) return /(denumirea\s+obiectivului|lăcaș|obiectiv)/i.test(src);
   if (/beneficiar|proprietar/.test(label)) return /(beneficiar|proprietar|parohia)/i.test(src);
   if (/adres/.test(label)) return /(adresa|str\.|strada|municipiul|județul|judetul)/i.test(src);

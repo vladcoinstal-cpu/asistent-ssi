@@ -1313,9 +1313,10 @@ function buildSemanticStructuredData(data, sources = []) {
       volum: dimensions.volum || "",
       text: dimensionsText
     },
-    users: {
-      raw: String(semantic14.users?.raw || "").trim(),
-      autoevacuare: String(data?.autoevacuare || "").trim()
+    users:
+    {
+      raw: String(semantic14.users?.raw || data?.numar_utilizatori || "").trim(),
+      autoevacuare: String(data?.autoevacuare || semantic14.users?.raw || data?.numar_utilizatori || "").trim()
     },
     storage: {
       raw: String(semantic14.storage?.raw || "").trim()
