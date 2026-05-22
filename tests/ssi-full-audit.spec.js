@@ -168,7 +168,7 @@ function findBestFieldLine(block, label) {
   return first;
 }
 
-function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource }) {
+function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, rawSource, outsideLine = '' }) {
   const line = String(fieldLine || '');
   const low = line.toLowerCase();
   const expectedSourceData = hasSourceDataForField(rawSource, fieldLabel);
@@ -182,6 +182,10 @@ function analyzeField({ fixture, subpointCode, fieldLabel, fieldLine, block, raw
   if (/de completat/.test(low)) {
     if (expectedSourceData && fixture.kind !== 'empty') return { status: 'unexpected-de-completat', cause: 'source has data but output kept placeholder', missingRule: 'data-availability-override', recommendedFix: 'Populate from semantic/extracted value when source data exists.' };
     return { status: 'de-completat-or-empty', cause: 'placeholder allowed (no source data)', missingRule: '-', recommendedFix: '-' };
+  }
+
+  if (!findFieldLine(block, fieldLabel) && outsideLine) {
+    return { status: 'wrong-location', cause: 'value found outside expected subpoint block', missingRule: 'field-location-subpoint', recommendedFix: 'Render this field inside its correct subpoint.' };
   }
 
   if (/^[-–—: ]*$/.test(line.replace(/[\s\u00a0]/g, ''))) {
@@ -219,10 +223,12 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
       const label = String(f.label || f.title || '').trim();
       if (!label) continue;
       let fieldLine = findBestFieldLine(block, label);
+      let outsideLine = '';
       if (!fieldLine) {
-        fieldLine = findBestFieldLine(outputText, label) || findFieldLine(outputText, label);
+        outsideLine = findBestFieldLine(outputText, label) || findFieldLine(outputText, label);
+        fieldLine = outsideLine;
       }
-      const res = analyzeField({ fixture, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource });
+      const res = analyzeField({ fixture, subpointCode: t.subpointCode, fieldLabel: label, fieldLine, block, rawSource, outsideLine });
       const meta = ruleMeta(t.subpointCode, label, fixture.name);
       rows.push({ fixture: fixture.name, annex: annexName, subpoint: t.subpointCode, field: label, check: 'field_rule', status: res.status, expected: `${label}: expected value / expected De completat / forbidden patterns / source`, actual: fieldLine || '(missing)', cause: res.cause, missingRule: res.missingRule, recommendedFix: res.recommendedFix, evidence: block.slice(0, 260), requirement: meta.requirement, sourceData: hasSourceDataForField(rawSource, label) ? 'detected-in-memoriu' : 'not-detected-in-memoriu', referenceRule: meta.referenceRule, outputNormal: annexName.includes('normal') ? (fieldLine || '(missing)') : '-', outputPrelim: annexName.includes('preliminar') ? (fieldLine || '(missing)') : '-', difference: res.status === 'ok' ? 'none' : res.status, testRef: meta.testRef });
     }
@@ -232,9 +238,9 @@ function buildRows({ fixture, annexName, outputText, templateRows, rawSource }) 
 
 function reportMarkdown(rows) {
   const generated = new Date().toISOString();
-  const statuses = ['ok', 'missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat', 'de-completat-or-empty', 'coverage-gap-subpoint', 'field-line-not-detected'];
+  const statuses = ['ok', 'missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'wrong-location', 'unexpected-empty', 'unexpected-de-completat', 'de-completat-or-empty', 'coverage-gap-subpoint', 'field-line-not-detected'];
   const counts = Object.fromEntries(statuses.map((s) => [s, rows.filter((r) => r.status === s).length]));
-  const criticalSet = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
+  const criticalSet = new Set(['missing', 'truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'wrong-location', 'unexpected-empty', 'unexpected-de-completat']);
   const critical = rows.filter((r) => criticalSet.has(r.status));
   const totalSubpoints = new Set(rows.filter((r) => r.check === 'subpoint_exists').map((r) => `${r.annex}|${r.subpoint}`)).size;
   const totalFields = rows.filter((r) => r.check === 'field_rule').length;
@@ -287,7 +293,7 @@ test('global SSI audit matrix for all subpoints (Anexa 4 + Anexa 5), all differe
   console.log(md);
   console.log('[SSI-AUDIT-MD-END]');
 
-  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'unexpected-empty', 'unexpected-de-completat']);
+  const criticalSet = new Set(['truncated', 'contaminated', 'wrong-value', 'wrong-source', 'wrong-unit', 'wrong-location', 'unexpected-empty', 'unexpected-de-completat']);
   const critical = rows.filter((r) => criticalSet.has(r.status));
   if (critical.length) {
     const compact = critical.slice(0, 60).map((r, i) => `${i + 1}. [${r.fixture}] ${r.annex} ${r.subpoint} ${r.field} => ${r.status}`).join('\n');
