@@ -150,7 +150,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   if (/numărul maxim|utilizatori|persoane/.test(label)) return isPoint1 ? /(utilizatori|persoane)/i.test(src) : /(\d+\s*(persoane|utilizatori))/i.test(srcNorm);
   if (/capacități de depozitare|capacitati de depozitare/.test(label)) return /(depozitare|depozit|spații de depozitare)/i.test(src);
   if (/căilor de evacuare|cailor de evacuare/.test(label)) {
-    if (/marcarea/.test(labelNorm)) return /(marcarea\s+cailor\s+de\s+evacuare|indicatoare\s+de\s+evacuare|semnalizare\s+evacuare)/i.test(srcNorm);
+    if (/marcarea/.test(labelNorm)) return /(indicatoare\s+de\s+evacuare|semnalizare\s+evacuare|iluminat\s+de\s+siguranta\s+pentru\s+evacuare)/i.test(srcNorm);
     return /(evacuare|căi|cai).{0,120}(\d|m|u\.?s\.?|minute|persoane)/i.test(srcNorm);
   }
   return false;
