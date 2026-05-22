@@ -4421,6 +4421,9 @@ function runFallbackExtraction(sources) {
     || firstMatch(/categoria\s+([A-Da-d]\s*\([^)]+\))/i)
     || firstMatch(/categoria\s+([A-Da-d])[^.\n]{0,40}importanta/i);
   pick("categoria_importanta", categoria);
+  const clasa = firstMatch(/clas[ăa]\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n;]{2,80})/i)
+    || firstMatch(/clasa\s+([IVX]+(?:-a)?)/i);
+  pick("clasa_importanta", clasa);
 
   const regim = firstMatch(/(?:D\+P\+Sp\+M|D\+P\+M|P\+M|D\+P|demisol\s*\+\s*parter[^\n.;]*)/i);
   const ariaConstruita = firstMatch(/aria\s+construita\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
