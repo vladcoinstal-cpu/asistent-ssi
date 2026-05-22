@@ -40,7 +40,10 @@ ${prelim}`);
 }
 
 test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
-  const src = fs.readFileSync(path.join(__dirname,'..','test-fixtures','memoriu-sprenghi-1.1-1.4-curat.txt'),'utf8');
+  const src = fs.readFileSync(path.join(__dirname,'..','test-fixtures','memoriu-sprenghi-complete-derived.txt'),'utf8');
+  const normalRef = fs.readFileSync(path.join(__dirname,'..','ssi-normal-v58.html'),'utf8');
+  const prelimRef = fs.readFileSync(path.join(__dirname,'..','ssi-preliminar-v85.html'),'utf8');
+  const refText = `${normalRef}\n${prelimRef}`.replace(/<[^>]+>/g, ' ');
   await page.goto('/');
   await expect.poll(async()=> page.evaluate(()=>Boolean(window.__ssiTemplateStatus?.ready))).toBeTruthy();
   await page.evaluate(()=>window.__ssiCommands?.newProject?.('Sprenghi-Full-Audit'));
@@ -68,6 +71,7 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
     expect(txt).toMatch(/Bra[șs]ov/i);
     expect(txt).toMatch(/M[ăa]r[ăa][șs]e[șs]ti/i);
     expect(txt).toMatch(/47/i);
+    expect(txt).not.toMatch(/adresa\s*:.*adres[ăa]\s*:/i);
   }
   for (const txt of [blocks.b12n, blocks.b12p]) {
     expect(txt).toMatch(/\bcult\b/i);
@@ -83,12 +87,23 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
     expect(txt).toMatch(/350,75\s*m(?:2|²)/i);
     expect(txt).toMatch(/693,08\s*m(?:2|²)/i);
     expect(txt).toMatch(/2900\s*m(?:3|³)/i);
+    expect(txt).not.toMatch(/regim[^:\n]*:\s*demisol,\s*p\b/i);
+    expect(txt).not.toMatch(/inaltime[^:\n]*:\s*3[.,]4\b/i);
+    expect(txt).not.toMatch(/volum[^:\n]*:\s*290\b/i);
     expect(txt).not.toMatch(/capacit[ăa]ți[^\n]*(bucătărie|gaze|linie caldă)/i);
   }
   const combined14 = `${blocks.b14n}\n${blocks.b14p}`;
+  expect(refText).toMatch(/D\+P\+Sp\+M/i);
+  expect(refText).toMatch(/20,98\s*m/i);
+  expect(refText).toMatch(/2900\s*m(?:3|³)/i);
+  expect(refText).toMatch(/nu\s+sunt\s+spa[țt]ii\s+de\s+depozitare\s+mai\s+mari\s+de\s+36\s*m(?:2|²)/i);
   expect(combined14).toMatch(/depozitare|spa[țt]ii?\s+de\s+depozitare/i);
   expect(combined14).toMatch(/demisol:\s*120/i);
   expect(combined14).toMatch(/parter:\s*(?:130|180)/i);
   expect(combined14).toMatch(/supant[ăa]:\s*20/i);
   expect(combined14).toMatch(/mansard[ăa]:\s*2/i);
+  expect(combined14).toMatch(/nu\s+sunt\s+spa[țt]ii\s+de\s+depozitare\s+mai\s+mari\s+de\s+36\s*m(?:2|²)/i);
+  expect(combined14).not.toMatch(/total\s*:\s*e\)/i);
+  expect(combined14).not.toMatch(/(depozitare|procese)[\s\S]{0,120}c[ăa]i?\s+de\s+evacuare/i);
+  expect(combined14).not.toMatch(/c[ăa]i?\s+de\s+evacuare[\s\S]{0,120}(depozitare|procese)/i);
 });
