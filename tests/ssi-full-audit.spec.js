@@ -99,6 +99,7 @@ function hasSourceDataForField(rawText, fieldLabel, subpointCode = "") {
   if (/caracteristici dimensionale/.test(labelNorm)) return /(d\+p|p\+\d|s\+p|\d+[\.,]?\d*\s*(m2|m3|mp|mc|m²|m³|m)\b|aria\s+constr|aria\s+desfas|volum\w*\s+constr|inaltime\w*\s+max)/i.test(srcNorm);
   if (/capacitati de depozitare/.test(labelNorm)) return /((depozit|depozitare|spatiu de depozit|stocare).{0,80}(\d+[\.,]?\d*\s*(m2|m²|mp)|ton|kg|mc|m3|m³)|\b36\s*(m2|m²|mp)\b)/i.test(srcNorm);
   if (/densitatea sarcinii termice/.test(labelNorm)) return /(densitatea sarcinii termice|sarcina termica).{0,80}(\d+[\.,]?\d*\s*(mj\/m2|mj\/m²|mj\s*m2|mj\s*m²))/i.test(srcNorm);
+  if (/masuri pentru persoane care nu se pot evacua singure/.test(labelNorm)) return /(nu se pot evacua singure|dizabil|mobilitate redusa|asistata)/i.test(srcNorm);
   if (/regimul|înălțimea|volumul|aria/.test(label)) {
     if (!isPoint1) return /(\d+[\.,]?\d*\s*(m|m2|m3|m²|m³|mp|mc))/i.test(srcNorm);
     return /(regim|inaltime|înălțime|volum|aria)/i.test(src);

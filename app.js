@@ -1371,6 +1371,10 @@ function buildPoint1ReportsFromTemplates() {
     "volumul construcției": volumConstructie || "De completat",
     "aria construită": ariaConstruita || "De completat",
     "aria desfășurată": ariaDesfasurata || "De completat",
+    "regimul de înălțime și volumul construcției": [regimInaltime, volumConstructie].filter(Boolean).join("; ") || "De completat",
+    "regimul de inaltime si volumul constructiei": [regimInaltime, volumConstructie].filter(Boolean).join("; ") || "De completat",
+    "aria construită și desfășurată": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
+    "aria construita si desfasurata": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
     "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
     "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
     "volum": volumConstructie || "De completat",
@@ -1380,6 +1384,7 @@ function buildPoint1ReportsFromTemplates() {
     "persoane: prezența permanentă a persoanelor": semantic.users.autoevacuare || "De completat",
     "persoane: capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "De completat",
     "prezenta permanenta a persoanelor, capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "",
+    "prezența permanentă a persoanelor, capacitatea de autoevacuare a acestora": semantic.users.autoevacuare || "",
     "capacități de depozitare": semantic.storage.raw || "",
     "capacitati de depozitare": semantic.storage.raw || "",
     "numarul cailor de evacuare si, dupa caz, al refugiilor": semantic.evacuation.raw || ""
