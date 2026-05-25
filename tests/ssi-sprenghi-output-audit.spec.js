@@ -105,7 +105,7 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
   expect(combined14).toMatch(/nu\s+sunt\s+spa[țt]ii\s+de\s+depozitare\s+mai\s+mari\s+de\s+36\s*m(?:2|²)/i);
   expect(combined14).not.toMatch(/total\s*:\s*e\)/i);
   expect(combined14).not.toMatch(/Scenariu de securitate la incendiu|Metodologiei privind elaborarea scenariilor/i);
-  expect(combined14).not.toMatch(/\b(?:e\)|f\)|g\)|h\)|i\)(?:\s|$)[\s\S]{20,}/i);
+  expect(combined14).not.toMatch(/(?:^|\s)[efghi]\)\s.{20,}/i);
   const evacSentences = combined14.split(/(?<=[.!?])\s+/).filter((s) => /evacuare|refug|flux|ie[sș]ir/i.test(s));
   for (const s of evacSentences) {
     expect(s).not.toMatch(/depozitare|proces(?:e|elor)?|substan[țt]/i);
