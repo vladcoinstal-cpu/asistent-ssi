@@ -253,6 +253,15 @@ const customExtractors = {
     return match ? cleanExtract(match[0]) : "";
   },
   capacitati_depozitare(lines, content) {
+    const explicitLine = (() => {
+      const row = (lines || []).find((line) => /(?:^|\s)(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")));
+      if (!row) return "";
+      return cleanExtract(String(row)
+        .replace(/^.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim());
+    })();
+    if (explicitLine) return explicitLine;
     const sourceText = String(content || lines.join("\n") || "");
     const explicitMatches = Array.from(sourceText.matchAll(/capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*([^\n\r]+)/ig));
     if (explicitMatches.length) {
