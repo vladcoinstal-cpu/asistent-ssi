@@ -1442,6 +1442,12 @@ function buildSemanticStructuredData(data, sources = []) {
         .replace(/\s*[;,.]?\s*[a-i]\)\s*$/i, "")
         .trim();
     }
+    if (field === "evacuation") {
+      return v
+        .replace(/^(?:g\)\s*)?(?:num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+si,\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]\s*)/i, "")
+        .replace(/\b(?:3\.[0-9]|4\.[A-Z])\b[\s\S]*$/i, "")
+        .trim();
+    }
     return v;
   };
   const semanticEngine = window.SSISemantic;
@@ -1497,7 +1503,7 @@ function buildSemanticStructuredData(data, sources = []) {
       raw: sanitizePoint14(semantic14.storage?.raw || data?.capacitati_depozitare || "", "storage")
     },
     evacuation: {
-      raw: String(data?.cai_evacuare_rezumat || "").trim()
+      raw: sanitizePoint14(data?.cai_evacuare_rezumat || "", "evacuation")
     },
     functions: {
       tags: functionTags
@@ -6558,6 +6564,10 @@ function formatStructuredDetailValue(value, mode = "word") {
   const text = sanitizeDisplayText(String(value || "")).trim();
   if (!text) return "";
   const cleaned = text
+    .replace(/\bmp\b/gi, "m²")
+    .replace(/\bm2\b/gi, "m²")
+    .replace(/\bmc\b/gi, "m³")
+    .replace(/\bm3\b/gi, "m³")
     .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
     .replace(/^(?:g\)\s*)/i, "")
     .trim();
