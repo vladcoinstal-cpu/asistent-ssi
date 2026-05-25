@@ -1379,7 +1379,7 @@ function buildSemanticStructuredData(data, sources = []) {
 function buildPoint1ReportsFromTemplates() {
   const semantic = buildSemanticStructuredData(state.data, state.sources);
   const classFromText = (String(semantic.category?.classRaw || semantic.category?.raw || state.data.clasa_importanta || state.data.categoria_importanta || '')
-    .match(/clasa\s*([ivx]+(?:-a)?)/i) || [,''])[1];
+    .match(/clas[ăa]\s*([ivx]+(?:-a)?)/i) || [,''])[1];
   const classValue = classFromText ? `clasa ${classFromText.toUpperCase()}` : (semantic.category?.classRaw || "");
   const regimInaltime = semantic.dimensions.regim;
   const inaltimeMaxima = semantic.dimensions.inaltimeMaxima;
