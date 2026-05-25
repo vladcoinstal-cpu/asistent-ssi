@@ -1468,7 +1468,7 @@ function buildPoint1ReportsFromTemplates() {
     .match(/clas[ăa]\s*([ivx]+(?:-a)?)/i) || [,''])[1];
   const classValue = classFromText ? `clasa ${classFromText.toUpperCase()}` : (semantic.category?.classRaw || "");
   const regimInaltime = semantic.dimensions.regim;
-  const inaltimeMaxima = semantic.dimensions.inaltimeMaxima;
+  const inaltimeMaxima = semantic.dimensions.inaltime || semantic.dimensions.inaltimeMaxima;
   const volumConstructie = semantic.dimensions.volum;
   const ariaConstruita = semantic.dimensions.ariaConstruita;
   const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
