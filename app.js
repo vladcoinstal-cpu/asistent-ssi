@@ -6394,7 +6394,7 @@ function parseDimensionParts(rawValue) {
     normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+)(?:\s*\+\s*(?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+))+)/i)?.[1] ||
     "";
   const regimMatch = normalizeRegime(regimRaw);
-  const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
+  const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l(?:ț|t)ime(?:a)?(?:\s+maxim[ăa])?(?:\s+a\s+cl[ăa]dirii)?[^:;]*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
   const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "(?:m(?:3|³)|mc)") || "";
   const builtMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
   const totalMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
