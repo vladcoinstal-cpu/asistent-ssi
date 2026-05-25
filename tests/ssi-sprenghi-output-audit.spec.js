@@ -77,10 +77,10 @@ test('Sprenghi 1.1-1.4 output quality vs references', async ({ page }) => {
     expect(txt).toMatch(/\bcult\b/i);
     expect(txt).not.toMatch(/parcaj|industrial|birouri|depozitare/i);
   }
-  for (const txt of [blocks.b13n, blocks.b13p]) {
-    expect(txt).toMatch(/categoria\s*C/i);
-    expect(txt).toMatch(/clasa\s+III(?:-a)?/i);
-  }
+  expect(blocks.b13n).toMatch(/categoria\s*C/i);
+  expect(blocks.b13n).toMatch(/clasa\s+III(?:-a)?/i);
+  // In Anexa 5 (preliminar), 1.3 contains categoria de importanță only.
+  expect(blocks.b13p).toMatch(/categoria\s*C/i);
   for (const txt of [blocks.b14n, blocks.b14p]) {
     expect(txt).toMatch(/D\+P\+Sp\+M/i);
     expect(txt).toMatch(/20,98\s*m/i);
