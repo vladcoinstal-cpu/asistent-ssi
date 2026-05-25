@@ -4511,7 +4511,7 @@ function runFallbackExtraction(sources) {
   const dimensions = [regim, inaltime && `înălțime maximă ${inaltime}`, volum && `volum ${volum}`, ariaConstruita && `aria construită ${ariaConstruita}`, ariaDesfasurata && `aria desfășurată ${ariaDesfasurata}`].filter(Boolean).join("; ");
   pick("caracteristici_dimensionale", dimensions);
 
-  const totalUsers = firstMatch(/(?:numarul|maxim(?:ul)?\s+total\s+de)\s+utilizatori\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)/i)
+  const totalUsers = firstMatch(/(?:numarul|maxim(?:ul)?\s+total\s+de)\s+utilizatori\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)(?=\s*(?:[;,.]|$|capacit[aă]ți?\s+de\s+depozitare|c[ăa]i\s+de\s+evacuare))/i)
     || firstMatch(/([0-9]+(?:[.,][0-9]+)?\s*persoane?)\s+in\s+total/i);
   const demisolUsers = firstMatch(/demisol\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)/i);
   const parterUsers = firstMatch(/parter\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)/i);
@@ -4532,11 +4532,15 @@ function runFallbackExtraction(sources) {
   pick("cai_evacuare_rezumat", egress.join("; "));
 
   if (normalized.includes("depozit")) {
-    const storageCandidate =
-      firstMatch(/((?:capacita[țt][iăa]?[țt]i?\s+de\s+depozitare|spa[țt]ii?\s+de\s+depozitare)[^.\n]{0,220})/i)
+    const storageLine = Array.from(combined.matchAll(/(?:^|\n)\s*(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*([^\n\r]+)/ig)).map((m) => (m[1] || "").trim()).pop() || "";
+    const storageCandidate = storageLine
+      || firstMatch(/((?:capacita[țt][iăa]?[țt]i?\s+de\s+depozitare|spa[țt]ii?\s+de\s+depozitare)[^.\n]{0,220})/i)
       || firstMatch(/(depozitare[^.\n]{0,220}(?:m(?:2|²)|materiale|produse|marf[ăa]))/i)
       || "spații de depozitare menționate în documentație";
-    pick("capacitati_depozitare", cleanExtract(storageCandidate).replace(/\b(?:nr\.?\s*\d+\s*,\s*jude[țt]ul\s+[^,.;]+)\b/i, "").trim());
+    pick("capacitati_depozitare", cleanExtract(storageCandidate)
+      .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+      .replace(/\b(?:nr\.?\s*\d+\s*,\s*jude[țt]ul\s+[^,.;]+)\b/i, "")
+      .trim());
   }
 
   if (normalized.includes("autoevacu")) {
