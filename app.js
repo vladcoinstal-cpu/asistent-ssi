@@ -145,6 +145,16 @@ const customExtractors = {
     if (/utilit/.test(cleaned)) tags.push('utilități');
     return Array.from(new Set(tags)).join(", ");
   },
+  tip_parcaj(lines, content) {
+    const joined = lines.join(" ");
+    const raw = joined.match(/tipul\s+parcajului\s*[:\-]?\s*([\s\S]{2,220}?)(?=\s+[a-z]\)\s+|$)/i)?.[1]
+      || joined.match(/parcaj\s*[:\-]?\s*([^.\n]{2,180})/i)?.[1]
+      || "";
+    return cleanExtract(String(raw || "")
+      .replace(/\s*c\)\s*caracteristici[\s\S]*$/i, "")
+      .replace(/\s*d\)\s*preciz[ăa]ri[\s\S]*$/i, "")
+      .trim());
+  },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
     const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei|num[aă]r(?:ul)?\s+maxim)\b|$)/i)?.[1]?.trim();
