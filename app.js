@@ -83,6 +83,14 @@ const patterns = {
 };
 
 const customExtractors = {
+  _sliceBySection(content, startPattern, stopPattern) {
+    const src = String(content || "");
+    const start = src.search(startPattern);
+    if (start < 0) return "";
+    const tail = src.slice(start);
+    const stop = tail.search(stopPattern);
+    return (stop > 0 ? tail.slice(0, stop) : tail).replace(/\s+/g, " ").trim();
+  },
   _splitSentences(text) {
     return String(text || "")
       .replace(/\r/g, "\n")
@@ -185,8 +193,13 @@ const customExtractors = {
   },
   numar_utilizatori(lines, content) {
     const joined = lines.join(" ");
+    const sectionUsers = customExtractors._sliceBySection(
+      content || joined,
+      /(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori)\s*[:\-]?/i,
+      /(?:^|[;,.]\s*|\s)(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi]\b)/i
+    );
     const contentUsersSlice = (() => {
-      const source = String(content || joined || "");
+      const source = String(sectionUsers || content || joined || "");
       const startMatch = source.match(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori)\s*[:\-]?/i);
       if (!startMatch || typeof startMatch.index !== "number") return "";
       const tail = source.slice(startMatch.index);
@@ -195,7 +208,7 @@ const customExtractors = {
       return chunk.replace(/\s+/g, " ").trim();
     })();
     const usersSlice = (() => {
-      const src = contentUsersSlice || joined;
+      const src = contentUsersSlice || sectionUsers || joined;
       const start = src.search(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori|utilizatori)\s*[:\-]?/i);
       if (start < 0) return src;
       const tail = src.slice(start);
@@ -253,8 +266,14 @@ const customExtractors = {
     return match ? cleanExtract(match[0]) : "";
   },
   capacitati_depozitare(lines, content) {
+    const storageSection = customExtractors._sliceBySection(
+      content || lines.join(" "),
+      /(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i,
+      /(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b/i
+    );
     const explicitLine = (() => {
-      const row = (lines || []).find((line) => /(?:^|\s)(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")));
+      const row = (lines || []).find((line) => /(?:^|\s)(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")))
+        || String(storageSection || "");
       if (!row) return "";
       return cleanExtract(String(row)
         .replace(/^.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
@@ -262,7 +281,7 @@ const customExtractors = {
         .trim());
     })();
     if (explicitLine) return explicitLine;
-    const sourceText = String(content || lines.join("\n") || "");
+    const sourceText = String(storageSection || content || lines.join("\n") || "");
     const explicitMatches = Array.from(sourceText.matchAll(/capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*([^\n\r]+)/ig));
     if (explicitMatches.length) {
       const raw = explicitMatches[explicitMatches.length - 1][1] || "";
