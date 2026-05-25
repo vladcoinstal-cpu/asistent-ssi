@@ -126,9 +126,11 @@ const customExtractors = {
     },
     clasa_importanta(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/clas[ăa]\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n]{2,120})/i)
-        || joined.match(/clasa\s+([IVX]+(?:-a)?)/i);
-      return match ? cleanExtract(match[1] || match[0]) : "";
+      const canonical = joined.match(/clasa\s+de\s+importan(?:ț|t)ă[\s:,-]*clasa?\s*([IVX]+(?:-a)?)/i)
+        || joined.match(/clasa\s+de\s+importan(?:ț|t)ă[\s:,-]*([IVX]+(?:-a)?)/i)
+        || joined.match(/\bclasa\s+([IVX]+(?:-a)?)\b/i);
+      if (canonical) return `clasa ${String(canonical[1]).toUpperCase()}`;
+      return "";
     },
   funcțiuni(lines, content) {
     const joined = lines.join(" ");
