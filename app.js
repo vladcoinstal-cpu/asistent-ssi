@@ -237,11 +237,22 @@ const customExtractors = {
     return match ? cleanExtract(match[0]) : "";
   },
   capacitati_depozitare(lines, content) {
+    const sourceText = String(content || lines.join("\n") || "");
+    const explicitMatches = Array.from(sourceText.matchAll(/capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*([^\n\r]+)/ig));
+    if (explicitMatches.length) {
+      const raw = explicitMatches[explicitMatches.length - 1][1] || "";
+      const sliced = String(raw)
+        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .trim();
+      const cleanedExplicit = cleanExtract(sliced);
+      if (cleanedExplicit) return cleanedExplicit;
+    }
     const lineValue = (() => {
       const row = (lines || []).find((line) => /(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")));
       if (!row) return "";
       return cleanExtract(String(row)
         .replace(/^(?:.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*)/i, "")
+        .replace(/\bnum[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\b[\s\S]*$/i, "")
         .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b[\s\S]*$/i, "")
         .trim());
     })();
