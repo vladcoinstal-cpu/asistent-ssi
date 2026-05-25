@@ -1425,14 +1425,14 @@ function buildSemanticStructuredData(data, sources = []) {
     if (!v) return "";
     if (field === "users") {
       return v
-        .replace(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b[\s\S]*$/i, "")
+        .replace(/\b(?:e\)|f\)|g\)|h\)|i\)|a\)|b\)|1\.4\.[efghi])\b[\s\S]*$/i, "")
         .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
         .trim();
     }
     if (field === "storage") {
       return v
         .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
-        .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|a\)|b\)|c\)|d\)|e\)|f\)|g\)|h\)|i\))\b[\s\S]*$/i, "")
         .trim();
     }
     return v;
@@ -1544,8 +1544,8 @@ function buildPoint1ReportsFromTemplates() {
     "volumul construcției": volumConstructie || "De completat",
     "aria construită": ariaConstruita || "De completat",
     "aria desfășurată": ariaDesfasurata || "De completat",
-    "regimul de înălțime și volumul construcției": [regimInaltime, volumConstructie].filter(Boolean).join("; ") || "De completat",
-    "regimul de inaltime si volumul constructiei": [regimInaltime, volumConstructie].filter(Boolean).join("; ") || "De completat",
+    "regimul de înălțime și volumul construcției": [regimInaltime, inaltimeMaxima && `înălțime maximă: ${inaltimeMaxima}`, volumConstructie].filter(Boolean).join("; ") || "De completat",
+    "regimul de inaltime si volumul constructiei": [regimInaltime, inaltimeMaxima && `inaltime maxima: ${inaltimeMaxima}`, volumConstructie].filter(Boolean).join("; ") || "De completat",
     "aria construită și desfășurată": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
     "aria construita si desfasurata": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
     "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
