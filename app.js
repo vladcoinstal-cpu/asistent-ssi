@@ -1426,13 +1426,15 @@ function buildSemanticStructuredData(data, sources = []) {
     if (!v) return "";
     if (field === "users") {
       return v
-        .replace(/\b(?:e\)|f\)|g\)|h\)|i\)|a\)|b\)|1\.4\.[efghi])\b[\s\S]*$/i, "")
+        .replace(/[;,.]?\s*(?:e|f|g|h|i|a|b|c|d)\)\s*[\s\S]*$/i, "")
+        .replace(/\b1\.4\.[efghi]\b[\s\S]*$/i, "")
         .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
         .trim();
     }
     if (field === "storage") {
       return v
         .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
         .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|a\)|b\)|c\)|d\)|e\)|f\)|g\)|h\)|i\))\b[\s\S]*$/i, "")
         .trim();
     }
@@ -6512,8 +6514,8 @@ function buildOccupantDetailItems(data) {
   const autoevText = sanitizeDisplayText(String(data?.autoevacuare || "")).trim();
   const items = [];
   const normalizedUsers = usersText
-    .replace(/\b(demisol|parter|supant[ăa]|mansard[ăa])\s+([0-9]+(?:[.,][0-9]+)?)\s*persoane?/gi, "$1: $2 persoane")
-    .replace(/\b(?:e\)|f\)|g\)|h\)|i\)|a\)|b\))\b[\s\S]*$/i, "")
+    .replace(/[;,.]?\s*(?:e|f|g|h|i|a|b|c|d)\)\s*[\s\S]*$/i, "")
+    .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:pers|persoane)?/gi, "$1: $2 persoane")
     .trim();
   normalizedUsers.split(/\s*;\s*/).map((part) => part.trim()).filter(Boolean).forEach((part) => {
     const match = part.match(/^([^:]+):\s*(.+)$/);
