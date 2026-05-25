@@ -159,7 +159,7 @@ const customExtractors = {
     const joined = lines.join(" ");
     const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei|num[aă]r(?:ul)?\s+maxim)\b|$)/i)?.[1]?.trim();
     const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim();
-    const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m3|m³|mc))/i)?.[1]?.trim();
+    const volum = joined.match(/volum(?:ul)?(?:\s+constructiei)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m3|m³|mc))/i)?.[1]?.trim();
     const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim();
     const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim();
     const parts = [];
@@ -177,7 +177,7 @@ const customExtractors = {
       const start = src.search(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori|utilizatori)\s*[:\-]?/i);
       if (start < 0) return src;
       const tail = src.slice(start);
-      const stop = tail.search(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b/i);
+      const stop = tail.search(/(?:^|[;,.]\s*|\s)(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi]\b)/i);
       return stop > 0 ? tail.slice(0, stop) : tail;
     })();
     const sanitizeUsersChunk = (value) => String(value || "")
