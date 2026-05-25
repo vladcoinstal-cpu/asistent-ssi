@@ -1420,6 +1420,23 @@ function resetReportsFromTemplates() {
 
 
 function buildSemanticStructuredData(data, sources = []) {
+  const sanitizePoint14 = (value, field) => {
+    const v = String(value || "").replace(/\s+/g, " ").trim();
+    if (!v) return "";
+    if (field === "users") {
+      return v
+        .replace(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b[\s\S]*$/i, "")
+        .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .trim();
+    }
+    if (field === "storage") {
+      return v
+        .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .trim();
+    }
+    return v;
+  };
   const semanticEngine = window.SSISemantic;
   const semantic123 = semanticEngine?.buildSemantic123Model
     ? semanticEngine.buildSemantic123Model({ data, sources })
@@ -1430,7 +1447,7 @@ function buildSemanticStructuredData(data, sources = []) {
   const functionTags = Array.isArray(semantic14.functions?.tags) ? semantic14.functions.tags : [];
   const dimensions = {
     regim: semantic14.dimensions?.regim || "",
-    inaltime: semantic14.dimensions?.inaltimeMaxima || "",
+    inaltime: semantic14.dimensions?.inaltime || semantic14.dimensions?.inaltimeMaxima || "",
     ariaConstruita: semantic14.dimensions?.ariaConstruita || "",
     ariaDesfasurata: semantic14.dimensions?.ariaDesfasurata || "",
     volum: semantic14.dimensions?.volum || ""
@@ -1466,11 +1483,11 @@ function buildSemanticStructuredData(data, sources = []) {
     },
     users:
     {
-      raw: String(semantic14.users?.raw || data?.numar_utilizatori || "").trim(),
+      raw: sanitizePoint14(semantic14.users?.raw || data?.numar_utilizatori || "", "users"),
       autoevacuare: String(data?.autoevacuare || semantic14.users?.raw || data?.numar_utilizatori || "").trim()
     },
     storage: {
-      raw: String(semantic14.storage?.raw || "").trim()
+      raw: sanitizePoint14(semantic14.storage?.raw || data?.capacitati_depozitare || "", "storage")
     },
     evacuation: {
       raw: String(data?.cai_evacuare_rezumat || "").trim()
