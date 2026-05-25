@@ -1430,7 +1430,7 @@ function buildSemanticStructuredData(data, sources = []) {
         .replace(/\b1\.4\.[efghi]\b[\s\S]*$/i, "")
         .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
         .replace(/\b([0-9]+(?:[.,][0-9]+)?)\s*persoane?\s+în\s+total\b/gi, "total: $1 persoane")
-        .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:pers|persoane)?/gi, "$1: $2 persoane")
+        .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:persoane|pers)?/gi, "$1: $2 persoane")
         .trim();
     }
     if (field === "storage") {
@@ -6520,7 +6520,7 @@ function buildOccupantDetailItems(data) {
   const normalizedUsers = usersText
     .replace(/[;,.]?\s*(?:e|f|g|h|i|a|b|c|d)\)\s*[\s\S]*$/i, "")
     .replace(/\b([0-9]+(?:[.,][0-9]+)?)\s*persoane?\s+in\s+total\b/gi, "total: $1 persoane")
-    .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:pers|persoane)?/gi, "$1: $2 persoane")
+    .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:persoane|pers)?/gi, "$1: $2 persoane")
     .trim();
   normalizedUsers.split(/\s*;\s*/).map((part) => part.trim()).filter(Boolean).forEach((part) => {
     const match = part.match(/^([^:]+):\s*(.+)$/);
@@ -6557,7 +6557,11 @@ function formatLabeledValueLines(items = [], mode = "word") {
 function formatStructuredDetailValue(value, mode = "word") {
   const text = sanitizeDisplayText(String(value || "")).trim();
   if (!text) return "";
-  const parts = text.split(/\s*;\s*/).map((item) => item.trim()).filter(Boolean);
+  const cleaned = text
+    .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
+    .replace(/^(?:g\)\s*)/i, "")
+    .trim();
+  const parts = cleaned.split(/\s*;\s*/).map((item) => item.trim()).filter(Boolean);
   if (parts.length <= 1) {
     return escapeHtml(text);
   }
