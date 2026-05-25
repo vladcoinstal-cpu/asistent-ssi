@@ -84,7 +84,11 @@ const patterns = {
 
 const customExtractors = {
   _splitSentences(text) {
-    return String(text || "").replace(/\s+/g, " ").split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
+    return String(text || "")
+      .replace(/\r/g, "\n")
+      .split(/(?:\n+|(?<=[.!?;])\s+)/)
+      .map((s) => s.trim())
+      .filter(Boolean);
   },
   _hasEvacContext(sentence) {
     const s = String(sentence || "").toLowerCase();
@@ -147,13 +151,15 @@ const customExtractors = {
   },
   tip_parcaj(lines, content) {
     const joined = lines.join(" ");
-    const raw = joined.match(/tipul\s+parcajului\s*[:\-]?\s*([\s\S]{2,220}?)(?=\s+[a-z]\)\s+|$)/i)?.[1]
+    const raw = joined.match(/tipul\s+parcajului\s*[:\-]?\s*([\s\S]{2,220}?)(?=\s+(?:c\)|d\)|1\.4\.[cd]|regimul\s+de\s+inaltime|num[aă]r(?:ul)?\s+maxim)|$)/i)?.[1]
+      || joined.match(/\bparcaj\s+(subteran|suprateran|mixt)\b/i)?.[0]
       || joined.match(/parcaj\s*[:\-]?\s*([^.\n]{2,180})/i)?.[1]
       || "";
-    return cleanExtract(String(raw || "")
+    const cleaned = cleanExtract(String(raw || "")
       .replace(/\s*c\)\s*caracteristici[\s\S]*$/i, "")
       .replace(/\s*d\)\s*preciz[ăa]ri[\s\S]*$/i, "")
       .trim());
+    return /^nu$/i.test(cleaned) ? "Nu este cazul" : cleaned;
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
@@ -232,7 +238,13 @@ const customExtractors = {
   },
   capacitati_depozitare(lines, content) {
     const joined = lines.join(" ");
-    const sentences = customExtractors._splitSentences(joined);
+    const storageSlice = (() => {
+      const start = joined.search(/(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i);
+      const src = start >= 0 ? joined.slice(start) : joined;
+      const stop = src.search(/(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b/i);
+      return stop > 0 ? src.slice(0, stop) : src;
+    })();
+    const sentences = customExtractors._splitSentences(storageSlice);
     const kept = sentences.filter((s) => {
       if (!customExtractors._hasStorageContext(s)) return false;
       if (customExtractors._hasEvacContext(s) || customExtractors._hasProcessContext(s)) return false;
