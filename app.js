@@ -163,11 +163,18 @@ const customExtractors = {
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
+    const normalizeMetricUnit = (value, kind) => {
+      const v = String(value || "").trim();
+      if (!v) return "";
+      if (kind === "area") return v.replace(/\bmp\b/i, "m²").replace(/\bm2\b/i, "m²");
+      if (kind === "volume") return v.replace(/\bmc\b/i, "m³").replace(/\bm3\b/i, "m³");
+      return v;
+    };
     const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei|num[aă]r(?:ul)?\s+maxim)\b|$)/i)?.[1]?.trim();
     const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim();
-    const volum = joined.match(/volum(?:ul)?(?:\s+constructiei)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m3|m³|mc))/i)?.[1]?.trim();
-    const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim();
-    const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim();
+    const volum = normalizeMetricUnit(joined.match(/volum(?:ul)?(?:\s+constructiei)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m3|m³|mc))/i)?.[1]?.trim(), "volume");
+    const ariaC = normalizeMetricUnit(joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim(), "area");
+    const ariaD = normalizeMetricUnit(joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim(), "area");
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
@@ -178,8 +185,17 @@ const customExtractors = {
   },
   numar_utilizatori(lines, content) {
     const joined = lines.join(" ");
+    const contentUsersSlice = (() => {
+      const source = String(content || joined || "");
+      const startMatch = source.match(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori)\s*[:\-]?/i);
+      if (!startMatch || typeof startMatch.index !== "number") return "";
+      const tail = source.slice(startMatch.index);
+      const stopMatch = tail.match(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b/i);
+      const chunk = stopMatch && typeof stopMatch.index === "number" ? tail.slice(0, stopMatch.index) : tail;
+      return chunk.replace(/\s+/g, " ").trim();
+    })();
     const usersSlice = (() => {
-      const src = joined;
+      const src = contentUsersSlice || joined;
       const start = src.search(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori|utilizatori)\s*[:\-]?/i);
       if (start < 0) return src;
       const tail = src.slice(start);
