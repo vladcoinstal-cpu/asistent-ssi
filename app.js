@@ -1429,6 +1429,8 @@ function buildSemanticStructuredData(data, sources = []) {
         .replace(/[;,.]?\s*(?:e|f|g|h|i|a|b|c|d)\)\s*[\s\S]*$/i, "")
         .replace(/\b1\.4\.[efghi]\b[\s\S]*$/i, "")
         .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .replace(/\b([0-9]+(?:[.,][0-9]+)?)\s*persoane?\s+în\s+total\b/gi, "total: $1 persoane")
+        .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:pers|persoane)?/gi, "$1: $2 persoane")
         .trim();
     }
     if (field === "storage") {
@@ -1437,6 +1439,7 @@ function buildSemanticStructuredData(data, sources = []) {
         .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
         .replace(/\s+[a-i]\)\s*$/i, "")
         .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|a\)|b\)|c\)|d\)|e\)|f\)|g\)|h\)|i\))\b[\s\S]*$/i, "")
+        .replace(/\s*[;,.]?\s*[a-i]\)\s*$/i, "")
         .trim();
     }
     return v;
