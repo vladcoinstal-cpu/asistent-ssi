@@ -151,7 +151,7 @@ const customExtractors = {
   },
   tip_parcaj(lines, content) {
     const joined = lines.join(" ");
-    const raw = joined.match(/tipul\s+parcajului\s*[:\-]?\s*([\s\S]{2,220}?)(?=\s+(?:c\)|d\)|1\.4\.[cd]|regimul\s+de\s+inaltime|num[aă]r(?:ul)?\s+maxim)|$)/i)?.[1]
+    const raw = joined.match(/tipul\s+parcajului\s*[:\-]?\s*([\s\S]{2,220}?)(?=\s+(?:c\)|d\)|1\.4\.[cd]|regim(?:ul)?\s+de\s+inaltime|num[aă]r(?:ul)?\s+maxim)|$)/i)?.[1]
       || joined.match(/\bparcaj\s+(subteran|suprateran|mixt)\b/i)?.[0]
       || joined.match(/parcaj\s*[:\-]?\s*([^.\n]{2,180})/i)?.[1]
       || "";
@@ -237,6 +237,15 @@ const customExtractors = {
     return match ? cleanExtract(match[0]) : "";
   },
   capacitati_depozitare(lines, content) {
+    const lineValue = (() => {
+      const row = (lines || []).find((line) => /(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")));
+      if (!row) return "";
+      return cleanExtract(String(row)
+        .replace(/^(?:.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*)/i, "")
+        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .trim());
+    })();
+    if (lineValue) return lineValue;
     const joined = lines.join(" ");
     const storageSlice = (() => {
       const start = joined.search(/(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i);
