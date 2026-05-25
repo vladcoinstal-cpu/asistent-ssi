@@ -63,9 +63,11 @@
       raw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;\n]+)/i)?.[1] ||
       raw.match(/\b((?:D|S|P|M|Sp|[0-9]+\s*E)(?:\s*\+\s*(?:D|S|P|M|Sp|[0-9]+\s*E))+)/i)?.[1] || '';
 
+    const labeledHeight = raw.match(/(?:[îi]n[ăa]l(?:ț|t)ime(?:a)?(?:\s+maxim[ăa])?(?:\s+a\s+cl[ăa]dirii)?[^:;]*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim() || '';
+    const looseHeight = !labeledHeight ? (raw.match(/\b([0-9]+(?:[.,][0-9]+)?\s*m)\b(?!\s*[²³23])/i)?.[1] || '') : '';
     return {
       regim: normalizeRegime(regimRaw),
-      inaltime: raw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim() || '',
+      inaltime: labeledHeight || looseHeight,
       volum: extractMeasurement(raw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, '(?:m(?:3|³)|mc)'),
       ariaConstruita: extractMeasurement(raw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, '(?:m(?:2|²)|mp)'),
       ariaDesfasurata: extractMeasurement(raw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, '(?:m(?:2|²)|mp)')
@@ -122,15 +124,17 @@
     const storageRawInput = `${String(data.capacitati_depozitare || '')}\n${normalizeSourceText(sources)}`;
     const storageModel = deriveStorageModel(storageRawInput);
 
+    const cleanUsers = String(data.numar_utilizatori || '').replace(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b[\s\S]*$/i, '').replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, '').trim();
     return {
       dimensions: {
         regim: dimensions.regim || '',
+        inaltime: dimensions.inaltime || '',
         inaltimeMaxima: dimensions.inaltime || '',
         ariaConstruita: dimensions.ariaConstruita || '',
         ariaDesfasurata: dimensions.ariaDesfasurata || '',
         volum: dimensions.volum || ''
       },
-      users: { raw: String(data.numar_utilizatori || '').trim() },
+      users: { raw: cleanUsers },
       storage: { raw: storageModel.raw || '', status: storageModel.status }
       ,
       functions: { tags: [...new Set(functionTags)] }
