@@ -180,23 +180,27 @@ const customExtractors = {
       const stop = tail.search(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b/i);
       return stop > 0 ? tail.slice(0, stop) : tail;
     })();
+    const sanitizeUsersChunk = (value) => String(value || "")
+      .replace(/\b(?:capacit[ăa]ți?\s+de\s+depozitare|num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare|caracteristici\s+dimensionale|propriet[ăa]țile\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|evacuare)\b[\s\S]*$/i, "")
+      .replace(/\b(?:2\.[A-Z]?|3\.[0-9]|4\.[A-Z])\b[\s\S]*$/i, "")
+      .trim();
     const pickLineValue = (regex) => {
       const row = (lines || []).find((line) => regex.test(String(line || "")));
       if (!row) return "";
-      return String(row)
+      return sanitizeUsersChunk(String(row)
         .replace(regex, "")
         .replace(/\s*(Capacit[aă]ti\s+de\s+depozitare|C[aă]i\s+de\s+evacuare)\s*:.*/i, "")
-        .trim();
+        .trim());
     };
 
     const total = pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*/i)
       || pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*/i)
       || usersSlice.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
       || usersSlice.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const cleanTotal = String(total || "")
+    const cleanTotal = sanitizeUsersChunk(String(total || "")
       .replace(/\b[a-z]\)\s*$/i, "")
       .replace(/(?:^|[\s:])(?:[a-z]\)|\d+\.[a-z])(?:\s|$)/ig, " ")
-      .trim();
+      .trim());
     const demisol = usersSlice.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const parter = usersSlice.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
     const supantă = usersSlice.match(/supant[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
@@ -209,7 +213,11 @@ const customExtractors = {
     if (supantă) parts.push(`supantă: ${supantă}`);
     if (mansardă) parts.push(`mansardă: ${mansardă}`);
     if (note) parts.push(`nota: ${note}`);
-    return parts.join("; ");
+    const joinedParts = parts.join("; ");
+    if (/Scenariu de securitate la incendiu|Metodologiei privind elaborarea scenariilor|capacit[ăa]ți\s+de\s+depozitare|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare/i.test(joinedParts)) {
+      return "";
+    }
+    return joinedParts;
   },
   autoevacuare(lines, content) {
     const joined = lines.join(" ");
