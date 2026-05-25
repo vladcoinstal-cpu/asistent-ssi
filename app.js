@@ -323,9 +323,10 @@ const customExtractors = {
     const filtered = sentences.filter((s) => {
       if (!customExtractors._hasEvacContext(s)) return false;
       if (customExtractors._hasStorageContext(s) || customExtractors._hasProcessContext(s)) return false;
-      return /demisol|parter|mansard|supant|refug|c[ăa]i?\s+de\s+evacuare/i.test(s);
+      return /num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i?\s+de\s+evacuare|refugii?/i.test(s);
     });
-    return filtered.map(cleanExtract).join(" ");
+    const first = filtered.map(cleanExtract).find(Boolean) || "";
+    return first.replace(/\b(?:3\.[0-9]|4\.[A-Z]|stabilitatea\s+la\s+foc|limitarea\s+propagarii)\b[\s\S]*$/i, "").trim();
   },
   risc_incendiu(lines, content) {
     const joined = lines.join(" ");
@@ -6510,7 +6511,11 @@ function buildOccupantDetailItems(data) {
   const usersText = sanitizeDisplayText(String(data?.numar_utilizatori || "")).trim();
   const autoevText = sanitizeDisplayText(String(data?.autoevacuare || "")).trim();
   const items = [];
-  usersText.split(/\s*;\s*/).map((part) => part.trim()).filter(Boolean).forEach((part) => {
+  const normalizedUsers = usersText
+    .replace(/\b(demisol|parter|supant[ăa]|mansard[ăa])\s+([0-9]+(?:[.,][0-9]+)?)\s*persoane?/gi, "$1: $2 persoane")
+    .replace(/\b(?:e\)|f\)|g\)|h\)|i\)|a\)|b\))\b[\s\S]*$/i, "")
+    .trim();
+  normalizedUsers.split(/\s*;\s*/).map((part) => part.trim()).filter(Boolean).forEach((part) => {
     const match = part.match(/^([^:]+):\s*(.+)$/);
     if (match) {
       items.push({ label: match[1], value: match[2] });
