@@ -4475,6 +4475,31 @@ function runExtraction(sources) {
     }
   });
 
+  const sanitizeExtractedField = (key, rawValue) => {
+    const value = String(rawValue || "").trim();
+    if (!value) return value;
+    if (key === "capacitati_depozitare") {
+      const tailOnly = value
+        .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim();
+      return tailOnly || value;
+    }
+    if (key === "numar_utilizatori") {
+      return value
+        .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim();
+    }
+    if (key === "caracteristici_dimensionale") {
+      return value.replace(/\bmp\b/gi, "m²").replace(/\bm2\b/gi, "m²").replace(/\bmc\b/gi, "m³").replace(/\bm3\b/gi, "m³");
+    }
+    return value;
+  };
+
+  Object.keys(aggregate).forEach((key) => {
+    aggregate[key] = sanitizeExtractedField(key, aggregate[key]);
+  });
+
   return aggregate;
 }
 
