@@ -172,6 +172,14 @@ const customExtractors = {
   },
   numar_utilizatori(lines, content) {
     const joined = lines.join(" ");
+    const usersSlice = (() => {
+      const src = joined;
+      const start = src.search(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori|utilizatori)\s*[:\-]?/i);
+      if (start < 0) return src;
+      const tail = src.slice(start);
+      const stop = tail.search(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b/i);
+      return stop > 0 ? tail.slice(0, stop) : tail;
+    })();
     const pickLineValue = (regex) => {
       const row = (lines || []).find((line) => regex.test(String(line || "")));
       if (!row) return "";
@@ -183,17 +191,17 @@ const customExtractors = {
 
     const total = pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*/i)
       || pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*/i)
-      || joined.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
-      || joined.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+      || usersSlice.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
+      || usersSlice.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
     const cleanTotal = String(total || "")
       .replace(/\b[a-z]\)\s*$/i, "")
       .replace(/(?:^|[\s:])(?:[a-z]\)|\d+\.[a-z])(?:\s|$)/ig, " ")
       .trim();
-    const demisol = joined.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const parter = joined.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const supantă = joined.match(/supant[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const mansardă = joined.match(/mansard[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const note = joined.match(/nota\s*:\s*([^\.]+\.)/i)?.[1]?.trim();
+    const demisol = usersSlice.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const parter = usersSlice.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const supantă = usersSlice.match(/supant[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const mansardă = usersSlice.match(/mansard[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const note = usersSlice.match(/nota\s*:\s*([^\.]+\.)/i)?.[1]?.trim();
     const parts = [];
     if (cleanTotal) parts.push(`total: ${cleanTotal}`);
     if (demisol) parts.push(`demisol: ${demisol}`);
