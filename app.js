@@ -1349,7 +1349,8 @@ function buildSemanticStructuredData(data, sources = []) {
       tags: semantic123?.destination?.tags || []
     },
     category: {
-      raw: semantic123?.category?.raw || String(data?.categoria_importanta || "").trim()
+      raw: semantic123?.category?.raw || String(data?.categoria_importanta || "").trim(),
+      classRaw: semantic123?.category?.classRaw || String(data?.clasa_importanta || "").trim()
     },
     dimensions: {
       regim: dimensions.regim || "",
