@@ -1,4 +1,7 @@
-﻿const annexFields = [
+﻿const SSI_BUILD_ID = "2026-05-26-real-output-v58-v85-1";
+window.__SSI_BUILD_ID = SSI_BUILD_ID;
+
+const annexFields = [
   { key: "denumire_obiectiv", label: "Denumire obiectiv", hint: "Anexa 4, pct. 1.1.A" },
   { key: "beneficiar", label: "Beneficiar", hint: "Anexa 4, pct. 1.1.A" },
   { key: "adresa", label: "Adresa", hint: "Anexa 4, pct. 1.1.A" },
