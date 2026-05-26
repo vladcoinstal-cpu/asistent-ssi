@@ -178,11 +178,16 @@ const customExtractors = {
       if (kind === "volume") return v.replace(/\bmc\b/i, "m³").replace(/\bm3\b/i, "m³");
       return v;
     };
+    const metricNumber = "[0-9]{1,3}(?:[. ][0-9]{3})*(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?";
+    const metricValue = (labelRegex, kind) => {
+      const match = joined.match(new RegExp(`${labelRegex}\\s*[:\\-]?\\s*(${metricNumber})\\s*(m(?:2|3|²|³)|mp|mc)`, "i"));
+      return match ? normalizeMetricUnit(`${match[1]} ${match[2]}`, kind) : "";
+    };
     const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei|num[aă]r(?:ul)?\s+maxim)\b|$)/i)?.[1]?.trim();
     const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim();
-    const volum = normalizeMetricUnit(joined.match(/volum(?:ul)?(?:\s+constructiei)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m3|m³|mc))/i)?.[1]?.trim(), "volume");
-    const ariaC = normalizeMetricUnit(joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim(), "area");
-    const ariaD = normalizeMetricUnit(joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*(?:m2|m²|mp))/i)?.[1]?.trim(), "area");
+    const volum = metricValue("volum(?:ul)?(?:\\s+constructiei)?", "volume");
+    const ariaC = metricValue("ari[ae]\\s+construit[ăa]", "area");
+    const ariaD = metricValue("ari[ae]\\s+desf[ăa][șs]urat[ăa]", "area");
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
@@ -266,10 +271,19 @@ const customExtractors = {
     return match ? cleanExtract(match[0]) : "";
   },
   capacitati_depozitare(lines, content) {
+    const explicitStorageBlock = String(content || "").match(
+      /(?:^|\n)\s*(?:f\)\s*)?(?:capacit[aă]ți?\s+de\s+depozitare|depozitare\s+si\s+materiale\s+combustibile)\s*[:\-]\s*([\s\S]*?)(?=\n\s*(?:surse\s+specifice|c[ăa]i\s+de\s+circula[țt]ie|instala[țt]ii\s+prev[ăa]zute|vecin[ăa]t[ăa][țt]i|materiale\s+si\s+alc[ăa]tuiri|$))/i
+    );
+    if (explicitStorageBlock?.[1]) {
+      const cleanedBlock = cleanExtract(explicitStorageBlock[1])
+        .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim();
+      if (cleanedBlock) return cleanedBlock;
+    }
     const storageSection = customExtractors._sliceBySection(
       content || lines.join(" "),
       /(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i,
-      /(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b/i
+      /(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)/i
     );
     const explicitLine = (() => {
       const row = (lines || []).find((line) => /(?:^|\s)(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")))
@@ -286,7 +300,7 @@ const customExtractors = {
     if (explicitMatches.length) {
       const raw = explicitMatches[explicitMatches.length - 1][1] || "";
       const sliced = String(raw)
-        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)[\s\S]*$/i, "")
         .trim();
       const cleanedExplicit = cleanExtract(sliced);
       if (cleanedExplicit) return cleanedExplicit;
@@ -297,7 +311,7 @@ const customExtractors = {
       return cleanExtract(String(row)
         .replace(/^(?:.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*)/i, "")
         .replace(/\bnum[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\b[\s\S]*$/i, "")
-        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)[\s\S]*$/i, "")
         .trim());
     })();
     if (lineValue) return lineValue;
@@ -305,7 +319,7 @@ const customExtractors = {
     const storageSlice = (() => {
       const start = joined.search(/(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i);
       const src = start >= 0 ? joined.slice(start) : joined;
-      const stop = src.search(/(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)\b/i);
+      const stop = src.search(/(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)/i);
       return stop > 0 ? src.slice(0, stop) : src;
     })();
     const sentences = customExtractors._splitSentences(storageSlice);
@@ -318,6 +332,19 @@ const customExtractors = {
     return withNegationFirst.map(cleanExtract).join(" ");
   },
   cai_evacuare_rezumat(lines, content) {
+    const section = customExtractors._sliceBySection(
+      content || lines.join(" "),
+      /(?:g\)\s*)?num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+(?:si|și|şi),\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]?/i,
+      /(?:^|[;,.]\s*|\s)(?:h\)|i\)|1\.4\.[hi]\b|2\.|3\.|4\.)/i
+    );
+    if (section) {
+      const cleanedSection = cleanExtract(section
+        .replace(/^\s*g\)\s*/i, "")
+        .replace(/^num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+(?:si|și|şi),\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]?\s*/i, "")
+        .replace(/\b(?:2\.|3\.|4\.)[\s\S]*$/i, "")
+        .trim());
+      if (cleanedSection) return cleanedSection;
+    }
     const joined = lines.join(" ");
     const sentences = customExtractors._splitSentences(joined);
     const filtered = sentences.filter((s) => {
@@ -1421,6 +1448,8 @@ function resetReportsFromTemplates() {
 
 
 function buildSemanticStructuredData(data, sources = []) {
+  const sourcePoint1 = extractPoint1SourceFields(sources);
+  const cleanNameValue = (value) => cleanObjectNameText(value);
   const sanitizePoint14 = (value, field) => {
     const v = String(value || "").replace(/\s+/g, " ").trim();
     if (!v) return "";
@@ -1436,15 +1465,25 @@ function buildSemanticStructuredData(data, sources = []) {
     if (field === "storage") {
       return v
         .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/^.*?(?=(?:nu\s+sunt\s+spa[țt]ii?\s+de\s+depozitare|[îi]n\s+depozit|depozitul\s+alimentar|materiale\s+depozitate))/i, "")
+        .replace(/\s+[a-i]\)\s*[\s\S]*$/i, "")
+        .replace(/\b1\.4\.[ghi]\b[\s\S]*$/i, "")
+        .replace(/\bbuc[ăa]t[ăa]rie[\s\S]*?(?=(?:depozitul\s+alimentar|materiale\s+depozitate|[îi]n\s+depozit))/i, "")
         .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
         .replace(/\s+[a-i]\)\s*$/i, "")
         .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|a\)|b\)|c\)|d\)|e\)|f\)|g\)|h\)|i\))\b[\s\S]*$/i, "")
         .replace(/\s*[;,.]?\s*[a-i]\)\s*$/i, "")
+        .replace(/\bmp\b/gi, "m²")
+        .replace(/\bm2\b/gi, "m²")
+        .replace(/\bmc\b/gi, "m³")
+        .replace(/\bm3\b/gi, "m³")
         .trim();
     }
     if (field === "evacuation") {
       return v
-        .replace(/^(?:g\)\s*)?(?:num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+si,\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]\s*)/i, "")
+        .replace(/^\s*g\)\s*/i, "")
+        .replace(/^num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+(?:si|și|şi),\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]\s*/i, "")
+        .replace(/^c[ăa]i(?:le|lor)?\s+de\s+evacuare\s*(?:și|si|şi)?\s*(?:refugii)?\s*[:\-]\s*/i, "")
         .replace(/\b(?:3\.[0-9]|4\.[A-Z])\b[\s\S]*$/i, "")
         .trim();
     }
@@ -1474,12 +1513,12 @@ function buildSemanticStructuredData(data, sources = []) {
   ].filter(Boolean).join("; ");
   return {
     identification: {
-      denumireObiectiv: semantic123?.identification?.denumireObiectiv || String(data?.denumire_obiectiv || "").trim(),
-      beneficiar: semantic123?.identification?.beneficiar || String(data?.beneficiar || "").trim(),
-      adresa: semantic123?.identification?.adresa || String(data?.adresa || "").trim()
+      denumireObiectiv: sourcePoint1.denumire_obiectiv || cleanNameValue(semantic123?.identification?.denumireObiectiv || String(data?.denumire_obiectiv || "").trim()),
+      beneficiar: sourcePoint1.beneficiar || cleanBeneficiaryText(semantic123?.identification?.beneficiar || String(data?.beneficiar || "").trim()),
+      adresa: sourcePoint1.adresa || cleanAddressText(semantic123?.identification?.adresa || String(data?.adresa || "").trim())
     },
     destination: {
-      raw: semantic123?.destination?.raw || String(data?.["funcțiuni"] || "").trim(),
+      raw: sourcePoint1.functiuni || semantic123?.destination?.raw || String(data?.["funcțiuni"] || "").trim(),
       tags: semantic123?.destination?.tags || []
     },
     category: {
@@ -1500,7 +1539,7 @@ function buildSemanticStructuredData(data, sources = []) {
       autoevacuare: String(data?.autoevacuare || semantic14.users?.raw || data?.numar_utilizatori || "").trim()
     },
     storage: {
-      raw: sanitizePoint14(semantic14.storage?.raw || data?.capacitati_depozitare || "", "storage")
+      raw: sanitizePoint14(data?.capacitati_depozitare || semantic14.storage?.raw || "", "storage")
     },
     evacuation: {
       raw: sanitizePoint14(data?.cai_evacuare_rezumat || "", "evacuation")
@@ -1513,6 +1552,7 @@ function buildSemanticStructuredData(data, sources = []) {
 
 function buildPoint1ReportsFromTemplates() {
   const semantic = buildSemanticStructuredData(state.data, state.sources);
+  const sourcePoint1 = extractPoint1SourceFields(state.sources);
   const classFromText = (String(semantic.category?.classRaw || semantic.category?.raw || state.data.clasa_importanta || state.data.categoria_importanta || '')
     .match(/clas[ăa]\s*([ivx]+(?:-a)?)/i) || [,''])[1];
   const classValue = classFromText ? `clasa ${classFromText.toUpperCase()}` : (semantic.category?.classRaw || "");
@@ -1522,9 +1562,24 @@ function buildPoint1ReportsFromTemplates() {
   const ariaConstruita = semantic.dimensions.ariaConstruita;
   const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
   const semanticFunctions = (semantic.destination?.tags || []).join(", ");
-  const functiuni = semanticFunctions || semantic.destination?.raw || String(state.data["funcțiuni"] || "").trim();
+  const functiuni = semantic.destination?.raw || String(state.data["funcțiuni"] || "").trim() || semanticFunctions;
   const functionParts = splitFunctionsText(functiuni);
-  const contactParts = splitContactDetails(state.data.contact_beneficiar || "");
+  const functionSummary = [
+    functionParts.principal && functionParts.principal !== "De completat." ? `F. principale: ${functionParts.principal}` : "",
+    functionParts.secundare && functionParts.secundare !== "De completat." ? `F. secundare: ${functionParts.secundare}` : "",
+    functionParts.conexe && functionParts.conexe !== "De completat." ? `F. conexe: ${functionParts.conexe}` : ""
+  ].filter(Boolean).join("; ");
+  const contactParts = splitContactDetails(sourcePoint1.contact_beneficiar || state.data.contact_beneficiar || "");
+  const telefonValue = sourcePoint1.telefon || cleanContactValue(state.data.telefon || contactParts.telefon || "");
+  const faxValue = sourcePoint1.fax || cleanContactValue(state.data.fax || contactParts.fax || "");
+  const emailValue = sourcePoint1.email || cleanContactValue(state.data.email || contactParts.email || "");
+  const contactSummary = [
+    telefonValue ? `telefon: ${telefonValue}` : "",
+    faxValue ? `fax: ${faxValue}` : "",
+    emailValue ? `e-mail: ${emailValue}` : ""
+  ].filter(Boolean).join("; ");
+  const profileValue = sourcePoint1.profil_activitate || cleanShortFieldValue(state.data.profil_activitate || "");
+  const programValue = sourcePoint1.program_lucru || cleanShortFieldValue(state.data.program_lucru || "");
 
   const valueByLabel = {
     "denumirea obiectivului": semantic.identification?.denumireObiectiv || "",
@@ -1533,16 +1588,16 @@ function buildPoint1ReportsFromTemplates() {
     "proprietar/beneficiar": semantic.identification?.beneficiar || "",
     "adresa": semantic.identification?.adresa || "",
     "adresă": semantic.identification?.adresa || "",
-    "date de contact": state.data.contact_beneficiar || "",
-    "nr. de telefon": state.data.telefon || contactParts.telefon || state.data.contact_beneficiar || "",
-    "fax": state.data.fax || contactParts.fax || state.data.contact_beneficiar || "",
-    "e-mail etc.": state.data.email || contactParts.email || state.data.contact_beneficiar || "",
-    "profilul de activitate": state.data.profil_activitate || "",
-    "programul de lucru": state.data.program_lucru || state.data.profil_activitate || "",
+    "date de contact": contactSummary || sourcePoint1.contact_beneficiar || "",
+    "nr. de telefon": telefonValue || "",
+    "fax": faxValue || "",
+    "e-mail etc.": emailValue || "",
+    "profilul de activitate": profileValue || "",
+    "programul de lucru": programValue || "",
     "functiuni principale": functionParts.principal || functiuni || "",
     "functiuni secundare": functionParts.secundare || functiuni || "",
     "functiuni conexe": functionParts.conexe || functiuni || "",
-    "funcțiuni principale, secundare și conexe ale construcției/amenajării": functiuni || "",
+    "funcțiuni principale, secundare și conexe ale construcției/amenajării": functionSummary || functiuni || "",
     "categoria de importanta": semantic.category?.raw || "",
     "categoria de importanță": semantic.category?.raw || "",
     "clasa de importanta": classValue,
@@ -1561,8 +1616,8 @@ function buildPoint1ReportsFromTemplates() {
     "regimul de inaltime si volumul constructiei": [regimInaltime, inaltimeMaxima && `inaltime maxima: ${inaltimeMaxima}`, volumConstructie].filter(Boolean).join("; ") || "De completat",
     "aria construită și desfășurată": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
     "aria construita si desfasurata": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
-    "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
-    "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
+    "principalele destinații ale încăperilor și spațiilor aferente construcției": functionSummary || functiuni || "De completat",
+    "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": /func[țt]iuni\s+mixte|mixt/i.test(functiuni) ? (functionSummary || functiuni) : "Nu este cazul",
     "volum": volumConstructie || "De completat",
     "precizari referitoare la numarul maxim de utilizatori": semantic.users.raw || "",
     "numărul maxim de utilizatori": semantic.users.raw || "",
@@ -3723,7 +3778,7 @@ function syncProfileFromDataHints() {
   const iluminat = state.data.iluminat_siguranta.toLowerCase();
   const trasnet = state.data.trsnet.toLowerCase();
   const numar = extractFirstNumber(state.data.numar_utilizatori);
-  const adresă = state.data.adresa.toLowerCase();
+  const adresă = String(state.data.adresa || "").toLowerCase();
 
   if (!state.projectProfile.buildingClass) {
     if (tipCladire.includes("mixt")) state.projectProfile.buildingClass = "mixta";
@@ -3746,7 +3801,7 @@ function syncProfileFromDataHints() {
   if (funcțiuni.includes("administr")) destinations.add("administrativa");
   state.projectProfile.destinations = Array.from(destinations);
 
-  if (adresa.includes("demisol") || state.data.caracteristici_dimensionale.toLowerCase().includes("demisol")) {
+  if (adresă.includes("demisol") || String(state.data.caracteristici_dimensionale || "").toLowerCase().includes("demisol")) {
     state.projectProfile.hasBasement = true;
   }
 
@@ -4525,11 +4580,22 @@ function runExtraction(sources) {
   });
 
   const sanitizeExtractedField = (key, rawValue) => {
-    const value = String(rawValue || "").trim();
+    const value = String(rawValue || "")
+      .replace(/\s*\[sursa:[^\]]+\][\s\S]*$/i, "")
+      .trim();
     if (!value) return value;
+    if (key === "tip_parcaj") {
+      return value
+        .replace(/\b(?:regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime|inaltimea?\s+maxima|ari[ae]\s+construit[ăa]|ari[ae]\s+desf[ăa][șs]urat[ăa]|volum(?:ul)?\s+constructiei|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori)\b[\s\S]*$/i, "")
+        .replace(/\s*c\)\s*caracteristici[\s\S]*$/i, "")
+        .replace(/\s*d\)\s*preciz[ăa]ri[\s\S]*$/i, "")
+        .trim();
+    }
     if (key === "capacitati_depozitare") {
       const tailOnly = value
         .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/^.*?(?=(?:nu\s+sunt\s+spa[țt]ii?\s+de\s+depozitare|[îi]n\s+depozit|depozitul\s+alimentar|materiale\s+depozitate))/i, "")
+        .replace(/\bbuc[ăa]t[ăa]rie[\s\S]*?(?=(?:depozitul\s+alimentar|materiale\s+depozitate|[îi]n\s+depozit))/i, "")
         .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
         .trim();
       return tailOnly || value;
@@ -4564,6 +4630,18 @@ function runFallbackExtraction(sources) {
   };
 
   const firstMatch = (regex) => combined.match(regex)?.[1]?.trim() || "";
+  const normalizeMeasurement = (value, kind) => {
+    const cleaned = String(value || "").replace(/\s+/g, " ").trim();
+    if (!cleaned) return "";
+    if (kind === "area") return cleaned.replace(/\bmp\b/i, "m²").replace(/\bm2\b/i, "m²");
+    if (kind === "volume") return cleaned.replace(/\bmc\b/i, "m³").replace(/\bm3\b/i, "m³");
+    return cleaned;
+  };
+  const metricMatch = (regex, kind) => {
+    const match = combined.match(regex);
+    if (!match) return "";
+    return normalizeMeasurement(`${match[1]} ${match[2]}`, kind);
+  };
 
   if (normalized.includes("cult") || normalized.includes("biseric") || normalized.includes("naos")) {
     pick("funcțiuni", "cult");
@@ -4587,9 +4665,10 @@ function runFallbackExtraction(sources) {
   pick("clasa_importanta", clasa);
 
   const regim = firstMatch(/(?:D\+P\+Sp\+M|D\+P\+M|P\+M|D\+P|demisol\s*\+\s*parter[^\n.;]*)/i);
-  const ariaConstruita = firstMatch(/aria\s+construita\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const ariaDesfasurata = firstMatch(/aria\s+desfasurata\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const volum = firstMatch(/volum(?:ul)?(?:\s+constructiei)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:3|³))/i);
+  const metricNumber = "([0-9]{1,3}(?:[. ][0-9]{3})*(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?)";
+  const ariaConstruita = metricMatch(new RegExp(`ari[ae]\\s+construit[ăa]\\s*[:\\-]?\\s*${metricNumber}\\s*(m(?:2|²)|mp)`, "i"), "area");
+  const ariaDesfasurata = metricMatch(new RegExp(`ari[ae]\\s+desf[ăa][șs]urat[ăa]\\s*[:\\-]?\\s*${metricNumber}\\s*(m(?:2|²)|mp)`, "i"), "area");
+  const volum = metricMatch(new RegExp(`volum(?:ul)?(?:\\s+constructiei)?\\s*[:\\-]?\\s*${metricNumber}\\s*(m(?:3|³)|mc)`, "i"), "volume");
   const inaltime = firstMatch(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i);
   const dimensions = [regim, inaltime && `înălțime maximă ${inaltime}`, volum && `volum ${volum}`, ariaConstruita && `aria construită ${ariaConstruita}`, ariaDesfasurata && `aria desfășurată ${ariaDesfasurata}`].filter(Boolean).join("; ");
   pick("caracteristici_dimensionale", dimensions);
@@ -5714,23 +5793,158 @@ function splitContactDetails(value) {
   const text = String(value || "").trim();
   const out = { telefon: "", fax: "", email: "" };
   if (!text) return out;
-  const t = text.match(/(?:tel\.?|telefon)\s*[:\-]?\s*([^,;\n]+)/i);
-  const f = text.match(/fax\s*[:\-]?\s*([^,;\n]+)/i);
-  const e = text.match(/(?:e-?mail|email)\s*[:\-]?\s*([^,;\n]+)/i);
-  out.telefon = t ? t[1].trim() : "";
-  out.fax = f ? f[1].trim() : "";
-  out.email = e ? e[1].trim() : "";
+  const t = text.match(/(?:nr\.?\s+de\s+telefon|tel\.?|telefon)\s*[:\-]?\s*([^.;,\n]+)/i);
+  const f = text.match(/fax\s*[:\-]?\s*([^.;,\n]+)/i);
+  const e = text.match(/(?:e-?mail|email)(?:\s+etc\.)?\s*[:\-]?\s*([^.;,\n]+)/i);
+  out.telefon = t ? cleanContactValue(t[1]) : "";
+  out.fax = f ? cleanContactValue(f[1]) : "";
+  out.email = e ? cleanContactValue(e[1]) : "";
   return out;
 }
 
 function splitFunctionsText(value) {
   const raw = String(value || '').trim();
   if (!raw) return { principal: 'De completat.', secundare: 'De completat.', conexe: 'De completat.' };
+  const pick = (label) => {
+    const match = raw.match(new RegExp(`func[țt]iuni\\s+${label}\\s*[:\\-]\\s*([\\s\\S]*?)(?=\\s*func[țt]iuni\\s+(?:principale|secundare|conexe)\\s*[:\\-]|\\s*1\\.3\\b|$)`, "i"));
+    return match ? cleanFunctionPart(match[1]) : "";
+  };
+  const principal = pick("principale");
+  const secundare = pick("secundare");
+  const conexe = pick("conexe");
+  if (principal || secundare || conexe) {
+    return {
+      principal: principal || 'De completat.',
+      secundare: secundare || 'De completat.',
+      conexe: conexe || 'De completat.'
+    };
+  }
   const bits = raw.split(/;|\n|\./).map((x) => x.trim()).filter(Boolean);
   return {
     principal: bits[0] || raw,
-    secundare: bits[1] || bits[0] || raw,
-    conexe: bits.slice(2).join('; ') || bits[1] || bits[0] || raw
+    secundare: bits[1] || 'De completat.',
+    conexe: bits.slice(2).join('; ') || 'De completat.'
+  };
+}
+
+function extractSourceLabeledValue(sources = [], startPattern, stopPattern, maxLength = 600) {
+  const text = getJoinedSourcesText(sources);
+  const startMatch = text.match(startPattern);
+  if (!startMatch || typeof startMatch.index !== "number") return "";
+  const tail = text.slice(startMatch.index + startMatch[0].length);
+  const stopMatch = tail.match(stopPattern);
+  const raw = stopMatch && typeof stopMatch.index === "number"
+    ? tail.slice(0, stopMatch.index)
+    : tail.slice(0, maxLength);
+  return sanitizeDisplayText(raw);
+}
+
+function cleanShortFieldValue(value) {
+  return sanitizeDisplayText(value)
+    .replace(/\s+(?:[a-i]\)|[A-Z]\.|1\.[2-9]|2\.|3\.|4\.)\s[\s\S]*$/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanObjectNameText(value) {
+  return cleanShortFieldValue(value)
+    .replace(/\s+\b(?:b\)\s*)?(?:proprietar\/beneficiar|beneficiar|proprietar|investitor|adres[ăa])\b[\s\S]*$/i, "")
+    .replace(/\s*,\s*$/g, "")
+    .trim();
+}
+
+function cleanContactValue(value) {
+  const text = cleanShortFieldValue(value)
+    .replace(/\s+\b(?:fax|e-?mail|profilul\s+de\s+activitate|programul\s+de\s+lucru)\b[\s\S]*$/i, "")
+    .trim();
+  if (/nu\s+sunt\s+detalii/i.test(text)) return "nu sunt detalii";
+  return text;
+}
+
+function cleanFunctionPart(value) {
+  return sanitizeDisplayText(value)
+    .replace(/\s+(?:1\.3|categoria\s+de\s+importan[țt][ăa]|clas[ăa]\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "")
+    .replace(/\s*[.;]\s*$/g, "")
+    .trim();
+}
+
+function extractPoint1SourceFields(sources = []) {
+  const denumire = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)a\)\s*denumire\s*[:\-]\s*/i,
+    /\s+b\)\s*proprietar\/beneficiar\b|\s+c\)\s*adres[ăa]\b|\s+B\.\s*Datele\s+de\s+contact\b|\s+1\.2\b/i
+  );
+  const beneficiar = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)b\)\s*proprietar\/beneficiar\s*[:\-]\s*/i,
+    /\s+c\)\s*adres[ăa]\b|\s+B\.\s*Datele\s+de\s+contact\b|\s+1\.2\b/i
+  );
+  const adresa = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)c\)\s*adres[ăa]\s*[:\-]\s*/i,
+    /\s+B\.\s*Datele\s+de\s+contact\b|\s+a\)\s*nr\.?\s+de\s+telefon\b|\s+1\.2\b/i
+  );
+  const telefon = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)a\)\s*nr\.?\s+de\s+telefon\s*[:\-]\s*/i,
+    /\s+b\)\s*fax\b|\s+c\)\s*e-?mail\b|\s+C\.\s*Profilul\b|\s+1\.2\b/i
+  );
+  const fax = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)b\)\s*fax\s*[:\-]\s*/i,
+    /\s+c\)\s*e-?mail\b|\s+C\.\s*Profilul\b|\s+1\.2\b/i
+  );
+  const email = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)c\)\s*e-?mail\s*[:\-]\s*/i,
+    /\s+C\.\s*Profilul\b|\s+1\.2\b/i
+  );
+  const profil = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)a\)\s*profil\s+de\s+activitate\s*[:\-]\s*/i,
+    /\s+b\)\s*program\s+de\s+lucru\b|\s+1\.2\b/i
+  );
+  const program = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)b\)\s*program\s+de\s+lucru\s*[:\-]\s*/i,
+    /\s+1\.2\b|\s+Func[țt]iuni\s+principale\b/i
+  );
+  const principal = extractSourceLabeledValue(
+    sources,
+    /Func[țt]iuni\s+principale\s*[:\-]\s*/i,
+    /\s+Func[țt]iuni\s+secundare\s*[:\-]|\s+Func[țt]iuni\s+conexe\s*[:\-]|\s+1\.3\b/i
+  );
+  const secundare = extractSourceLabeledValue(
+    sources,
+    /Func[țt]iuni\s+secundare\s*[:\-]\s*/i,
+    /\s+Func[țt]iuni\s+conexe\s*[:\-]|\s+1\.3\b/i
+  );
+  const conexe = extractSourceLabeledValue(
+    sources,
+    /Func[țt]iuni\s+conexe\s*[:\-]\s*/i,
+    /\s+1\.3\b|\s+Categoria\s+și\s+clas[ăa]\s+de\s+importan[țt][ăa]\b/i
+  );
+  const functionLines = [
+    principal ? `Funcțiuni principale: ${cleanFunctionPart(principal)}` : "",
+    secundare ? `Funcțiuni secundare: ${cleanFunctionPart(secundare)}` : "",
+    conexe ? `Funcțiuni conexe: ${cleanFunctionPart(conexe)}` : ""
+  ].filter(Boolean);
+  const contactLines = [
+    telefon ? `telefon: ${cleanContactValue(telefon)}` : "",
+    fax ? `fax: ${cleanContactValue(fax)}` : "",
+    email ? `e-mail: ${cleanContactValue(email)}` : ""
+  ].filter(Boolean);
+  return {
+    denumire_obiectiv: cleanObjectNameText(denumire),
+    beneficiar: cleanBeneficiaryText(beneficiar),
+    adresa: cleanAddressText(adresa),
+    telefon: cleanContactValue(telefon),
+    fax: cleanContactValue(fax),
+    email: cleanContactValue(email),
+    contact_beneficiar: contactLines.join("; "),
+    profil_activitate: cleanShortFieldValue(profil),
+    program_lucru: cleanShortFieldValue(program),
+    functiuni: functionLines.join("; ")
   };
 }
 function buildNormalSpecialCharacteristicsBlock(data) {
@@ -6299,7 +6513,9 @@ function cleanBeneficiaryText(value) {
 function cleanAddressText(value) {
   let text = sanitizeDisplayText(value);
   text = text.replace(/^(?:adresa|adresa obiectivului)\s*[:\-]\s*/i, "");
-  text = text.replace(/\b(?:date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "");
+  text = text.replace(/\b(?:B\.\s*)?(?:datele?|date)\s+de\s+contact(?:\s+ale?\s+beneficiarului|\s+beneficiar)?\b[\s\S]*$/i, "");
+  text = text.replace(/\b(?:a\)\s*)?nr\.?\s+de\s+telefon\b[\s\S]*$/i, "");
+  text = text.replace(/\b(?:telefon(?:\s+beneficiar)?|tel\.?|e-?mail(?:\s+beneficiar)?|fax|destina[țt]ia\s+construc[țt]iei|date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "");
   text = text.replace(/\s*,\s*/g, ", ");
   text = text.replace(/\s{2,}/g, " ").trim();
   return text.trim();
@@ -6573,7 +6789,7 @@ function formatStructuredDetailValue(value, mode = "word") {
     .trim();
   const parts = cleaned.split(/\s*;\s*/).map((item) => item.trim()).filter(Boolean);
   if (parts.length <= 1) {
-    return escapeHtml(text);
+    return escapeHtml(cleaned);
   }
   if (mode === "word") {
     return parts.map((part) => {
@@ -6599,12 +6815,14 @@ function previewValue(value, fallback = "") {
 
 function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile, complianceChecks = []) {
   const val = (key, fallback = "") => previewValue(data[key], fallback);
-  const contact = val("contact_beneficiar", "Nu sunt detalii.");
-  const emailOnly = val("email", contact);
-  const functions = val("funcțiuni");
+  const sourcePoint1 = extractPoint1SourceFields(sources);
+  const contact = sourcePoint1.contact_beneficiar || val("contact_beneficiar", "Nu sunt detalii.");
+  const emailOnly = sourcePoint1.email || val("email", contact);
+  const functions = sourcePoint1.functiuni || val("funcțiuni");
+  const buildingType = val("tip_cladire", "De completat.");
   const functionParts = splitFunctionsText(functions);
-  const beneficiar = cleanBeneficiaryText(val("beneficiar", "Parohia Ortodoxă Română „Învierea Domnului”"));
-  const adresa = deriveAddress(data, sources);
+  const beneficiar = cleanBeneficiaryText(sourcePoint1.beneficiar || val("beneficiar", "Parohia Ortodoxă Română „Învierea Domnului”"));
+  const adresa = sourcePoint1.adresa || deriveAddress(data, sources);
   const dim = deriveDimensionParts(data, sources);
   const roomInventoryHtml = preliminaryInventoryMarkdownToHtml(buildPreliminarySpaceInventoryTable(data));
   const storage = val("capacitati_depozitare");
