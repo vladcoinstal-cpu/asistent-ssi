@@ -63,9 +63,11 @@
       raw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;\n]+)/i)?.[1] ||
       raw.match(/\b((?:D|S|P|M|Sp|[0-9]+\s*E)(?:\s*\+\s*(?:D|S|P|M|Sp|[0-9]+\s*E))+)/i)?.[1] || '';
 
+    const labeledHeight = raw.match(/(?:[îi]n[ăa]l(?:ț|t)ime(?:a)?(?:\s+maxim[ăa])?(?:\s+a\s+cl[ăa]dirii)?[^:;]*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim() || '';
+    const looseHeight = !labeledHeight ? (raw.match(/\b([0-9]+(?:[.,][0-9]+)?\s*m)\b(?!\s*[²³23])/i)?.[1] || '') : '';
     return {
       regim: normalizeRegime(regimRaw),
-      inaltime: raw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim() || '',
+      inaltime: labeledHeight || looseHeight,
       volum: extractMeasurement(raw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, '(?:m(?:3|³)|mc)'),
       ariaConstruita: extractMeasurement(raw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, '(?:m(?:2|²)|mp)'),
       ariaDesfasurata: extractMeasurement(raw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, '(?:m(?:2|²)|mp)')
@@ -89,7 +91,14 @@
 
   function buildSemantic14Model({ data = {}, sources = [] }) {
     const dimensions = deriveDimensionParts(data, sources);
-    const combinedText = `${String(data['funcțiuni'] || data.functiuni || '')}\n${normalizeSourceText(sources)}`.toLowerCase();
+    const sourceText = normalizeSourceText(sources);
+    const explicitFunctions = String(data['funcțiuni'] || data.functiuni || '');
+    const explicitBuildingType = String(data.tip_cladire || '');
+    const sourceFunctionsLine = sourceText.match(/func[țt]iuni\s+principale(?:,\s*secundare\s+si\s+conexe)?\s*[:\-]\s*([^\n.]{2,180})/i)?.[1] || '';
+    const sourceBuildingLine = sourceText.match(/tipul?\s+cl[ăa]dirii\s*[:\-]\s*([^\n.]{2,220})/i)?.[1] || '';
+    const sourceAgglomeratedLine = sourceText.match(/sal[ăa]\s+aglomerat[ăa][^\n.]*/i)?.[0] || '';
+    const sourceIntro = sourceText.slice(0, 1800);
+    const combinedText = `${explicitFunctions}\n${explicitBuildingType}\n${sourceFunctionsLine}\n${sourceBuildingLine}\n${sourceAgglomeratedLine}\n${sourceIntro}`.toLowerCase();
     const functionTags = [];
     const push = (tag, re) => { if (re.test(combinedText)) functionTags.push(tag); };
     push('sală aglomerată', /sala|sală|aglomerat/);
@@ -115,15 +124,17 @@
     const storageRawInput = `${String(data.capacitati_depozitare || '')}\n${normalizeSourceText(sources)}`;
     const storageModel = deriveStorageModel(storageRawInput);
 
+    const cleanUsers = String(data.numar_utilizatori || '').replace(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b[\s\S]*$/i, '').replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, '').trim();
     return {
       dimensions: {
         regim: dimensions.regim || '',
+        inaltime: dimensions.inaltime || '',
         inaltimeMaxima: dimensions.inaltime || '',
         ariaConstruita: dimensions.ariaConstruita || '',
         ariaDesfasurata: dimensions.ariaDesfasurata || '',
         volum: dimensions.volum || ''
       },
-      users: { raw: String(data.numar_utilizatori || '').trim() },
+      users: { raw: cleanUsers },
       storage: { raw: storageModel.raw || '', status: storageModel.status }
       ,
       functions: { tags: [...new Set(functionTags)] }
@@ -184,7 +195,8 @@
         tags: functionTags
       },
       category: {
-        raw: normalize(data.categoria_importanta) || first(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i)
+        raw: normalize(data.categoria_importanta) || first(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i),
+        classRaw: normalize(data.clasa_importanta) || first(/clas[ăa]\s+de\s+importan(?:ț|t)ă\s*[:\-]\s*([^\n.]{2,120})/i)
       }
     };
   }

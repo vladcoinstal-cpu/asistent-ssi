@@ -1,4 +1,7 @@
-﻿const annexFields = [
+﻿const SSI_BUILD_ID = "2026-05-27-installation-obligation-rules-1";
+window.__SSI_BUILD_ID = SSI_BUILD_ID;
+
+const annexFields = [
   { key: "denumire_obiectiv", label: "Denumire obiectiv", hint: "Anexa 4, pct. 1.1.A" },
   { key: "beneficiar", label: "Beneficiar", hint: "Anexa 4, pct. 1.1.A" },
   { key: "adresa", label: "Adresa", hint: "Anexa 4, pct. 1.1.A" },
@@ -10,6 +13,7 @@
   { key: "program_lucru", label: "Program de lucru", hint: "Anexa 4, pct. 1.1.C" },
   { key: "funcțiuni", label: "Functiuni principale / secundare / conexe", hint: "Anexa 4, pct. 1.2" },
   { key: "categoria_importanta", label: "Categoria de importanta", hint: "Anexa 4, pct. 1.3" },
+  { key: "clasa_importanta", label: "Clasa de importanta", hint: "Anexa 4, pct. 1.3" },
   { key: "tip_cladire", label: "Tip cladire", hint: "Anexa 4, pct. 1.4.a" },
   { key: "tip_parcaj", label: "Tip parcaj / numar autovehicule", hint: "Anexa 4, pct. 1.4.b" },
   { key: "caracteristici_dimensionale", label: "Arii / volume / regim de inaltime", hint: "Anexa 4, pct. 1.4.c" },
@@ -51,6 +55,7 @@ const patterns = {
   program_lucru: [/(?:programul\s+de\s+lucru|orarul\s+de\s+funcționare|orarul\s+de\s+functionare)\s*[:\-]\s*(.+)/i],
   funcțiuni: [/(?:destinatia|funcțiuni(?:\s+principale|\s+secundare|\s+conexe)?)\s*[:\-]\s*(.+)/i],
   categoria_importanta: [/(?:categoria\s+de\s+importanta)\s*[:\-]\s*(.+)/i],
+  clasa_importanta: [/(?:clas[ăa]\s+de\s+importanta|clas[ăa]\s+de\s+importanță)\s*[:\-]\s*(.+)/i],
   tip_cladire: [/(?:tipul\s+cladirii|cladire\s+(?:civilă|de\s+productie|depozitare|mixta))\s*[:\-]?\s*(.+)/i],
   tip_parcaj: [/(?:tipul\s+parcajului|parcaj)\s*[:\-]\s*(.+)/i],
   caracteristici_dimensionale: [/(?:regimul\s+de\s+inaltime|aria\s+construită|aria\s+desfășurată|volumul)\s*[:\-]\s*(.+)/i],
@@ -81,21 +86,52 @@ const patterns = {
 };
 
 const customExtractors = {
+  _sliceBySection(content, startPattern, stopPattern) {
+    const src = String(content || "");
+    const start = src.search(startPattern);
+    if (start < 0) return "";
+    const tail = src.slice(start);
+    const stop = tail.search(stopPattern);
+    return (stop > 0 ? tail.slice(0, stop) : tail).replace(/\s+/g, " ").trim();
+  },
+  _splitSentences(text) {
+    return String(text || "")
+      .replace(/\r/g, "\n")
+      .split(/(?:\n+|(?<=[.!?;])\s+)/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+  },
+  _hasEvacContext(sentence) {
+    const s = String(sentence || "").toLowerCase();
+    return /(evacuar|cale|ie[sș]ir|refug|flux|u[sș]i\s+de\s+evacuare|scar[ăa]\s+(?:de\s+evacuare|inchis[ăa]))/.test(s);
+  },
+  _hasStorageContext(sentence) {
+    const s = String(sentence || "").toLowerCase();
+    return /(depozit|depozitare|spa[țt]ii?\s+de\s+depozitare|stocar|magaz)/.test(s);
+  },
+  _hasProcessContext(sentence) {
+    const s = String(sentence || "").toLowerCase();
+    return /(proces|substan[țt]|clp|tehnologic|periculoas)/.test(s);
+  },
   beneficiar(lines, content) {
     const joined = lines.join(" ");
-    const match = joined.match(/(Parohia[^.\n]{3,200})/i)
-      || joined.match(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^.\n]{3,200})/i);
+    const match = joined.match(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^.\n;]{3,200})/i)
+      || joined.match(/(Parohia[^.\n]{3,200})/i);
     return match ? cleanBeneficiaryText(match[1] || match[0]) : "";
   },
     adresa(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)
+      const stopAtNextLabel = (value) => String(value || "")
+        .replace(/\s+(?:proiectant|num[aă]r\s+proiect|faza\s+proiect|data\s+elaborare|elaborat\s+de|descrierea\s+construc[țt]iei|2\.\s*descrierea|adresa|adres[ăa]|func[țt]iuni|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\s*:.*/i, "")
+        .trim();
+      const match = joined.match(/(?:adresa|adres[ăa]\s+obiectivului)\s*[:\-]\s*([\s\S]{8,320}?)(?=\s+(?:proiectant|num[aă]r\s+proiect|faza\s+proiect|data\s+elaborare|elaborat\s+de|2\.\s*descrierea|descrierea\s+construc[țt]iei|func[țt]iuni|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b|$)/i)
+        || joined.match(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[\s\S]{6,240}?(?:jude[țt]ul\s+[^.;,\n]+|Cluj-Napoca|Bucure[șs]ti|Bra[șs]ov|Constan[țt]a|Timi[șs]oara|Ia[șs]i))/i)
         || joined.match(/((?:municipiul|orașul|orasul)\s+[^\n,]+,\s*str\.?\s*[^\n]{6,220})/i);
-      return match ? cleanAddressText(match[1]) : "";
+      return match ? cleanAddressText(stopAtNextLabel(match[1])) : "";
     },
     categoria_importanta(lines, content) {
       const joined = lines.join(" ");
-      const match = joined.match(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n]{3,180})/i)
+      const match = joined.match(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([\s\S]{3,220}?)(?=\bclasa\s+de\s+importan(?:ț|t)ă\b|$)/i)
         || joined.match(/categoria\s+([A-D])\s*\(([^)]+)\)/i);
       if (!match) return "";
       if (match[1] && match[2]) {
@@ -103,22 +139,77 @@ const customExtractors = {
       }
       return cleanExtract(match[1] || match[0]);
     },
+    clasa_importanta(lines, content) {
+      const joined = lines.join(" ");
+      const canonical = joined.match(/clasa\s+de\s+importan(?:ț|t)ă[\s:,-]*clasa?\s*([IVX]+(?:-a)?)/i)
+        || joined.match(/clasa\s+de\s+importan(?:ț|t)ă[\s:,-]*([IVX]+(?:-a)?)/i)
+        || joined.match(/\bclasa\s+([IVX]+(?:-a)?)\b/i);
+      if (canonical) return `clasa ${String(canonical[1]).toUpperCase()}`;
+      return "";
+    },
   funcțiuni(lines, content) {
-    const source = content.toLowerCase();
-    const found = [];
-    if (source.includes("cult")) found.push("cult");
-    if (source.includes("locuint")) found.push("locuință");
-    if (source.includes("birou")) found.push("birouri");
-    if (source.includes("utilit")) found.push("utilități");
-    return found.length ? Array.from(new Set(found)).join(", ") : "";
+    const joined = lines.join(" ");
+    const explicit = joined.match(/func[țt]iuni\s+principale,\s*secundare\s+si\s+conexe\s*:\s*([^.\n]{2,180})/i)
+      || joined.match(/func[țt]iuni\s+principale\s*:\s*([^.\n]{2,180})/i)
+      || joined.match(/destina[țt]ia\s*(?:construc[țt]iei)?\s*[:\-]?\s*([^.\n]{2,180})/i);
+    if (!explicit) {
+      const normalized = normalizeSearchText(joined);
+      if (normalized.includes("centru comercial") || normalized.includes("comert")) {
+        return [
+          "Funcțiuni principale: comerț și servicii",
+          normalized.includes("parcaj") ? "Funcțiuni secundare: parcaj" : ""
+        ].filter(Boolean).join("; ");
+      }
+      return "";
+    }
+    const cleaned = cleanExtract(explicit[1] || '').toLowerCase();
+    const tags = [];
+    if (/cult/.test(cleaned)) tags.push('cult');
+    if (/comer|servicii/.test(cleaned)) tags.push('comerț și servicii');
+    if (/parcaj|parcare/.test(cleaned)) tags.push('parcaj');
+    if (/locuint/.test(cleaned)) tags.push('locuință');
+    if (/birou/.test(cleaned)) tags.push('birouri');
+    if (/utilit/.test(cleaned)) tags.push('utilități');
+    if (tags.includes("comerț și servicii")) {
+      return [
+        "Funcțiuni principale: comerț și servicii",
+        tags.includes("parcaj") ? "Funcțiuni secundare: parcaj" : "",
+        tags.includes("birouri") ? "Funcțiuni conexe: birouri/administrativ" : ""
+      ].filter(Boolean).join("; ");
+    }
+    return Array.from(new Set(tags)).join(", ");
+  },
+  tip_parcaj(lines, content) {
+    const joined = lines.join(" ");
+    const raw = joined.match(/tipul\s+parcajului\s*[:\-]?\s*([\s\S]{2,220}?)(?=\s+(?:c\)|d\)|1\.4\.[cd]|regim(?:ul)?\s+de\s+inaltime|num[aă]r(?:ul)?\s+maxim)|$)/i)?.[1]
+      || joined.match(/\bparcaj\s+(subteran|suprateran|mixt)\b/i)?.[0]
+      || joined.match(/parcaj\s*[:\-]?\s*([^.\n]{2,180})/i)?.[1]
+      || "";
+    const cleaned = cleanExtract(String(raw || "")
+      .replace(/\s*c\)\s*caracteristici[\s\S]*$/i, "")
+      .replace(/\s*d\)\s*preciz[ăa]ri[\s\S]*$/i, "")
+      .trim());
+    return /^nu$/i.test(cleaned) ? "Nu este cazul" : cleaned;
   },
   caracteristici_dimensionale(lines, content) {
     const joined = lines.join(" ");
-    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei)\b|$)/i)?.[1]?.trim();
-    const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const volum = joined.match(/volum(?:ul)?\s+constructiei\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaC = joined.match(/ari[ae]\s+construit[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const ariaD = joined.match(/ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const normalizeMetricUnit = (value, kind) => {
+      const v = String(value || "").trim();
+      if (!v) return "";
+      if (kind === "area") return v.replace(/\bmp\b/i, "m²").replace(/\bm2\b/i, "m²");
+      if (kind === "volume") return v.replace(/\bmc\b/i, "m³").replace(/\bm3\b/i, "m³");
+      return v;
+    };
+    const metricNumber = "[0-9]{1,3}(?:[. ][0-9]{3})*(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?";
+    const metricValue = (labelRegex, kind) => {
+      const match = joined.match(new RegExp(`${labelRegex}\\s*[:\\-]?\\s*(${metricNumber})\\s*(m(?:2|3|²|³)|mp|mc)`, "i"));
+      return match ? normalizeMetricUnit(`${match[1]} ${match[2]}`, kind) : "";
+    };
+    const regim = joined.match(/regimul\s+de\s+inaltime\s*[:\-]?\s*([\s\S]*?)(?=\b(?:inaltimea?\s+maxima|ari[ae]\s+construit|ari[ae]\s+desf|volumul?\s+constructiei|num[aă]r(?:ul)?\s+maxim)\b|$)/i)?.[1]?.trim();
+    const inaltime = joined.match(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i)?.[1]?.trim();
+    const volum = metricValue("volum(?:ul)?(?:\\s+constructiei)?", "volume");
+    const ariaC = metricValue("ari[ae]\\s+construit[ăa]", "area");
+    const ariaD = metricValue("ari[ae]\\s+desf[ăa][șs]urat[ăa]", "area");
     const parts = [];
     if (regim) parts.push(`regim de inaltime: ${regim}`);
     if (inaltime) parts.push(`inaltime maxima: ${inaltime}`);
@@ -129,32 +220,66 @@ const customExtractors = {
   },
   numar_utilizatori(lines, content) {
     const joined = lines.join(" ");
+    const sectionUsers = customExtractors._sliceBySection(
+      content || joined,
+      /(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori)\s*[:\-]?/i,
+      /(?:^|[;,.]\s*|\s)(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi]\b)/i
+    );
+    const contentUsersSlice = (() => {
+      const source = String(sectionUsers || content || joined || "");
+      const startMatch = source.match(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori)\s*[:\-]?/i);
+      if (!startMatch || typeof startMatch.index !== "number") return "";
+      const tail = source.slice(startMatch.index);
+      const stopMatch = tail.match(/\b(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi])\b/i);
+      const chunk = stopMatch && typeof stopMatch.index === "number" ? tail.slice(0, stopMatch.index) : tail;
+      return chunk.replace(/\s+/g, " ").trim();
+    })();
+    const usersSlice = (() => {
+      const src = contentUsersSlice || sectionUsers || joined;
+      const start = src.search(/(?:d\)\s*preciz[ăa]ri\s+referitoare\s+la\s+num[aă]rul?\s+maxim\s+de\s+utilizatori|num[aă]rul?\s+maxim\s+de\s+utilizatori|utilizatori)\s*[:\-]?/i);
+      if (start < 0) return src;
+      const tail = src.slice(start);
+      const stop = tail.search(/(?:^|[;,.]\s*|\s)(?:e\)|f\)|g\)|h\)|i\)|1\.4\.[efghi]\b)/i);
+      return stop > 0 ? tail.slice(0, stop) : tail;
+    })();
+    const sanitizeUsersChunk = (value) => String(value || "")
+      .replace(/\b(?:capacit[ăa]ți?\s+de\s+depozitare|num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare|caracteristici\s+dimensionale|propriet[ăa]țile\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|evacuare)\b[\s\S]*$/i, "")
+      .replace(/\b(?:2\.[A-Z]?|3\.[0-9]|4\.[A-Z])\b[\s\S]*$/i, "")
+      .trim();
     const pickLineValue = (regex) => {
       const row = (lines || []).find((line) => regex.test(String(line || "")));
       if (!row) return "";
-      return String(row)
+      return sanitizeUsersChunk(String(row)
         .replace(regex, "")
         .replace(/\s*(Capacit[aă]ti\s+de\s+depozitare|C[aă]i\s+de\s+evacuare)\s*:.*/i, "")
-        .trim();
+        .trim());
     };
 
     const total = pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*/i)
       || pickLineValue(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*/i)
-      || joined.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
-      || joined.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
-    const demisol = joined.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const parter = joined.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const supantă = joined.match(/supant[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const mansardă = joined.match(/mansard[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
-    const note = joined.match(/nota\s*:\s*([^\.]+\.)/i)?.[1]?.trim();
+      || usersSlice.match(/num[aă]r(?:ul)?\s+maxim\s+total\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim()
+      || usersSlice.match(/num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\s*[:\-]?\s*([^;.\n]+)/i)?.[1]?.trim();
+    const cleanTotal = sanitizeUsersChunk(String(total || "")
+      .replace(/\b[a-z]\)\s*$/i, "")
+      .replace(/(?:^|[\s:])(?:[a-z]\)|\d+\.[a-z])(?:\s|$)/ig, " ")
+      .trim());
+    const demisol = usersSlice.match(/demisol\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const parter = usersSlice.match(/parter\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const supantă = usersSlice.match(/supant[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const mansardă = usersSlice.match(/mansard[aă]\s*[:\-]?\s*([0-9]+(?:[,.][0-9]+)?\s*pers(?:oane)?)/i)?.[1]?.trim();
+    const note = usersSlice.match(/nota\s*:\s*([^\.]+\.)/i)?.[1]?.trim();
     const parts = [];
-    if (total) parts.push(`total: ${total}`);
+    if (cleanTotal) parts.push(`total: ${cleanTotal}`);
     if (demisol) parts.push(`demisol: ${demisol}`);
     if (parter) parts.push(`parter: ${parter}`);
     if (supantă) parts.push(`supantă: ${supantă}`);
     if (mansardă) parts.push(`mansardă: ${mansardă}`);
     if (note) parts.push(`nota: ${note}`);
-    return parts.join("; ");
+    const joinedParts = parts.join("; ");
+    if (/Scenariu de securitate la incendiu|Metodologiei privind elaborarea scenariilor|capacit[ăa]ți\s+de\s+depozitare|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare/i.test(joinedParts)) {
+      return "";
+    }
+    return joinedParts;
   },
   autoevacuare(lines, content) {
     const joined = lines.join(" ");
@@ -168,17 +293,89 @@ const customExtractors = {
     return match ? cleanExtract(match[0]) : "";
   },
   capacitati_depozitare(lines, content) {
+    const explicitStorageBlock = String(content || "").match(
+      /(?:^|\n)\s*(?:f\)\s*)?(?:capacit[aă]ți?\s+de\s+depozitare|depozitare\s+si\s+materiale\s+combustibile)\s*[:\-]\s*([\s\S]*?)(?=\n\s*(?:surse\s+specifice|c[ăa]i\s+de\s+circula[țt]ie|instala[țt]ii\s+prev[ăa]zute|vecin[ăa]t[ăa][țt]i|materiale\s+si\s+alc[ăa]tuiri|$))/i
+    );
+    if (explicitStorageBlock?.[1]) {
+      const cleanedBlock = cleanExtract(explicitStorageBlock[1])
+        .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim();
+      if (cleanedBlock) return cleanedBlock;
+    }
+    const storageSection = customExtractors._sliceBySection(
+      content || lines.join(" "),
+      /(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i,
+      /(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)/i
+    );
+    const explicitLine = (() => {
+      const row = (lines || []).find((line) => /(?:^|\s)(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")))
+        || String(storageSection || "");
+      if (!row) return "";
+      return cleanExtract(String(row)
+        .replace(/^.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim());
+    })();
+    if (explicitLine) return explicitLine;
+    const sourceText = String(storageSection || content || lines.join("\n") || "");
+    const explicitMatches = Array.from(sourceText.matchAll(/capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*([^\n\r]+)/ig));
+    if (explicitMatches.length) {
+      const raw = explicitMatches[explicitMatches.length - 1][1] || "";
+      const sliced = String(raw)
+        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)[\s\S]*$/i, "")
+        .trim();
+      const cleanedExplicit = cleanExtract(sliced);
+      if (cleanedExplicit) return cleanedExplicit;
+    }
+    const lineValue = (() => {
+      const row = (lines || []).find((line) => /(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]/i.test(String(line || "")));
+      if (!row) return "";
+      return cleanExtract(String(row)
+        .replace(/^(?:.*?(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*)/i, "")
+        .replace(/\bnum[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori\b[\s\S]*$/i, "")
+        .replace(/\s+(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)[\s\S]*$/i, "")
+        .trim());
+    })();
+    if (lineValue) return lineValue;
     const joined = lines.join(" ");
-    const first = joined.match(/nu\s+sunt\s+spatii\s+de\s+depozitare[^.]*\./i)?.[0];
-    const second = joined.match(/in\s+spatiile\s+de\s+depozitare[^.]*\./i)?.[0];
-    return [first, second].filter(Boolean).map(cleanExtract).join(" ");
+    const storageSlice = (() => {
+      const start = joined.search(/(?:f\)\s*capacit[aă]ți?\s+de\s+depozitare|capacit[aă]ți?\s+de\s+depozitare)\s*[:\-]?/i);
+      const src = start >= 0 ? joined.slice(start) : joined;
+      const stop = src.search(/(?:^|[;,.]\s*|\s)(?:g\)|h\)|i\)|1\.4\.[ghi]\b|num[aă]r(?:ul)?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i\s+de\s+evacuare)/i);
+      return stop > 0 ? src.slice(0, stop) : src;
+    })();
+    const sentences = customExtractors._splitSentences(storageSlice);
+    const kept = sentences.filter((s) => {
+      if (!customExtractors._hasStorageContext(s)) return false;
+      if (customExtractors._hasEvacContext(s) || customExtractors._hasProcessContext(s)) return false;
+      return true;
+    });
+    const withNegationFirst = kept.sort((a, b) => (/nu\s+(?:sunt|este\s+cazul)/i.test(b) ? 1 : 0) - (/nu\s+(?:sunt|este\s+cazul)/i.test(a) ? 1 : 0));
+    return withNegationFirst.map(cleanExtract).join(" ");
   },
   cai_evacuare_rezumat(lines, content) {
+    const section = customExtractors._sliceBySection(
+      content || lines.join(" "),
+      /(?:g\)\s*)?num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+(?:si|și|şi),\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]?/i,
+      /(?:^|[;,.]\s*|\s)(?:h\)|i\)|1\.4\.[hi]\b|2\.|3\.|4\.)/i
+    );
+    if (section) {
+      const cleanedSection = cleanExtract(section
+        .replace(/^\s*g\)\s*/i, "")
+        .replace(/^num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+(?:si|și|şi),\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]?\s*/i, "")
+        .replace(/\b(?:2\.|3\.|4\.)[\s\S]*$/i, "")
+        .trim());
+      if (cleanedSection) return cleanedSection;
+    }
     const joined = lines.join(" ");
-    const demisol = joined.match(/de\s+la\s+demisol[^.]*\./i)?.[0];
-    const parter = joined.match(/de\s+la\s+parter[^.]*\./i)?.[0];
-    const mansardă = joined.match(/de\s+la\s+mansard[ăa][^.]*\./i)?.[0];
-    return [demisol, parter, mansardă].filter(Boolean).map(cleanExtract).join(" ");
+    const sentences = customExtractors._splitSentences(joined);
+    const filtered = sentences.filter((s) => {
+      if (!customExtractors._hasEvacContext(s)) return false;
+      if (customExtractors._hasStorageContext(s) || customExtractors._hasProcessContext(s)) return false;
+      return /num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare|c[ăa]i?\s+de\s+evacuare|refugii?/i.test(s);
+    });
+    const first = filtered.map(cleanExtract).find(Boolean) || "";
+    return first.replace(/\b(?:3\.[0-9]|4\.[A-Z]|stabilitatea\s+la\s+foc|limitarea\s+propagarii)\b[\s\S]*$/i, "").trim();
   },
   risc_incendiu(lines, content) {
     const joined = lines.join(" ");
@@ -191,8 +388,11 @@ const customExtractors = {
   },
   procese_substante(lines, content) {
     const joined = lines.join(" ");
-    const match = joined.match(/caracteristici\s+ale\s+proceselor[^:]*:\s*([^.\n]+)/i) || joined.match(/nu\s+este\s+cazul/i);
-    return match ? cleanExtract(match[1] || match[0]) : "";
+    const sentences = customExtractors._splitSentences(joined);
+    const filtered = sentences.filter((s) => customExtractors._hasProcessContext(s) && !customExtractors._hasStorageContext(s) && !customExtractors._hasEvacContext(s));
+    if (filtered.length) return filtered.map(cleanExtract).join(" ");
+    const match = joined.match(/nu\s+este\s+cazul/i);
+    return match ? cleanExtract(match[0]) : "";
   },
   stabilitate_foc(lines, content) {
     const joined = lines.join(" ");
@@ -1224,7 +1424,7 @@ function ensureWorkspaceReadyAfterLoad() {
 
 
 const POINT_1_FIELD_KEYS = new Set([
-  "denumire_obiectiv","beneficiar","adresa","contact_beneficiar","profil_activitate","funcțiuni","categoria_importanta",
+  "denumire_obiectiv","beneficiar","adresa","contact_beneficiar","profil_activitate","funcțiuni","categoria_importanta","clasa_importanta",
   "tip_cladire","tip_parcaj","caracteristici_dimensionale","numar_utilizatori","autoevacuare","capacitati_depozitare","cai_evacuare_rezumat"
 ]);
 
@@ -1270,6 +1470,48 @@ function resetReportsFromTemplates() {
 
 
 function buildSemanticStructuredData(data, sources = []) {
+  const sourcePoint1 = extractPoint1SourceFields(sources);
+  const sourcePoint14 = extractPoint14SourceFields(sources);
+  const cleanNameValue = (value) => cleanObjectNameText(value);
+  const sanitizePoint14 = (value, field) => {
+    const v = String(value || "").replace(/\s+/g, " ").trim();
+    if (!v) return "";
+    if (field === "users") {
+      return v
+        .replace(/[;,.]?\s*(?:e|f|g|h|i|a|b|c|d)\)\s*[\s\S]*$/i, "")
+        .replace(/\b1\.4\.[efghi]\b[\s\S]*$/i, "")
+        .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+        .replace(/\b([0-9]+(?:[.,][0-9]+)?)\s*persoane?\s+în\s+total\b/gi, "total: $1 persoane")
+        .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:persoane|pers)?/gi, "$1: $2 persoane")
+        .trim();
+    }
+    if (field === "storage") {
+      return v
+        .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/^.*?(?=(?:nu\s+sunt\s+spa[țt]ii?\s+de\s+depozitare|[îi]n\s+depozit|depozitul\s+alimentar|materiale\s+depozitate))/i, "")
+        .replace(/\s+[a-i]\)\s*[\s\S]*$/i, "")
+        .replace(/\b1\.4\.[ghi]\b[\s\S]*$/i, "")
+        .replace(/\bbuc[ăa]t[ăa]rie[\s\S]*?(?=(?:depozitul\s+alimentar|materiale\s+depozitate|[îi]n\s+depozit))/i, "")
+        .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
+        .replace(/\s+[a-i]\)\s*$/i, "")
+        .replace(/\b(?:propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?|destina[țt]ii|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|a\)|b\)|c\)|d\)|e\)|f\)|g\)|h\)|i\))\b[\s\S]*$/i, "")
+        .replace(/\s*[;,.]?\s*[a-i]\)\s*$/i, "")
+        .replace(/\bmp\b/gi, "m²")
+        .replace(/\bm2\b/gi, "m²")
+        .replace(/\bmc\b/gi, "m³")
+        .replace(/\bm3\b/gi, "m³")
+        .trim();
+    }
+    if (field === "evacuation") {
+      return v
+        .replace(/^\s*g\)\s*/i, "")
+        .replace(/^num[aă]rul?\s+c[ăa]ilor?\s+de\s+evacuare\s+(?:si|și|şi),\s*dup[aă]\s+caz,\s*al\s+refugiilor\s*[:\-]\s*/i, "")
+        .replace(/^c[ăa]i(?:le|lor)?\s+de\s+evacuare\s*(?:și|si|şi)?\s*(?:refugii)?\s*[:\-]\s*/i, "")
+        .replace(/\b(?:3\.[0-9]|4\.[A-Z])\b[\s\S]*$/i, "")
+        .trim();
+    }
+    return v;
+  };
   const semanticEngine = window.SSISemantic;
   const semantic123 = semanticEngine?.buildSemantic123Model
     ? semanticEngine.buildSemantic123Model({ data, sources })
@@ -1278,12 +1520,13 @@ function buildSemanticStructuredData(data, sources = []) {
     ? semanticEngine.buildSemantic14Model({ data, sources })
     : { dimensions: deriveDimensionParts(data, sources), users: { raw: String(data?.numar_utilizatori || "").trim() }, storage: { raw: String(data?.capacitati_depozitare || "").trim() } };
   const functionTags = Array.isArray(semantic14.functions?.tags) ? semantic14.functions.tags : [];
+  const sourceDimensions = deriveDimensionParts(data, sources);
   const dimensions = {
-    regim: semantic14.dimensions?.regim || "",
-    inaltime: semantic14.dimensions?.inaltimeMaxima || "",
-    ariaConstruita: semantic14.dimensions?.ariaConstruita || "",
-    ariaDesfasurata: semantic14.dimensions?.ariaDesfasurata || "",
-    volum: semantic14.dimensions?.volum || ""
+    regim: sourceDimensions.regim || semantic14.dimensions?.regim || "",
+    inaltime: sourceDimensions.inaltime || semantic14.dimensions?.inaltime || semantic14.dimensions?.inaltimeMaxima || "",
+    ariaConstruita: sourceDimensions.ariaConstruita || semantic14.dimensions?.ariaConstruita || "",
+    ariaDesfasurata: sourceDimensions.ariaDesfasurata || semantic14.dimensions?.ariaDesfasurata || "",
+    volum: sourceDimensions.volum || semantic14.dimensions?.volum || ""
   };
   const dimensionsText = [
     dimensions.regim ? `regim de înălțime: ${dimensions.regim}` : "",
@@ -1294,16 +1537,17 @@ function buildSemanticStructuredData(data, sources = []) {
   ].filter(Boolean).join("; ");
   return {
     identification: {
-      denumireObiectiv: semantic123?.identification?.denumireObiectiv || String(data?.denumire_obiectiv || "").trim(),
-      beneficiar: semantic123?.identification?.beneficiar || String(data?.beneficiar || "").trim(),
-      adresa: semantic123?.identification?.adresa || String(data?.adresa || "").trim()
+      denumireObiectiv: sourcePoint1.denumire_obiectiv || cleanNameValue(semantic123?.identification?.denumireObiectiv || String(data?.denumire_obiectiv || "").trim()),
+      beneficiar: sourcePoint1.beneficiar || cleanBeneficiaryText(semantic123?.identification?.beneficiar || String(data?.beneficiar || "").trim()),
+      adresa: sourcePoint1.adresa || cleanAddressText(semantic123?.identification?.adresa || String(data?.adresa || "").trim())
     },
     destination: {
-      raw: semantic123?.destination?.raw || String(data?.["funcțiuni"] || "").trim(),
+      raw: sourcePoint1.functiuni || semantic123?.destination?.raw || String(data?.["funcțiuni"] || "").trim(),
       tags: semantic123?.destination?.tags || []
     },
     category: {
-      raw: semantic123?.category?.raw || String(data?.categoria_importanta || "").trim()
+      raw: sourcePoint1.categoria_importanta || semantic123?.category?.raw || String(data?.categoria_importanta || "").trim(),
+      classRaw: sourcePoint1.clasa_importanta || semantic123?.category?.classRaw || String(data?.clasa_importanta || "").trim()
     },
     dimensions: {
       regim: dimensions.regim || "",
@@ -1313,16 +1557,19 @@ function buildSemanticStructuredData(data, sources = []) {
       volum: dimensions.volum || "",
       text: dimensionsText
     },
+    building: {
+      type: sourcePoint14.tip_cladire || String(data?.tip_cladire || "").trim()
+    },
     users:
     {
-      raw: String(semantic14.users?.raw || data?.numar_utilizatori || "").trim(),
-      autoevacuare: String(data?.autoevacuare || semantic14.users?.raw || data?.numar_utilizatori || "").trim()
+      raw: sanitizePoint14(sourcePoint14.numar_utilizatori || semantic14.users?.raw || data?.numar_utilizatori || "", "users"),
+      autoevacuare: sourcePoint14.autoevacuare || String(data?.autoevacuare || semantic14.users?.raw || data?.numar_utilizatori || "").trim()
     },
     storage: {
-      raw: String(semantic14.storage?.raw || "").trim()
+      raw: sanitizePoint14(sourcePoint14.capacitati_depozitare || data?.capacitati_depozitare || semantic14.storage?.raw || "", "storage")
     },
     evacuation: {
-      raw: String(data?.cai_evacuare_rezumat || "").trim()
+      raw: sanitizePoint14(sourcePoint14.cai_evacuare_rezumat || data?.cai_evacuare_rezumat || "", "evacuation")
     },
     functions: {
       tags: functionTags
@@ -1332,15 +1579,34 @@ function buildSemanticStructuredData(data, sources = []) {
 
 function buildPoint1ReportsFromTemplates() {
   const semantic = buildSemanticStructuredData(state.data, state.sources);
+  const sourcePoint1 = extractPoint1SourceFields(state.sources);
+  const classFromText = (String(semantic.category?.classRaw || semantic.category?.raw || state.data.clasa_importanta || state.data.categoria_importanta || '')
+    .match(/clas[ăa]\s*([ivx]+(?:-a)?)/i) || [,''])[1];
+  const classValue = classFromText ? `clasa ${classFromText.toUpperCase()}` : (semantic.category?.classRaw || "");
   const regimInaltime = semantic.dimensions.regim;
-  const inaltimeMaxima = semantic.dimensions.inaltimeMaxima;
+  const inaltimeMaxima = semantic.dimensions.inaltime || semantic.dimensions.inaltimeMaxima;
   const volumConstructie = semantic.dimensions.volum;
   const ariaConstruita = semantic.dimensions.ariaConstruita;
   const ariaDesfasurata = semantic.dimensions.ariaDesfasurata;
   const semanticFunctions = (semantic.destination?.tags || []).join(", ");
-  const functiuni = semanticFunctions || semantic.destination?.raw || String(state.data["funcțiuni"] || "").trim();
+  const functiuni = semantic.destination?.raw || String(state.data["funcțiuni"] || "").trim() || semanticFunctions;
   const functionParts = splitFunctionsText(functiuni);
-  const contactParts = splitContactDetails(state.data.contact_beneficiar || "");
+  const functionSummary = [
+    functionParts.principal && functionParts.principal !== "De completat." ? `F. principale: ${functionParts.principal}` : "",
+    functionParts.secundare && functionParts.secundare !== "De completat." ? `F. secundare: ${functionParts.secundare}` : "",
+    functionParts.conexe && functionParts.conexe !== "De completat." ? `F. conexe: ${functionParts.conexe}` : ""
+  ].filter(Boolean).join("; ");
+  const contactParts = splitContactDetails(sourcePoint1.contact_beneficiar || state.data.contact_beneficiar || "");
+  const telefonValue = sourcePoint1.telefon || cleanContactValue(state.data.telefon || contactParts.telefon || "");
+  const faxValue = sourcePoint1.fax || cleanContactValue(state.data.fax || contactParts.fax || "");
+  const emailValue = sourcePoint1.email || cleanContactValue(state.data.email || contactParts.email || "");
+  const contactSummary = [
+    telefonValue ? `telefon: ${telefonValue}` : "",
+    faxValue ? `fax: ${faxValue}` : "",
+    emailValue ? `e-mail: ${emailValue}` : ""
+  ].filter(Boolean).join("; ");
+  const profileValue = sourcePoint1.profil_activitate || cleanShortFieldValue(state.data.profil_activitate || "");
+  const programValue = sourcePoint1.program_lucru || cleanShortFieldValue(state.data.program_lucru || "");
 
   const valueByLabel = {
     "denumirea obiectivului": semantic.identification?.denumireObiectiv || "",
@@ -1349,19 +1615,20 @@ function buildPoint1ReportsFromTemplates() {
     "proprietar/beneficiar": semantic.identification?.beneficiar || "",
     "adresa": semantic.identification?.adresa || "",
     "adresă": semantic.identification?.adresa || "",
-    "date de contact": state.data.contact_beneficiar || "",
-    "nr. de telefon": state.data.telefon || contactParts.telefon || state.data.contact_beneficiar || "",
-    "fax": state.data.fax || contactParts.fax || state.data.contact_beneficiar || "",
-    "e-mail etc.": state.data.email || contactParts.email || state.data.contact_beneficiar || "",
-    "profilul de activitate": state.data.profil_activitate || "",
-    "programul de lucru": state.data.program_lucru || state.data.profil_activitate || "",
+    "date de contact": contactSummary || sourcePoint1.contact_beneficiar || "",
+    "nr. de telefon": telefonValue || "",
+    "fax": faxValue || "",
+    "e-mail etc.": emailValue || "",
+    "profilul de activitate": profileValue || "",
+    "programul de lucru": programValue || "",
     "functiuni principale": functionParts.principal || functiuni || "",
     "functiuni secundare": functionParts.secundare || functiuni || "",
     "functiuni conexe": functionParts.conexe || functiuni || "",
-    "funcțiuni principale, secundare și conexe ale construcției/amenajării": functiuni || "",
+    "funcțiuni principale, secundare și conexe ale construcției/amenajării": functionSummary || functiuni || "",
     "categoria de importanta": semantic.category?.raw || "",
     "categoria de importanță": semantic.category?.raw || "",
-    "clasa de importanta": semantic.category?.raw || "",
+    "clasa de importanta": classValue,
+    "clasa de importanță": classValue,
     "tipul cladirii": state.data.tip_cladire || "",
     "tipul clădirii": state.data.tip_cladire || "",
     "tipul parcajului": state.data.tip_parcaj || "",
@@ -1372,12 +1639,12 @@ function buildPoint1ReportsFromTemplates() {
     "volumul construcției": volumConstructie || "De completat",
     "aria construită": ariaConstruita || "De completat",
     "aria desfășurată": ariaDesfasurata || "De completat",
-    "regimul de înălțime și volumul construcției": [regimInaltime, volumConstructie].filter(Boolean).join("; ") || "De completat",
-    "regimul de inaltime si volumul constructiei": [regimInaltime, volumConstructie].filter(Boolean).join("; ") || "De completat",
+    "regimul de înălțime și volumul construcției": [regimInaltime, inaltimeMaxima && `înălțime maximă: ${inaltimeMaxima}`, volumConstructie].filter(Boolean).join("; ") || "De completat",
+    "regimul de inaltime si volumul constructiei": [regimInaltime, inaltimeMaxima && `inaltime maxima: ${inaltimeMaxima}`, volumConstructie].filter(Boolean).join("; ") || "De completat",
     "aria construită și desfășurată": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
     "aria construita si desfasurata": [ariaConstruita, ariaDesfasurata].filter(Boolean).join("; ") || "De completat",
-    "principalele destinații ale încăperilor și spațiilor aferente construcției": functiuni || "De completat",
-    "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": functiuni || "De completat",
+    "principalele destinații ale încăperilor și spațiilor aferente construcției": functionSummary || functiuni || "De completat",
+    "în cazul construcțiilor cu funcțiuni mixte se precizează procentul din aria desfășurată care este ocupat de fiecare funcțiune": /func[țt]iuni\s+mixte|mixt/i.test(functiuni) ? (functionSummary || functiuni) : "Nu este cazul",
     "volum": volumConstructie || "De completat",
     "precizari referitoare la numarul maxim de utilizatori": semantic.users.raw || "",
     "numărul maxim de utilizatori": semantic.users.raw || "",
@@ -2246,10 +2513,11 @@ async function handleExtractData() {
   setExtractionSummary("Se analizeaza sursele incarcate.", targetProjectId);
   try {
     const aggregate = runExtraction(state.sources);
-    const point1Aggregate = Object.fromEntries(Object.entries(aggregate).filter(([key]) => POINT_1_FIELD_KEYS.has(key)));
-    const extractedEntries = Object.entries(point1Aggregate).filter(([, value]) => String(value || "").trim());
+    const extractedEntries = Object.entries(aggregate).filter(([, value]) => String(value || "").trim());
 
-    mergeExtractedData(point1Aggregate);
+    annexFields.forEach((field) => {
+      state.data[field.key] = aggregate[field.key] || "";
+    });
     refreshFieldValues();
 
     try {
@@ -2296,9 +2564,8 @@ async function handleExtractData() {
     }
 
     try {
-      const reports = buildPoint1ReportsFromTemplates();
-      normalReportOutput.value = reports.normal;
-      preliminaryReportOutput.value = reports.preliminary;
+      normalReportOutput.value = buildScenarioMarkdown(state.data, state.sources, state.applicableActs, state.complianceChecks);
+      preliminaryReportOutput.value = buildPreliminaryScenarioMarkdown(state.data, state.sources, state.applicableActs, state.projectProfile, state.complianceChecks);
     } catch (error) {
       console.error(error);
       warnings.push("generare SSI");
@@ -2316,10 +2583,8 @@ async function handleExtractData() {
     renderProjectTabs();
     renderWorkspaceTabs();
     activateTab("normalTab");
-    // enforce point-1-only output in PR#7 phase before persisting
-    const finalReports = buildPoint1ReportsFromTemplates();
-    normalReportOutput.value = finalReports.normal;
-    preliminaryReportOutput.value = finalReports.preliminary;
+    normalReportOutput.value = buildScenarioMarkdown(state.data, state.sources, state.applicableActs, state.complianceChecks);
+    preliminaryReportOutput.value = buildPreliminaryScenarioMarkdown(state.data, state.sources, state.applicableActs, state.projectProfile, state.complianceChecks);
     saveActiveProjectStateFromUI();
     persistWorkspace();
     setUiStatus(`Extragerea a fost realizata din ${state.sources.length} sursa(e).`, targetProjectId);
@@ -3538,7 +3803,7 @@ function syncProfileFromDataHints() {
   const iluminat = state.data.iluminat_siguranta.toLowerCase();
   const trasnet = state.data.trsnet.toLowerCase();
   const numar = extractFirstNumber(state.data.numar_utilizatori);
-  const adresă = state.data.adresa.toLowerCase();
+  const adresă = String(state.data.adresa || "").toLowerCase();
 
   if (!state.projectProfile.buildingClass) {
     if (tipCladire.includes("mixt")) state.projectProfile.buildingClass = "mixta";
@@ -3561,7 +3826,7 @@ function syncProfileFromDataHints() {
   if (funcțiuni.includes("administr")) destinations.add("administrativa");
   state.projectProfile.destinations = Array.from(destinations);
 
-  if (adresa.includes("demisol") || state.data.caracteristici_dimensionale.toLowerCase().includes("demisol")) {
+  if (adresă.includes("demisol") || String(state.data.caracteristici_dimensionale || "").toLowerCase().includes("demisol")) {
     state.projectProfile.hasBasement = true;
   }
 
@@ -4339,6 +4604,51 @@ function runExtraction(sources) {
     }
   });
 
+  const sanitizeExtractedField = (key, rawValue) => {
+    const value = String(rawValue || "")
+      .replace(/\s*\[sursa:[^\]]+\][\s\S]*$/i, "")
+      .trim();
+    if (!value) return value;
+    if (key === "denumire_obiectiv") {
+      return cleanObjectNameText(value);
+    }
+    if (key === "beneficiar") {
+      return cleanBeneficiaryText(value);
+    }
+    if (key === "adresa") {
+      return cleanAddressText(value);
+    }
+    if (key === "tip_parcaj") {
+      return value
+        .replace(/\b(?:regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime|inaltimea?\s+maxima|ari[ae]\s+construit[ăa]|ari[ae]\s+desf[ăa][șs]urat[ăa]|volum(?:ul)?\s+constructiei|num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori)\b[\s\S]*$/i, "")
+        .replace(/\s*c\)\s*caracteristici[\s\S]*$/i, "")
+        .replace(/\s*d\)\s*preciz[ăa]ri[\s\S]*$/i, "")
+        .trim();
+    }
+    if (key === "capacitati_depozitare") {
+      const tailOnly = value
+        .replace(/^.*?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*/i, "")
+        .replace(/^.*?(?=(?:nu\s+sunt\s+spa[țt]ii?\s+de\s+depozitare|[îi]n\s+depozit|depozitul\s+alimentar|materiale\s+depozitate))/i, "")
+        .replace(/\bbuc[ăa]t[ăa]rie[\s\S]*?(?=(?:depozitul\s+alimentar|materiale\s+depozitate|[îi]n\s+depozit))/i, "")
+        .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim();
+      return tailOnly || value;
+    }
+    if (key === "numar_utilizatori") {
+      return value
+        .replace(/\b(?:capacit[aă]ți?\s+de\s+depozitare|c[ăa]i?\s+de\s+evacuare|propriet[ăa]țile?\s+fizico-chimice|substan[țt]e|proces(?:e|elor)?)\b[\s\S]*$/i, "")
+        .trim();
+    }
+    if (key === "caracteristici_dimensionale") {
+      return value.replace(/\bmp\b/gi, "m²").replace(/\bm2\b/gi, "m²").replace(/\bmc\b/gi, "m³").replace(/\bm3\b/gi, "m³");
+    }
+    return value;
+  };
+
+  Object.keys(aggregate).forEach((key) => {
+    aggregate[key] = sanitizeExtractedField(key, aggregate[key]);
+  });
+
   return aggregate;
 }
 
@@ -4354,34 +4664,63 @@ function runFallbackExtraction(sources) {
   };
 
   const firstMatch = (regex) => combined.match(regex)?.[1]?.trim() || "";
+  const normalizeMeasurement = (value, kind) => {
+    const cleaned = String(value || "").replace(/\s+/g, " ").trim();
+    if (!cleaned) return "";
+    if (kind === "area") return cleaned.replace(/\bmp\b/i, "m²").replace(/\bm2\b/i, "m²");
+    if (kind === "volume") return cleaned.replace(/\bmc\b/i, "m³").replace(/\bm3\b/i, "m³");
+    return cleaned;
+  };
+  const metricMatch = (regex, kind) => {
+    const match = combined.match(regex);
+    if (!match) return "";
+    return normalizeMeasurement(`${match[1]} ${match[2]}`, kind);
+  };
 
-  if (normalized.includes("cult") || normalized.includes("biseric") || normalized.includes("naos")) {
+  if (normalized.includes("centru comercial") || normalized.includes("comert") || normalized.includes("parcaj")) {
+    const commerce = firstMatch(/destina[țt]ia\s*(?:comert|comer[țt])\s*(?:[șs]i|si)\s*servicii/i) || "";
+    const parts = [
+      "Funcțiuni principale: comerț și servicii",
+      normalized.includes("parcaj") ? "Funcțiuni secundare: parcaj" : "",
+      normalized.includes("birou") ? "Funcțiuni conexe: birouri/administrativ" : ""
+    ].filter(Boolean).join("; ");
+    pick("funcțiuni", commerce ? parts : parts);
+    pick("tip_cladire", "clădire civilă pentru comerț și servicii");
+    pick("profil_activitate", "comerț și servicii");
+  } else if (normalized.includes("cult") || normalized.includes("biseric") || normalized.includes("naos")) {
     pick("funcțiuni", "cult");
     pick("tip_cladire", "clădire civilă pentru cult");
     pick("profil_activitate", "cult");
   }
 
   const denumire = firstMatch(/(?:denumirea\s+obiectivului|denumire|titlu)\s*[:\-]?\s*([^\n]{6,160})/i)
+    || firstMatch(/\b((?:centrul|complexul|cl[ăa]direa|obiectivul)\s+[A-ZĂÂÎȘȚ][^.\n]{2,100}?)(?=\s+(?:este|reprezint[ăa]|se\s+propune|,))/i)
     || firstMatch(/(biserica[^,\n]{3,160}|lacas\s+de\s+cult[^,\n]{3,160})/i);
-  pick("denumire_obiectiv", denumire);
-  pick("beneficiar", cleanBeneficiaryText(firstMatch(/(Parohia[^.\n]{3,220})/i)));
-  pick("adresa", cleanAddressText(firstMatch(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)));
+  pick("denumire_obiectiv", cleanObjectNameText(denumire));
+  pick("beneficiar", cleanBeneficiaryText(firstMatch(/(?:beneficiar|proprietar|investitor)\s*[:\-]\s*([^\n.;]{3,180})/i)
+    || firstMatch(/(Parohia[^.\n]{3,220})/i)));
+  pick("adresa", cleanAddressText(firstMatch(/adres[ăa]\s*[:\-]\s*([\s\S]{10,260}?)(?=\s+(?:proiectant|num[ăa]r\s+proiect|faza\s+proiect|data\s+elaborare|elaborat\s+de|2\.\s*descrierea|descrierea\s+construc[țt]iei)\b|$)/i)
+    || firstMatch(/((?:(?:municipiul|orașul|orasul)\s+[^\n,]+,\s*)?(?:str\.|strada|bd\.|bulevardul)\s*[^\n]{6,220}(?:,\s*(?:nr\.?\s*[^,\n]+))?(?:,\s*jude[țt]ul\s+[^.\n,]+)?)/i)));
 
   const categoria = firstMatch(/categoria\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([A-Da-d][^.\n;]{0,80})/i)
     || firstMatch(/categoria\s+de\s+importanta\s*[:\-]?\s*([A-Da-d][^.\n;]{0,80})/i)
     || firstMatch(/categoria\s+([A-Da-d]\s*\([^)]+\))/i)
     || firstMatch(/categoria\s+([A-Da-d])[^.\n]{0,40}importanta/i);
   pick("categoria_importanta", categoria);
+  const clasa = firstMatch(/clas[ăa]\s+de\s+importan(?:ț|t)ă\s*[:\-]?\s*([^.\n;]{2,80})/i)
+    || firstMatch(/clasa\s+([IVX]+(?:-a)?)/i);
+  pick("clasa_importanta", clasa);
 
   const regim = firstMatch(/(?:D\+P\+Sp\+M|D\+P\+M|P\+M|D\+P|demisol\s*\+\s*parter[^\n.;]*)/i);
-  const ariaConstruita = firstMatch(/aria\s+construita\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const ariaDesfasurata = firstMatch(/aria\s+desfasurata\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:2|²))/i);
-  const volum = firstMatch(/volum(?:ul)?(?:\s+constructiei)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m(?:3|³))/i);
+  const metricNumber = "([0-9]{1,3}(?:[. ][0-9]{3})*(?:[.,][0-9]+)?|[0-9]+(?:[.,][0-9]+)?)";
+  const ariaConstruita = metricMatch(new RegExp(`ari[ae]\\s+construit[ăa]\\s*[:\\-]?\\s*${metricNumber}\\s*(m(?:2|²)|mp)`, "i"), "area");
+  const ariaDesfasurata = metricMatch(new RegExp(`ari[ae]\\s+desf[ăa][șs]urat[ăa]\\s*[:\\-]?\\s*${metricNumber}\\s*(m(?:2|²)|mp)`, "i"), "area");
+  const volum = metricMatch(new RegExp(`volum(?:ul)?(?:\\s+constructiei)?\\s*[:\\-]?\\s*${metricNumber}\\s*(m(?:3|³)|mc)`, "i"), "volume");
   const inaltime = firstMatch(/inaltimea?\s+maxima(?:\s+a\s+cladirii)?\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*m)/i);
   const dimensions = [regim, inaltime && `înălțime maximă ${inaltime}`, volum && `volum ${volum}`, ariaConstruita && `aria construită ${ariaConstruita}`, ariaDesfasurata && `aria desfășurată ${ariaDesfasurata}`].filter(Boolean).join("; ");
   pick("caracteristici_dimensionale", dimensions);
 
-  const totalUsers = firstMatch(/(?:numarul|maxim(?:ul)?\s+total\s+de)\s+utilizatori\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)/i)
+  const totalUsers = firstMatch(/(?:numarul|maxim(?:ul)?\s+total\s+de)\s+utilizatori\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)(?=\s*(?:[;,.]|$|capacit[aă]ți?\s+de\s+depozitare|c[ăa]i\s+de\s+evacuare))/i)
     || firstMatch(/([0-9]+(?:[.,][0-9]+)?\s*persoane?)\s+in\s+total/i);
   const demisolUsers = firstMatch(/demisol\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)/i);
   const parterUsers = firstMatch(/parter\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?\s*persoane?)/i);
@@ -4402,11 +4741,15 @@ function runFallbackExtraction(sources) {
   pick("cai_evacuare_rezumat", egress.join("; "));
 
   if (normalized.includes("depozit")) {
-    const storageCandidate =
-      firstMatch(/((?:capacita[țt][iăa]?[țt]i?\s+de\s+depozitare|spa[țt]ii?\s+de\s+depozitare)[^.\n]{0,220})/i)
+    const storageLine = Array.from(combined.matchAll(/(?:^|\n)\s*(?:f\)\s*)?capacit[aă]ți?\s+de\s+depozitare\s*[:\-]\s*([^\n\r]+)/ig)).map((m) => (m[1] || "").trim()).pop() || "";
+    const storageCandidate = storageLine
+      || firstMatch(/((?:capacita[țt][iăa]?[țt]i?\s+de\s+depozitare|spa[țt]ii?\s+de\s+depozitare)[^.\n]{0,220})/i)
       || firstMatch(/(depozitare[^.\n]{0,220}(?:m(?:2|²)|materiale|produse|marf[ăa]))/i)
       || "spații de depozitare menționate în documentație";
-    pick("capacitati_depozitare", cleanExtract(storageCandidate).replace(/\b(?:nr\.?\s*\d+\s*,\s*jude[țt]ul\s+[^,.;]+)\b/i, "").trim());
+    pick("capacitati_depozitare", cleanExtract(storageCandidate)
+      .replace(/\b(?:num[aă]r(?:ul)?\s+maxim\s+de\s+utilizatori|c[ăa]i?\s+de\s+evacuare)\b[\s\S]*$/i, "")
+      .replace(/\b(?:nr\.?\s*\d+\s*,\s*jude[țt]ul\s+[^,.;]+)\b/i, "")
+      .trim());
   }
 
   if (normalized.includes("autoevacu")) {
@@ -5497,26 +5840,251 @@ function splitContactDetails(value) {
   const text = String(value || "").trim();
   const out = { telefon: "", fax: "", email: "" };
   if (!text) return out;
-  const t = text.match(/(?:tel\.?|telefon)\s*[:\-]?\s*([^,;\n]+)/i);
-  const f = text.match(/fax\s*[:\-]?\s*([^,;\n]+)/i);
-  const e = text.match(/(?:e-?mail|email)\s*[:\-]?\s*([^,;\n]+)/i);
-  out.telefon = t ? t[1].trim() : "";
-  out.fax = f ? f[1].trim() : "";
-  out.email = e ? e[1].trim() : "";
+  const t = text.match(/(?:nr\.?\s+de\s+telefon|tel\.?|telefon)\s*[:\-]?\s*([^.;,\n]+)/i);
+  const f = text.match(/fax\s*[:\-]?\s*([^.;,\n]+)/i);
+  const e = text.match(/(?:e-?mail|email)(?:\s+etc\.)?\s*[:\-]?\s*([^.;,\n]+)/i);
+  out.telefon = t ? cleanContactValue(t[1]) : "";
+  out.fax = f ? cleanContactValue(f[1]) : "";
+  out.email = e ? cleanContactValue(e[1]) : "";
   return out;
 }
 
 function splitFunctionsText(value) {
   const raw = String(value || '').trim();
   if (!raw) return { principal: 'De completat.', secundare: 'De completat.', conexe: 'De completat.' };
+  const pick = (label) => {
+    const match = raw.match(new RegExp(`func[țt]iuni\\s+${label}\\s*[:\\-]\\s*([\\s\\S]*?)(?=\\s*func[țt]iuni\\s+(?:principale|secundare|conexe)\\s*[:\\-]|\\s*1\\.3\\b|$)`, "i"));
+    return match ? cleanFunctionPart(match[1]) : "";
+  };
+  const principal = pick("principale");
+  const secundare = pick("secundare");
+  const conexe = pick("conexe");
+  if (principal || secundare || conexe) {
+    return {
+      principal: principal || 'De completat.',
+      secundare: secundare || 'De completat.',
+      conexe: conexe || 'De completat.'
+    };
+  }
   const bits = raw.split(/;|\n|\./).map((x) => x.trim()).filter(Boolean);
   return {
     principal: bits[0] || raw,
-    secundare: bits[1] || bits[0] || raw,
-    conexe: bits.slice(2).join('; ') || bits[1] || bits[0] || raw
+    secundare: bits[1] || 'De completat.',
+    conexe: bits.slice(2).join('; ') || 'De completat.'
   };
 }
-function buildNormalSpecialCharacteristicsBlock(data) {
+
+function extractSourceLabeledValue(sources = [], startPattern, stopPattern, maxLength = 600) {
+  const text = getJoinedSourcesText(sources)
+    .replace(/[ţ]/g, "ț")
+    .replace(/[Ţ]/g, "Ț")
+    .replace(/[ş]/g, "ș")
+    .replace(/[Ş]/g, "Ș")
+    .replace(/\s+/g, " ");
+  const startMatch = text.match(startPattern);
+  if (!startMatch || typeof startMatch.index !== "number") return "";
+  const tail = text.slice(startMatch.index + startMatch[0].length);
+  const stopMatch = tail.match(stopPattern);
+  const raw = stopMatch && typeof stopMatch.index === "number"
+    ? tail.slice(0, stopMatch.index)
+    : tail.slice(0, maxLength);
+  return sanitizeDisplayText(raw);
+}
+
+function cleanShortFieldValue(value) {
+  return stripProjectMetadataTail(value)
+    .replace(/\s+(?:[a-i]\)|[A-Z]\.|1\.[2-9]|2\.|3\.|4\.)\s[\s\S]*$/i, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+function cleanObjectNameText(value) {
+  const text = cleanShortFieldValue(value)
+    .replace(/\s+\b(?:b\)\s*)?(?:proprietar\/beneficiar|beneficiar|proprietar|investitor|adres[ăa])\b[\s\S]*$/i, "")
+    .replace(/\s*,\s*$/g, "")
+    .trim();
+  const namedBuilding = text.match(/\b((?:centrul|complexul|cl[ăa]direa|obiectivul)\s+[A-ZĂÂÎȘȚ][^.;,\n]{2,100}?)(?=\s+(?:este|reprezint[ăa]|se\s+propune)|$)/i);
+  return (namedBuilding ? namedBuilding[1] : text).trim();
+}
+
+function cleanContactValue(value) {
+  const text = cleanShortFieldValue(value)
+    .replace(/\s+\b(?:fax|e-?mail|profilul\s+de\s+activitate|programul\s+de\s+lucru)\b[\s\S]*$/i, "")
+    .trim();
+  if (/nu\s+sunt\s+detalii/i.test(text)) return "nu sunt detalii";
+  return text;
+}
+
+function cleanFunctionPart(value) {
+  return sanitizeDisplayText(value)
+    .replace(/\s+(?:1\.3|categoria\s+de\s+importan[țt][ăa]|clas[ăa]\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "")
+    .replace(/\s*[.;]\s*$/g, "")
+    .trim();
+}
+
+function normalizeImportanceCategory(value) {
+  let text = sanitizeDisplayText(value)
+    .replace(/^categoria\s+(?:de\s+importan[țt][ăa])?\s*[:\-]?\s*/i, "")
+    .replace(/\s*,?\s*conform[\s\S]*$/i, "")
+    .replace(/\s*\bclas[ăa]\s+de\s+importan[țt][ăa]\b[\s\S]*$/i, "")
+    .trim();
+  if (!text) return "";
+  text = text.replace(/^categoria\s+/i, "").trim();
+  const match = text.match(/^([A-D])(?:\s*[-–]?\s*(?:construc[țt]ie\s+de\s+importan[țt][ăa]\s+)?([a-zăâîșț ]+)|\s*\(([^)]+)\))?/i);
+  if (match) {
+    const qualifier = (match[3] || match[2] || "").trim();
+    if (/norma\s*l/i.test(qualifier)) return `categoria ${match[1].toUpperCase()} (normală)`;
+    return `categoria ${match[1].toUpperCase()}${qualifier ? ` (${qualifier})` : ""}`;
+  }
+  return /^categoria\b/i.test(text) ? text : `categoria ${text}`;
+}
+
+function normalizeImportanceClass(value) {
+  let text = sanitizeDisplayText(value)
+    .replace(/^clas[ăa]\s+(?:de\s+importan[țt][ăa])?\s*[:\-]?\s*/i, "")
+    .replace(/\s*,?\s*conform[\s\S]*$/i, "")
+    .trim();
+  if (!text) return "";
+  text = text.replace(/^clas[ăa]\s+/i, "").trim();
+  const match = text.match(/^([IVX]+)(?:\s*-?\s*a)?/i);
+  if (match) return `clasă ${match[1].toUpperCase()}-a`;
+  return /^clas[ăa]\b/i.test(text) ? text : `clasă ${text}`;
+}
+
+function extractPoint1SourceFields(sources = []) {
+  const denumire = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)(?:a\)\s*)?denumire\s*[:\-]\s*/i,
+    /\s+(?:b\)\s*)?(?:proprietar\/beneficiar|beneficiar)\b|\s+(?:c\)\s*)?adres[ăa]\b|\s+B\.\s*Datele\s+de\s+contact\b|\s+profilul\s+de\s+activitate\b|\s+1\.2\b/i
+  );
+  const beneficiar = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)(?:b\)\s*)?(?:proprietar\/beneficiar|beneficiar)\s*[:\-]\s*/i,
+    /\s+(?:c\)\s*)?adres[ăa]\b|\s+B\.\s*Datele\s+de\s+contact\b|\s+profilul\s+de\s+activitate\b|\s+programul\s+de\s+lucru\b|\s+1\.2\b/i
+  );
+  const adresa = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)(?:c\)\s*)?adres[ăa]\s*[:\-]\s*/i,
+    /\s+B\.\s*Datele\s+de\s+contact\b|\s+a\)\s*nr\.?\s+de\s+telefon\b|\s+proiectant\b|\s+num[ăa]r\s+proiect\b|\s+faza\s+proiect\b|\s+data\s+elaborare\b|\s+elaborat\s+de\b|\s+2\.\s*descrierea\b|\s+descrierea\s+construc[țt]iei\b|\s+profilul\s+de\s+activitate\b|\s+programul\s+de\s+lucru\b|\s+1\.2\b/i
+  );
+  const telefon = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)a\)\s*nr\.?\s+de\s+telefon\s*[:\-]\s*/i,
+    /\s+b\)\s*fax\b|\s+c\)\s*e-?mail\b|\s+C\.\s*Profilul\b|\s+1\.2\b/i
+  );
+  const fax = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)b\)\s*fax\s*[:\-]\s*/i,
+    /\s+c\)\s*e-?mail\b|\s+C\.\s*Profilul\b|\s+1\.2\b/i
+  );
+  const email = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)c\)\s*e-?mail\s*[:\-]\s*/i,
+    /\s+C\.\s*Profilul\b|\s+1\.2\b/i
+  );
+  const profil = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)a\)\s*profil\s+de\s+activitate\s*[:\-]\s*/i,
+    /\s+b\)\s*program\s+de\s+lucru\b|\s+1\.2\b/i
+  );
+  const program = extractSourceLabeledValue(
+    sources,
+    /(?:^|\s)b\)\s*program\s+de\s+lucru\s*[:\-]\s*/i,
+    /\s+1\.2\b|\s+Func[țt]iuni\s+principale\b/i
+  );
+  const principal = extractSourceLabeledValue(
+    sources,
+    /Func[țt]i(?:a|uni)\s+principal[ăa]e?\s*[:\-]\s*/i,
+    /\s+Func[țt]i(?:a|uni)\s+secundar\s*[ăa]e?\s*[:\-]|\s+Func[țt]ii?\s+conexe\s*[:\-]|\s+1\.3\b/i
+  );
+  const secundare = extractSourceLabeledValue(
+    sources,
+    /Func[țt]i(?:a|uni)\s+secundar\s*[ăa]e?\s*[:\-]\s*/i,
+    /\s+Func[țt]ii?\s+conexe\s*[:\-]|\s+1\.3\b/i
+  );
+  const conexe = extractSourceLabeledValue(
+    sources,
+    /Func[țt]ii?\s+conexe\s*[:\-]\s*/i,
+    /\s+1\.3\b|\s+Categoria\s+și\s+clas[ăa]\s+de\s+importan[țt][ăa]\b/i
+  );
+  const categoria = extractSourceLabeledValue(
+    sources,
+    /categoria\s+(?:de\s+)?importan[țt][ăa]\s*[:\-]\s*/i,
+    /\s+(?:B\.\s*)?clas[ăa]\s+(?:de\s+)?importan[țt][ăa]\s*[:\-]|\s+1\.4\b/i
+  );
+  const clasa = extractSourceLabeledValue(
+    sources,
+    /clas[ăa]\s+(?:de\s+)?importan[țt][ăa]\s*[:\-]\s*/i,
+    /\s+1\.4\b|\s+Particularit[ăa][țt]i\s+specifice\b/i
+  );
+  const functionLines = [
+    principal ? `Funcțiuni principale: ${cleanFunctionPart(principal)}` : "",
+    secundare ? `Funcțiuni secundare: ${cleanFunctionPart(secundare)}` : "",
+    conexe ? `Funcțiuni conexe: ${cleanFunctionPart(conexe)}` : ""
+  ].filter(Boolean);
+  const contactLines = [
+    telefon ? `telefon: ${cleanContactValue(telefon)}` : "",
+    fax ? `fax: ${cleanContactValue(fax)}` : "",
+    email ? `e-mail: ${cleanContactValue(email)}` : ""
+  ].filter(Boolean);
+  return {
+    denumire_obiectiv: cleanObjectNameText(denumire),
+    beneficiar: cleanBeneficiaryText(beneficiar),
+    adresa: cleanAddressText(adresa),
+    telefon: cleanContactValue(telefon),
+    fax: cleanContactValue(fax),
+    email: cleanContactValue(email),
+    contact_beneficiar: contactLines.join("; "),
+    profil_activitate: cleanShortFieldValue(profil),
+    program_lucru: cleanShortFieldValue(program),
+    functiuni: functionLines.join("; "),
+    categoria_importanta: normalizeImportanceCategory(categoria),
+    clasa_importanta: normalizeImportanceClass(clasa)
+  };
+}
+
+function extractPoint14SourceFields(sources = []) {
+  const text = getJoinedSourcesText(sources)
+    .replace(/[ţ]/g, "ț")
+    .replace(/[Ţ]/g, "Ț")
+    .replace(/[ş]/g, "ș")
+    .replace(/[Ş]/g, "Ș")
+    .replace(/\s+/g, " ");
+  const cleanNumber = (value) => String(value || "").replace(/\s+/g, "");
+  const pickUser = (level) => {
+    if (!level) {
+      const totalMatch = text.match(/num[aă]\s*r[^:.;]{0,30}utilizatori\s*[:\-]\s*([0-9 ]{1,6})\s*p/i);
+      return totalMatch ? cleanNumber(totalMatch[1]) : "";
+    }
+    const levelPart = level ? `${level}\\s*` : "";
+    const match = text.match(new RegExp(`num[aă]\\s*r[^:.;]{0,45}utilizatori\\s*${levelPart}[:\\-]?\\s*([0-9 ]{1,6})\\s*p`, "i"));
+    return match ? cleanNumber(match[1]) : "";
+  };
+  const users = [
+    pickUser("") ? `total: ${pickUser("")} persoane` : "",
+    pickUser("demisol") ? `demisol: ${pickUser("demisol")} persoane` : "",
+    pickUser("parter") ? `parter: ${pickUser("parter")} persoane` : "",
+    pickUser("supant[ăa]") ? `supantă: ${pickUser("supant[ăa]")} persoane` : "",
+    pickUser("mansard[ăa]") ? `mansardă: ${pickUser("mansard[ăa]")} persoane` : ""
+  ].filter(Boolean).join("; ");
+  const storageBits = [];
+  const noLargeStorage = text.match(/nu\s+sunt\s+spa[țt]ii\s+de\s+depozitare\s+mai\s+mari\s+de\s+36\s*m\s*2/i)?.[0];
+  if (noLargeStorage) storageBits.push(noLargeStorage.replace(/\s*m\s*2/i, " m²"));
+  const storageMaterials = text.match(/[îi]n\s+spa[țt]iile\s+de\s+depozitare[\s\S]{0,180}?materiale\s+preponderent\s+metalice/i)?.[0];
+  if (storageMaterials) storageBits.push(storageMaterials);
+  const buildingType = text.match(/cl[ăa]dire\s+civil[ăa]\s+pentru\s+cult(?:\s+cu\s+dou[ăa]\s+[îi]nc[ăa]peri\s+cu\s+aglomer[ăa]ri\s+de\s+persoane)?/i)?.[0] || "";
+  const autoevacuare = text.match(/persoanele\s+care\s+folosesc[\s\S]{0,220}?evacuare\s+[îi]n\s+caz\s+de\s+incendiu/i)?.[0] || "";
+  const egressStart = text.match(/de\s+la\s+demisol\s+exist[ăa]\s+dou[ăa][\s\S]{0,500}?c[ăa]tre\s+parter/i)?.[0] || "";
+  return {
+    tip_cladire: cleanShortFieldValue(buildingType),
+    numar_utilizatori: users,
+    autoevacuare: cleanShortFieldValue(autoevacuare),
+    capacitati_depozitare: storageBits.map(cleanShortFieldValue).filter(Boolean).join("; "),
+    cai_evacuare_rezumat: cleanShortFieldValue(egressStart)
+  };
+}
+function buildNormalSpecialCharacteristicsBlock(data, sources = []) {
+  const semantic = buildSemanticStructuredData(data, sources);
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
   const pickText = (...keys) => {
     for (const k of keys) {
@@ -5526,18 +6094,24 @@ function buildNormalSpecialCharacteristicsBlock(data) {
     return "";
   };
   const lines = [];
-  const typeText = String(data.tip_cladire || "").trim();
-  const regim = pickText("regim_inaltime", "regim", "regim_inaltime_val");
-  const inaltime = pickText("inaltime_maxima", "inaltime", "inaltime_maxima_cladire");
-  const ariaConstruita = pickText("aria_construita", "aria_construita_mp");
-  const ariaDesfasurata = pickText("aria_desfasurata", "aria_desfasurata_mp");
-  const volum = pickText("volum", "volum_constructie");
-  const dimFromPieces = [regim, inaltime, ariaConstruita, ariaDesfasurata, volum].filter(Boolean).join("; ");
-  const dimensions = pickText("caracteristici_dimensionale", "caracteristici_dimensionale_14c") || dimFromPieces;
-  const users = pickText("numar_utilizatori", "numar_maxim_utilizatori", "utilizatori");
+  const typeText = semantic.building?.type || String(data.tip_cladire || "").trim();
+  const regim = semantic.dimensions?.regim || pickText("regim_inaltime", "regim", "regim_inaltime_val");
+  const inaltime = semantic.dimensions?.inaltimeMaxima || pickText("inaltime_maxima", "inaltime", "inaltime_maxima_cladire");
+  const ariaConstruita = semantic.dimensions?.ariaConstruita || pickText("aria_construita", "aria_construita_mp");
+  const ariaDesfasurata = semantic.dimensions?.ariaDesfasurata || pickText("aria_desfasurata", "aria_desfasurata_mp");
+  const volum = semantic.dimensions?.volum || pickText("volum", "volum_constructie");
+  const dimFromPieces = [
+    regim && `regim de înălțime: ${regim}`,
+    inaltime && `înălțime maximă: ${inaltime}`,
+    volum && `volum: ${volum}`,
+    ariaConstruita && `aria construită: ${ariaConstruita}`,
+    ariaDesfasurata && `aria desfășurată: ${ariaDesfasurata}`
+  ].filter(Boolean).join("; ");
+  const dimensions = dimFromPieces || pickText("caracteristici_dimensionale", "caracteristici_dimensionale_14c");
+  const users = semantic.users?.raw || pickText("numar_utilizatori", "numar_maxim_utilizatori", "utilizatori");
   const autoev = String(data.autoevacuare || "").trim();
-  const storage = pickText("capacitati_depozitare", "capacitate_depozitare", "depozitare", "storage_raw");
-  const egress = String(data.cai_evacuare_rezumat || "").trim();
+  const storage = semantic.storage?.raw || pickText("capacitati_depozitare", "capacitate_depozitare", "depozitare", "storage_raw");
+  const egress = semantic.evacuation?.raw || String(data.cai_evacuare_rezumat || "").trim();
 
   lines.push("### 1.4. Particularitati specifice constructiei/amenajarii");
   lines.push(`- 1.4.a tipul cladirii: ${typeText || "De completat."}`);
@@ -5551,33 +6125,25 @@ function buildNormalSpecialCharacteristicsBlock(data) {
   return lines.join("\n");
 }
 
-function buildNormalIdentificationBlock(data) {
+function buildNormalIdentificationBlock(data, sources = []) {
+  const sourcePoint1 = extractPoint1SourceFields(sources);
+  const semantic = buildSemanticStructuredData(data, sources);
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
   const lines = [];
-  const categoriaText = String(data.categoria_importanta || data.category_raw || "").trim();
-  const categoryMatch = categoriaText.match(/categoria\s+([A-Z])/i);
-  const classMatch = categoriaText.match(/clasa\s+([IVX\-a-zăîâ0-9]+)/i);
-  const categoryLine = categoryMatch ? `categoria ${categoryMatch[1].toUpperCase()}` : val("categoria_importanta", val("category_raw"));
-  let classLine = "[[RED]]De completat.[[/RED]]";
-
-  if (classMatch) {
-    classLine = `clasă ${classMatch[1]}`;
-  } else if (String(data.clasa_importanta || "").trim()) {
-    classLine = `clasă ${String(data.clasa_importanta).trim()}`;
-  } else if (categoriaText.toLowerCase().includes("categoria c")) {
-    classLine = "clasă III-a, de verificat/corelat cu documentația de arhitectură și rezistenta.";
-  }
+  const categoryLine = normalizeImportanceCategory(semantic.category?.raw || data.categoria_importanta || data.category_raw) || val("categoria_importanta", val("category_raw"));
+  const classLine = normalizeImportanceClass(semantic.category?.classRaw || data.clasa_importanta || semantic.category?.raw) || "[[RED]]De completat.[[/RED]]";
+  const functions = sourcePoint1.functiuni || semantic.destination?.raw || val("funcțiuni");
 
   lines.push("## 1. Caracteristicile constructiei sau amenajarii");
   lines.push("### 1.1. Datele de identificare");
-  lines.push(`- denumirea obiectivului: ${val("denumire_obiectiv")}`);
-  lines.push(`- beneficiar / proprietar: ${val("beneficiar")}`);
-  lines.push(`- adresa: ${val("adresa")}`);
+  lines.push(`- denumirea obiectivului: ${semantic.identification?.denumireObiectiv || val("denumire_obiectiv")}`);
+  lines.push(`- beneficiar / proprietar: ${semantic.identification?.beneficiar || val("beneficiar")}`);
+  lines.push(`- adresa: ${semantic.identification?.adresa || val("adresa")}`);
   lines.push(`- date de contact: ${val("contact_beneficiar", "[[RED]]De completat din documentația beneficiarului.[[/RED]]")}`);
   lines.push(`- profilul de activitate: ${val("profil_activitate")}`);
   lines.push(`- programul de lucru: ${val("program_lucru", val("profil_activitate"))}`);
   lines.push("");
-  const fns = splitFunctionsText(val("funcțiuni"));
+  const fns = splitFunctionsText(functions);
   lines.push("### 1.2. Destinatia");
   lines.push(`- functiuni principale: ${fns.principal}`);
   lines.push(`- functiuni secundare: ${fns.secundare}`);
@@ -5705,71 +6271,130 @@ function buildNormalPerformănceCriteriaBlock(data, complianceChecks = []) {
   return lines.join("\n");
 }
 
-function buildNormalEquipmentBlock(data, complianceChecks = []) {
-  const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
-  const lines = [];
+function getInstallationRuleItems() {
+  return [
+    { code: "4.1", title: "Hidranți de incendiu interiori", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.2", title: "Hidranți de incendiu exteriori", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.3", title: "Instalații automate de stingere cu sprinklere", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.4", title: "Instalații de limitare și stingere cu sprinklere deschise", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.5", title: "Instalații de stingere cu apă pulverizată", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.6", title: "Instalații de stingere cu ceață de apă", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.7", title: "Instalații de stingere cu gaze inerte", dataKey: "instalații_stingere", group: "stingere" },
+    { code: "4.8", title: "Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)", dataKey: "idsai", group: "detectare" },
+    { code: "4.9", title: "Instalație de desfumare / evacuare fum și gaze fierbinți", dataKey: "desfumare", group: "desfumare" },
+    { code: "4.10", title: "Instalație electrică pentru receptoare cu rol de securitate la incendiu", dataKey: "alimentare_electrica", group: "electrica" },
+    { code: "4.11", title: "Instalație de protecție împotriva trăsnetului", dataKey: "trsnet", group: "trasnet" }
+  ];
+}
+
+function buildInstallationObligationItems(data, complianceChecks = []) {
+  const val = (key, fallback = "") => data[key] && data[key].trim() ? sanitizeDisplayText(data[key]) : fallback;
   const findCheck = (codePrefix) => complianceChecks.find((item) => item.code === codePrefix || item.code.startsWith(`${codePrefix}.`) || item.code.startsWith(`${codePrefix}`));
-  const composeDecision = (check, fallback) => {
-    if (!check) return fallback;
+  const composeDecision = (check) => {
+    if (!check) return "Este necesară verificarea pe proiectul de specialitate și pe încadrarea finală a construcției.";
     const verdict = String(check.verdict || "").toLowerCase();
     const legal = check.legalBasis ? ` conform ${check.legalBasis}` : "";
-    if (verdict.includes("neobligatoriu")) return `Nu este obligatorie dotarea${legal}.`;
-    if (verdict.includes("obligatoriu")) return `Este obligatorie dotarea${legal}.`;
-    if (verdict.includes("prevazut în documentatie")) return `Instalatia este prevăzută în documentatie${legal ? `; încadrarea se verifică${legal}` : "."}`;
-    if (verdict.includes("nu se aplica")) return `Nu se aplica${legal}.`;
-    return `Este de verificat${legal}.`;
+    if (verdict.includes("neobligatoriu")) return `Nu rezultă obligativitatea dotării${legal}.`;
+    if (verdict.includes("nu se aplica")) return `Nu se aplică pentru această configurație${legal}.`;
+    if (verdict.includes("obligatoriu")) return `Rezultă obligativitatea analizării/prevederii dotării${legal}.`;
+    if (verdict.includes("prevazut") || verdict.includes("prevăzut")) return `Instalația este prevăzută în documentație; încadrarea normativă se verifică${legal}.`;
+    return `Obligativitatea se verifică${legal}.`;
   };
-  const equipmentItems = [
-    { code: "4.1", title: "Hidranti de incendiu interiori", dataKey: "instalații_stingere" },
-    { code: "4.2", title: "Hidranti de incendiu exteriori", dataKey: "instalații_stingere" },
-    { code: "4.3", title: "Instalații automate de stingere cu sprinklere", dataKey: "instalații_stingere" },
-    { code: "4.4", title: "Instalații de limitare și stingere cu sprinklere deschise", dataKey: "instalații_stingere" },
-    { code: "4.5", title: "Instalații de stingere cu apa pulverizată", dataKey: "instalații_stingere" },
-    { code: "4.6", title: "Instalații de stingere cu ceață de apa", dataKey: "instalații_stingere" },
-    { code: "4.7", title: "Instalații de stingere cu gaze inerte", dataKey: "instalații_stingere" },
-    { code: "4.8", title: "Instalații de detectare, semnalizare și alarmare la incendiu", dataKey: "idsai" },
-    { code: "4.9", title: "Instalatie de desfumare / evacuare fum și gaze fierbinti", dataKey: "desfumare" },
-    { code: "4.10", title: "Instalatie electrica pentru alimentarea receptoarelor cu rol de securitate la incendiu", dataKey: "alimentare_electrica" },
-    { code: "4.11", title: "Instalatie de protecție impotriva trasnetului", dataKey: "trsnet" }
-  ];
+  const isRequiredOrProvided = (check, detailText) => {
+    const verdict = String(check?.verdict || "").toLowerCase();
+    const detail = String(detailText || "").toLowerCase();
+    if (verdict.includes("neobligatoriu") || verdict.includes("nu se aplica")) return false;
+    return verdict.includes("obligatoriu") || verdict.includes("prevazut") || verdict.includes("prevăzut") || /\b(prev[aă]zut|se\s+prevede|obligator)/i.test(detail);
+  };
+
+  return getInstallationRuleItems().map((item) => {
+    const check = findCheck(item.code);
+    const detailText = val(item.dataKey, "Nu sunt precizate date tehnice distincte în memoriile analizate.");
+    const decision = composeDecision(check);
+    const details = check?.details ? sanitizeDisplayText(check.details) : "Regula se corelează cu destinația, aria, volumul, numărul de utilizatori, nivelurile clădirii și instalațiile prevăzute efectiv.";
+    const active = isRequiredOrProvided(check, detailText);
+    return {
+      ...item,
+      check,
+      detailText,
+      decision,
+      details,
+      active,
+      analysis: `${decision} ${details}`
+    };
+  });
+}
+
+function renderInstallationAnalysisHtml(item) {
+  return renderInline(item?.analysis || "Obligativitatea se verifică pe datele proiectului.", "word");
+}
+
+function renderInstallationAnalysisMarkdown(item) {
+  return item?.analysis || "Obligativitatea se verifică pe datele proiectului.";
+}
+
+function buildNormalInstallationWordHtml(data, complianceChecks = []) {
+  const items = buildInstallationObligationItems(data, complianceChecks);
+  const fixed = items.filter((item) => item.group === "stingere");
+  const active = items.filter((item) => item.active);
+  const fixedActive = fixed.filter((item) => item.active);
+  const activeOrAll = active.length ? active : items;
+  const fixedZoneText = fixedActive.length
+    ? fixedActive.map((item) => `${escapeHtml(item.title)}: ${escapeHtml(item.detailText)}`).join("<br>")
+    : "Nu este cazul pentru instalațiile fixe de stingere pentru care nu rezultă obligativitate sau prevedere expresă în documentație.";
+  const fixedParamText = fixedActive.length
+    ? fixedActive.map((item) => `${escapeHtml(item.title)}: parametrii se stabilesc prin proiectul de instalații; date disponibile: ${escapeHtml(item.detailText)}`).join("<br>")
+    : "Nu este cazul; pentru instalațiile fixe neprevăzute nu se stabilesc debite, presiuni, rezerve sau timpi de funcționare.";
+
+  return `
+  <p><span class="label">A. Instalație de stingere a incendiilor</span></p>
+  <p class="indent"><span class="label">a) analiza obligativității și tipul instalației:</span><br>${fixed.map((item) => `<span class="detail-line"><span class="detail-name">${escapeHtml(item.title)}:</span> ${renderInstallationAnalysisHtml(item)} Date proiect: ${escapeHtml(item.detailText)}</span>`).join("")}</p>
+  <p class="indent"><span class="label">b) zone, încăperi, spații, instalații echipate:</span><br>${fixedZoneText}</p>
+  <p class="indent"><span class="label">c) parametri funcționali: debite, intensități, presiuni, rezerve, surse de alimentare:</span><br>${fixedParamText}</p>
+  <p class="indent"><span class="label">d) timp normat de funcționare:</span> ${fixedActive.length ? "se stabilește separat pentru fiecare instalație obligatorie/prevăzută prin proiectul de instalații." : "nu este cazul pentru instalațiile neprevăzute."}</p>
+
+  <p><span class="label">B. Instalații de detectare, semnalizare, desfumare, electrice și protecție la trăsnet</span></p>
+  ${activeOrAll.filter((item) => item.group !== "stingere").map((item) => `<p class="indent"><span class="label">${escapeHtml(item.code)} ${escapeHtml(item.title)}:</span> ${renderInstallationAnalysisHtml(item)} <span class="value">Date proiect: ${escapeHtml(item.detailText)}</span></p>`).join("\n")}`;
+}
+
+function buildDoorOpeningLegalText(mode = "word") {
+  const lawCentralDoor = renderInline(makeLawRef("i13_art_7_187_7_190", "I 13-2015, art. 7.187 și art. 7.190"), mode);
+  const lawEvac = renderInline(makeLawRef("p11899_art_2_6_14_2_6_18_3_6_4", "P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4"), mode);
+  return `Sensul de deschidere al ușilor se verifică pe fiecare traseu de evacuare astfel încât deschiderea să nu reducă lățimea utilă și să nu blocheze evacuarea. Ușa centralei termice trebuie să se deschidă în afară și să nu aibă prag neconform, conform ${lawCentralDoor}; pentru ușile de pe căile de evacuare se corelează sensul de deschidere, lățimea și numărul de fluxuri cu ${lawEvac}.`;
+}
+
+function buildActivitySpecificOrganizationalMeasures(data, mode = "word") {
+  const text = normalizeSearchText(`${data?.funcțiuni || ""} ${data?.profil_activitate || ""} ${data?.tip_cladire || ""}`);
+  const refs = `Măsurile se includ în organizarea apărării împotriva incendiilor, cu instruirea personalului și menținerea căilor de evacuare, conform ${renderInline(makeLawRef("omai163_2007_anexa6", "OMAI nr. 163/2007"), mode)} și cu semnalizarea locurilor/echipamentelor conform ${renderInline(makeLawRef("hg971_2006_art_7", "HG nr. 971/2006, art. 7"), mode)}.`;
+  const lines = [refs];
+  if (/cult|biseric|lacas|lăcaș/.test(text)) {
+    lines.push("Pentru funcțiunea de cult se controlează utilizarea lumânărilor și a surselor cu flacără deschisă numai în locurile stabilite, se supraveghează aglomerările la slujbe, se păstrează libere ușile și traseele de evacuare și se instruiesc persoanele cu atribuții de ordine/intervenție.");
+  }
+  if (/restaurant|alimentatie|alimentație|bucatar|bucătăr|linie calda|linie caldă|gaze/.test(text)) {
+    lines.push("Pentru alimentație publică se prevăd reguli de exploatare pentru bucătărie, gaze, hotă/ventilație și linie caldă: curățarea depunerilor combustibile, oprirea alimentării cu gaze la finalul programului sau la incident și instruirea personalului pentru stingătoare și evacuare.");
+  }
+  if (/parcaj|garaj/.test(text)) {
+    lines.push("Pentru parcaje se interzice depozitarea de materiale combustibile în spațiile de circulație, se mențin marcajele, ventilarea și accesul autospecialelor, iar mijloacele de primă intervenție se amplasează vizibil.");
+  }
+  if (/depozit|industrial|productie|producție|atelier/.test(text)) {
+    lines.push("Pentru depozitare/industrial se controlează înălțimea și modul de depozitare, culoarele de acces, separarea materialelor incompatibile, permisul pentru lucrări cu foc deschis și verificarea periodică a instalațiilor electrice/utilajelor.");
+  }
+  if (/birou|comercial|magazin/.test(text)) {
+    lines.push("Pentru spații comerciale/birouri se controlează aparatura electrică, prelungitoarele, materialele combustibile temporare, afișarea planurilor de evacuare și instruirea periodică a personalului.");
+  }
+  return lines.join(" ");
+}
+
+function buildNormalEquipmentBlock(data, complianceChecks = []) {
+  const lines = [];
+  const equipmentItems = buildInstallationObligationItems(data, complianceChecks);
 
   lines.push("## 4. Echiparea și dotarea cu instalații și alte mijloace tehnice de aparare impotriva incendiilor");
   equipmentItems.forEach((item) => {
-    const check = findCheck(item.code);
-    const detailText = val(item.dataKey, "Nu rezultă date suficiente în documentele disponibile.");
-    const decision = composeDecision(check, "Este de verificat.");
-    const observation = check?.details ? ` Observatie: ${check.details}` : "";
-    lines.push(`- ${item.code} ${item.title}: [[RED]]${decision}[[/RED]] Date proiect: ${detailText}.${observation}`);
-
-    if (item.code === "4.8") {
-      const cultCheck = findCheck("4.8.cult");
-      const cultObs = cultCheck?.details ? ` ${cultCheck.details}` : "";
-      lines.push(`- 4.8.a Gradul de acoperire / configurația sistemului: ${val("idsai", "De completat.")}`);
-      lines.push(`- 4.8.b Echipamente principale prevăzute: ${val("idsai", "De completat cu ECS, detectoare, butoane, sirene și alte elemente.")}`);
-      lines.push(`- 4.8.c ECS / echipament de control și semnalizare: ${val("idsai", "De completat.")}`);
-      lines.push(`- 4.8.d Declansatoare manuale de alarmare: [[RED]]${cultCheck ? composeDecision(cultCheck, "Este de verificat.") : "Este de verificat."}[[/RED]]${cultObs}`);
-    }
-
-    if (item.code === "4.9") {
-      lines.push(`- 4.9.a Modul de evacuare a fumului / desfumare: ${val("desfumare", "Nu rezultă date suficiente în documentele disponibile.")}`);
-    }
-
-    if (item.code === "4.10") {
-      const checkEvac = findCheck("4.10.b");
-      const checkPanic = findCheck("4.10.c");
-      const checkWork = findCheck("4.10.d");
-      const checkLocal = findCheck("4.10.e");
-      lines.push(`- 4.10.a Alimentarea receptoarelor cu rol de securitate la incendiu: [[RED]]${composeDecision(check, "Este de verificat.")}[[/RED]]`);
-      lines.push(`- 4.10.b Iluminat de securitate pentru evacuare: [[RED]]${composeDecision(checkEvac, "Este de verificat.")}[[/RED]] Date proiect: ${val("iluminat_siguranta", "De completat.")}`);
-      lines.push(`- 4.10.c Iluminat de securitate impotriva panicii: [[RED]]${composeDecision(checkPanic, "Este de verificat.")}[[/RED]]`);
-      lines.push(`- 4.10.d Iluminat de securitate pentru continuarea lucrului: [[RED]]${composeDecision(checkWork, "Este de verificat.")}[[/RED]]`);
-      lines.push(`- 4.10.e Iluminat de securitate pentru interventii / local: [[RED]]${composeDecision(checkLocal, "Este de verificat.")}[[/RED]]`);
-    }
-
-    if (item.code === "4.11") {
-      lines.push(`- 4.11.a Date proiect privind IPT: ${val("trsnet", "De completat.")}`);
-      lines.push(`- 4.11.b Concluzie privind prevederea instalatiei: [[RED]]${composeDecision(check, "Este de verificat.")}[[/RED]]`);
-    }
+    lines.push(`### ${item.code}. ${item.title}`);
+    lines.push(`- Analiza obligativității: [[RED]]${renderInstallationAnalysisMarkdown(item)}[[/RED]]`);
+    lines.push(`- Date proiect: ${item.detailText}`);
+    lines.push(`- Detalii tehnice a), b), c): ${item.active ? "se completează separat prin proiectul de instalații pentru instalația obligatorie/prevăzută." : "nu se detaliază parametri tehnici dacă instalația nu este obligatorie și nu este prevăzută în documentație."}`);
   });
 
   return lines.join("\n");
@@ -5777,11 +6402,13 @@ function buildNormalEquipmentBlock(data, complianceChecks = []) {
 
 function buildNormalOrganizationalBlock(data) {
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
+  const activityMeasures = buildActivitySpecificOrganizationalMeasures(data, "normal");
   return [
     "## 5. Măsuri tehnico-organizatorice",
     `- 5.1 Organizarea apararii impotriva incendiilor: ${val("măsuri_organizatorice", "De completat pe baza modului real de exploatare, a responsabilitatilor și a organizarii apararii impotriva incendiilor.")}`,
     `- 5.2 Instructiuni, verificare și intretinere: ${val("măsuri_organizatorice", "De completat cu instructiuni de exploatare, verificare periodică și intretinere a instalațiilor și echipamentelor cu rol PSI.")}`,
-    `- 5.3 Stingatoare, alte aparate de stins incendii și mijloace de prima interventie: ${val("stingatoare", "De completat cu tipul, numarul și amplasarea mijloacelor de prima interventie.")}`
+    `- 5.3 Măsuri specifice activității: ${activityMeasures}`,
+    `- 5.4 Stingatoare, alte aparate de stins incendii și mijloace de prima interventie: ${val("stingatoare", "De completat cu tipul, numarul și amplasarea mijloacelor de prima interventie.")}`
   ].join("\n");
 }
 
@@ -5823,8 +6450,8 @@ function buildScenarioMarkdown(data, sources, applicableActs, complianceChecks =
     : "- Actele aplicabile nu au fost evaluate inca.";
   const normalRiskSection = buildNormalRiskSection(data);
   const rulesCoverage = buildRulesCoverageMarkdown(state.rulesCoverage);
-  const identificationBlock = buildNormalIdentificationBlock(data);
-  const specialCharacteristicsBlock = buildNormalSpecialCharacteristicsBlock(data);
+  const identificationBlock = buildNormalIdentificationBlock(data, sources);
+  const specialCharacteristicsBlock = buildNormalSpecialCharacteristicsBlock(data, sources);
   const performănceCriteriaBlock = buildNormalPerformănceCriteriaBlock(data, complianceChecks);
   const equipmentBlock = buildNormalEquipmentBlock(data, complianceChecks);
   const organizationalBlock = buildNormalOrganizationalBlock(data);
@@ -6072,17 +6699,30 @@ function sanitizeDisplayText(value) {
   return text;
 }
 
+function stripProjectMetadataTail(value) {
+  return sanitizeDisplayText(value)
+    .replace(/\b(?:proiectant|num[ăa]r\s+proiect|faza\s+proiect|data\s+elaborare|elaborat\s+de|descrierea\s+construc[țt]iei|2\.\s*descrierea|suprafa[țt]a\s+construit[ăa]|suprafa[țt]a\s+desf[ăa][șs]urat[ăa]|regim\s+de\s+[îi]n[ăa]l[țt]ime|num[ăa]r\s+maxim\s+de\s+utilizatori)\s*[:\-]?[\s\S]*$/i, "")
+    .replace(/\b(?:A\.\s*)?Date\s+necesare\s+identific[ăa]rii[\s\S]*$/i, "")
+    .replace(/\b(?:B\.\s*)?Datele?\s+de\s+contact[\s\S]*$/i, "")
+    .replace(/\b(?:C\.\s*)?Profilul\s+de\s+activitate[\s\S]*$/i, "")
+    .trim();
+}
+
 function cleanBeneficiaryText(value) {
-  let text = sanitizeDisplayText(value);
+  let text = stripProjectMetadataTail(value);
   text = text.replace(/\s+cu\s+sediul[\s\S]*$/i, "");
+  text = text.replace(/\s+(?:adres[ăa]|telefon|fax|e-?mail)\s*[:\-][\s\S]*$/i, "");
   text = text.replace(/\s*,\s*$/g, "");
   return text.trim();
 }
 
 function cleanAddressText(value) {
-  let text = sanitizeDisplayText(value);
+  let text = stripProjectMetadataTail(value);
   text = text.replace(/^(?:adresa|adresa obiectivului)\s*[:\-]\s*/i, "");
-  text = text.replace(/\b(?:date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "");
+  text = text.replace(/^(?:adres[ăa])\s*[:\-]\s*/i, "");
+  text = text.replace(/\b(?:B\.\s*)?(?:datele?|date)\s+de\s+contact(?:\s+ale?\s+beneficiarului|\s+beneficiar)?\b[\s\S]*$/i, "");
+  text = text.replace(/\b(?:a\)\s*)?nr\.?\s+de\s+telefon\b[\s\S]*$/i, "");
+  text = text.replace(/\b(?:telefon(?:\s+beneficiar)?|tel\.?|e-?mail(?:\s+beneficiar)?|fax|destina[țt]ia\s+construc[țt]iei|date\s+de\s+contact\s+beneficiar|profilul\s+de\s+activitate|func[țt]iuni\s+principale|categoria\s+de\s+importan[țt][ăa]|clasa\s+de\s+importan[țt][ăa])\b[\s\S]*$/i, "");
   text = text.replace(/\s*,\s*/g, ", ");
   text = text.replace(/\s{2,}/g, " ").trim();
   return text.trim();
@@ -6130,12 +6770,12 @@ function deriveAddress(data, sources = []) {
   const direct = deriveAddressFromData(data);
   const joinedSources = getJoinedSourcesText(sources);
   const fromSources = findFirstSourceMatch(sources, [
-    /adres[ăa]\s*:\s*([^\n]{10,220})/i,
+    /adres[ăa]\s*:\s*([\s\S]{10,260}?)(?=\s+(?:proiectant|num[ăa]r\s+proiect|faza\s+proiect|data\s+elaborare|elaborat\s+de|descrierea\s+construc[țt]iei|2\.\s*descrierea)\b|$)/i,
     /(municipiul\s+Brașov,\s*str\.\s*[^\n]{3,180})/i,
     /((?:municipiul|orașul|orasul)\s+[^\n,]+,\s*str\.\s*[^\n]{3,180})/i
   ]);
   const joinedMatch =
-    joinedSources.match(/adres[ăa]\s*:\s*([^.;]{12,220})/i)?.[1] ||
+    joinedSources.match(/adres[ăa]\s*:\s*([\s\S]{12,260}?)(?=\s+(?:proiectant|num[ăa]r\s+proiect|faza\s+proiect|data\s+elaborare|elaborat\s+de|descrierea\s+construc[țt]iei|2\.\s*descrierea)\b|$)/i)?.[1] ||
     joinedSources.match(/(municipiul\s+Bra[șs]ov,\s*str\.\s*M[ăa]r[ăa][șs]e[șs]ti\s*,?\s*nr\.?\s*47,\s*jude[țt]ul\s+Bra[șs]ov)/i)?.[1] ||
     joinedSources.match(/((?:municipiul|ora[șs]ul|orasul)\s+[^,]+,\s*str\.\s*[^,]+,\s*nr\.?\s*[^,]+,\s*jude[țt]ul\s+[^.;]+)/i)?.[1] ||
     "";
@@ -6172,7 +6812,12 @@ function parseDimensionParts(rawValue) {
   const raw = sanitizeDisplayText(rawValue);
   const normalizedRaw = raw
     .replace(/\u00a0/g, " ")
+    .replace(/[ţ]/g, "ț")
+    .replace(/[Ţ]/g, "Ț")
+    .replace(/[ş]/g, "ș")
+    .replace(/[Ş]/g, "Ș")
     .replace(/îăl/g, "înăl")
+    .replace(/[îi]n[ăa]l\s*[ţțt]\s*ime/gi, "înălțime")
     .replace(/desfăşurat/g, "desfășurat")
     .replace(/desf[aă]surat/g, "desfășurat")
     .replace(/construita/g, "construită")
@@ -6181,21 +6826,32 @@ function parseDimensionParts(rawValue) {
     .replace(/([0-9])m\b/gi, "$1 m");
 
   const extractMeasurement = (text, labelRegex, unitPattern) => {
-    const labelMatch = text.match(labelRegex);
-    if (!labelMatch) return "";
-    const tail = text.slice(labelMatch.index + labelMatch[0].length, labelMatch.index + labelMatch[0].length + 120);
-    const measurementMatch = tail.match(new RegExp(`([0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?|[0-9]+(?:,[0-9]+)?)\\s*${unitPattern}(?=\\s|$|[,;.)])`, "i"));
-    if (!measurementMatch) return "";
-    const candidate = measurementMatch[0].replace(/\s+/g, " ").trim();
-    const digitsOnly = candidate.replace(/[^0-9]/g, "");
-    if (digitsOnly.length < 3) return "";
-    return candidate
-      .replace(/\bmp\b/i, "m²")
-      .replace(/\bm2\b/i, "m²")
-      .replace(/\bmc\b/i, "m³")
-      .replace(/\bm3\b/i, "m³");
+    const flags = labelRegex.flags.includes("g") ? labelRegex.flags : `${labelRegex.flags}g`;
+    const matcher = new RegExp(labelRegex.source, flags);
+    const measurementRe = new RegExp(`([0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?|[0-9]+(?:,[0-9]+)?)\\s*${unitPattern}(?=\\s|$|[,;.)])`, "i");
+    let labelMatch;
+    while ((labelMatch = matcher.exec(text)) !== null) {
+      const tail = text.slice(labelMatch.index + labelMatch[0].length, labelMatch.index + labelMatch[0].length + 160);
+      const measurementMatch = tail.match(measurementRe);
+      if (!measurementMatch) continue;
+      const between = tail.slice(0, measurementMatch.index);
+      if (/\b(?:regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime|[îi]n[ăa]l[țt]ime(?:a)?\s+maxim[ăa]|ari[ae]\s+construit[ăa]|ari[ae]\s+desf[ăa][șs]urat[ăa]|volum(?:ul)?\s+construc[țt]iei)\b/i.test(between)) {
+        continue;
+      }
+      const candidate = measurementMatch[0].replace(/\s+/g, " ").trim();
+      const digitsOnly = candidate.replace(/[^0-9]/g, "");
+      if (digitsOnly.length < 3) continue;
+      return candidate
+        .replace(/\bmp\b/i, "m²")
+        .replace(/\bm2\b/i, "m²")
+        .replace(/\bmc\b/i, "m³")
+        .replace(/\bm3\b/i, "m³");
+    }
+    return "";
   };
   const normalizeRegime = (value) => {
+    const explicitCompact = String(value || "").match(/\b((?:Sp|D|S|P|M|[0-9]+\s*E)(?:\s*\+\s*(?:Sp|D|S|P|M|[0-9]+\s*E))+)\b/i)?.[1];
+    if (explicitCompact) return explicitCompact.replace(/\s+/g, "");
     const compact = value
       .replace(/[()]/g, " ")
       .replace(/(?:regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime|[îi]n[ăa]l[țt]ime)/gi, " ")
@@ -6204,7 +6860,7 @@ function parseDimensionParts(rawValue) {
       .replace(/[,;/]/g, " ")
       .replace(/\s+/g, " ")
       .trim();
-    const tokens = compact.match(/\b(?:D|S|P|Sp|M|E(?:taj)?\s*\d+|E\d+|[0-9]+\s*E|demisol|subsol|parter|supant[ăa]?|mansard[ăa]?|etaj\s*[0-9]+)\b/gi) || [];
+    const tokens = compact.match(/\b(?:Sp|D|S|P|M|E(?:taj)?\s*\d+|E\d+|[0-9]+\s*E|demisol|subsol|parter|supant[ăa]?|mansard[ăa]?|etaj\s*[0-9]+)\b/gi) || [];
     const mapped = tokens.map((token) => {
       const t = token.toLowerCase().replace(/\s+/g, "");
       if (t === "demisol" || t === "d") return "D";
@@ -6222,18 +6878,32 @@ function parseDimensionParts(rawValue) {
   };
   const regimRaw =
     normalizedRaw.match(/regim(?:ul)?\s+de\s+[îi]n[ăa]l[țt]ime\s*[: ]\s*([^;\n]+)/i)?.[1] ||
-    normalizedRaw.match(/\b((?:D|S|P|M|Sp|[0-9]+\s*E)(?:\s*\+\s*(?:D|S|P|M|Sp|[0-9]+\s*E))+)\b/i)?.[1] ||
+    normalizedRaw.match(/\b((?:Sp|D|S|P|M|[0-9]+\s*E)(?:\s*\+\s*(?:Sp|D|S|P|M|[0-9]+\s*E))+)\b/i)?.[1] ||
     normalizedRaw.match(/((?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+)(?:\s*\+\s*(?:demisol|subsol|parter|supant[ăa]|mansard[ăa]|etaj\s*[0-9]+))+)/i)?.[1] ||
     "";
-  const regimMatch = normalizeRegime(regimRaw);
-  const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l[țt](?:imea|imea?\s+maxim[ăa]|țimea\s+maxim[ăa])[^:;]*[: ]\s*|[îi]n[ăa]l[țt]imea?\s+maxim[ăa]\s+a\s+cl[ăa]dirii\s*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
-  const volumeMatch = extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "(?:m(?:3|³)|mc)") || "";
-  const builtMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
-  const totalMatch = extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
+  const explicitRegimeAnywhere = normalizedRaw.match(/\b((?:Sp|D|S|P|M|[0-9]+\s*E)(?:\s*\+\s*(?:Sp|D|S|P|M|[0-9]+\s*E))+)\b/i)?.[1] || "";
+  const regimMatch = explicitRegimeAnywhere.replace(/\s+/g, "") || normalizeRegime(regimRaw);
+  const heightMatch = normalizedRaw.match(/(?:[îi]n[ăa]l(?:ț|t)ime(?:a)?(?:\s+maxim[ăa])?(?:\s+a\s+cl[ăa]dirii)?[^:;]*[: ]\s*)([0-9]+(?:[.,][0-9]+)?\s*m)/i);
+  const looseHeightMatch = !heightMatch
+    ? normalizedRaw.match(/\b([0-9]+(?:[.,][0-9]+)?\s*m)\b(?!\s*(?:[²³23]|p|c))/i)
+    : null;
+  const normalizeUnit = (value) => String(value || "")
+    .replace(/\s+/g, " ")
+    .replace(/\bmp\b/i, "m²")
+    .replace(/\bm2\b/i, "m²")
+    .replace(/\bmc\b/i, "m³")
+    .replace(/\bm3\b/i, "m³")
+    .trim();
+  const directVolume = normalizedRaw.match(/(?:^|[-;]\s*)volum(?:ul)?(?:\s+construc[țt]iei)?\s*[:\-]\s*([0-9]{1,4}(?:[.,][0-9]+)?\s*(?:m\s*3|m³|mc))/i)?.[1] || "";
+  const directBuilt = normalizedRaw.match(/(?:^|[-;]\s*)ari[ae]\s+construit[ăa]\s*[:\-]\s*([0-9]{1,4}(?:[.,][0-9]+)?\s*(?:m\s*2|m²|mp))/i)?.[1] || "";
+  const directTotal = normalizedRaw.match(/(?:^|[-;]\s*)ari[ae]\s+desf[ăa][șs]urat[ăa]\s*[:\-]\s*([0-9]{1,4}(?:[.,][0-9]+)?\s*(?:m\s*2|m²|mp))/i)?.[1] || "";
+  const volumeMatch = normalizeUnit(directVolume) || extractMeasurement(normalizedRaw, /volum(?:ul)?(?:\s+construc[țt]iei)?[^:;]*[: ]\s*/i, "(?:m(?:3|³)|mc)") || "";
+  const builtMatch = normalizeUnit(directBuilt) || extractMeasurement(normalizedRaw, /ari[ae]\s+construit[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
+  const totalMatch = normalizeUnit(directTotal) || extractMeasurement(normalizedRaw, /ari[ae]\s+desf[ăa][șs]urat[ăa][^:;]*[: ]\s*/i, "(?:m(?:2|²)|mp)") || "";
 
   return {
     regim: regimMatch || "",
-    inaltime: heightMatch?.[1]?.trim() || "",
+    inaltime: (heightMatch?.[1] || looseHeightMatch?.[1] || "").trim(),
     volum: volumeMatch,
     ariaConstruita: builtMatch,
     ariaDesfasurata: totalMatch,
@@ -6242,7 +6912,7 @@ function parseDimensionParts(rawValue) {
 }
 
 function mergeDimensionParts(primary = {}, fallback = {}) {
-  const validRegime = (value) => /^(?:D|S|P|Sp|M|[0-9]+E)(?:\+(?:D|S|P|Sp|M|[0-9]+E))*$/i.test(String(value || "").trim());
+  const validRegime = (value) => /^(?:Sp|D|S|P|M|[0-9]+E)(?:\+(?:Sp|D|S|P|M|[0-9]+E))*$/i.test(String(value || "").trim());
   const validMetric = (value, unitRegex) => new RegExp(`^[0-9]{1,3}(?:[. ][0-9]{3})*(?:,[0-9]+)?\\s*(?:${unitRegex})$`, "i").test(String(value || "").trim());
   const pick = (a, b, checker = null) => {
     const va = String(a || "").trim();
@@ -6273,7 +6943,7 @@ function deriveDimensionParts(data, sources = []) {
     /((?:D|S|P|M|Sp)[^.\n]{0,200}20,98\s*m[^.\n]{0,200}693,08\s*m2)/i
   ]);
   const fromSources = parseDimensionParts(sourceText || joinedSources);
-  return mergeDimensionParts(fromData, fromSources);
+  return mergeDimensionParts(fromSources, fromData);
 }
 
 function deriveFireCompartmentSummary(data, sources = []) {
@@ -6303,7 +6973,12 @@ function buildOccupantDetailItems(data) {
   const usersText = sanitizeDisplayText(String(data?.numar_utilizatori || "")).trim();
   const autoevText = sanitizeDisplayText(String(data?.autoevacuare || "")).trim();
   const items = [];
-  usersText.split(/\s*;\s*/).map((part) => part.trim()).filter(Boolean).forEach((part) => {
+  const normalizedUsers = usersText
+    .replace(/[;,.]?\s*(?:e|f|g|h|i|a|b|c|d)\)\s*[\s\S]*$/i, "")
+    .replace(/\b([0-9]+(?:[.,][0-9]+)?)\s*persoane?\s+in\s+total\b/gi, "total: $1 persoane")
+    .replace(/\b(total|demisol|parter|supant[ăa]|mansard[ăa])\s*[:\-]?\s*([0-9]+(?:[.,][0-9]+)?)\s*(?:persoane|pers)?/gi, "$1: $2 persoane")
+    .trim();
+  normalizedUsers.split(/\s*;\s*/).map((part) => part.trim()).filter(Boolean).forEach((part) => {
     const match = part.match(/^([^:]+):\s*(.+)$/);
     if (match) {
       items.push({ label: match[1], value: match[2] });
@@ -6338,9 +7013,17 @@ function formatLabeledValueLines(items = [], mode = "word") {
 function formatStructuredDetailValue(value, mode = "word") {
   const text = sanitizeDisplayText(String(value || "")).trim();
   if (!text) return "";
-  const parts = text.split(/\s*;\s*/).map((item) => item.trim()).filter(Boolean);
+  const cleaned = text
+    .replace(/\bmp\b/gi, "m²")
+    .replace(/\bm2\b/gi, "m²")
+    .replace(/\bmc\b/gi, "m³")
+    .replace(/\bm3\b/gi, "m³")
+    .replace(/[;,.]?\s*(?:a|b|c|d|e|f|g|h|i)\)\s*$/i, "")
+    .replace(/^(?:g\)\s*)/i, "")
+    .trim();
+  const parts = cleaned.split(/\s*;\s*/).map((item) => item.trim()).filter(Boolean);
   if (parts.length <= 1) {
-    return escapeHtml(text);
+    return escapeHtml(cleaned);
   }
   if (mode === "word") {
     return parts.map((part) => {
@@ -6366,16 +7049,19 @@ function previewValue(value, fallback = "") {
 
 function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile, complianceChecks = []) {
   const val = (key, fallback = "") => previewValue(data[key], fallback);
-  const contact = val("contact_beneficiar", "Nu sunt detalii.");
-  const emailOnly = val("email", contact);
-  const functions = val("funcțiuni");
+  const sourcePoint1 = extractPoint1SourceFields(sources);
+  const semantic = buildSemanticStructuredData(data, sources);
+  const contact = sourcePoint1.contact_beneficiar || val("contact_beneficiar", "Nu sunt detalii.");
+  const emailOnly = sourcePoint1.email || val("email", contact);
+  const functions = sourcePoint1.functiuni || semantic.destination?.raw || val("funcțiuni");
+  const buildingType = semantic.building?.type || val("tip_cladire", "De completat.");
   const functionParts = splitFunctionsText(functions);
-  const beneficiar = cleanBeneficiaryText(val("beneficiar", "Parohia Ortodoxă Română „Învierea Domnului”"));
-  const adresa = deriveAddress(data, sources);
-  const dim = deriveDimensionParts(data, sources);
+  const beneficiar = cleanBeneficiaryText(sourcePoint1.beneficiar || val("beneficiar", "De completat."));
+  const adresa = sourcePoint1.adresa || semantic.identification?.adresa || deriveAddress(data, sources);
+  const dim = semantic.dimensions || deriveDimensionParts(data, sources);
   const roomInventoryHtml = preliminaryInventoryMarkdownToHtml(buildPreliminarySpaceInventoryTable(data));
-  const storage = val("capacitati_depozitare");
-  const users = val("numar_utilizatori");
+  const storage = semantic.storage?.raw || val("capacitati_depozitare");
+  const users = semantic.users?.raw || val("numar_utilizatori");
   const fireCompartments = deriveFireCompartmentSummary(data, sources);
   const fireCompartmentLinesWord = formatLabeledValueLines(buildFireCompartmentDetailItems(data, sources), "word");
   const stability = val("stabilitate_foc");
@@ -6394,14 +7080,15 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
   const lightningInstall = buildPreliminaryInstallationText(lightning);
   const preliminaryDimensionLinesWord = formatLabeledValueLines([
     { label: "regim de înălțime", value: dim.regim },
-    { label: "înălțime maximă", value: dim.inaltime },
+    { label: "înălțime maximă", value: dim.inaltimeMaxima || dim.inaltime },
     { label: "volum", value: dim.volum }
   ], "word");
   const preliminaryAreaLinesWord = formatLabeledValueLines([
     { label: "aria construită", value: dim.ariaConstruita },
     { label: "aria desfășurată", value: dim.ariaDesfasurata }
   ], "word");
-  const categoryClassText = `categoria ${val("categoria_importanta")}, conform ${renderInline(makeLawRef("hg766_anexa3_art_6_7", "HG nr. 766/1997, Anexa nr. 3, art. 6-7"), "word")}; clasa ${val("clasa_importanta")}, conform ${renderInline(makeLawRef("hg766_anexa3_art_8_cr0_anexa_a1", "HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1"), "word")}.`;
+  const categoryLineText = `${normalizeImportanceCategory(semantic.category?.raw || val("categoria_importanta")) || "categoria de completat"}, conform ${renderInline(makeLawRef("hg766_anexa3_art_6_7", "HG nr. 766/1997, Anexa nr. 3, art. 6-7"), "word")}.`;
+  const classLineText = `${normalizeImportanceClass(semantic.category?.classRaw || val("clasa_importanta")) || "clasă de completat"}, conform ${renderInline(makeLawRef("hg766_anexa3_art_8_cr0_anexa_a1", "HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1"), "word")}.`;
   const buildingTypeJustified = (buildingType && buildingType !== "De completat.")
     ? escapeHtml(buildingType)
     : "Clădire civilă conform documentației disponibile; încadrarea exactă se confirmă după specialitatea arhitectură.";
@@ -6414,6 +7101,9 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
   const prelimEvac = buildPreliminaryEvacuationRows(data);
   const prelimIntervention = buildPreliminaryInterventionRows(data);
   const prelimElectrical = buildPreliminaryElectricalRows(data);
+  const installationAnalysis = buildInstallationObligationItems(data, complianceChecks);
+  const inst = (code) => installationAnalysis.find((item) => item.code === code) || { analysis: "Obligativitatea se verifică pe datele proiectului.", detailText: "De completat." };
+  const instHtml = (code) => renderInstallationAnalysisHtml(inst(code));
 
   const html = `<!DOCTYPE html>
 <html lang="ro">
@@ -6467,7 +7157,7 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     </tr>
     <tr class="subpoint-row">
       <td>1.3. Categoria și clasa de importanță</td>
-      <td>${categoryClassText}</td>
+      <td><span class="label">Categoria de importanță:</span> ${categoryLineText}<br><span class="label">Clasa de importanță:</span> ${classLineText}</td>
     </tr>
     <tr class="subpoint-row">
       <td>1.4. Particularități specifice</td>
@@ -6531,7 +7221,7 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
   <table class="twocol">
     <colgroup><col><col></colgroup>
     <tr class="section-row"><td colspan="2">4. Instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu” - în funcție de echipare</td></tr>
-    <tr class="subpoint-row"><td>4.1. Hidranți de incendiu interiori</td><td><span class="label">a) tip (apă-apă, aer-apă):</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.1. Hidranți de incendiu interiori</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.1")}<br><span class="label">a) tip (apă-apă, aer-apă):</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) volumul construcției/compartimentului de incendiu:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) timp teoretic de funcționare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) număr de jeturi pe punct:</span> ${extInstall}</td></tr>
@@ -6540,14 +7230,14 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     <tr class="detail-row"><td></td><td><span class="label">g) număr de racorduri exterioare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">h) sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">i) caracteristici funcționale ale grupului de pompare:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.2. Hidranți de incendiu exteriori</td><td><span class="label">a) distanțele față de construcție:</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.2. Hidranți de incendiu exteriori</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.2")}<br><span class="label">a) distanțele față de construcție:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) volumul compartimentului de incendiu:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) timp teoretic de funcționare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) debit de calcul:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">e) presiune:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">f) sursa de alimentare cu apă a instalației, cu menționarea, după caz, a volumului rezervei de apă:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">g) caracteristici funcționale ale grupului de pompare:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.3. Instalații automate de stingere a incendiilor cu sprinklere</td><td><span class="label">a) soluția tehnică de realizare a instalației:</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.3. Instalații automate de stingere a incendiilor cu sprinklere</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.3")}<br><span class="label">a) soluția tehnică de realizare a instalației:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) clasa de pericol de incendiu:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) categoria de depozitare și modul de depozitare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) aria maximă acoperită de un sprinkler:</span> ${extInstall}</td></tr>
@@ -6557,16 +7247,16 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     <tr class="detail-row"><td></td><td><span class="label">h) sursa de alimentare cu apă a instalației:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">i) volumul rezervei de apă:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">j) numărul de racorduri exterioare:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.4. Instalații de limitare și stingere a incendiilor cu sprinklere deschise</td><td><span class="label">a) zona protejată:</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.4. Instalații de limitare și stingere a incendiilor cu sprinklere deschise</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.4")}<br><span class="label">a) zona protejată:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) înălțimea golului:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) aria/lungimea zonei protejate:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) timp teoretic de funcționare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">e) intensitate de răcire:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">f) intensitatea de stropire:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.5. Instalații de stingere a incendiilor cu apă pulverizată</td><td><span class="label">a) densitate minimă de pulverizare:</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.5. Instalații de stingere a incendiilor cu apă pulverizată</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.5")}<br><span class="label">a) densitate minimă de pulverizare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) timp de funcționare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) rezerva de apă:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.6. Instalații de stingere a incendiilor cu ceață de apă</td><td><span class="label">a) debit specific:</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.6. Instalații de stingere a incendiilor cu ceață de apă</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.6")}<br><span class="label">a) debit specific:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) aria de declanșare simultană:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) intensitate de pulverizare:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) intensitate de stingere:</span> ${extInstall}</td></tr>
@@ -6575,24 +7265,24 @@ function buildPreliminaryScenarioWordHtml(data, sources, applicableActs, profile
     <tr class="detail-row"><td></td><td><span class="label">g) presiune:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">h) sursa de alimentare cu apă a instalației:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">i) volumul rezervei de apă:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.7. Instalații de stingere a incendiilor cu gaze inerte</td><td><span class="label">a) tipul agentului de stingere:</span> ${extInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.7. Instalații de stingere a incendiilor cu gaze inerte</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.7")}<br><span class="label">a) tipul agentului de stingere:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) concentrația de stingere:</span> ${extInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) volumul protejat:</span> ${extInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)</td><td><span class="label">a) gradul de acoperire:</span> ${idsaiInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.8")}<br><span class="label">a) gradul de acoperire:</span> ${idsaiInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) condiții privind stabilirea zonei de detectare:</span> ${idsaiInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) condiții pentru amplasarea e.c.s.:</span> ${idsaiInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) alte dispozitive comandate sau supravegheate de e.c.s.:</span> ${idsaiInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.9. Instalație de desfumare / evacuare fum și gaze fierbinți</td><td><span class="label">a) metoda de desfumare:</span> ${smokeInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.9. Instalație de desfumare / evacuare fum și gaze fierbinți</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.9")}<br><span class="label">a) metoda de desfumare:</span> ${smokeInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) spațiile desfumate:</span> ${smokeInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) aria spațiului necesar desfumării / suprafața efectivă de desfumare:</span> ${smokeInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) debitul specific pentru introducere aer:</span> ${smokeInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">e) rezistență la foc tubulatură:</span> ${smokeInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">f) interacțiune cu alte sisteme de protecție:</span> ${smokeInstall}</td></tr>
-    <tr class="subpoint-row"><td>4.10. Instalație electrică</td><td><span class="label">a) pentru alimentarea receptoarelor cu rol de securitate la incendiu:</span> ${prelimElectrical.a}</td></tr>
+    <tr class="subpoint-row"><td>4.10. Instalație electrică</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.10")}<br><span class="label">a) pentru alimentarea receptoarelor cu rol de securitate la incendiu:</span> ${prelimElectrical.a}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) pentru iluminat de siguranță:</span> ${prelimElectrical.b}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">c) dispozitiv de protecție cu curent diferențial rezidual (DDR):</span> ${prelimElectrical.a}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">d) dispozitiv de detectare a defectului de arc electric (AFDD):</span> ${prelimElectrical.a}</td></tr>
-    <tr class="subpoint-row"><td>4.11. Instalație de protecție împotriva trăsnetului</td><td><span class="label">a) clasa IPT și SPT:</span> ${lightningInstall}</td></tr>
+    <tr class="subpoint-row"><td>4.11. Instalație de protecție împotriva trăsnetului</td><td><span class="label">Analiza obligativității:</span> ${instHtml("4.11")}<br><span class="label">a) clasa IPT și SPT:</span> ${lightningInstall}</td></tr>
     <tr class="detail-row"><td></td><td><span class="label">b) nivel de protecție:</span> ${lightningInstall}</td></tr>
     <tr class="detail-row subpoint-end"><td></td><td><span class="label">c) metoda de protecție:</span> ${lightningInstall}</td></tr>
   </table>
@@ -6616,7 +7306,7 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
   const val = (key, fallback = "De completat.") => data[key] && data[key].trim() ? data[key].trim() : fallback;
   const profileActivity = val("profil_activitate", "De completat.");
   const category = val("categoria_importanta", "De completat.");
-  const buildingType = val("tip_cladire");
+  const buildingType = semantic.building?.type || val("tip_cladire");
   const parkingType = val("tip_parcaj", "Nu este cazul.");
   const dim = deriveDimensionParts(data, sources);
   const dimensions = [
@@ -6655,7 +7345,8 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
   const occupantMarkdown = buildOccupantDetailItems(data)
     .map((item) => `${item.label}: ${item.value}`)
     .join("; ");
-  const categoryClassText = `categoria ${val("categoria_importanta", "De completat.")}, conform [[LAWREF:hg766_anexa3_art_6_7]]HG nr. 766/1997, Anexa nr. 3, art. 6-7[[/LAWREF]]; clasa ${val("clasa_importanta", "De completat.")}, conform [[LAWREF:hg766_anexa3_art_8_cr0_anexa_a1]]HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1[[/LAWREF]].`;
+  const categoryLineText = `${normalizeImportanceCategory(val("categoria_importanta", "De completat.")) || "categoria de completat"}, conform [[LAWREF:hg766_anexa3_art_6_7]]HG nr. 766/1997, Anexa nr. 3, art. 6-7[[/LAWREF]].`;
+  const classLineText = `${normalizeImportanceClass(val("clasa_importanta", "De completat.")) || "clasă de completat"}, conform [[LAWREF:hg766_anexa3_art_8_cr0_anexa_a1]]HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1[[/LAWREF]].`;
   const buildingTypeJustified = buildingType && buildingType !== "De completat."
     ? buildingType
     : "Clădire civilă conform documentației disponibile; încadrarea exactă se confirmă după specialitatea arhitectură.";
@@ -6665,6 +7356,9 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
     `3. Alimentarea cu apă și instalații sanitare: ${val("alimentare_apa", "De completat.")}`,
     `4. Asigurarea încălzirii: ${val("centrala_termica", "De completat.")}`
   ].join("<br>");
+  const installationAnalysis = buildInstallationObligationItems(data, complianceChecks);
+  const inst = (code) => installationAnalysis.find((item) => item.code === code) || { analysis: "Obligativitatea se verifică pe datele proiectului." };
+  const instMd = (code) => renderInstallationAnalysisMarkdown(inst(code));
 
   return normalizeRomanianDiacritics(`# SCENARIU DE SECURITATE LA INCENDIU PRELIMINAR
 
@@ -6685,7 +7379,8 @@ function buildPreliminaryScenarioMarkdown(data, sources, applicableActs, profile
 ### 1.3. Categoria de importanță
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
-| categoria de importanță | ${categoryClassText} |
+| categoria de importanță | ${categoryLineText} |
+| clasa de importanță | ${classLineText} |
 
 ### 1.4. Particularități specifice construcției/amenajării
 | Denumirea punctului / subpunctului | Conținut |
@@ -6756,6 +7451,7 @@ ${roomInventoryTable}
 ### 4.1. Hidranți de incendiu interiori
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.1")} |
 | a) tip (apă-apă, aer-apă) | ${extinguishing} |
 | b) volumul construcției/compartimentului de incendiu | ${extinguishing} |
 | c) timp teoretic de funcționare | ${extinguishing} |
@@ -6769,6 +7465,7 @@ ${roomInventoryTable}
 ### 4.2. Hidranți de incendiu exteriori
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.2")} |
 | a) distanțele față de construcție | ${extinguishing} |
 | b) volumul compartimentului de incendiu | ${extinguishing} |
 | c) timp teoretic de funcționare | ${extinguishing} |
@@ -6780,6 +7477,7 @@ ${roomInventoryTable}
 ### 4.3. Instalații automate de stingere a incendiilor cu sprinklere
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.3")} |
 | a) soluția tehnică de realizare a instalației | ${extinguishing} |
 | b) clasa de pericol de incendiu | ${extinguishing} |
 | c) categoria de depozitare și modul de depozitare | ${extinguishing} |
@@ -6794,6 +7492,7 @@ ${roomInventoryTable}
 ### 4.4. Instalații de limitare și stingere a incendiilor cu sprinklere deschise
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.4")} |
 | a) zona protejată | ${extinguishing} |
 | b) înălțimea golului | ${extinguishing} |
 | c) aria/lungimea zonei protejate | ${extinguishing} |
@@ -6804,6 +7503,7 @@ ${roomInventoryTable}
 ### 4.5. Instalații de stingere a incendiilor cu apă pulverizată
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.5")} |
 | a) densitate minimă de pulverizare | ${extinguishing} |
 | b) timp de funcționare | ${extinguishing} |
 | c) rezerva de apă | ${extinguishing} |
@@ -6811,6 +7511,7 @@ ${roomInventoryTable}
 ### 4.6. Instalații de stingere a incendiilor cu ceață de apă
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.6")} |
 | a) debit specific | ${extinguishing} |
 | b) aria de declanșare simultană | ${extinguishing} |
 | c) intensitate de pulverizare | ${extinguishing} |
@@ -6824,6 +7525,7 @@ ${roomInventoryTable}
 ### 4.7. Instalații de stingere a incendiilor cu gaze inerte
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.7")} |
 | a) tipul agentului de stingere | ${extinguishing} |
 | b) concentrația de stingere | ${extinguishing} |
 | c) volumul protejat | ${extinguishing} |
@@ -6831,6 +7533,7 @@ ${roomInventoryTable}
 ### 4.8. Instalații de detectare, semnalizare și alarmare la incendiu (IDSAI)
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.8")} |
 | a) gradul de acoperire | ${idsai} |
 | b) condiții privind stabilirea zonei de detectare | ${idsai} |
 | c) condiții pentru amplasarea e.c.s. | ${idsai} |
@@ -6839,6 +7542,7 @@ ${roomInventoryTable}
 ### 4.9. Instalație de desfumare / evacuare fum și gaze fierbinți
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.9")} |
 | a) metoda de desfumare | ${smoke} |
 | b) spațiile desfumate | ${smoke} |
 | c) aria spațiului necesar desfumării / suprafața efectivă de desfumare | ${smoke} |
@@ -6849,6 +7553,7 @@ ${roomInventoryTable}
 ### 4.10. Instalație electrică
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.10")} |
 | a) pentru alimentarea receptoarelor cu rol de securitate la incendiu (sursa de bază și sursa de rezervă instalație electrică) | ${electric} |
 | b) pentru iluminat de siguranță (tip zone deservite, condiții de alimentare și funcționare) | ${val("iluminat_siguranta", "De completat.")} |
 | c) dispozitiv de protecție cu curent diferențial rezidual (DDR) | ${electric} |
@@ -6857,6 +7562,7 @@ ${roomInventoryTable}
 ### 4.11. Instalație de protecție împotriva trăsnetului
 | Denumirea punctului / subpunctului | Conținut |
 |---|---|
+| Analiza obligativității | ${instMd("4.11")} |
 | a) clasa IPT și SPT | ${lightning} |
 | b) nivel de protecție | ${lightning} |
 | c) metoda de protecție | ${lightning} |
@@ -7064,16 +7770,19 @@ function buildWordHtml(markdownText, applicableActs) {
 
 function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceChecks = []) {
   const val = (key, fallback = "") => previewValue(data[key], fallback);
-  const functionGroups = splitFunctionGroups(data?.funcțiuni || "");
-  const functionsText = val("funcțiuni");
-  const categoryText = val("categoria_importanta");
-  const buildingType = val("tip_cladire");
+  const sourcePoint1 = extractPoint1SourceFields(sources);
+  const semantic = buildSemanticStructuredData(data, sources);
+  const functionsText = sourcePoint1.functiuni || semantic.destination?.raw || val("funcțiuni");
+  const functionParts = splitFunctionsText(functionsText);
+  const categoryText = normalizeImportanceCategory(semantic.category?.raw || val("categoria_importanta"));
+  const classText = normalizeImportanceClass(semantic.category?.classRaw || val("clasa_importanta") || semantic.category?.raw);
+  const buildingType = semantic.building?.type || val("tip_cladire");
   const parkingType = val("tip_parcaj", "Nu este cazul.");
-  const dim = deriveDimensionParts(data, sources);
-  const users = val("numar_utilizatori");
+  const dim = semantic.dimensions || deriveDimensionParts(data, sources);
+  const users = semantic.users?.raw || val("numar_utilizatori");
   const autoev = val("autoevacuare");
-  const storage = val("capacitati_depozitare");
-  const egress = val("cai_evacuare_rezumat");
+  const storage = semantic.storage?.raw || val("capacitati_depozitare");
+  const egress = semantic.evacuation?.raw || val("cai_evacuare_rezumat");
   const stability = val("stabilitate_foc");
   const spread = val("limitare_vecinatati");
   const evacuation = val("evacuare");
@@ -7087,11 +7796,14 @@ function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceCh
   const org = val("măsuri_organizatorice");
   const extinguishers = val("stingatoare");
   const compensation = val("măsuri_compensatorii", "Nu este cazul.");
-  const beneficiar = cleanBeneficiaryText(val("beneficiar", "Parohia Ortodoxă Română „Învierea Domnului”"));
-  const adresa = deriveAddress(data, sources);
+  const normalInstallationsHtml = buildNormalInstallationWordHtml(data, complianceChecks);
+  const doorOpeningLegalText = buildDoorOpeningLegalText("word");
+  const activitySpecificMeasures = buildActivitySpecificOrganizationalMeasures(data, "word");
+  const beneficiar = cleanBeneficiaryText(sourcePoint1.beneficiar || semantic.identification?.beneficiar || val("beneficiar", "De completat."));
+  const adresa = sourcePoint1.adresa || semantic.identification?.adresa || deriveAddress(data, sources);
   const dimensionLinesWord = formatLabeledValueLines([
     { label: "regim de înălțime", value: dim.regim },
-    { label: "înălțime maximă", value: dim.inaltime },
+    { label: "înălțime maximă", value: dim.inaltimeMaxima || dim.inaltime },
     { label: "volum", value: dim.volum },
     { label: "aria construită", value: dim.ariaConstruita },
     { label: "aria desfășurată", value: dim.ariaDesfasurata }
@@ -7100,7 +7812,7 @@ function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceCh
   const autoevLinesWord = formatStructuredDetailValue(autoev, "word");
   const storageLinesWord = formatStructuredDetailValue(storage, "word");
   const egressLinesWord = formatStructuredDetailValue(egress, "word");
-  const categoryTextLine = `categoria ${escapeHtml(categoryText)}, conform ${renderInline(makeLawRef("hg766_anexa3_art_6_7", "HG nr. 766/1997, Anexa nr. 3, art. 6 și 7"), "word")}.`;
+  const categoryTextLine = `${escapeHtml(categoryText || "categoria de completat")}, conform ${renderInline(makeLawRef("hg766_anexa3_art_6_7", "HG nr. 766/1997, Anexa nr. 3, art. 6 și 7"), "word")}.`;
   const buildingTypeJustified = `${escapeHtml(buildingType)}, conform ${renderInline(makeLawRef("p11899_pct_1_2_28", "P 118-99, pct. 1.2.28"), "word")}.`;
 
   return `<!DOCTYPE html>
@@ -7133,25 +7845,25 @@ function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceCh
   <h2>1. Caracteristicile construcției sau amenajării</h2>
   <h3>1.1. Date de identificare</h3>
   <p><span class="label">A. Date necesare identificării construcției/amenajării</span></p>
-  <p class="indent"><span class="label">a) denumire:</span> <span class="value">${escapeHtml(val("denumire_obiectiv", "lăcaș de cult."))}</span></p>
-  <p class="indent"><span class="label">b) proprietar/beneficiar:</span> <span class="value">${escapeHtml(beneficiar || "Parohia Ortodoxă Învierea Domnului.")}</span></p>
+  <p class="indent"><span class="label">a) denumire:</span> <span class="value">${escapeHtml(semantic.identification?.denumireObiectiv || val("denumire_obiectiv", "De completat."))}</span></p>
+  <p class="indent"><span class="label">b) proprietar/beneficiar:</span> <span class="value">${escapeHtml(beneficiar || "De completat.")}</span></p>
   <p class="indent"><span class="label">c) adresa:</span> <span class="value">${escapeHtml(adresa)}</span></p>
   <p><span class="label">B. Datele de contact ale beneficiarului</span></p>
   <p class="indent"><span class="label">a) nr. de telefon:</span> <span class="value">nu sunt detalii.</span></p>
   <p class="indent"><span class="label">b) fax:</span> <span class="value">nu sunt detalii.</span></p>
   <p class="indent"><span class="label">c) e-mail:</span> <span class="value">nu sunt detalii.</span></p>
   <p><span class="label">C. Profilul de activitate și, după caz, programul de lucru al obiectivului</span></p>
-  <p class="indent"><span class="label">a) profil de activitate:</span> <span class="value">cult.</span></p>
-  <p class="indent"><span class="label">b) program de lucru:</span> <span class="value">permanent.</span></p>
+  <p class="indent"><span class="label">a) profil de activitate:</span> <span class="value">${escapeHtml(val("profil_activitate", "De completat."))}</span></p>
+  <p class="indent"><span class="label">b) program de lucru:</span> <span class="value">${escapeHtml(val("program_lucru", "De completat."))}</span></p>
 
   <h3>1.2. Destinația</h3>
-  <p><span class="label">Funcțiuni principale:</span> <span class="value">${escapeHtml(functionGroups.principale.join(", ") || functionsText)}</span></p>
-  <p><span class="label">Funcțiuni secundare:</span> <span class="value">${escapeHtml(functionGroups.secundare.join(", ") || "Nu sunt precizate distinct.")}</span></p>
-  <p><span class="label">Funcțiuni conexe:</span> <span class="value">${escapeHtml(functionGroups.conexe.join(", ") || "Nu sunt precizate distinct.")}</span></p>
+  <p><span class="label">Funcțiuni principale:</span> <span class="value">${escapeHtml(functionParts.principal)}</span></p>
+  <p><span class="label">Funcțiuni secundare:</span> <span class="value">${escapeHtml(functionParts.secundare)}</span></p>
+  <p><span class="label">Funcțiuni conexe:</span> <span class="value">${escapeHtml(functionParts.conexe)}</span></p>
 
   <h3>1.3. Categoria și clasă de importanță</h3>
   <p><span class="label">Categoria de importanță:</span> <span class="value">${categoryTextLine}</span></p>
-  <p><span class="label">Clasă de importanță:</span> <span class="value">clasă III-a, conform ${renderInline(makeLawRef("hg766_anexa3_art_8_cr0_anexa_a1", "HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1"), "word")}.</span></p>
+  <p><span class="label">Clasă de importanță:</span> <span class="value">${escapeHtml(classText || "clasă de completat")}, conform ${renderInline(makeLawRef("hg766_anexa3_art_8_cr0_anexa_a1", "HG nr. 766/1997, Anexa nr. 3, art. 8, coroborat cu CR 0-2012, Anexa A1"), "word")}.</span></p>
 
   <h3>1.4. Particularități specifice construcției sau amenajării</h3>
   <p><span class="label">a) tipul clădirii:</span> <span class="value">${buildingTypeJustified}</span></p>
@@ -7199,10 +7911,10 @@ function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceCh
   <p><span class="label">A. Pentru căile de evacuare a persoanelor în caz de incendiu se precizează:</span></p>
   <p class="indent"><span class="label">a) alcătuirea constructivă a căilor de evacuare, separarea fața de alte funcțiuni prin elemente de separare la foc și fum, protecția golurilor din pereții ce le delimitează:</span> evacuarea persoanelor din naosul de la parter se face direct în exterior prin intrarea principală și prin ușa laterală; evacuarea persoanelor de la demisol se face direct în exterior prin ușa principală și prin ușa laterală. De la mansardă și supantă evacuarea se realizează pe o scară închisă către parter, prin ușa cu un canat.</p>
   <p class="indent"><span class="label">b) tipul scărilor, formă și modul de dispunere a treptelor:</span> evacuarea de la mansardă și supantă se face pe o scară închisă. Scările sunt cu rampe și podeste drepte și balansate și au lățimea minimă de 0,80 m, corespunzătoare unui flux de evacuare; raportat la numărul maxim cumulat de utilizatori de la mansardă și supantă, de 22 persoane, rezultă că un flux este suficient, conform ${renderInline(makeLawRef("p11899_art_2_6_40_3_6_4", "P 118-99, art. 2.6.40 și art. 3.6.4"), "word")}.</p>
-  <p class="indent"><span class="label">c) geometria căilor de evacuare:</span> ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux. Geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform ${renderInline(makeLawRef("p11899_art_2_6_14_2_6_18_3_6_4", "P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4"), "word")}.</p>
+  <p class="indent"><span class="label">c) geometria căilor de evacuare:</span> ușile principale de evacuare de la parter și demisol au lățimea minimă de 1,80 m și înălțimea de 2,10 m, ceea ce permite 3 fluxuri de evacuare; ușile secundare de evacuare au lățimea minimă de 0,80 m și înălțimea de 2,10 m, ceea ce permite un flux; ușile de evacuare din încăperi au lățimea de 0,90 m și înălțimea de 2,00 m, ceea ce permite un flux. Geometria căilor de evacuare este corespunzătoare numărului de utilizatori, conform ${renderInline(makeLawRef("p11899_art_2_6_14_2_6_18_3_6_4", "P 118-99, art. 2.6.14-2.6.18 și art. 3.6.4"), "word")}. ${doorOpeningLegalText}</p>
   <p class="indent"><span class="label">d) timpii/lungimile de evacuare:</span> nu rezultă calculul explicit al timpilor și al lungimilor de evacuare; acestea se verifică în corelare cu traseele reale, numărul de utilizatori și configurația finală a căilor de evacuare, conform ${renderInline(makeLawRef("p11899_art_2_6_55_2_6_57", "P 118-99, art. 2.6.55-2.6.57"), "word")}.</p>
   <p class="indent"><span class="label">e) numărul fluxurilor de evacuare:</span> pentru demisol, raportat la 120 utilizatori, rezultă F = N / C = 120 / 70 = 1,71, deci sunt necesare 2 fluxuri; acestea sunt asigurate. Pentru parter, raportat la 150 utilizatori, rezultă F = N / C = 150 / 70 = 2,14, deci sunt necesare 3 fluxuri; acestea sunt asigurate prin ușa principală de 1,80 m și ușa laterală de 0,80 m. Pentru mansardă și supantă, raportat la 22 utilizatori, un flux este suficient și este asigurat prin scara de evacuare. Verificarea s-a făcut conform ${renderInline(makeLawRef("p11899_art_2_6_55_2_6_56_3_6_4", "P 118-99, art. 2.6.55, art. 2.6.56 și art. 3.6.4"), "word")}.</p>
-  <p class="indent"><span class="label">f) prevederea de dispozitive de siguranță la uși, cum ar fi dispozitive de autoînchidere sau închidere automată în caz de incendiu, bare antipanic etc.:</span> pentru ușa de acces a încăperii centralei termice este prevăzută ușă rezistentă la foc, protejată corespunzător; aceasta trebuie să aibă deschiderea în afară și să nu aibă prag, conform ${renderInline(makeLawRef("i13_art_7_187_7_190", "I 13-2015, art. 7.187 și art. 7.190"), "word")}. Pentru celelalte uși de evacuare, prevederea dispozitivelor de siguranță se verifică în raport cu funcțiunea și soluția finală de arhitectură.</p>
+  <p class="indent"><span class="label">f) prevederea de dispozitive de siguranță la uși, cum ar fi dispozitive de autoînchidere sau închidere automată în caz de incendiu, bare antipanic etc.:</span> pentru ușa de acces a încăperii centralei termice este prevăzută ușă rezistentă la foc, protejată corespunzător; aceasta trebuie să aibă deschiderea în afară și să nu aibă prag, conform ${renderInline(makeLawRef("i13_art_7_187_7_190", "I 13-2015, art. 7.187 și art. 7.190"), "word")}. Pentru celelalte uși de evacuare, prevederea dispozitivelor de siguranță, sensul de deschidere și eventualele bare antipanic se verifică în raport cu funcțiunea, numărul de utilizatori, traseul real și soluția finală de arhitectură.</p>
   <p class="indent"><span class="label">g) marcarea căilor de evacuare:</span> clădirea este prevăzută cu iluminat de securitate pentru evacuare și împotriva panicii; marcarea căilor de evacuare se corelează cu această dotare și cu semnalizarea de securitate la exploatare, conform ${renderInline(makeLawRef("hg971_2006_art_7", "HG nr. 971/2006, art. 7"), "word")}.</p>
   <p><span class="label">B. Dacă este cazul, se precizează măsuri pentru accesul și evacuarea copiilor, persoanelor cu dizabilități, bolnavilor și ale altor categorii de persoane care nu se pot evacua singure în caz de incendiu.</span></p>
   <p class="indent"><span class="value">Nu rezultă din datele proiectului categorii de persoane care nu se pot evacua singure.</span></p>
@@ -7216,32 +7928,7 @@ function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceCh
   <p class="indent">Nu este cazul.</p>
 
   <h2>4. Echiparea și dotarea cu instalații cu rol în asigurarea cerinței fundamentale „securitate la incendiu”</h2>
-  <p><span class="label">A. Instalație de stingere a incendiilor</span></p>
-  <p class="indent"><span class="label">a) tip: cu apă, gaze/aerosoli, spumă, pulberi:</span> <span class="value">nu se prevăd instalații fixe de stingere cu apă, gaze/aerosoli, spumă sau pulberi.</span> <span class="red">Nu este obligatorie dotarea cu hidranți interiori, hidranți exteriori, sprinklere, sprinklere deschise, instalații cu apă pulverizată, ceață de apă sau gaze inerte, conform ${renderInline(makeLawRef("p1182_art_4_1_i_6_1_4_i_7_1_7_131_8_1_9_1_15_1", "P 118/2-2013, art. 4.1 lit. i), art. 6.1 alin. (4) lit. i), art. 7.1, art. 7.131, art. 8.1, art. 9.1 și art. 15.1"), "word")}.</span></p>
-  <p class="indent"><span class="label">b) zone, încăperi, spații, instalații echipate:</span> <span class="value">nu este cazul, nefiind prevăzute instalații fixe de stingere a incendiilor.</span></p>
-  <p class="indent"><span class="label">c) parametri funcționali: debite, intensități de stingere și stropire, cantități calculate de substanță de stingere, concentrații de stingere proiectate pe durată de timp normată, presiuni, rezerve de substanță de stingere, surse de alimentare:</span> <span class="value">nu este cazul.</span></p>
-  <p class="indent"><span class="label">d) timp normat de funcționare:</span> <span class="value">nu este cazul.</span></p>
-
-  <p><span class="label">B. Instalație de detectare, semnalizare și alarmare la incendiu (e.c.s.)</span></p>
-  <p class="indent"><span class="label">a) gradul de acoperire, zonele de detectare și alarmare la incendiu:</span> <span class="value">prin proiect se propune echiparea construcției cu instalație de detectare, semnalizare și alarmare la incendiu, cu acoperirea spațiilor clădirii prin zone de detectare și alarmare.</span> <span class="red">Nu este obligatorie dotarea cu IDSAI, neavând mai mult de 300 persoane și/sau aria desfășurată mai mare de 1.000 mp, conform ${renderInline(makeLawRef("p1183_art_3_3_1_e_i", "P 118/3-2015, art. 3.3.1 alin. (1) lit. e) și i)"), "word")}, dar prin proiect se propune dotarea cu IDSAI.</span></p>
-  <p class="indent"><span class="label">b) tipul detectoarelor, declanșatoarelor manuale, dispozitivelor de alarmare și parametrii funcționali specifici instalațiilor respective:</span> <span class="value">sunt prevăzute centrală adresabilă de semnalizare și alarmare la incendiu, detectoare adresabile, butoane/declanșatoare manuale de alarmare și dispozitive optice și acustice de alarmare.</span></p>
-  <p class="indent"><span class="label">c) condiții pentru amplasarea e.c.s.:</span> <span class="value">ECS este amplasat la demisol, în încăpere dedicată, fără traversarea altor conducte/utilități prin această încăpere.</span></p>
-  <p class="indent"><span class="label">d) alte dispozitive comandate/supravegheate de e.c.s.:</span> <span class="value">se supraveghează și se comandă elementele prevăzute prin proiectul de detectare, semnalizare și alarmare la incendiu, conform soluției tehnice adoptate.</span></p>
-
-  <p><span class="label">C. Instalație de desfumare/evacuare fum și gaze fierbinți</span></p>
-  <p class="indent"><span class="red">Nu este obligatorie dotarea, neavând degajamente protejate, tuneluri de evacuare, circulații comune orizontale deschise spre atrium și alte situații reglementate distinct, conform P 118/1-2025, cap. 8 - Sisteme de control al fumului și al gazelor fierbinți în caz de incendiu.</span></p>
-
-  <p><span class="label">D. Instalație electrică pentru alimentarea receptoarelor cu rol de securitate la incendiu</span></p>
-  <p class="indent"><span class="label">sursa de bază:</span> din proiect reiese alimentarea receptoarelor cu rol de securitate la incendiu din instalația electrică a clădirii, prin tablourile generale și de nivel, cu separarea circuitelor aferente echipamentelor cu rol PSI.</p>
-  <p class="indent"><span class="label">sursa de rezervă / autonomie locală:</span> din proiect reiese asigurarea autonomiei locale pentru sistemele care o cer prin normativ, inclusiv pentru echipamentul de control și semnalizare al instalației de detectare, semnalizare și alarmare la incendiu; alimentarea de rezervă se corelează cu funcționarea instalațiilor și echipamentelor prevăzute efectiv în proiect.</p>
-  <p class="indent"><span class="label">receptoare alimentate:</span> sunt avute în vedere ECS-ul sistemului IDSAI, circuitele iluminatului de siguranță și celelalte echipamente cu rol de securitate la incendiu prevăzute prin proiect.</p>
-  <p class="indent"><span class="red"><span class="label">concluzie de conformare:</span> este obligatorie prevederea alimentării receptoarelor cu rol de securitate la incendiu, cu sursă de bază și, unde normativul o cere, cu sursă de rezervă sau autonomie locală, conform ${renderInline(makeLawRef("i7_art_7_22_1_7_23_9_1_c_f", "I7-2011, pct. 7.22.1 și pct. 7.23.9.1 lit. c) și f), cu modificările prin Ordinul nr. 959/2023"), "word")}.</span></p>
-
-  <p><span class="label">E. Instalație electrică pentru iluminat de siguranță, inclusiv condițiile de alimentare și de funcționare a acesteia</span></p>
-  <p class="indent"><span class="value">Se prevede iluminat de siguranță pentru evacuare pe căile de evacuare, iluminat împotriva panicii în cele două naosuri și iluminat pentru intervenție în centrala termică.</span> <span class="red">Instalația se prevede conform ${renderInline(makeLawRef("i7_art_7_23_2_7_23_9_7_23_10", "I7-2011, art. 7.23.2, art. 7.23.9 și art. 7.23.10"), "word")}, cu respectarea condițiilor de alimentare și funcționare prevăzute de normativ.</span></p>
-
-  <p><span class="label">F. Instalație de protecție împotriva trăsnetului</span></p>
-  <p class="indent"><span class="red">Prin proiect se prevede instalație de protecție împotriva trăsnetului pentru întreaga clădire, conform I7-2011, cu modificările prin Ordinul nr. 959/2023.</span></p>
+  ${normalInstallationsHtml}
 
   <h2>5. Măsuri tehnico-organizatorice privind exploatarea construcției</h2>
   <p><span class="label">A. Instrucțiuni de funcționare a instalațiilor cu rol în asigurarea cerinței fundamentale „securitate la incendiu”</span></p>
@@ -7249,7 +7936,7 @@ function buildNormalScenarioWordHtml(data, sources, applicableActs, complianceCh
   <p><span class="label">B. Reguli necesare de verificare și întreținere în exploatare a instalațiilor cu rol în asigurarea cerinței fundamentale „securitate la incendiu”</span></p>
   <p class="indent"><span class="value">Se vor asigura verificarea periodică, mentenanța și păstrarea în stare de funcționare a instalațiilor cu rol în asigurarea cerinței fundamentale securitate la incendiu, conform legislației și reglementărilor în vigoare.</span></p>
   <p><span class="label">C. Recomandări care trebuie avute în vedere la întocmirea documentelor de organizare a apărării împotriva incendiilor aferente construcției ori amenajării respective</span></p>
-  <p class="indent"><span class="value">Verificarea periodică a instalațiilor utilitare și tehnologice și a dotărilor aferente construcției conform legislației și reglementărilor în vigoare; asigurarea în permanență a căilor de acces interioare și exterioare libere și practicabile, indiferent de anotimp, în vederea facilitării evacuării și intervenției în caz de incendiu; întocmirea planului de intervenție și avizarea acestuia de către unitatea teritorială de pompieri militari; întocmirea și afișarea organizării apărării împotriva incendiilor pe locurile de muncă; instruirea personalului privind cunoașterea și respectarea normelor și reglementărilor de p.s.i.; elaborarea actelor de autoritate referitoare la organizarea activității de apărare împotriva incendiilor.</span></p>
+  <p class="indent"><span class="value">Verificarea periodică a instalațiilor utilitare și tehnologice și a dotărilor aferente construcției conform legislației și reglementărilor în vigoare; asigurarea în permanență a căilor de acces interioare și exterioare libere și practicabile, indiferent de anotimp, în vederea facilitării evacuării și intervenției în caz de incendiu; întocmirea planului de intervenție și avizarea acestuia de către unitatea teritorială de pompieri militari; întocmirea și afișarea organizării apărării împotriva incendiilor pe locurile de muncă; instruirea personalului privind cunoașterea și respectarea normelor și reglementărilor de p.s.i.; elaborarea actelor de autoritate referitoare la organizarea activității de apărare împotriva incendiilor. ${activitySpecificMeasures}</span></p>
   <p><span class="label">D. Stingătoare, alte aparate de stins incendii, utilaje, unelte și mijloace de intervenție</span></p>
   <p class="indent"><span class="label">a) tipul și caracteristicile de stingere asigurate:</span> <span class="value">stingătoare portative cu pulbere tip P, minimum 6 kg, pentru incendii din clasele A, B și C, stabilite în raport cu riscul de incendiu și materialele combustibile protejate, conform anexei nr. 6 la ${renderInline(makeLawRef("omai163_2007_anexa6", "OMAI nr. 163/2007"), "word")}.</span></p>
   <p class="indent"><span class="label">b) numărul și modul de amplasare în funcție de suprafață și clasă de incendiu, potrivit reglementărilor tehnice specifice:</span> <span class="value">stingătoarele portative cu pulbere tip P, minimum 6 kg, se repartizează astfel: câte 4 bucăți pentru parter și demisol, 2 bucăți la supantă și 2 bucăți pentru centrala termică, în total 12 bucăți, în corelare cu anexa nr. 6 la ${renderInline(makeLawRef("omai163_2007_anexa6", "OMAI nr. 163/2007"), "word")}. Stingătoarele și celelalte mijloace tehnice PSI se amplasează la vedere, iar locurile de amplasare vor fi indicate prin marcaje sau panouri de semnalizare, conform ${renderInline(makeLawRef("hg971_2006_art_7", "HG nr. 971/2006, art. 7"), "word")}.</span></p>
