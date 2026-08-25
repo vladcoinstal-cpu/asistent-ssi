@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.numeletau.iadulascultarii'
+    namespace 'com.vladcoinstal.galeriefotoanimata'
     compileSdk 35
 
     defaultConfig {
-        applicationId 'com.numeletau.iadulascultarii'
+        applicationId 'com.vladcoinstal.galeriefotoanimata'
         minSdk 26
         targetSdk 35
         versionCode 1
