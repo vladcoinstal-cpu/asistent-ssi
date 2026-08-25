@@ -1,0 +1,36 @@
+name: Build Photo Viewer APK
+on:
+  push:
+    branches:
+      - build/photo-viewer-apk
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.11.1'
+      - name: Install Android SDK packages
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+      - name: Build unsigned release APK
+        working-directory: apk-build/photo-viewer
+        run: gradle :app:assembleRelease --stacktrace
+      - name: Collect APK and signing tools
+        run: |
+          mkdir -p ci-output/signing-tools
+          cp apk-build/photo-viewer/app/build/outputs/apk/release/app-release-unsigned.apk ci-output/GalerieFotoAnimata-1.0.0-unsigned.apk
+          cp "$ANDROID_HOME/build-tools/35.0.0/lib/apksigner.jar" ci-output/signing-tools/apksigner.jar
+          cp "$ANDROID_HOME/build-tools/35.0.0/zipalign" ci-output/signing-tools/zipalign
+      - uses: actions/upload-artifact@v4
+        with:
+          name: galerie-foto-unsigned-and-signing-tools
+          path: ci-output
+          if-no-files-found: error
