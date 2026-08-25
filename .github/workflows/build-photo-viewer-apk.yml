@@ -49,34 +49,28 @@ jobs:
           PASS="$(grep -m1 '^Keystore password:' "$INFO" | sed 's/^Keystore password: //')"
           test -n "$PASS"
           ALIGNED="$RUNNER_TEMP/GalerieFotoAnimata-aligned.apk"
-          V1="$RUNNER_TEMP/GalerieFotoAnimata-v1.apk"
           OUT="ci-output/GalerieFotoAnimata-COM-VLADCOINSTAL-APKPURE-2.apk"
 
           "$ANDROID_HOME/build-tools/35.0.0/zipalign" -f -p 4 \
             apk-build/photo-viewer/app/build/outputs/apk/release/app-release-unsigned.apk \
             "$ALIGNED"
 
-          cp "$ALIGNED" "$V1"
-          jarsigner \
-            -keystore "$KEYSTORE" -storetype PKCS12 \
-            -storepass "$PASS" -keypass "$PASS" \
-            -sigalg SHA256withRSA -digestalg SHA-256 \
-            "$V1" iadulascultarii
-
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" sign \
+            --min-sdk-version 19 \
             --ks "$KEYSTORE" --ks-type PKCS12 --ks-key-alias iadulascultarii \
             --ks-pass "pass:$PASS" --key-pass "pass:$PASS" \
-            --v1-signing-enabled false \
+            --v1-signing-enabled true \
             --v2-signing-enabled true \
             --v3-signing-enabled true \
             --v4-signing-enabled false \
-            --out "$OUT" "$V1"
+            --out "$OUT" "$ALIGNED"
 
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$OUT" | tee ci-output/APK_VERIFY.txt
-          jarsigner -verify -certs "$OUT" > ci-output/JARSIGNER_VERIFY.txt
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify \
+            --min-sdk-version 19 --verbose --print-certs "$OUT" | tee ci-output/APK_VERIFY.txt
           "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging "$OUT" | tee ci-output/APK_BADGING.txt
 
           grep -q "package: name='com.vladcoinstal.galeriefotoanimata'" ci-output/APK_BADGING.txt
+          grep -q "minSdkVersion:'26'" ci-output/APK_BADGING.txt
           grep -q 'Verified using v1 scheme (JAR signing): true' ci-output/APK_VERIFY.txt
           grep -q 'Verified using v2 scheme (APK Signature Scheme v2): true' ci-output/APK_VERIFY.txt
           grep -q 'Verified using v3 scheme (APK Signature Scheme v3): true' ci-output/APK_VERIFY.txt
@@ -85,8 +79,7 @@ jobs:
           cp "$INFO" ci-output/SIGNING-KEY-IMPORTANT.txt
           sha256sum "$OUT" > ci-output/GalerieFotoAnimata-COM-VLADCOINSTAL-APKPURE-2.apk.sha256
       - uses: actions/upload-artifact@v4
-        if: always()
         with:
-          name: galerie-foto-apkpure-v1-v2-v3
+          name: galerie-foto-apkpure-v1-v2-v3-final
           path: ci-output
-          if-no-files-found: warn
+          if-no-files-found: error
