@@ -24,50 +24,54 @@ jobs:
       - name: Build release APK
         working-directory: apk-build/photo-viewer
         run: gradle :app:assembleRelease --stacktrace
-      - name: Align, sign and verify release APK
+      - name: Restore previous release signing key
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/previous-signing"
+          curl -L --fail \
+            -H "Authorization: Bearer $GH_TOKEN" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${GITHUB_REPOSITORY}/actions/artifacts/9577499379/zip" \
+            -o "$RUNNER_TEMP/previous-signing.zip"
+          unzip -q "$RUNNER_TEMP/previous-signing.zip" -d "$RUNNER_TEMP/previous-signing"
+          test -f "$RUNNER_TEMP/previous-signing/iadulascultarii-release-key.p12"
+          test -f "$RUNNER_TEMP/previous-signing/SIGNING-KEY-IMPORTANT.txt"
+      - name: Align sign v1 v2 v3 and verify APK
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p ci-output
-          PASS="$(openssl rand -hex 16)"
-          KEYSTORE="$RUNNER_TEMP/iadulascultarii-release-key.p12"
-          keytool -genkeypair -v \
-            -keystore "$KEYSTORE" -storetype PKCS12 \
-            -storepass "$PASS" -keypass "$PASS" \
-            -alias iadulascultarii -keyalg RSA -keysize 3072 -validity 10000 \
-            -dname "CN=Iadul Ascultarii, OU=Android Release, O=Independent Developer, L=Brasov, ST=Brasov, C=RO"
+          KEYSTORE="$RUNNER_TEMP/previous-signing/iadulascultarii-release-key.p12"
+          INFO="$RUNNER_TEMP/previous-signing/SIGNING-KEY-IMPORTANT.txt"
+          PASS="$(grep -m1 '^Keystore password:' "$INFO" | sed 's/^Keystore password: //')"
+          test -n "$PASS"
+          OUT="ci-output/GalerieFotoAnimata-COM-VLADCOINSTAL-APKPURE-2.apk"
           "$ANDROID_HOME/build-tools/35.0.0/zipalign" -f -p 4 \
             apk-build/photo-viewer/app/build/outputs/apk/release/app-release-unsigned.apk \
-            "$RUNNER_TEMP/GalerieFotoAnimata-1.0.0-aligned.apk"
+            "$RUNNER_TEMP/GalerieFotoAnimata-aligned.apk"
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" sign \
             --ks "$KEYSTORE" --ks-type PKCS12 --ks-key-alias iadulascultarii \
             --ks-pass "pass:$PASS" --key-pass "pass:$PASS" \
-            --out ci-output/GalerieFotoAnimata-1.0.0.apk \
-            "$RUNNER_TEMP/GalerieFotoAnimata-1.0.0-aligned.apk"
-          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs \
-            ci-output/GalerieFotoAnimata-1.0.0.apk > ci-output/APK_VERIFY.txt
-          "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging \
-            ci-output/GalerieFotoAnimata-1.0.0.apk > ci-output/APK_BADGING.txt
-          CERT_SHA256="$(grep -m1 'Signer #1 certificate SHA-256 digest:' ci-output/APK_VERIFY.txt | sed 's/.*digest: //')"
+            --v1-signing-enabled true \
+            --v2-signing-enabled true \
+            --v3-signing-enabled true \
+            --v4-signing-enabled false \
+            --out "$OUT" \
+            "$RUNNER_TEMP/GalerieFotoAnimata-aligned.apk"
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose --print-certs "$OUT" | tee ci-output/APK_VERIFY.txt
+          grep -q 'Verified using v1 scheme (JAR signing): true' ci-output/APK_VERIFY.txt
+          grep -q 'Verified using v2 scheme (APK Signature Scheme v2): true' ci-output/APK_VERIFY.txt
+          grep -q 'Verified using v3 scheme (APK Signature Scheme v3): true' ci-output/APK_VERIFY.txt
+          "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump badging "$OUT" | tee ci-output/APK_BADGING.txt
+          grep -q "package: name='com.vladcoinstal.galeriefotoanimata'" ci-output/APK_BADGING.txt
           cp "$KEYSTORE" ci-output/iadulascultarii-release-key.p12
-          {
-            echo 'IMPORTANT - KEEP THESE FILES SAFE'
-            echo
-            echo 'Package name: com.numeletau.iadulascultarii'
-            echo 'APK version: 1.0.0'
-            echo 'versionCode: 1'
-            echo 'Keystore: iadulascultarii-release-key.p12'
-            echo 'Alias: iadulascultarii'
-            echo "Keystore password: $PASS"
-            echo "Key password: $PASS"
-            echo "Certificate SHA-256: $CERT_SHA256"
-            echo
-            echo 'All future APK updates must be signed with this same keystore/certificate.'
-            echo 'If APKPure already has an accepted version signed with a different certificate, this APK cannot update that existing listing.'
-          } > ci-output/SIGNING-KEY-IMPORTANT.txt
-          sha256sum ci-output/GalerieFotoAnimata-1.0.0.apk > ci-output/GalerieFotoAnimata-1.0.0.apk.sha256
+          cp "$INFO" ci-output/SIGNING-KEY-IMPORTANT.txt
+          sha256sum "$OUT" > ci-output/GalerieFotoAnimata-COM-VLADCOINSTAL-APKPURE-2.apk.sha256
       - uses: actions/upload-artifact@v4
         with:
-          name: galerie-foto-release-package
+          name: galerie-foto-apkpure-v1-v2-v3
           path: ci-output
           if-no-files-found: error
